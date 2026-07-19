@@ -103,19 +103,24 @@
           "…",
           "…",
           "…",
-          "Auszug — Register bei BD"
+          "Auszug — Register bei BD, 21 Proposals in 24 Monaten"
         ]
       ],
       "raw_summary": {
-        "eingereicht_24m": 21,
-        "gewonnen_24m": 8,
-        "eu_eingereicht": 6,
-        "eu_gewonnen": 2,
+        "eingereicht_volumen_mio_24m": 14.6,
+        "gewonnen_volumen_mio_24m": 7.9,
+        "eingereicht_anzahl": 21,
+        "gewonnen_anzahl": 8,
+        "eu_eingereicht_volumen_mio": 8.3,
+        "eu_gewonnen_volumen_mio": 4.0,
+        "eu_eingereicht_anzahl": 6,
+        "eu_gewonnen_anzahl": 2,
         "kofi_volumen_mio": 6.2,
-        "grundauftrag_mio": 18.5
+        "grundauftrag_mio": 18.5,
+        "geberkonzentration_bmz_anteil_prozent": 71
       },
-      "formula_text": "Hauptwert: gewonnene ÷ eingereichte Proposals (rollierend 24 Monate) × 100. Kontext: EU separat; Kofinanzierungsvolumen ÷ Grundauftrag.",
-      "worked_example": "8 ÷ 21 = 38 % · EU: 2 ÷ 6 = 33 % · Kofi: 6,2 ÷ 18,5 Mio = 34 %"
+      "formula_text": "Hauptwert: gewonnenes ÷ eingereichtes Volumen × 100, rollierend 24 Monate; offene Proposals zählen weder im Zähler noch im Nenner. Zweitwert: Stückquote (Anzahl). Tabs: EU gesondert (beide Basen), Kofinanzierung (Kofi-Volumen ÷ Grundauftrag). Geberkonzentration als Kontextzeile ohne Zielwert.",
+      "worked_example": "Volumen: 7,9 ÷ 14,6 = 54 % · Stück: 8 ÷ 21 = 38 % · EU: 4,0 ÷ 8,3 = 48 % (Volumen), 2 ÷ 6 = 33 % (Stück) · Kofi: 6,2 ÷ 18,5 = 34 % · Lesart der Divergenz 54 vs. 38: die großen Anträge sitzen, die kleinen nicht."
     },
     "delivery_quote": {
       "raw_schema": [
@@ -363,8 +368,85 @@
         "beides": 2,
         "keins": 7
       },
-      "formula_text": "Episoden mit mindestens einem Ja ÷ Episoden gesamt × 100. Auswertung nur auf Episoden-/Portfolio-Ebene, nie je Person.",
-      "worked_example": "(3 + 2 + 2) ÷ 14 = 7 ÷ 14 = 50 %"
+      "formula_text": "Drei Sichten aus denselben zwei Häkchen je Episode: Gesamt (mindestens ein Ja — Board-Wert), Practices (Practice-Produkt genutzt), Machine Room (MR-Zuarbeit). Die getrennte Sicht zeigt, WELCHER Teil der Struktur in der Beratungsarbeit ankommt — Practices und MR können sich unterschiedlich schnell durchsetzen. Dosis-Wirkungs-Kreuzung mit den Qualitätswerten läuft je Sicht getrennt.",
+      "worked_example": "(3 + 2 + 2) ÷ 14 = 7 ÷ 14 = 50 %",
+      "tabs": {
+        "gesamt": {
+          "label": "Gesamt",
+          "definition": "Episoden mit mindestens einem Ja (Practice ODER Machine Room)",
+          "baseline": 34,
+          "current": 50,
+          "history": [
+            [
+              "2026-Q3",
+              34
+            ],
+            [
+              "2026-Q4",
+              39
+            ],
+            [
+              "2027-Q1",
+              44
+            ],
+            [
+              "2027-Q2",
+              50
+            ]
+          ],
+          "worked_example": "(3 nur Practice + 2 nur MR + 2 beides) ÷ 14 = 7 ÷ 14 = 50 %"
+        },
+        "practices": {
+          "label": "Practices",
+          "definition": "Episoden, in denen ein Practice-Produkt oder eine Practice-Methode genutzt wurde (auch adaptiert)",
+          "baseline": 21,
+          "current": 36,
+          "history": [
+            [
+              "2026-Q3",
+              21
+            ],
+            [
+              "2026-Q4",
+              26
+            ],
+            [
+              "2027-Q1",
+              31
+            ],
+            [
+              "2027-Q2",
+              36
+            ]
+          ],
+          "worked_example": "(3 nur Practice + 2 beides) ÷ 14 = 5 ÷ 14 = 36 % · Plausibilisiert gegen die Anfragenlisten der Practices"
+        },
+        "machine_room": {
+          "label": "Machine Room",
+          "definition": "Episoden mit Zuarbeit des Machine Room (Daten, Evidenz, Logistik, Beschaffung)",
+          "baseline": 18,
+          "current": 29,
+          "history": [
+            [
+              "2026-Q3",
+              18
+            ],
+            [
+              "2026-Q4",
+              22
+            ],
+            [
+              "2027-Q1",
+              26
+            ],
+            [
+              "2027-Q2",
+              29
+            ]
+          ],
+          "worked_example": "(2 nur MR + 2 beides) ÷ 14 = 4 ÷ 14 = 29 % · Plausibilisiert gegen die Vorgangslisten des MR"
+        }
+      }
     },
     "fachzeit": {
       "raw_schema": [
