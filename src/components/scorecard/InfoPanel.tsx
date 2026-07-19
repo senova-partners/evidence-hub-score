@@ -51,7 +51,9 @@ export function InfoPanel({ kpiId }: { kpiId: string }) {
               <Section title={t("was_misst")} body={kpi.info.was[locale]} />
               <Section title={t("warum")} body={kpi.info.warum[locale]} />
               <Section title={t("wie")} body={kpi.info.wie[locale]} />
-              <Section title={t("verworfen")} body={kpi.info.verworfen[locale]} />
+              {kpi.info.verworfen && (
+                <Section title={t("verworfen")} body={kpi.info.verworfen[locale]} />
+              )}
             </dl>
           </div>
         </div>
