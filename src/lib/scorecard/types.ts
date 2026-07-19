@@ -52,6 +52,10 @@ export interface KpiDef {
     wie: { de: string; en: string };
     verworfen?: { de: string; en: string } | null;
   };
+  /** If true, this KPI is displayed in the Diagnostik view, not on the Board and not in the Verdict. */
+  diagnostik?: boolean;
+  /** If set, this KPI's card also shows the referenced KPI as a secondary metric (same card). The referenced KPI is then hidden from the board grid but remains tracked. */
+  secondaryKpiId?: string;
 }
 
 export interface Episode {
