@@ -41,7 +41,7 @@ export interface Store {
   voraussetzungen: Record<string, "offen" | "definiert" | "eingefuehrt">;
 }
 
-const KEY = "giz-scorecard-v8";
+const KEY = "giz-scorecard-v9";
 type Listener = () => void;
 const listeners = new Set<Listener>();
 
@@ -104,9 +104,10 @@ export function resetDemo() {
 // ---------------- seed ----------------
 function seed(): Store {
   // Baselines und Q3-Werte aus dem KPI-Config v1.0.
+  // Baselines = 2026-Q3 baseline values from KPI-Config v1.0.
   const baselines: Record<string, number> = {
-    wiederbeauftragung: 44,
-    kofi_proposal: 33,
+    wiederbeauftragung: 48,
+    kofi_proposal: 31,
     partnerfeedback_jahr: 0,
     delivery_quote: 78,
     partnerbogen: 3.6,
@@ -120,9 +121,10 @@ function seed(): Store {
     abflusstreue: 84,
     schmerzpunkt: 3.2,
   };
+  // Quarterly trend for demo purposes; Q3 = current per KPI-Config v1.0.
   const trends: Record<string, [number, number, number]> = {
-    wiederbeauftragung: [44, 49, 54],
-    kofi_proposal: [33, 35, 38],
+    wiederbeauftragung: [48, 51, 54],
+    kofi_proposal: [31, 42, 54],
     partnerfeedback_jahr: [0, 2, 5],
     delivery_quote: [78, 79, 80],
     partnerbogen: [3.6, 3.7, 3.9],
@@ -232,7 +234,7 @@ function seed(): Store {
       id: "s2",
       role: "jdu",
       quarter: CURRENT_QUARTER,
-      values: { wiederbeauftragung: 54, kofi_proposal: 38, partnerfeedback_jahr: 5 },
+      values: { wiederbeauftragung: 54, kofi_proposal: 54, partnerfeedback_jahr: 5 },
       submittedAt: "2026-10-02T09:00:00Z",
       deadline: "2026-09-30",
       status: "late",

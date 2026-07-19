@@ -21,12 +21,12 @@ export const KPIS: KpiDef[] = [
     format: "percent",
     direction: "higher_better",
     nLabel: {
-      de: "Basis: 41,5 Mio € zur Entscheidung stehendes Volumen",
-      en: "Base: EUR 41.5 m volume up for decision",
+      de: "Basis: 41,5 Mio € zur Entscheidung (24 M.)",
+      en: "Base: EUR 41.5 m up for decision (24 m.)",
     },
     contextLine: {
-      de: "Kontext: 14 von 28 Aufträgen fortgeführt — Konsolidierung durch Zusammenlegung ist kein Verlust, daher ungewertet.",
-      en: "Context: 14 of 28 commissions continued — consolidation through merging is not a loss and stays unweighted.",
+      de: "Anzahl der Aufträge als Kontextzeile im Detail — Konsolidierung durch Zusammenlegung ist kein Verlust.",
+      en: "Number of commissions as a context row in the detail view — consolidation through merging is not a loss.",
     },
     info: {
       was: {
@@ -55,10 +55,13 @@ export const KPIS: KpiDef[] = [
     unitShort: { de: "%", en: "%" },
     format: "percent",
     direction: "higher_better",
-    nLabel: { de: "n = 21 Proposals (EU: 6)", en: "n = 21 proposals (EU: 6)" },
+    nLabel: {
+      de: "Basis: 14,6 Mio € eingereicht (24 Monate)",
+      en: "Base: EUR 14.6 m submitted (24 months)",
+    },
     contextLine: {
-      de: "EU gesondert ausgewiesen · Geberkonzentration als Kontextzeile",
-      en: "EU reported separately · donor concentration as context line",
+      de: "Stückquote als fester Zweitwert · EU gesondert · Geberkonzentration als Kontext",
+      en: "Count rate as fixed secondary · EU separately · donor concentration as context",
     },
     info: {
       was: {
