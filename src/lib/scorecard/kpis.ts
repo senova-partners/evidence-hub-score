@@ -112,7 +112,7 @@ export const KPIS: KpiDef[] = [
   },
   {
     id: "delivery_quote",
-    pkg: "struktur_effizienz",
+    pkg: "struktur",
     name: { de: "Delivery-Quote", en: "Delivery share" },
     unit: { de: "%", en: "%" },
     unitShort: { de: "%", en: "%" },
