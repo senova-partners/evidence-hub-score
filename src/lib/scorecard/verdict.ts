@@ -43,8 +43,8 @@ export function trend(
 /**
  * Verdict rule (v1.0):
  *   - Baselines vollständig? sonst "baseline_fehlt".
- *   - Fehlt ein Messpunkt in Paket 1 oder 2? → "unvollstaendig" (nie "erfüllt").
- *   - Sonst: Paket 1 UND Paket 2 mehrheitlich steigend UND Paket 3 stabil/besser → "erfüllt".
+ *   - Fehlt ein Messpunkt in Paket 1 oder 3? → "unvollstaendig" (nie "erfüllt").
+ *   - Sonst: Paket 1 UND Paket 3 mehrheitlich steigend UND Paket 2 stabil/besser → "erfüllt".
  *   - Sonst: "nicht_erfuellt".
  */
 export function boardKpis() {

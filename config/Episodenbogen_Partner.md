@@ -1,6 +1,6 @@
 # Partnerbogen je Beratungsepisode — Definition, Auslösung & Fragebogen
 
-*Instrument zu KPI "Partnerbogen" (Paket 2 — Beratungsqualität) · 2 Minuten für den Partner · tokenisierter Einmal-Link oder Papier*
+*Instrument zu KPI "Partnerbogen" (Paket 1 — Beratungsqualität) · 2 Minuten für den Partner · tokenisierter Einmal-Link oder Papier*
 
 ---
 
