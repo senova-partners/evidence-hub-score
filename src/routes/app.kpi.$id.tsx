@@ -96,14 +96,29 @@ function KpiDetailPage() {
   );
 }
 
-function KpiTabPanel({ kpi }: { kpi: KpiDef }) {
+function KpiTabPanel({
+  kpi,
+  overrides,
+  preamble,
+}: {
+  kpi: KpiDef;
+  overrides?: {
+    baseline?: number | null;
+    current?: number | null;
+    history?: HistoryPoint[];
+    workedExample?: string;
+    subtitle?: string;
+  };
+  preamble?: React.ReactNode;
+}) {
   const store = useStore((s: Store) => s);
   const t = useT();
   const locale = useLocale();
   const detail = kpiDetail(kpi.id);
-  const baseline = store.baselines[kpi.id];
-  const history = kpiHistory(kpi.id);
-  const current = store.values[kpi.id]?.[store.session!.quarter]?.value ?? null;
+  const baseline = overrides?.baseline ?? store.baselines[kpi.id];
+  const history = overrides?.history ?? kpiHistory(kpi.id);
+  const current =
+    overrides?.current ?? store.values[kpi.id]?.[store.session!.quarter]?.value ?? null;
   const tr = trend(kpi.id, current, baseline);
   const voraussetzung = kpi.voraussetzung?.[locale];
 
