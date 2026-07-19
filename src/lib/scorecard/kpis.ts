@@ -116,7 +116,8 @@ export const KPIS: KpiDef[] = [
   {
     id: "delivery_quote",
     pkg: "struktur",
-    name: { de: "Delivery-Quote", en: "Delivery share" },
+    name: { de: "Direkte Wirkungsmittel (Delivery-Quote)", en: "Direct impact funds (delivery share)" },
+    tabLabel: { de: "Direkte Wirkungsmittel", en: "Direct impact funds" },
     unit: { de: "%", en: "%" },
     unitShort: { de: "%", en: "%" },
     format: "percent",
