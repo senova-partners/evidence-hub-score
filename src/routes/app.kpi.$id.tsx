@@ -79,7 +79,7 @@ function KpiDetailPage() {
                     : "border-transparent text-muted-foreground hover:text-foreground")
                 }
               >
-                {k.name[locale]}
+                {(k.tabLabel ?? k.name)[locale]}
               </button>
             );
           })}
