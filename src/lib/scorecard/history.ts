@@ -53,8 +53,8 @@ export const KPI_HISTORY: Record<string, HistoryPoint[]> = {
     { period: "2027-H2", value: 72 },
   ],
   inhouse_beratungsquote: [
-    { period: "2026", value: 64 },
-    { period: "2027", value: 67 },
+    { period: "2026", value: 40 },
+    { period: "2027", value: 44 },
   ],
   schmerzpunkt: [
     { period: "Reach-In 2026", value: 3.2 },

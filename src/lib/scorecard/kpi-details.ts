@@ -144,21 +144,24 @@ export const KPI_DETAILS: Record<string, KpiDetail> = {
   inhouse_beratungsquote: {
     raw_schema: ["Position", "Betrag (Mio €)"],
     raw_rows: [
-      ["Interne Fach-Personalkosten (Fachrollen lt. Taxonomie, inkl. Mischrollen-Anteile)", "4,8"],
-      ["Externe Consulting-Ausgaben (Unteraufträge lt. Vertragsübersichten)", "2,4"],
+      ["Interne Fach-Personalkosten (Fachrollen lt. Taxonomie)", "4,8"],
+      ["Externe Consulting-Ausgaben (Unteraufträge)", "2,4"],
+      ["Finanzierungen (Zuschüsse/Grants an Durchführungspartner)", "4,7"],
       ["⚠ Voraussetzung", "Rollen-Taxonomie definiert und eingefroren (Voraussetzung 4)"],
     ],
     raw_summary: {
       fach_personalkosten_mio: 4.8,
       consulting_ausgaben_mio: 2.4,
+      finanzierungen_mio: 4.7,
     },
     formula_text:
-      "Interne Fach-Personalkosten ÷ (interne Fach-Personalkosten + externe Consulting-Ausgaben) × 100, beide in Euro. Kein 100%-Ziel — gemessen wird die Substitutionsrichtung.",
-    worked_example: "4,8 ÷ (4,8 + 2,4) = 4,8 ÷ 7,2 = 67 %",
+      "Hauptwert (Inhouse-Anteil der Leistungserbringung): Fach-Personalkosten ÷ (Fach-Personalkosten + Consulting + Finanzierungen) × 100. Zweitwert (Expertise-Substitution): Fach-Personalkosten ÷ (Fach-Personalkosten + Consulting) × 100. Divergenz-Lesart: Sinkt der Hauptwert bei stabilem Zweitwert, wächst der Finanzierungsanteil im Portfolio — kein Substanzverlust; sinken beide, wird Expertise ausgelagert.",
+    worked_example:
+      "Hauptwert: 4,8 ÷ (4,8 + 2,4 + 4,7) = 4,8 ÷ 11,9 = 40 %\nZweitwert: 4,8 ÷ (4,8 + 2,4) = 4,8 ÷ 7,2 = 67 %\n\nLesart: Sinkt der Hauptwert bei stabilem Zweitwert, wächst der Finanzierungsanteil im Portfolio — kein Substanzverlust. Sinken beide, wird Expertise ausgelagert.",
     erhebung: {
-      owner: "Finance (mit HR-Rollen-Taxonomie)",
+      owner: "Finance (Personalkosten Fachrollen + Consulting-Ausgaben + Finanzierungen)",
       cadence: "jährlich",
-      methode: "zwei Finance-Quellen: Personalkosten der Fachrollen + Consulting-Ausgaben aus Vertragsübersichten",
+      methode: "drei Finance-Zahlen aus Vertrags- und Finanzübersichten (Personalkosten Fachrollen, Consulting-Ausgaben, Finanzierungsvolumen)",
       verifizierung: "Fachrollen-Zuordnung folgt der eingefrorenen Rollen-Taxonomie; keine Umrechnung über Beratertage",
     },
   },
