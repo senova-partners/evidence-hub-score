@@ -3,12 +3,12 @@ import { fmtNumber } from "./i18n";
 
 // ---------------------------------------------------------------------------
 // 12 KPIs — verbindliche Fassung v1.0 (Juli 2026)
-// Reihenfolge: Paket 1 (4) · Paket 2 (4) · Paket 3 (4)
+// Reihenfolge: Paket 1 — Beratungsqualität (4) · Paket 2 — Struktur-Effizienz (4) · Paket 3 — Außenbeweis (4)
 // Quelle: KPI-Config JSON, freigegeben.
 // ---------------------------------------------------------------------------
 
 export const KPIS: KpiDef[] = [
-  // ============ Paket 1 — Außenbeweis ============
+  // ============ Paket 3 — Außenbeweis ============
   {
     id: "wiederbeauftragung",
     pkg: "aussenbeweis",
@@ -147,7 +147,7 @@ export const KPIS: KpiDef[] = [
     },
   },
 
-  // ============ Paket 2 — Beratungsqualität ============
+  // ============ Paket 1 — Beratungsqualität ============
   {
     id: "partnerbogen",
     pkg: "beratungsqualitaet",
@@ -250,8 +250,8 @@ export const KPIS: KpiDef[] = [
         en: "Per episode two yes/no fields: Was a Practice product used? Did the Machine Room contribute?",
       },
       warum: {
-        de: "Misst, ob die Struktur in der Beratungsarbeit ankommt (Struktur-Adoption). Analytisch bleibt die Kreuzung mit den Qualitätswerten aus Paket 2 erhalten (Dosis-Wirkung: Episoden mit vs. ohne Strukturbeteiligung) — sie ist der Beleg, dass Struktur und Qualität zusammenhängen. Die Paketzuordnung ist Anzeige-, nicht Daten-Logik. Inkrementalitätslogik statt Kausalbehauptung (Arman 2026); Implementierung und Verbesserung getrennt belegen (Raineri 2011).",
-        en: "Measures whether the structure lands in advisory work (structure adoption). Analytically the cross with Package 2 quality values remains (dose-effect: episodes with vs. without structure involvement) — it is the evidence that structure and quality are linked. The package assignment is a display choice, not a data choice. Incrementality logic instead of causal claim (Arman 2026); implementation and improvement evidenced separately (Raineri 2011).",
+        de: "Misst, ob die Struktur in der Beratungsarbeit ankommt (Struktur-Adoption). Analytisch bleibt die Kreuzung mit den Qualitätswerten aus Paket 1 erhalten (Dosis-Wirkung: Episoden mit vs. ohne Strukturbeteiligung) — sie ist der Beleg, dass Struktur und Qualität zusammenhängen. Die Paketzuordnung ist Anzeige-, nicht Daten-Logik. Inkrementalitätslogik statt Kausalbehauptung (Arman 2026); Implementierung und Verbesserung getrennt belegen (Raineri 2011).",
+        en: "Measures whether the structure lands in advisory work (structure adoption). Analytically the cross with Package 1 quality values remains (dose-effect: episodes with vs. without structure involvement) — it is the evidence that structure and quality are linked. The package assignment is a display choice, not a data choice. Incrementality logic instead of causal claim (Arman 2026); implementation and improvement evidenced separately (Raineri 2011).",
       },
       wie: {
         de: "Zwei Felder im ohnehin ausgefüllten Episodenbogen; Plausibilisierung gegen die Anfragenlisten der Practices.",
@@ -261,7 +261,7 @@ export const KPIS: KpiDef[] = [
     },
   },
 
-  // ============ Paket 3 — Struktur-Effizienz ============
+  // ============ Paket 2 — Struktur-Effizienz ============
   {
     id: "fachzeit",
     pkg: "struktur",
@@ -465,12 +465,12 @@ export const PKG_LABEL: Record<
   "aussenbeweis" | "beratungsqualitaet" | "struktur",
   { de: string; en: string }
 > = {
-  aussenbeweis: { de: "Paket 1 — Außenbeweis", en: "Package 1 — External proof" },
+  aussenbeweis: { de: "Paket 3 — Außenbeweis", en: "Package 3 — External proof" },
   beratungsqualitaet: {
-    de: "Paket 2 — Beratungsqualität",
-    en: "Package 2 — Advisory quality",
+    de: "Paket 1 — Beratungsqualität",
+    en: "Package 1 — Advisory quality",
   },
-  struktur: { de: "Paket 3 — Struktur-Effizienz", en: "Package 3 — Structural efficiency" },
+  struktur: { de: "Paket 2 — Struktur-Effizienz", en: "Package 2 — Structural efficiency" },
 };
 
 export const kpiById = (id: string) => KPIS.find((k) => k.id === id);
