@@ -234,11 +234,16 @@ export const KPIS: KpiDef[] = [
     id: "mechanismus",
     pkg: "struktur",
     name: { de: "Mechanismus-Beteiligung", en: "Mechanism participation" },
+    tabLabel: { de: "Gesamt", en: "Total" },
     unit: { de: "% Episoden mit Struktur-Beteiligung", en: "% episodes with structure involvement" },
     unitShort: { de: "%", en: "%" },
     format: "percent",
     direction: "higher_better",
     nLabel: { de: "n = 14 Episoden", en: "n = 14 episodes" },
+    contextLine: {
+      de: "Detail unterscheidet Practices und Machine Room; Board zeigt Gesamt (mindestens eine Struktur beteiligt).",
+      en: "Detail splits Practices and Machine Room; board shows total (at least one structure involved).",
+    },
     info: {
       was: {
         de: "Je Episode zwei Ja/Nein-Felder: Wurde ein Practice-Produkt genutzt? Hat der Machine Room zugearbeitet?",
@@ -270,8 +275,8 @@ export const KPIS: KpiDef[] = [
     secondaryKpiIds: ["inhouse_beratungsquote", "delivery_quote"],
     nLabel: { de: "n = 9 Teams (aggregiert, n ≥ 5)", en: "n = 9 teams (aggregated, n ≥ 5)" },
     contextLine: {
-      de: "Drei Werte, feste Hierarchie: Fachzeit (Zeit, Hauptwert) · Inhouse-Beratungsquote (Make-or-Buy) · Delivery-Quote (Geld beim Partner). Drei Rechenwege, kein Index.",
-      en: "Three values, fixed hierarchy: expert time (primary) · inhouse advisory share (make-or-buy) · delivery share (money at partner). Three calculations, no index.",
+      de: "Zeit · Substanz · Geld — drei Rechenwege, kein Index. Tabs: Verhältnis Beratung/Admin · Inhouse-Beratung · Direkte Wirkungsmittel.",
+      en: "Time · substance · money — three calculations, no composite index. Tabs: advisory/admin ratio · inhouse advisory · direct impact funds.",
     },
     info: {
       was: {

@@ -45,7 +45,7 @@ export const KPI_HISTORY: Record<string, HistoryPoint[]> = {
     { period: "2026-Q3", value: 34 },
     { period: "2026-Q4", value: 39 },
     { period: "2027-Q1", value: 44 },
-    { period: "2027-Q2", value: 48 },
+    { period: "2027-Q2", value: 50 },
   ],
   fachzeit: [
     { period: "2026-H2", value: 66 },
