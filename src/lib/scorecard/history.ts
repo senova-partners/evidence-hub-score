@@ -14,9 +14,9 @@ export const KPI_HISTORY: Record<string, HistoryPoint[]> = {
     { period: "Konsult. 2026/27", value: 54 },
   ],
   kofi_proposal: [
-    { period: "2024/25", value: 30 },
-    { period: "2025/26", value: 33 },
-    { period: "2026/27", value: 38 },
+    { period: "2024/25", value: 27 },
+    { period: "2025/26", value: 31 },
+    { period: "2026/27", value: 54 },
   ],
   partnerfeedback_jahr: [
     { period: "2026 (Baseline)", value: 0 },
