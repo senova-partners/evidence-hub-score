@@ -1,9 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useStore, type Store } from "@/lib/scorecard/store";
-import { KPIS } from "@/lib/scorecard/kpis";
+import { KPIS, formatValue, formatDelta } from "@/lib/scorecard/kpis";
 import { useT, useLocale } from "@/lib/scorecard/useT";
-import { fmtNumber } from "@/lib/scorecard/i18n";
-import { delta, trend } from "@/lib/scorecard/verdict";
+import { trend } from "@/lib/scorecard/verdict";
 
 export const Route = createFileRoute("/app/diagnostik")({
   component: Diagnostik,
@@ -18,9 +17,8 @@ function Diagnostik() {
   const rows = KPIS.map((k) => {
     const v = store.values[k.id]?.[q]?.value ?? null;
     const b = store.baselines[k.id];
-    const d = delta(k.id, v, b);
     const tr = trend(k.id, v, b);
-    return { k, v, b, d, tr };
+    return { k, v, b, tr };
   }).filter((r) => r.tr === "down" || r.tr === "missing");
 
   return (
@@ -50,31 +48,30 @@ function Diagnostik() {
             </tr>
           </thead>
           <tbody>
-            {rows.map(({ k, v, b, d, tr }) => {
-              const digits = k.unit === "score" ? 1 : 0;
-              const suf = k.unit === "%" ? " %" : k.unit === "days" ? " d" : "";
-              return (
-                <tr key={k.id} className="hairline-b">
-                  <td className="py-2">{k.name[locale]}</td>
-                  <td className="py-2 text-right tabular-nums">
-                    {v === null ? "—" : `${fmtNumber(v, locale, digits)}${suf}`}
-                  </td>
-                  <td className="py-2 text-right tabular-nums text-muted-foreground">
-                    {fmtNumber(b ?? null, locale, digits)}{suf}
-                  </td>
-                  <td className="py-2 text-right tabular-nums">
-                    {d === null ? "—" : `${d > 0 ? "+" : ""}${fmtNumber(d, locale, digits)}${suf}`}
-                  </td>
-                  <td className="py-2 pl-4">
-                    <span aria-hidden>{tr === "down" ? "↓" : "✕"}</span>{" "}
-                    {tr === "down" ? (locale === "de" ? "verschlechtert" : "declined") : t("missing")}
-                  </td>
-                </tr>
-              );
-            })}
+            {rows.map(({ k, v, b, tr }) => (
+              <tr key={k.id} className="hairline-b">
+                <td className="py-2">{k.name[locale]}</td>
+                <td className="py-2 text-right tabular-nums">{formatValue(v, k, locale)}</td>
+                <td className="py-2 text-right tabular-nums text-muted-foreground">
+                  {formatValue(b ?? null, k, locale)}
+                </td>
+                <td className="py-2 text-right tabular-nums">
+                  {formatDelta(v, b, k, locale)}
+                </td>
+                <td className="py-2 pl-4">
+                  <span aria-hidden>{tr === "down" ? "↓" : "✕"}</span>{" "}
+                  {tr === "down"
+                    ? locale === "de"
+                      ? "verschlechtert"
+                      : "declined"
+                    : t("missing")}
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       )}
     </div>
   );
 }
+

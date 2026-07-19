@@ -4,18 +4,20 @@ import { useT } from "@/lib/scorecard/useT";
 const glyph: Record<Verdict, string> = {
   erfuellt: "●",
   nicht_erfuellt: "✕",
+  unvollstaendig: "◐",
   baseline_fehlt: "—",
 };
 
 const key: Record<Verdict, string> = {
   erfuellt: "verdict_erfuellt",
   nicht_erfuellt: "verdict_nicht",
+  unvollstaendig: "verdict_unvollstaendig",
   baseline_fehlt: "verdict_baseline",
 };
 
 export function VerdictBadge({ verdict }: { verdict: Verdict }) {
   const t = useT();
-  const accent = verdict === "nicht_erfuellt";
+  const accent = verdict === "nicht_erfuellt" || verdict === "unvollstaendig";
   return (
     <div
       className={`inline-flex items-center gap-3 px-4 py-3 hairline ${

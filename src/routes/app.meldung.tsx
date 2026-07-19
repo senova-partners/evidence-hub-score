@@ -5,14 +5,14 @@ import { KPIS } from "@/lib/scorecard/kpis";
 import { useT, useLocale } from "@/lib/scorecard/useT";
 import type { Role } from "@/lib/scorecard/types";
 
-// Which KPIs each submitter role reports
+// Which KPIs each submitter role reports — v1.0 mapping to real owners.
 const ROLE_KPIS: Partial<Record<Role, string[]>> = {
-  av: ["first_time_right"],
-  practice: ["practice_usage"],
-  jdu: ["testvorgang"],
-  finance: ["eigenleistung"],
-  bt3: ["fachzeit", "schmerzpunkt"],
-  panel: ["peer_score"],
+  av: ["partnerbogen", "uptake", "mechanismus"],
+  jdu: ["wiederbeauftragung", "kofi_proposal", "partner_delta"],
+  finance: ["delivery_quote", "abflusstreue"],
+  bt3: ["schmerzpunkt", "fachzeit"],
+  steward: ["testvorgang"],
+  panel: ["peer_review"],
 };
 
 export const Route = createFileRoute("/app/meldung")({
@@ -132,11 +132,11 @@ function Meldung() {
 
       {kpiIds.map((id) => {
         const kpi = KPIS.find((x) => x.id === id)!;
-        const suf = kpi.unit === "%" ? "%" : kpi.unit === "days" ? "d" : kpi.unit === "score" ? "/5" : "";
         return (
           <label key={id} className="flex flex-col gap-2">
             <span className="text-[13px] font-semibold">{kpi.name[locale]}</span>
             <span className="text-[12px] text-muted-foreground">{kpi.info.was[locale]}</span>
+            <span className="text-[11px] text-muted-foreground">{kpi.nLabel[locale]}</span>
             <div className="flex items-center gap-2">
               <input
                 type="number"
@@ -146,7 +146,7 @@ function Meldung() {
                 className="hairline bg-background px-3 py-2 text-[14px] w-32 tabular-nums"
                 required
               />
-              <span className="text-[13px] text-muted-foreground">{suf}</span>
+              <span className="text-[13px] text-muted-foreground">{kpi.unit[locale]}</span>
             </div>
           </label>
         );

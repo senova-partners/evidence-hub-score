@@ -1,18 +1,18 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useStore, type Store } from "@/lib/scorecard/store";
-import { KPIS, PKG_LABEL } from "@/lib/scorecard/kpis";
-import { computeVerdict, meldetreue } from "@/lib/scorecard/verdict";
+import { KPIS, PKG_LABEL, formatValue, formatDelta } from "@/lib/scorecard/kpis";
+import { computeVerdict, meldetreue, trend } from "@/lib/scorecard/verdict";
 import { useT, useLocale } from "@/lib/scorecard/useT";
-import { fmtNumber } from "@/lib/scorecard/i18n";
-import { delta, trend } from "@/lib/scorecard/verdict";
+import type { Verdict } from "@/lib/scorecard/types";
 
 export const Route = createFileRoute("/app/export")({
   component: ExportPage,
 });
 
-const verdictText = {
+const verdictText: Record<Verdict, { de: string; en: string }> = {
   erfuellt: { de: "Erfüllt", en: "Passed" },
   nicht_erfuellt: { de: "Nicht erfüllt", en: "Not passed" },
+  unvollstaendig: { de: "Unvollständig — Meldung fehlt", en: "Incomplete — report missing" },
   baseline_fehlt: { de: "Baseline fehlt", en: "Baseline missing" },
 };
 
@@ -71,18 +71,18 @@ function ExportPage() {
                 {KPIS.filter((k) => k.pkg === pkg).map((k) => {
                   const v = store.values[k.id]?.[q]?.value ?? null;
                   const b = store.baselines[k.id];
-                  const d = delta(k.id, v, b);
                   const tr = trend(k.id, v, b);
-                  const digits = k.unit === "score" ? 1 : 0;
-                  const suf = k.unit === "%" ? " %" : k.unit === "days" ? " d" : "";
                   return (
                     <tr key={k.id} className="hairline-b">
                       <td className="py-2">{k.name[locale]}</td>
-                      <td className="py-2 text-right tabular-nums w-24">
-                        {v === null ? "—" : `${fmtNumber(v, locale, digits)}${suf}`}
+                      <td className="py-2 text-right tabular-nums w-32">
+                        {formatValue(v, k, locale)}
+                      </td>
+                      <td className="py-2 text-right tabular-nums w-32 text-muted-foreground">
+                        {formatValue(b ?? null, k, locale)}
                       </td>
                       <td className="py-2 text-right tabular-nums w-24 text-muted-foreground">
-                        {fmtNumber(b ?? null, locale, digits)}{suf}
+                        {formatDelta(v, b, k, locale)}
                       </td>
                       <td className="py-2 text-right w-8" aria-label={tr}>{trendGlyph[tr]}</td>
                     </tr>
@@ -102,3 +102,4 @@ function ExportPage() {
     </div>
   );
 }
+

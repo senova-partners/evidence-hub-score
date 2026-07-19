@@ -1,196 +1,338 @@
-import type { KpiDef } from "./types";
+import type { KpiDef, KpiFormat, Locale } from "./types";
+import { fmtNumber } from "./i18n";
+
+// ---------------------------------------------------------------------------
+// 12 KPIs — verbindliche Fassung v1.0 (Juli 2026)
+// Reihenfolge: Paket 1 (4) · Paket 2 (4) · Paket 3 (4)
+// Quelle: KPI-Config JSON, freigegeben.
+// ---------------------------------------------------------------------------
 
 export const KPIS: KpiDef[] = [
-  // Paket 1 — Außenbeweis
+  // ============ Paket 1 — Außenbeweis ============
   {
-    id: "partner_score",
+    id: "wiederbeauftragung",
     pkg: "aussenbeweis",
-    name: { de: "Partner-Zufriedenheit", en: "Partner satisfaction" },
-    unit: "score",
-    direction: "higher_is_better",
+    name: { de: "Wiederbeauftragungsquote", en: "Repeat commissioning rate" },
+    unit: { de: "%", en: "%" },
+    format: "percent",
+    direction: "higher_better",
+    nLabel: { de: "n = 28 Aufträge", en: "n = 28 commissions" },
     info: {
       was: {
-        de: "Mittelwert der 5-Fragen-Rückmeldung von Partnerorganisationen nach Beratungsepisode.",
-        en: "Mean of 5-question partner feedback after each consulting episode.",
+        de: "Anteil der Aufträge, die verlängert, aufgestockt oder mit einem Folgemodul fortgeführt wurden.",
+        en: "Share of commissions extended, expanded or continued with a follow-on module.",
       },
       warum: {
-        de: "Direktes Außenurteil, unabhängig von Selbsteinschätzung (Kirkpatrick L1).",
-        en: "External judgment, independent of self-assessment (Kirkpatrick L1).",
+        de: "Der härteste Außenbeweis: Auftraggeber zahlen nach, wo sie überzeugt sind. Wiederbeauftragung ist das Qualitätsurteil, das sich intern nicht schönreden lässt (Loyalitätslogik nach Bain/Reichheld).",
+        en: "The hardest external proof: clients pay again where they are convinced. Repeat commissioning is the quality verdict that cannot be talked away internally (loyalty logic per Bain/Reichheld).",
       },
-      wie: { de: "Tokenisierter Einmal-Link, pro Episode.", en: "Tokenised one-time link, per episode." },
+      wie: {
+        de: "Zählung aus der Auftragsübersicht des Jahres, Vier-Augen-Prüfung durch Finance.",
+        en: "Count from the annual commission overview, four-eyes check by Finance.",
+      },
+      verworfen: null,
+    },
+  },
+  {
+    id: "kofi_proposal",
+    pkg: "aussenbeweis",
+    name: { de: "Kofinanzierung & Proposal-Erfolg", en: "Co-financing & proposal success" },
+    unit: { de: "%", en: "%" },
+    format: "percent",
+    direction: "higher_better",
+    nLabel: { de: "n = 21 Proposals (EU: 6)", en: "n = 21 proposals (EU: 6)" },
+    contextLine: {
+      de: "EU gesondert ausgewiesen · Geberkonzentration als Kontextzeile",
+      en: "EU reported separately · donor concentration as context line",
+    },
+    info: {
+      was: {
+        de: "Drittmittel im Verhältnis zum Grundauftrag sowie gewonnene vs. eingereichte Angebote, EU gesondert.",
+        en: "Third-party funds relative to core commission and won vs. submitted proposals, EU separately.",
+      },
+      warum: {
+        de: "Externe Zahlungsbereitschaft als Qualitätsurteil. Die Geberkonzentration läuft als Kontext mit: Abhängigkeit von einem Auftraggeber ist ein Strukturrisiko (Übertragung der Client-Concentration-Logik aus der Beratungspraxis).",
+        en: "External willingness to pay as a quality verdict. Donor concentration runs as context: dependence on one client is a structural risk (client-concentration logic from advisory practice).",
+      },
+      wie: {
+        de: "BD-Übersicht, rollierend über 24 Monate wegen kleiner Fallzahlen.",
+        en: "BD overview, rolling over 24 months due to small case numbers.",
+      },
+      verworfen: null,
+    },
+  },
+  {
+    id: "partner_delta",
+    pkg: "aussenbeweis",
+    name: { de: "Partner-Delta", en: "Partner delta" },
+    unit: { de: "Saldo besser − schlechter", en: "balance better − worse" },
+    format: "delta",
+    direction: "higher_better",
+    nLabel: { de: "n = 10 Schlüsselpartner", en: "n = 10 key partners" },
+    info: {
+      was: {
+        de: "Jährlich dieselben ~10 Schlüsselpartner, zwei Veränderungsfragen: Ist die GIZ schneller geworden? Ist der fachliche Rat besser geworden? (besser / gleich / schlechter) plus die ungestützte Expertise-Frage: Wofür würden Sie GIZ Jordan von sich aus um Rat fragen?",
+        en: "Yearly the same ~10 key partners, two change questions: Has GIZ become faster? Has the substantive advice become better? (better / same / worse), plus the unaided expertise question: What would you spontaneously ask GIZ Jordan for advice on?",
+      },
+      warum: {
+        de: "Veränderungsfragen tragen den Vergleich in sich und brauchen keine Baseline. Die ungestützte Frage testet, ob das Expert Powerhouse außen existiert, nicht nur innen (Markenlogik: ungestützte Assoziation, Keller).",
+        en: "Change questions carry the comparison in themselves and need no baseline. The unaided question tests whether the Expert Powerhouse exists outside, not only inside (brand logic: unaided association, Keller).",
+      },
+      wie: {
+        de: "Standardisierter Gesprächsleitfaden, gleiche Partnerliste über die Jahre, dokumentiert je Gespräch.",
+        en: "Standardised interview guide, same partner list across years, documented per interview.",
+      },
+      verworfen: null,
+    },
+  },
+  {
+    id: "delivery_quote",
+    pkg: "aussenbeweis",
+    name: { de: "Delivery-Quote", en: "Delivery share" },
+    unit: { de: "%", en: "%" },
+    format: "percent",
+    direction: "higher_better",
+    nLabel: { de: "Basis: Auftragsbudgets gesamt", en: "Base: total commission budgets" },
+    info: {
+      was: {
+        de: "Anteil der Auftragsmittel, der in Partnerleistung fließt, statt sich in interner Abwicklung zu verbrauchen.",
+        en: "Share of commission funds that flows into partner delivery rather than internal processing.",
+      },
+      warum: {
+        de: "Die Non-Profit-Übersetzung der Marge: „aus weniger mehr“ wörtlich genommen — mehr vom selben Geld kommt beim Partner an. Klare Handlungsrichtung: Reibung senken, genau der Machine-Room-Auftrag.",
+        en: "The non-profit translation of margin: 'more from less' taken literally — more of the same money reaches the partner. Clear action direction: reduce friction, exactly the Machine Room mandate.",
+      },
+      wie: {
+        de: "Kostenstellenabgrenzung „interne Abwicklung“ einmalig durch Finance definiert, dokumentiert und eingefroren; danach eine Jahreszahl.",
+        en: "Cost-centre definition of 'internal processing' defined once by Finance, documented and frozen; thereafter one annual figure.",
+      },
       verworfen: {
-        de: "NPS: zu grob, kulturell unpassend im arabischen Raum.",
-        en: "NPS: too coarse, culturally unfit for the region.",
+        de: "Geprüft und verworfen: VZE/Umsatz (misst Portfoliomix und verwaltetes Volumen, belohnt Auslagerung, bestraft die gewollte Verschiebung zu mehr Beratung) und Overhead-Quote (zentral gesetzt, kein beweglicher Wert).",
+        en: "Considered and rejected: FTE/revenue (measures portfolio mix and managed volume, rewards outsourcing, penalises the desired shift to more advisory) and overhead ratio (centrally set, no movable value).",
       },
+    },
+  },
+
+  // ============ Paket 2 — Beratungsqualität ============
+  {
+    id: "partnerbogen",
+    pkg: "beratungsqualitaet",
+    name: { de: "Partnerbogen-Score", en: "Partner feedback score" },
+    unit: { de: "1–5", en: "1–5" },
+    format: "score",
+    direction: "higher_better",
+    nLabel: { de: "n = 14 Episoden · Rücklauf 63 %", en: "n = 14 episodes · response 63 %" },
+    contextLine: {
+      de: "Score ohne Rücklaufquote ungültig",
+      en: "Score invalid without response rate",
+    },
+    info: {
+      was: {
+        de: "Fünf Fragen an den Partner nach jeder abgeschlossenen Beratungsepisode; erste Frage: Hat die Beratung unser Problem adressiert — oder das des Beraters?",
+        en: "Five questions to the partner after every closed advisory episode; first question: Did the advice address our problem — or the adviser's?",
+      },
+      warum: {
+        de: "Partner beurteilen das Erlebnis, nicht die Substanz (Maister: Zufriedenheit = Wahrnehmung minus Erwartung). Problem-Fit vor Ergebnisbeurteilung (Levishchenko 2020). Zufriedenheit allein belegt keine Wirkung (Hershock 2021) — deshalb steht dieser Score nie allein, sondern neben Uptake und Peer-Review.",
+        en: "Partners judge the experience, not the substance (Maister: satisfaction = perception minus expectation). Problem fit precedes outcome judgment (Levishchenko 2020). Satisfaction alone does not prove effect (Hershock 2021) — hence this score never stands alone, always beside Uptake and Peer Review.",
+      },
+      wie: {
+        de: "Standardbogen, zwei Minuten, tokenisierter Einmal-Link je Episode; kritische Werte (< 3,0) lösen Closed-Loop-Nachfassen binnen 14 Tagen aus.",
+        en: "Standard form, two minutes, tokenised single-use link per episode; critical values (< 3.0) trigger closed-loop follow-up within 14 days.",
+      },
+      verworfen: null,
     },
   },
   {
     id: "uptake",
-    pkg: "aussenbeweis",
-    name: { de: "Umsetzungs-Quote (6M)", en: "Uptake at 6 months" },
-    unit: "%",
-    direction: "higher_is_better",
+    pkg: "beratungsqualitaet",
+    name: { de: "Uptake-Quote (6 Monate)", en: "Uptake rate (6 months)" },
+    unit: { de: "% umgesetzt oder angepasst", en: "% implemented or adapted" },
+    format: "percent",
+    direction: "higher_better",
+    nLabel: { de: "n = 11 Episoden fällig", en: "n = 11 episodes due" },
     info: {
       was: {
-        de: "Anteil Episoden, deren Empfehlung 6 Monate später umgesetzt oder angepasst umgesetzt wurde.",
-        en: "Share of episodes whose recommendation was implemented (or adapted) 6 months later.",
+        de: "Sechs Monate nach jeder Beratungsepisode: Empfehlung umgesetzt, angepasst übernommen oder nicht genutzt — plus ein Satz warum. Angepasste Übernahme zählt als Erfolg: Der Partner hat sich den Rat angeeignet.",
+        en: "Six months after each advisory episode: recommendation implemented, adapted, or not used — plus one sentence why. Adapted uptake counts as success: the partner has appropriated the advice.",
       },
       warum: {
-        de: "Härtester verfügbarer Wirkungsproxy — nicht Zufriedenheit, sondern Handlung.",
-        en: "Hardest available effect proxy — action, not satisfaction.",
+        de: "Die härteste Qualitätszahl der Beratung: Ein Rat, der nicht verwendet wird, hatte keine Qualität. Implementierungsverfolgung gilt in der Forschung als eigenständige Messgröße (Levishchenko 2020; Ahouandjinou 2026). Genau diese Frage stellt das Programm-M&E strukturell nie — es misst Wirkungen, nicht die Verwendung von Rat.",
+        en: "The hardest quality figure for advisory: advice that is not used had no quality. Implementation tracking is treated in the literature as a standalone measure (Levishchenko 2020; Ahouandjinou 2026). Programme M&E structurally never asks this question — it measures outcomes, not the use of advice.",
       },
-      wie: { de: "Follow-up-Queue, ein Satz Begründung.", en: "Follow-up queue, one-sentence rationale." },
-      verworfen: {
-        de: "Outcome-Kausalattribution: methodisch nicht sauber leistbar.",
-        en: "Full causal outcome attribution: not methodologically defensible.",
+      wie: {
+        de: "Kalendergetriggerte Wiedervorlage aus dem Episodenregister; Partner- und AV-Angabe gegeneinander; Warum-Sätze gehen an die Evidence & ToC Engine.",
+        en: "Calendar-triggered follow-up from the episode register; partner and AV statement cross-checked; 'why' sentences feed the Evidence & ToC Engine.",
       },
+      verworfen: null,
     },
   },
   {
-    id: "evidenz_count",
-    pkg: "aussenbeweis",
-    name: { de: "Evidenz-Geschichten", en: "Evidence stories" },
-    unit: "count",
-    direction: "higher_is_better",
+    id: "peer_review",
+    pkg: "beratungsqualitaet",
+    name: { de: "Peer-Review-Rating", en: "Peer review rating" },
+    unit: { de: "1–5", en: "1–5" },
+    format: "score",
+    direction: "higher_better",
+    nLabel: { de: "n = 6 Produkte je Halbjahr", en: "n = 6 products per half-year" },
     info: {
       was: {
-        de: "Anzahl dokumentierter „wäre letztes Jahr nicht gegangen“-Fälle pro Quartal.",
-        en: "Documented „would not have been possible last year“ cases per quarter.",
+        de: "Zwei Beratungsprodukte je Cluster und Halbjahr, bewertet nach fünf Kriterien: Evidenzbasis, Problemschärfe, Kontextpassung, Umsetzbarkeit, Klarheit — mit Pflicht-Begründungssatz je Kriterium.",
+        en: "Two advisory products per cluster and half-year, rated on five criteria: evidence base, problem sharpness, context fit, feasibility, clarity — with a mandatory justification sentence per criterion.",
       },
       warum: {
-        de: "Qualitativer Beleg für CLT/BMZ-Kommunikation.",
-        en: "Qualitative proof for CLT/BMZ communication.",
+        de: "Das Fachurteil als strukturierte Stichprobe. Primär ein Standardsetzungs-Instrument: Das Kriterienraster definiert erstmals, was gute Beratung bei GIZ Jordan heißt. Deklariert als Richtungssignal, nicht als Kennzahl im statistischen Sinn — die Fallzahl ist dafür zu klein, und das sagen wir offen.",
+        en: "Expert judgment as a structured sample. Primarily a standard-setting instrument: the criteria grid defines for the first time what good advice at GIZ Jordan means. Declared as a directional signal, not a metric in the statistical sense — the sample is too small, and we say so openly.",
       },
-      wie: { de: "Evidenzbank-Eintrag: 3 Sätze, Beteiligte, Datum.", en: "Evidenzbank entry: 3 sentences, involved, date." },
-      verworfen: {
-        de: "Anekdoten ohne Beteiligtenliste — nicht nachprüfbar.",
-        en: "Anecdotes without named participants — not verifiable.",
+      wie: {
+        de: "Zufallsauswahl durch den Steward aus dem Episodenregister — die bewertete Einheit wählt nie selbst (kein Rosinenpicken). Bögen archiviert.",
+        en: "Random selection by the steward from the episode register — the unit assessed never chooses itself (no cherry-picking). Forms archived.",
       },
+      verworfen: null,
     },
   },
   {
-    id: "clt_confidence",
-    pkg: "aussenbeweis",
-    name: { de: "CLT-Vertrauens-Index", en: "CLT confidence index" },
-    unit: "score",
-    direction: "higher_is_better",
+    id: "mechanismus",
+    pkg: "beratungsqualitaet",
+    name: { de: "Mechanismus-Beteiligung", en: "Mechanism participation" },
+    unit: { de: "% Episoden mit Struktur-Beteiligung", en: "% episodes with structure involvement" },
+    format: "percent",
+    direction: "higher_better",
+    nLabel: { de: "n = 14 Episoden", en: "n = 14 episodes" },
     info: {
-      was: { de: "Quartalsvotum CLT (1–5) zur Verlässlichkeit des Powerhouse.", en: "Quarterly CLT vote (1–5) on Powerhouse reliability." },
-      warum: { de: "Interne Legitimation ist Voraussetzung für Ressourcen.", en: "Internal legitimacy is a precondition for resources." },
-      wie: { de: "Kurzabfrage in der CLT-Sitzung.", en: "Short poll in the CLT session." },
-      verworfen: { de: "360°-Umfragen — Aufwand vs. Erkenntnis unpassend.", en: "360° surveys — cost/insight ratio unsuitable." },
+      was: {
+        de: "Je Episode zwei Ja/Nein-Felder: Wurde ein Practice-Produkt genutzt? Hat der Machine Room zugearbeitet?",
+        en: "Per episode two yes/no fields: Was a Practice product used? Did the Machine Room contribute?",
+      },
+      warum: {
+        de: "Verbindet Qualität mit Struktur: Steigen die Qualitätswerte besonders dort, wo die Struktur beteiligt war, ist der Zusammenhang belegbar — steigen sie überall gleich, war es gute Arbeit, nicht das Powerhouse. Inkrementalitätslogik statt Kausalbehauptung (Arman 2026); Implementierung und Verbesserung getrennt belegen (Raineri 2011).",
+        en: "Connects quality with structure: if quality rises especially where the structure was involved, the link is demonstrable — if it rises everywhere equally, it was good work, not the Powerhouse. Incrementality logic instead of causal claim (Arman 2026); implementation and improvement evidenced separately (Raineri 2011).",
+      },
+      wie: {
+        de: "Zwei Felder im ohnehin ausgefüllten Episodenbogen; Plausibilisierung gegen die Anfragenlisten der Practices.",
+        en: "Two fields in the episode form that is filled anyway; plausibility check against Practice request lists.",
+      },
+      verworfen: null,
     },
   },
 
-  // Paket 2 — Beratungsqualität
-  {
-    id: "first_time_right",
-    pkg: "beratungsqualitaet",
-    name: { de: "First-Time-Right", en: "First-time-right" },
-    unit: "%",
-    direction: "higher_is_better",
-    info: {
-      was: { de: "Anteil Werkstücke ohne materiellen Rückläufer im ersten Umlauf.", en: "Share of deliverables without material rework in first cycle." },
-      warum: { de: "Qualitäts-Frühindikator; koppelt an Fachzeit-Nutzung.", en: "Early quality indicator; couples to expert-time usage." },
-      wie: { de: "AV-Meldung je Werkstück, Peer-Panel-Stichprobe.", en: "AV self-report per deliverable, peer-panel sample." },
-      verworfen: { de: "Fehlerzahl pro Dokument — zählt Rauschen mit.", en: "Defect count per document — counts noise." },
-    },
-  },
-  {
-    id: "peer_score",
-    pkg: "beratungsqualitaet",
-    name: { de: "Peer-Fachurteil", en: "Peer expert score" },
-    unit: "score",
-    direction: "higher_is_better",
-    info: {
-      was: { de: "Mittelwert Peer-Panel-Bewertung (2 Werkstücke × Cluster × HJ).", en: "Mean peer-panel score (2 deliverables × cluster × half-year)." },
-      warum: { de: "Fachurteil, das AV-Selbstbild korrigiert.", en: "Expert judgment that corrects AV self-view." },
-      wie: { de: "Zufallsziehung, obligatorischer Begründungssatz.", en: "Random draw, mandatory justification sentence." },
-      verworfen: { de: "Ganze Sicht statt Stichprobe — nicht leistbar.", en: "Full census instead of sample — not feasible." },
-    },
-  },
-  {
-    id: "practice_usage",
-    pkg: "beratungsqualitaet",
-    name: { de: "Practice-Nutzung", en: "Practice product usage" },
-    unit: "%",
-    direction: "higher_is_better",
-    info: {
-      was: { de: "Anteil Episoden, in denen ein Practice-Produkt genutzt oder adaptiert wurde.", en: "Share of episodes in which a Practice product was used or adapted." },
-      warum: { de: "Systematische Wiederverwendung schlägt Einzelkönnen.", en: "Systematic reuse beats individual heroics." },
-      wie: { de: "Episoden-Mechanismus-Checkbox.", en: "Episode mechanism checkbox." },
-      verworfen: { de: "Downloads/Views: keine Handlungsevidenz.", en: "Downloads/views: no evidence of action." },
-    },
-  },
-  {
-    id: "schmerzpunkt",
-    pkg: "beratungsqualitaet",
-    name: { de: "Schmerzpunkt-Score", en: "Pain-point score" },
-    unit: "score",
-    direction: "lower_is_better",
-    info: {
-      was: { de: "Interne Selbstbewertung Reibungspunkte in der Zusammenarbeit (1–5).", en: "Internal self-score of friction points in collaboration (1–5)." },
-      warum: { de: "Frühwarnung; sinkt vor Qualitätsverlust.", en: "Early warning; drops before quality does." },
-      wie: { de: "Aggregierte Meldung je Team, n ≥ 5.", en: "Aggregated report per team, n ≥ 5." },
-      verworfen: { de: "Einzelfeedback — Betriebsrat-inkompatibel.", en: "Individual feedback — incompatible with works council." },
-    },
-  },
-
-  // Paket 3 — Struktur-Effizienz
+  // ============ Paket 3 — Struktur-Effizienz ============
   {
     id: "fachzeit",
     pkg: "struktur",
     name: { de: "Fachzeit-Quote", en: "Expert-time share" },
-    unit: "%",
-    direction: "higher_is_better",
+    unit: { de: "% Fachzeit", en: "% expert time" },
+    format: "percent",
+    direction: "higher_better",
     scharnier: true,
+    nLabel: { de: "n = 9 Teams (aggregiert, n ≥ 5)", en: "n = 9 teams (aggregated, n ≥ 5)" },
     info: {
-      was: { de: "Anteil produktiver Fachzeit an Gesamtarbeitszeit (Team-Aggregat).", en: "Share of productive expert time in total working time (team aggregate)." },
-      warum: { de: "Scharnier zwischen Struktur und Qualität: mehr Fachzeit → bessere Werkstücke.", en: "Hinge between structure and quality: more expert time → better deliverables." },
-      wie: { de: "Team-Aggregat, keine Einzelverfolgung.", en: "Team aggregate, no individual tracking." },
-      verworfen: { de: "Auslastung individuell — Betriebsrat/BMZ nicht tragbar.", en: "Individual utilisation — untenable with works council/BMZ." },
+      was: {
+        de: "Anteil der Expertenzeit für fachliche Arbeit statt Administration; zweiwöchige Selbstprotokollierung, gemeldet ausschließlich als Team-Aggregat.",
+        en: "Share of expert time spent on substantive work rather than admin; two-week self-logging, reported exclusively as team aggregate.",
+      },
+      warum: {
+        de: "Die Scharnierzahl: Sie erklärt den Mechanismus, warum aus weniger mehr wird — die Struktur gibt Expertenzeit für Expertenarbeit frei. Ohne sie sind Qualität und Effizienz zwei unverbundene Behauptungen (Maister: Health- vor Hygiene-Faktoren; BCG: Reibung an Schnittstellen als größter Leistungsverlust). Keine individuelle Auslastungsmessung — Mitbestimmung, nur Aggregate ab n ≥ 5, keine Anreizkopplung.",
+        en: "The hinge figure: it explains the mechanism for how less becomes more — the structure frees up expert time for expert work. Without it, quality and efficiency are two disconnected claims (Maister: health before hygiene factors; BCG: friction at interfaces as the largest performance loss). No individual utilisation tracking — co-determination, aggregates only from n ≥ 5, no incentive coupling.",
+      },
+      wie: {
+        de: "Standardprotokoll; Sprünge > 30 % gegen Vorperiode werden vom Steward rückgefragt.",
+        en: "Standard log; jumps > 30 % against the previous period are queried by the steward.",
+      },
+      verworfen: {
+        de: "Geprüft und verworfen: individuelle Auslastung als Steuerungsgröße (Hygiene-Falle, mitbestimmungswidrig).",
+        en: "Considered and rejected: individual utilisation as a steering figure (hygiene trap, incompatible with co-determination).",
+      },
     },
   },
   {
     id: "testvorgang",
     pkg: "struktur",
     name: { de: "Testvorgang", en: "Test procedure" },
-    unit: "days",
-    direction: "lower_is_better",
+    unit: { de: "Kalendertage", en: "calendar days" },
+    format: "days",
+    direction: "lower_better",
+    nLabel: {
+      de: "1 identischer Vorgang je Quartal · 6 beteiligte Personen (Baseline 9)",
+      en: "1 identical procedure per quarter · 6 people involved (baseline 9)",
+    },
     info: {
-      was: { de: "Median Kalendertage von Anfrage bis erstem qualifizierten Termin.", en: "Median calendar days from request to first qualified appointment." },
-      warum: { de: "Struktur-Effizienz als Zeit, nicht als Kosten.", en: "Structural efficiency as time, not cost." },
-      wie: { de: "JDU-Meldung je Anfrage.", en: "JDU report per request." },
-      verworfen: { de: "Reaktionszeit-Mittelwert — von Ausreißern verzerrt.", en: "Mean response time — distorted by outliers." },
+      was: {
+        de: "Ein identisch spezifizierter Vorgang (z. B. dieselbe Beschaffungsanfrage) läuft quartalsweise durchs System; gemessen werden Kalendertage bis Erledigung und Anzahl beteiligter Personen.",
+        en: "One identically specified procedure (e.g. the same procurement request) runs quarterly through the system; calendar days to completion and number of people involved are measured.",
+      },
+      warum: {
+        de: "Weil die Anforderung konstant ist, ist jede Veränderung Struktureffekt — der interne Vergleichsmaßstab, den wir ohne Kontrollgruppe sonst nicht haben (Pre/Post-Logik).",
+        en: "Because the requirement is constant, every change is a structural effect — the internal benchmark we otherwise lack without a control group (pre/post logic).",
+      },
+      wie: {
+        de: "Spezifikation schriftlich fixiert und eingefroren — sie wird nie angepasst (Goodhart-Disziplin); Steward dokumentiert Zeitstempel je Station.",
+        en: "Specification written down and frozen — it is never adjusted (Goodhart discipline); steward records timestamps per station.",
+      },
+      verworfen: {
+        de: "First-Time-Right-Quote als separater KPI gestrichen: Überlappung — beide messen Prozessreibung.",
+        en: "First-time-right rate dropped as a separate KPI: overlap — both measure process friction.",
+      },
     },
   },
   {
-    id: "eigenleistung",
+    id: "abflusstreue",
     pkg: "struktur",
-    name: { de: "Eigenleistungs-Quote", en: "In-house delivery share" },
-    unit: "%",
-    direction: "higher_is_better",
+    name: { de: "Abflusstreue", en: "Disbursement adherence" },
+    unit: { de: "% Ist vs. Plan", en: "% actual vs. plan" },
+    format: "percent",
+    direction: "higher_better",
+    nLabel: { de: "Basis: Portfolio-Planabfluss", en: "Base: portfolio planned disbursement" },
     info: {
-      was: { de: "Anteil Beratungsvolumen ohne externe Zukauf-Consultants.", en: "Consulting volume without external consultants." },
-      warum: { de: "Kontext für Testvorgang und Fachzeit.", en: "Context for test procedure and expert time." },
-      wie: { de: "Finance-Meldung je Quartal.", en: "Finance report per quarter." },
-      verworfen: { de: "Overhead-Quote — struktur-fremd, verzerrt.", en: "Overhead ratio — off-topic, distorting." },
+      was: {
+        de: "Ist-Abfluss gegen Plan-Abfluss; Restmittelquote zum Jahresende als Zusatzangabe.",
+        en: "Actual disbursement against planned disbursement; year-end residual funds ratio as additional figure.",
+      },
+      warum: {
+        de: "Lokal steuerbare Effizienz in der Sprache von BMZ und Zentrale. Misst das Machine-Room-Versprechen direkt: Planbarkeit und Umsetzungsgeschwindigkeit statt Jahresend-Hektik und Mittelrückgabe.",
+        en: "Locally controllable efficiency in the language of BMZ and HQ. Measures the Machine Room promise directly: predictability and delivery speed instead of year-end scramble and fund returns.",
+      },
+      wie: {
+        de: "Eine Zahl aus dem Controlling-Bericht.",
+        en: "One figure from the controlling report.",
+      },
+      verworfen: {
+        de: "Ersatz für die verworfene Overhead-Quote: Diese ist in der GIZ administrativ gesetzt und für uns kein beweglicher Wert.",
+        en: "Replacement for the rejected overhead ratio: that is administratively set within GIZ and is no movable value for us.",
+      },
     },
   },
   {
-    id: "meldetreue",
+    id: "schmerzpunkt",
     pkg: "struktur",
-    name: { de: "Meldetreue", en: "Reporting discipline" },
-    unit: "%",
-    direction: "higher_is_better",
+    name: { de: "Schmerzpunkt-Wiedervorlage", en: "Pain-point re-review" },
+    unit: { de: "Ø 1 (gelöst) – 5 (unverändert)", en: "avg 1 (solved) – 5 (unchanged)" },
+    format: "score",
+    direction: "lower_better",
+    nLabel: {
+      de: "n = 3 Cluster-Listen, identischer Teilnehmerkreis",
+      en: "n = 3 cluster lists, identical participants",
+    },
     info: {
-      was: { de: "Anteil pünktlich eingereichter Meldebögen je Zyklus.", en: "Share of on-time submissions per cycle." },
-      warum: { de: "Ohne Meldedisziplin kein System.", en: "Without reporting discipline, no system." },
-      wie: { de: "Automatisch aus Steward-Konsole.", en: "Automatic from steward console." },
-      verworfen: { de: "Score „Meldequalität“ — subjektiv.", en: "„Reporting quality“ score — subjective." },
+      was: {
+        de: "Die dokumentierten Wünsche aus dem Reach-In werden nach zwölf Monaten denselben Delegationen identisch wiedervorgelegt: Wie sehr ist das heute noch ein Problem? Neue Schmerzpunkte als offenes Zusatzfeld.",
+        en: "The documented wishes from the Reach-In are re-presented identically to the same delegations after twelve months: How much of a problem is this today? New pain points as an open additional field.",
+      },
+      warum: {
+        de: "Die Transformation misst sich an ihren eigenen Ausgangsschmerzen. Die Baseline entsteht im Reach-In kostenlos mit — und es ist das sichtbarste Versprechen an die Teams: Eure Beiträge verschwinden nicht.",
+        en: "The transformation measures itself against its own starting pains. The baseline emerges for free during Reach-In — and it is the most visible promise to the teams: your input does not disappear.",
+      },
+      wie: {
+        de: "Identische Liste, identischer Teilnehmerkreis, dokumentiert durch BT 3.",
+        en: "Identical list, identical participants, documented by BT 3.",
+      },
+      verworfen: null,
     },
   },
 ];
+
+// ---------------------------------------------------------------------------
+// Package labels (Sektionsüberschriften — nicht in der Karte wiederholen)
+// ---------------------------------------------------------------------------
 
 export const PKG_LABEL: Record<
   "aussenbeweis" | "beratungsqualitaet" | "struktur",
@@ -205,3 +347,40 @@ export const PKG_LABEL: Record<
 };
 
 export const kpiById = (id: string) => KPIS.find((k) => k.id === id);
+
+// ---------------------------------------------------------------------------
+// Formatting helpers — one source of truth for value/unit rendering
+// ---------------------------------------------------------------------------
+
+export function decimalsFor(format: KpiFormat): number {
+  return format === "score" ? 1 : 0;
+}
+
+/** Unit string with leading space, e.g. " %", " d", " 1–5". */
+export function unitSuffix(kpi: KpiDef, locale: Locale): string {
+  const u = kpi.unit[locale];
+  if (!u) return "";
+  // Short units go tight; longer descriptive units get a separator space.
+  return u.length <= 3 ? ` ${u}` : ` ${u}`;
+}
+
+export function formatValue(v: number | null, kpi: KpiDef, locale: Locale): string {
+  if (v === null || v === undefined || Number.isNaN(v)) return "—";
+  const digits = decimalsFor(kpi.format);
+  return `${fmtNumber(v, locale, digits)}${unitSuffix(kpi, locale)}`;
+}
+
+/** Arithmetic delta (current − baseline), signed. Independent of direction. */
+export function formatDelta(
+  v: number | null,
+  baseline: number | null | undefined,
+  kpi: KpiDef,
+  locale: Locale,
+): string {
+  if (v === null || v === undefined || baseline === null || baseline === undefined) return "—";
+  const d = v - baseline;
+  const digits = decimalsFor(kpi.format);
+  const sign = d > 0 ? "+" : d < 0 ? "−" : "";
+  const abs = Math.abs(d);
+  return `${sign}${fmtNumber(abs, locale, digits)}${unitSuffix(kpi, locale)}`;
+}

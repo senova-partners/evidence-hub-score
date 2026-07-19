@@ -40,7 +40,7 @@ export interface Store {
   lockedQuarters: string[];
 }
 
-const KEY = "giz-scorecard-v1";
+const KEY = "giz-scorecard-v2";
 type Listener = () => void;
 const listeners = new Set<Listener>();
 
@@ -102,34 +102,50 @@ export function resetDemo() {
 
 // ---------------- seed ----------------
 function seed(): Store {
+  // Baselines und Q3-Werte aus dem KPI-Config v1.0.
   const baselines: Record<string, number> = {
-    partner_score: 3.6,
+    wiederbeauftragung: 46,
+    kofi_proposal: 33,
+    partner_delta: 0,
+    delivery_quote: 78,
+    partnerbogen: 3.6,
     uptake: 42,
-    evidenz_count: 2,
-    clt_confidence: 3.4,
-    first_time_right: 58,
-    peer_score: 3.5,
-    practice_usage: 34,
-    schmerzpunkt: 3.2,
-    fachzeit: 34,
+    peer_review: 2.9,
+    mechanismus: 34,
+    fachzeit: 66,
     testvorgang: 21,
-    eigenleistung: 71,
-    meldetreue: 74,
+    abflusstreue: 84,
+    schmerzpunkt: 3.2,
   };
+  // Q1, Q2, Q3 — linear zwischen Baseline und aktuellem Wert interpoliert.
   const trends: Record<string, [number, number, number]> = {
-    // baseline Q1, Q2, Q3
-    partner_score: [3.6, 3.8, 4.0],
+    wiederbeauftragung: [46, 48, 51],
+    kofi_proposal: [33, 35, 38],
+    partner_delta: [0, 2, 5],
+    delivery_quote: [78, 79, 80],
+    partnerbogen: [3.6, 3.7, 3.9],
     uptake: [42, 48, 55],
-    evidenz_count: [2, 3, 5],
-    clt_confidence: [3.4, 3.6, 3.9],
-    first_time_right: [58, 62, 66],
-    peer_score: [3.5, 3.6, 3.9],
-    practice_usage: [34, 41, 48],
-    schmerzpunkt: [3.2, 3.0, 2.7],
-    fachzeit: [34, 36, 38],
+    peer_review: [2.9, 3.1, 3.2],
+    mechanismus: [34, 41, 48],
+    fachzeit: [66, 69, 72],
     testvorgang: [21, 19, 17],
-    eigenleistung: [71, 72, 73],
-    meldetreue: [74, 82, 86],
+    abflusstreue: [84, 86, 89],
+    schmerzpunkt: [3.2, 3.0, 2.7],
+  };
+  // Per-KPI n counts for the seeded values (matches the nLabel wording).
+  const nCounts: Record<string, number> = {
+    wiederbeauftragung: 28,
+    kofi_proposal: 21,
+    partner_delta: 10,
+    delivery_quote: 0,
+    partnerbogen: 14,
+    uptake: 11,
+    peer_review: 6,
+    mechanismus: 14,
+    fachzeit: 9,
+    testvorgang: 1,
+    abflusstreue: 0,
+    schmerzpunkt: 3,
   };
   const values: Store["values"] = {};
   for (const k of KPIS) {
@@ -139,12 +155,12 @@ function seed(): Store {
         quarter: q,
         value: trends[k.id][i],
         reported: true,
-        n: 12,
+        n: nCounts[k.id],
       };
     });
   }
-  // deliberately mark one as missing this quarter
-  values.peer_score[CURRENT_QUARTER] = {
+  // Peer-Review liegt in Q3 nicht vor — löst "unvollständig — Meldung fehlt" aus.
+  values.peer_review[CURRENT_QUARTER] = {
     quarter: CURRENT_QUARTER,
     value: null,
     reported: false,
@@ -202,23 +218,23 @@ function seed(): Store {
       role: "av",
       cluster: "Governance",
       quarter: CURRENT_QUARTER,
-      values: { first_time_right: 66 },
+      values: { partnerbogen: 3.9, uptake: 55, mechanismus: 48 },
       submittedAt: "2026-09-28T10:00:00Z",
       deadline: "2026-09-30",
       status: "on_time",
     },
     {
       id: "s2",
-      role: "practice",
+      role: "jdu",
       quarter: CURRENT_QUARTER,
-      values: { practice_usage: 48 },
+      values: { wiederbeauftragung: 51, kofi_proposal: 38, partner_delta: 5 },
       submittedAt: "2026-10-02T09:00:00Z",
       deadline: "2026-09-30",
       status: "late",
     },
     {
       id: "s3",
-      role: "jdu",
+      role: "steward",
       quarter: CURRENT_QUARTER,
       values: { testvorgang: 17 },
       submittedAt: "2026-09-29T14:00:00Z",
@@ -229,7 +245,7 @@ function seed(): Store {
       id: "s4",
       role: "finance",
       quarter: CURRENT_QUARTER,
-      values: { eigenleistung: 73 },
+      values: { delivery_quote: 80, abflusstreue: 89 },
       submittedAt: "2026-09-30T16:00:00Z",
       deadline: "2026-09-30",
       status: "on_time",
@@ -238,7 +254,7 @@ function seed(): Store {
       id: "s5",
       role: "bt3",
       quarter: CURRENT_QUARTER,
-      values: { fachzeit: 38 },
+      values: { fachzeit: 72, schmerzpunkt: 2.7 },
       submittedAt: "2026-09-27T11:00:00Z",
       deadline: "2026-09-30",
       status: "on_time",
@@ -247,7 +263,7 @@ function seed(): Store {
       id: "s6",
       role: "panel",
       quarter: CURRENT_QUARTER,
-      values: { peer_score: null },
+      values: { peer_review: null },
       submittedAt: null,
       deadline: "2026-09-30",
       status: "missing",
@@ -294,7 +310,7 @@ function seed(): Store {
       halfYear: "2026-H1",
       cluster: "Governance",
       episodeId: "EP-2026-0142",
-      scores: { fachlich: 4, klarheit: 5, umsetzbarkeit: 4 },
+      scores: { evidenzbasis: 4, problemschaerfe: 3, kontextpassung: 4, umsetzbarkeit: 4, klarheit: 5 },
       justification: "Klare Struktur, belastbare Datengrundlage.",
     },
   ];
@@ -304,9 +320,9 @@ function seed(): Store {
       id: "cl-1",
       at: "2026-09-28T10:00:00Z",
       role: "av",
-      field: "first_time_right",
-      from: "62",
-      to: "66",
+      field: "uptake",
+      from: "48",
+      to: "55",
     },
   ];
 

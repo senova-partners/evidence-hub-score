@@ -1,15 +1,16 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useStore, QUARTERS, type Store } from "@/lib/scorecard/store";
-import { kpiById, PKG_LABEL } from "@/lib/scorecard/kpis";
+import { kpiById, PKG_LABEL, formatValue, formatDelta } from "@/lib/scorecard/kpis";
 import { TrendChart } from "@/components/scorecard/TrendChart";
 import { InfoPanel } from "@/components/scorecard/InfoPanel";
 import { useT, useLocale } from "@/lib/scorecard/useT";
-import { fmtNumber } from "@/lib/scorecard/i18n";
-import { delta } from "@/lib/scorecard/verdict";
+import { trend } from "@/lib/scorecard/verdict";
 
 export const Route = createFileRoute("/app/kpi/$id")({
   component: KpiDetail,
 });
+
+const trendGlyph = { up: "↑", down: "↓", flat: "→", missing: "✕" } as const;
 
 function KpiDetail() {
   const { id } = Route.useParams();
@@ -25,8 +26,7 @@ function KpiDetail() {
     value: store.values[id]?.[q]?.value ?? null,
   }));
   const current = store.values[id]?.[store.session!.quarter]?.value ?? null;
-  const digits = kpi.unit === "score" ? 1 : 0;
-  const d = delta(id, current, baseline);
+  const tr = trend(id, current, baseline);
 
   return (
     <div className="flex flex-col gap-6">
@@ -41,15 +41,15 @@ function KpiDetail() {
           <h1 className="text-[22px] font-semibold">{kpi.name[locale]}</h1>
           <InfoPanel kpiId={id} />
         </div>
+        <p className="text-[12px] text-muted-foreground mt-2">{kpi.nLabel[locale]}</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <Stat label={t("baseline")} value={fmtNumber(baseline ?? null, locale, digits)} unit={kpi.unit} />
-        <Stat label={store.session!.quarter} value={fmtNumber(current, locale, digits)} unit={kpi.unit} />
+        <Stat label={t("baseline")} value={formatValue(baseline ?? null, kpi, locale)} />
+        <Stat label={store.session!.quarter} value={formatValue(current, kpi, locale)} />
         <Stat
           label={t("vs_baseline")}
-          value={d !== null && d > 0 ? `+${fmtNumber(d, locale, digits)}` : fmtNumber(d, locale, digits)}
-          unit={kpi.unit}
+          value={`${trendGlyph[tr]} ${formatDelta(current, baseline, kpi, locale)}`}
         />
       </div>
 
@@ -63,15 +63,12 @@ function KpiDetail() {
   );
 }
 
-function Stat({ label, value, unit }: { label: string; value: string; unit: string }) {
-  const suf = unit === "%" ? " %" : unit === "days" ? " d" : "";
+function Stat({ label, value }: { label: string; value: string }) {
   return (
     <div className="hairline p-4">
       <div className="text-[12px] text-muted-foreground">{label}</div>
-      <div className="text-[28px] font-semibold tabular-nums mt-1">
-        {value}
-        {value !== "—" ? suf : ""}
-      </div>
+      <div className="text-[28px] font-semibold tabular-nums mt-1">{value}</div>
     </div>
   );
 }
+

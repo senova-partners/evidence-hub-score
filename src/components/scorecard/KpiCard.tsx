@@ -1,16 +1,9 @@
 import { Link } from "@tanstack/react-router";
-import { kpiById, PKG_LABEL } from "@/lib/scorecard/kpis";
-import { fmtNumber } from "@/lib/scorecard/i18n";
-import { delta, trend } from "@/lib/scorecard/verdict";
+import { kpiById, formatValue, formatDelta } from "@/lib/scorecard/kpis";
+import { trend } from "@/lib/scorecard/verdict";
 import { useT, useLocale } from "@/lib/scorecard/useT";
 import { InfoPanel } from "./InfoPanel";
 import type { KpiValue } from "@/lib/scorecard/types";
-
-function unitSuffix(unit: string) {
-  if (unit === "%") return " %";
-  if (unit === "days") return " d";
-  return "";
-}
 
 const trendGlyph = { up: "↑", down: "↓", flat: "→", missing: "✕" } as const;
 
@@ -29,15 +22,32 @@ export function KpiCard({
   if (!kpi) return null;
 
   const v = value?.value ?? null;
-  const d = delta(kpiId, v, baseline);
   const tr = trend(kpiId, v, baseline);
   const missing = v === null;
   const flagged = value?.flagged;
-  const digits = kpi.unit === "score" ? 1 : 0;
 
-  const label = `${kpi.name[locale]}, ${fmtNumber(v, locale, digits)}${unitSuffix(kpi.unit)}, ${
-    tr === "up" ? "verbessert" : tr === "down" ? "verschlechtert" : tr === "flat" ? "stabil" : "fehlt"
-  } ggü. Baseline ${fmtNumber(baseline ?? null, locale, digits)}`;
+  const trWord =
+    tr === "up"
+      ? locale === "de"
+        ? "verbessert"
+        : "improved"
+      : tr === "down"
+        ? locale === "de"
+          ? "verschlechtert"
+          : "declined"
+        : tr === "flat"
+          ? locale === "de"
+            ? "stabil"
+            : "stable"
+          : locale === "de"
+            ? "Meldung fehlt"
+            : "report missing";
+
+  const label = missing
+    ? `${kpi.name[locale]}: ${trWord}`
+    : `${kpi.name[locale]}, ${formatValue(v, kpi, locale)}, ${trWord} ggü. ${t(
+        "baseline",
+      )} ${formatValue(baseline ?? null, kpi, locale)}`;
 
   return (
     <div
@@ -46,37 +56,43 @@ export function KpiCard({
       }`}
       aria-label={label}
     >
-      <div className="flex items-start justify-between">
-        <div className="text-[12px] text-muted-foreground uppercase tracking-wide">
-          {PKG_LABEL[kpi.pkg][locale]}
-        </div>
+      {/* Package label deliberately NOT repeated — lives in the section heading. */}
+      <div className="flex items-start justify-between gap-2">
+        <Link
+          to="/app/kpi/$id"
+          params={{ id: kpiId }}
+          className="text-[14px] font-semibold hover:underline leading-snug"
+        >
+          {kpi.name[locale]}
+          {kpi.scharnier && (
+            <span className="ml-2 text-[11px] font-normal text-muted-foreground">
+              · {t("scharnier")}
+            </span>
+          )}
+        </Link>
         <InfoPanel kpiId={kpiId} />
       </div>
 
-      <Link
-        to="/app/kpi/$id"
-        params={{ id: kpiId }}
-        className="text-[14px] font-semibold hover:underline"
-      >
-        {kpi.name[locale]}
-        {kpi.scharnier && (
-          <span className="ml-2 text-[11px] font-normal text-muted-foreground">
-            · {t("scharnier")}
-          </span>
-        )}
-      </Link>
-
-      <div className="flex items-baseline gap-3 mt-1">
-        <div className="text-[28px] font-semibold tabular-nums leading-none">
-          {missing ? "—" : `${fmtNumber(v, locale, digits)}${unitSuffix(kpi.unit)}`}
+      {missing ? (
+        <div className="flex items-baseline gap-3 mt-1">
+          <div className="text-[28px] font-semibold leading-none text-[color:var(--giz-red)]">
+            ✕
+          </div>
+          <div className="text-[13px] text-[color:var(--giz-red)] font-semibold">
+            {t("missing")}
+          </div>
         </div>
-        <div className="text-[12px] text-muted-foreground tabular-nums">
-          <span aria-hidden>{trendGlyph[tr]}</span>{" "}
-          {missing
-            ? t("missing")
-            : `${d !== null && d > 0 ? "+" : ""}${fmtNumber(d, locale, digits)}${unitSuffix(kpi.unit)} ${t("vs_baseline")}`}
+      ) : (
+        <div className="flex items-baseline gap-3 mt-1">
+          <div className="text-[28px] font-semibold tabular-nums leading-none">
+            {formatValue(v, kpi, locale)}
+          </div>
+          <div className="text-[12px] text-muted-foreground tabular-nums">
+            <span aria-hidden>{trendGlyph[tr]}</span>{" "}
+            {formatDelta(v, baseline, kpi, locale)} {t("vs_baseline")}
+          </div>
         </div>
-      </div>
+      )}
 
       <div className="flex items-center gap-2 text-[12px] mt-1">
         <span
@@ -86,11 +102,19 @@ export function KpiCard({
           }`}
         />
         <span className="text-muted-foreground">
-          {missing ? t("missing") : `${t("baseline")} ${fmtNumber(baseline ?? null, locale, digits)}${unitSuffix(kpi.unit)}`}
-          {value?.n ? ` · n=${value.n}` : ""}
+          {missing
+            ? t("missing")
+            : `${t("baseline")} ${formatValue(baseline ?? null, kpi, locale)}`}
+          {` · ${kpi.nLabel[locale]}`}
           {flagged ? ` · ${t("flagged")}` : ""}
         </span>
       </div>
+
+      {kpi.contextLine && !missing && (
+        <div className="text-[11px] text-muted-foreground italic">
+          {kpi.contextLine[locale]}
+        </div>
+      )}
     </div>
   );
 }
