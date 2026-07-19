@@ -26,10 +26,10 @@ describe("computeYDomain — Baseline ± 15 % zoom", () => {
   });
 
   it("ignores null history points (missing readings)", () => {
+    // Nums = [2.9, 3.0]; span 0.1 falls below the floor of 1, so pad = 0.15.
     const [lo, hi] = computeYDomain(h([2.9, null]), 3.0);
-    // Nums = [2.9, 3.0], span = 0.1, pad = 0.015.
-    expect(lo).toBeCloseTo(2.885, 6);
-    expect(hi).toBeCloseTo(3.015, 6);
+    expect(lo).toBeCloseTo(2.75, 6);
+    expect(hi).toBeCloseTo(3.15, 6);
   });
 
   it("keeps a meaningful pad when all values collapse to one point", () => {
