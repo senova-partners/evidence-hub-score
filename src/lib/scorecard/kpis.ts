@@ -228,7 +228,7 @@ export const KPIS: KpiDef[] = [
   },
   {
     id: "mechanismus",
-    pkg: "beratungsqualitaet",
+    pkg: "struktur",
     name: { de: "Mechanismus-Beteiligung", en: "Mechanism participation" },
     unit: { de: "% Episoden mit Struktur-Beteiligung", en: "% episodes with structure involvement" },
     unitShort: { de: "%", en: "%" },
@@ -241,8 +241,8 @@ export const KPIS: KpiDef[] = [
         en: "Per episode two yes/no fields: Was a Practice product used? Did the Machine Room contribute?",
       },
       warum: {
-        de: "Verbindet Qualität mit Struktur: Steigen die Qualitätswerte besonders dort, wo die Struktur beteiligt war, ist der Zusammenhang belegbar — steigen sie überall gleich, war es gute Arbeit, nicht das Powerhouse. Inkrementalitätslogik statt Kausalbehauptung (Arman 2026); Implementierung und Verbesserung getrennt belegen (Raineri 2011).",
-        en: "Connects quality with structure: if quality rises especially where the structure was involved, the link is demonstrable — if it rises everywhere equally, it was good work, not the Powerhouse. Incrementality logic instead of causal claim (Arman 2026); implementation and improvement evidenced separately (Raineri 2011).",
+        de: "Misst, ob die Struktur in der Beratungsarbeit ankommt (Struktur-Adoption). Analytisch bleibt die Kreuzung mit den Qualitätswerten aus Paket 2 erhalten (Dosis-Wirkung: Episoden mit vs. ohne Strukturbeteiligung) — sie ist der Beleg, dass Struktur und Qualität zusammenhängen. Die Paketzuordnung ist Anzeige-, nicht Daten-Logik. Inkrementalitätslogik statt Kausalbehauptung (Arman 2026); Implementierung und Verbesserung getrennt belegen (Raineri 2011).",
+        en: "Measures whether the structure lands in advisory work (structure adoption). Analytically the cross with Package 2 quality values remains (dose-effect: episodes with vs. without structure involvement) — it is the evidence that structure and quality are linked. The package assignment is a display choice, not a data choice. Incrementality logic instead of causal claim (Arman 2026); implementation and improvement evidenced separately (Raineri 2011).",
       },
       wie: {
         de: "Zwei Felder im ohnehin ausgefüllten Episodenbogen; Plausibilisierung gegen die Anfragenlisten der Practices.",
@@ -256,29 +256,34 @@ export const KPIS: KpiDef[] = [
   {
     id: "fachzeit",
     pkg: "struktur",
-    name: { de: "Fachzeit-Quote", en: "Expert-time share" },
-    unit: { de: "% Fachzeit", en: "% expert time" },
+    name: { de: "Freigesetzte Ressourcen", en: "Freed resources" },
+    unit: { de: "% Fachzeit (Hauptwert) · Delivery-% (Zweitwert)", en: "% expert time (primary) · delivery % (secondary)" },
     unitShort: { de: "%", en: "%" },
     format: "percent",
     direction: "higher_better",
     scharnier: true,
+    secondaryKpiId: "delivery_quote",
     nLabel: { de: "n = 9 Teams (aggregiert, n ≥ 5)", en: "n = 9 teams (aggregated, n ≥ 5)" },
+    contextLine: {
+      de: "Zweitwert in derselben Karte: Delivery-Quote (Geld-Währung). Zwei Zahlen, zwei Rechenwege, ein Anzeigeort — kein Index.",
+      en: "Secondary value in the same card: delivery share (money currency). Two numbers, two calculations, one display — no index.",
+    },
     info: {
       was: {
-        de: "Anteil der Expertenzeit für fachliche Arbeit statt Administration; zweiwöchige Selbstprotokollierung, gemeldet ausschließlich als Team-Aggregat.",
-        en: "Share of expert time spent on substantive work rather than admin; two-week self-logging, reported exclusively as team aggregate.",
+        de: "Hauptwert: Fachzeit-Quote — Anteil der Expertenzeit für fachliche Arbeit statt Administration (zweiwöchige Selbstprotokollierung, nur Team-Aggregate). Zweitwert: Delivery-Quote — Anteil der Auftragsmittel, der in Partnerleistung fließt statt in interner Abwicklung. Dieselbe Reibung in zwei Währungen: Zeit und Geld. Bewusst KEIN gewichteter Index: Ein Index hätte keinen sauberen Rechenweg von Rohdaten zu Wert, die Gewichtung würde Verhandlungsmasse (Goodhart), und die diagnostische Trennung ginge verloren — Zeit frei, aber Geld versickert (oder umgekehrt) sind zwei verschiedene Probleme.",
+        en: "Primary value: expert-time share — share of expert time on substantive work rather than admin (two-week self-logging, team aggregates only). Secondary value: delivery share — share of commission funds flowing into partner delivery. The same friction in two currencies: time and money. Deliberately NOT a weighted index — an index would have no clean path from raw data to value, the weights would become negotiable (Goodhart), and the diagnostic split would be lost.",
       },
       warum: {
         de: "Die Scharnierzahl: Sie erklärt den Mechanismus, warum aus weniger mehr wird — die Struktur gibt Expertenzeit für Expertenarbeit frei. Ohne sie sind Qualität und Effizienz zwei unverbundene Behauptungen (Maister: Health- vor Hygiene-Faktoren; BCG: Reibung an Schnittstellen als größter Leistungsverlust). Keine individuelle Auslastungsmessung — Mitbestimmung, nur Aggregate ab n ≥ 5, keine Anreizkopplung.",
         en: "The hinge figure: it explains the mechanism for how less becomes more — the structure frees up expert time for expert work. Without it, quality and efficiency are two disconnected claims (Maister: health before hygiene factors; BCG: friction at interfaces as the largest performance loss). No individual utilisation tracking — co-determination, aggregates only from n ≥ 5, no incentive coupling.",
       },
       wie: {
-        de: "Standardprotokoll; Sprünge > 30 % gegen Vorperiode werden vom Steward rückgefragt.",
-        en: "Standard log; jumps > 30 % against the previous period are queried by the steward.",
+        de: "Standardprotokoll; Sprünge > 30 % gegen Vorperiode werden vom Steward rückgefragt. Delivery-Quote als eine Jahreszahl aus der Kostenstellenlogik (siehe delivery_quote).",
+        en: "Standard log; jumps > 30 % against the previous period are queried by the steward. Delivery share as one annual figure from cost-centre logic (see delivery_quote).",
       },
       verworfen: {
-        de: "Geprüft und verworfen: individuelle Auslastung als Steuerungsgröße (Hygiene-Falle, mitbestimmungswidrig).",
-        en: "Considered and rejected: individual utilisation as a steering figure (hygiene trap, incompatible with co-determination).",
+        de: "Geprüft und verworfen: individuelle Auslastung als Steuerungsgröße (Hygiene-Falle, mitbestimmungswidrig); gewichteter Index aus Fachzeit + Delivery (Gewichtung wird Verhandlungsmasse, diagnostische Trennung geht verloren).",
+        en: "Considered and rejected: individual utilisation as a steering figure (hygiene trap, incompatible with co-determination); a weighted index of expert time + delivery (weights become negotiable, diagnostic split lost).",
       },
     },
   },
