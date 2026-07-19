@@ -57,6 +57,8 @@ export interface KpiDef {
   /** If set, this KPI's card also shows the referenced KPI as a secondary metric (same card). The referenced KPI is then hidden from the board grid but remains tracked. */
   secondaryKpiId?: string;
   secondaryKpiIds?: string[];
+  /** Precondition note surfaced in Info panel. */
+  voraussetzung?: { de: string; en: string };
 }
 
 export interface Episode {
