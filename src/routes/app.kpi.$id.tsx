@@ -3,7 +3,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useStore, type Store } from "@/lib/scorecard/store";
 import { kpiById, PKG_LABEL, formatValue, formatDelta } from "@/lib/scorecard/kpis";
 import { kpiDetail } from "@/lib/scorecard/kpi-details";
-import { kpiHistory } from "@/lib/scorecard/history";
+import { kpiHistory, type HistoryPoint } from "@/lib/scorecard/history";
+import { MECHANISMUS_VIEWS, type MechanismusView } from "@/lib/scorecard/mechanismus-views";
 import { TrendChart } from "@/components/scorecard/TrendChart";
 import { InfoPanel } from "@/components/scorecard/InfoPanel";
 import { useT, useLocale } from "@/lib/scorecard/useT";
@@ -86,19 +87,38 @@ function KpiDetailPage() {
         </div>
       )}
 
-      <KpiTabPanel key={active.id} kpi={active} />
+      {active.id === "mechanismus" ? (
+        <MechanismusPanel kpi={active} />
+      ) : (
+        <KpiTabPanel key={active.id} kpi={active} />
+      )}
     </div>
   );
 }
 
-function KpiTabPanel({ kpi }: { kpi: KpiDef }) {
+function KpiTabPanel({
+  kpi,
+  overrides,
+  preamble,
+}: {
+  kpi: KpiDef;
+  overrides?: {
+    baseline?: number | null;
+    current?: number | null;
+    history?: HistoryPoint[];
+    workedExample?: string;
+    subtitle?: string;
+  };
+  preamble?: React.ReactNode;
+}) {
   const store = useStore((s: Store) => s);
   const t = useT();
   const locale = useLocale();
   const detail = kpiDetail(kpi.id);
-  const baseline = store.baselines[kpi.id];
-  const history = kpiHistory(kpi.id);
-  const current = store.values[kpi.id]?.[store.session!.quarter]?.value ?? null;
+  const baseline = overrides?.baseline ?? store.baselines[kpi.id];
+  const history = overrides?.history ?? kpiHistory(kpi.id);
+  const current =
+    overrides?.current ?? store.values[kpi.id]?.[store.session!.quarter]?.value ?? null;
   const tr = trend(kpi.id, current, baseline);
   const voraussetzung = kpi.voraussetzung?.[locale];
 
@@ -137,6 +157,13 @@ function KpiTabPanel({ kpi }: { kpi: KpiDef }) {
   return (
     <div className="flex flex-col gap-8">
       <p className="text-[12px] text-muted-foreground -mt-4">{kpi.nLabel[locale]}</p>
+
+      {preamble}
+
+      {overrides?.subtitle && (
+        <p className="text-[13px] -mt-4">{overrides.subtitle}</p>
+      )}
+
 
 
       {voraussetzung && (
@@ -235,7 +262,7 @@ function KpiTabPanel({ kpi }: { kpi: KpiDef }) {
                 Rechenweg
               </div>
               <div className="font-mono text-[13px] tabular-nums whitespace-pre-wrap">
-                {detail.worked_example}
+                {overrides?.workedExample ?? detail.worked_example}
               </div>
             </div>
           </div>
@@ -275,3 +302,52 @@ function Stat({ label, value }: { label: string; value: string }) {
     </div>
   );
 }
+
+function MechanismusPanel({ kpi }: { kpi: KpiDef }) {
+  const [viewId, setViewId] = useState<MechanismusView["id"]>("gesamt");
+  const view = MECHANISMUS_VIEWS.find((v) => v.id === viewId) ?? MECHANISMUS_VIEWS[0];
+
+  const preamble = (
+    <div
+      role="tablist"
+      aria-label="Mechanismus-Sichten"
+      className="flex gap-6 hairline-b -mt-4"
+    >
+      {MECHANISMUS_VIEWS.map((v) => {
+        const isActive = v.id === viewId;
+        return (
+          <button
+            key={v.id}
+            role="tab"
+            aria-selected={isActive}
+            onClick={() => setViewId(v.id)}
+            className={
+              "py-2 text-[13px] -mb-px border-b-2 " +
+              (isActive
+                ? "border-[color:var(--foreground)] text-foreground font-semibold"
+                : "border-transparent text-muted-foreground hover:text-foreground")
+            }
+          >
+            {v.label}
+          </button>
+        );
+      })}
+    </div>
+  );
+
+  return (
+    <KpiTabPanel
+      key={view.id}
+      kpi={kpi}
+      preamble={preamble}
+      overrides={{
+        baseline: view.baseline,
+        current: view.current,
+        history: view.history,
+        workedExample: view.workedExample,
+        subtitle: view.definition,
+      }}
+    />
+  );
+}
+
