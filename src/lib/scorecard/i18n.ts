@@ -37,10 +37,14 @@ export const T: Dict = {
   // verdict
   verdict_erfuellt: { de: "Test erfüllt", en: "Test passed" },
   verdict_nicht: { de: "Test nicht erfüllt", en: "Test not passed" },
+  verdict_unvollstaendig: {
+    de: "Unvollständig — Meldung fehlt",
+    en: "Incomplete — report missing",
+  },
   verdict_baseline: { de: "Baseline fehlt", en: "Baseline missing" },
   verdict_rule: {
-    de: "Regel: Paket 1–2 steigen, Paket 3 stabil oder besser.",
-    en: "Rule: Packages 1–2 rise, package 3 stable or better.",
+    de: "Regel: Paket 1–2 steigen, Paket 3 stabil oder besser. Fehlt eine Meldung in Paket 1 oder 2, gilt 'unvollständig'.",
+    en: "Rule: Packages 1–2 rise, package 3 stable or better. A missing value in package 1 or 2 counts as 'incomplete'.",
   },
 
   // kpi card
