@@ -345,6 +345,31 @@ export const KPI_DETAILS: Record<string, KpiDetail> = {
       verifizierung: "identische Liste, identischer Teilnehmerkreis",
     },
   },
+
+  berater_vze_anteil: {
+    raw_schema: ["Stellenkategorie (Taxonomie)", "VZE", "Einordnung"],
+    raw_rows: [
+      ["Fachplaner/Berater national & international", "38,0", "fachlich"],
+      ["Projektadministration & Finanzen", "16,5", "administrativ"],
+      ["Mischrollen (z. B. Officer 50/50 lt. Anteilsregel)", "8,0", "4,0 fachlich / 4,0 administrativ"],
+      ["Machine Room / Service-Einheiten", "9,5", "administrativ (zentralisiert)"],
+      ["⚠ Voraussetzung", "", "Rollen-Taxonomie muss definiert und eingefroren sein — heute nicht sauber vorhanden"],
+    ],
+    raw_summary: {
+      gesamt_vze: 72.0,
+      fachlich_vze: 42.0,
+      kontext_umsatz_mio: 21.0,
+    },
+    formula_text:
+      "Fachliche VZE (inkl. Mischrollen-Anteile lt. eingefrorener Taxonomie) ÷ Gesamt-VZE × 100. Kontextzeile ohne Wertung: Umsatz je Berater-VZE.",
+    worked_example: "42,0 ÷ 72,0 = 58 % (Baseline) · Kontext: 21,0 Mio ÷ 42,0 = 0,50 Mio je Berater-VZE",
+    erhebung: {
+      owner: "HR (Taxonomie mit DAIO)",
+      cadence: "jährlich",
+      methode: "aggregiert aus HR-Stellenübersicht; bewertet werden Stellenkategorien, nicht Personen",
+      verifizierung: "Voraussetzung 4 (Rollen-Taxonomie) eingefroren; Mischrollen nach dokumentierter Anteilsregel",
+    },
+  },
 };
 
 export const kpiDetail = (id: string): KpiDetail | undefined => KPI_DETAILS[id];
