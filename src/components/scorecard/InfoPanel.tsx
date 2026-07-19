@@ -48,6 +48,16 @@ export function InfoPanel({ kpiId }: { kpiId: string }) {
             </div>
 
             <dl className="space-y-4">
+              <Section
+                title={t("einheit") || "Einheit"}
+                body={kpi.unit[locale]}
+              />
+              {kpi.contextLine && (
+                <Section
+                  title={t("kontext") || "Kontext"}
+                  body={kpi.contextLine[locale]}
+                />
+              )}
               <Section title={t("was_misst")} body={kpi.info.was[locale]} />
               <Section title={t("warum")} body={kpi.info.warum[locale]} />
               <Section title={t("wie")} body={kpi.info.wie[locale]} />
