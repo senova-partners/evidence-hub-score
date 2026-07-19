@@ -61,7 +61,7 @@ function ExportPage() {
           </div>
         </header>
 
-        {(["aussenbeweis", "beratungsqualitaet", "struktur"] as const).map((pkg) => (
+        {(["beratungsqualitaet", "struktur", "aussenbeweis"] as const).map((pkg) => (
           <section key={pkg}>
             <div className="text-[11px] uppercase tracking-wide text-muted-foreground mb-2">
               {PKG_LABEL[pkg][locale]}
