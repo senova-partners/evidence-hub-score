@@ -262,7 +262,7 @@ function KpiTabPanel({
                 Rechenweg
               </div>
               <div className="font-mono text-[13px] tabular-nums whitespace-pre-wrap">
-                {detail.worked_example}
+                {overrides?.workedExample ?? detail.worked_example}
               </div>
             </div>
           </div>
