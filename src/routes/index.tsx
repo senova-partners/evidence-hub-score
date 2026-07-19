@@ -15,7 +15,7 @@ export const Route = createFileRoute("/")({
           "Quarterly evidence board for the GIZ Jordan Expert Powerhouse: 12 KPIs across three packages, manual data entry, one printable snapshot.",
       },
       { property: "og:title", content: "Expert Powerhouse Scorecard — GIZ Jordan" },
-      { property: "og:description", content: "The quarterly evidence board for the Expert Powerhouse." },
+      { property: "og:description", content: "Quarterly evidence board for the GIZ Jordan Expert Powerhouse: 12 KPIs across three packages, manual data entry, one printable snapshot." },
       { property: "og:type", content: "website" },
     ],
   }),

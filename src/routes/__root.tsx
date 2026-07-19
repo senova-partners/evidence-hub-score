@@ -85,9 +85,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { name: "author", content: "GIZ Jordan" },
       { property: "og:title", content: "Expert Powerhouse Scorecard — GIZ Jordan" },
-      { property: "og:description", content: "The quarterly evidence board for the Expert Powerhouse." },
+      { property: "og:description", content: "Quarterly evidence board for the GIZ Jordan Expert Powerhouse: 12 KPIs across three packages, manual data entry, one printable snapshot." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Expert Powerhouse Scorecard — GIZ Jordan" },
+      { name: "twitter:description", content: "Quarterly evidence board for the GIZ Jordan Expert Powerhouse: 12 KPIs across three packages, manual data entry, one printable snapshot." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/dbaae58f-2db5-40e4-94eb-02f71097cd2a/id-preview-ee988974--7fd68cba-5c9c-407f-94a4-77b3d1fa761a.lovable.app-1784460666138.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/dbaae58f-2db5-40e4-94eb-02f71097cd2a/id-preview-ee988974--7fd68cba-5c9c-407f-94a4-77b3d1fa761a.lovable.app-1784460666138.png" },
     ],
     links: [
       {
