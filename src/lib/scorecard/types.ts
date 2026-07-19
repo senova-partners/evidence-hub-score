@@ -1,7 +1,11 @@
 // GIZ Scorecard — types
 export type Package = "aussenbeweis" | "beratungsqualitaet" | "struktur";
 export type Trend = "up" | "down" | "flat" | "missing";
-export type Verdict = "erfuellt" | "nicht_erfuellt" | "baseline_fehlt";
+export type Verdict =
+  | "erfuellt"
+  | "nicht_erfuellt"
+  | "unvollstaendig"
+  | "baseline_fehlt";
 export type Locale = "de" | "en";
 
 export type Role =
@@ -24,18 +28,27 @@ export interface KpiValue {
   flagged?: boolean;
 }
 
+export type KpiFormat = "percent" | "days" | "score" | "delta" | "count";
+
 export interface KpiDef {
   id: string;
   pkg: Package;
   name: { de: string; en: string };
-  unit: "%" | "days" | "score" | "count" | "ratio";
-  direction: "higher_is_better" | "lower_is_better";
+  /** Free display unit, appended after the number (e.g. "%", "d", "1–5", "Saldo"). */
+  unit: { de: string; en: string };
+  /** Numeric formatting hint. */
+  format: KpiFormat;
+  direction: "higher_better" | "lower_better";
   scharnier?: boolean;
+  /** Per-KPI n label, e.g. "n = 14 Episoden". */
+  nLabel: { de: string; en: string };
+  /** Optional context line shown beneath the value. */
+  contextLine?: { de: string; en: string };
   info: {
     was: { de: string; en: string };
     warum: { de: string; en: string };
     wie: { de: string; en: string };
-    verworfen: { de: string; en: string };
+    verworfen?: { de: string; en: string } | null;
   };
 }
 
