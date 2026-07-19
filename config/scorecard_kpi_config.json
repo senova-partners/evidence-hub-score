@@ -36,27 +36,56 @@
         "verifizierung": "Zählung aus der Auftrags- und Kommissionsübersicht nach Abschluss der Verhandlungsrunde; Vier-Augen-Prüfung durch Finance. Keine Qualifizierung einzelner Jahre als \"zählt nicht\" — das rollierende Fenster fängt leere Jahre auf, ohne dass der Nenner verhandelbar wird.",
         "verworfen": "Geprüft und verworfen: Stückzahl-Quote (bestraft gewollte Konsolidierung); Kalenderjahres-Messung (misst Verhandlungszyklus statt Qualität); Herausrechnen exogen ausgelaufener Aufträge (macht den Nenner zur Verhandlungsmasse)."
       },
-      "context_line": "Anzahl der Aufträge als Kontextzeile im Detail"
+      "context_line": "Anzahl der Aufträge als Kontextzeile im Detail",
+      "history": [
+        {
+          "period": "Konsult. 2024/25",
+          "value": 44
+        },
+        {
+          "period": "Konsult. 2025/26",
+          "value": 48
+        },
+        {
+          "period": "Konsult. 2026/27",
+          "value": 54
+        }
+      ]
     },
     {
       "id": "kofi_proposal",
       "paket": 1,
       "paket_name": "Außenbeweis",
       "name": "Kofinanzierung & Proposal-Erfolg",
-      "unit": "%",
+      "unit": "% des eingereichten Volumens gewonnen",
       "direction": "higher_better",
       "cadence": "jährlich, rollierend 24 Monate",
       "owner": "JDU / BD",
-      "baseline": 33,
-      "current": 38,
-      "n_label": "n = 21 Proposals (EU: 6)",
-      "context_line": "EU gesondert ausgewiesen · Geberkonzentration als Kontextzeile",
+      "baseline": 31,
+      "current": 54,
+      "n_label": "Basis: 14,6 Mio € eingereicht (24 Monate)",
+      "context_line": "Stückquote als fester Zweitwert · EU gesondert · Geberkonzentration als Kontext",
       "info": {
-        "was_es_misst": "Drittmittel im Verhältnis zum Grundauftrag sowie gewonnene vs. eingereichte Angebote, EU gesondert.",
-        "warum": "Externe Zahlungsbereitschaft als Qualitätsurteil. Die Geberkonzentration läuft als Kontext mit: Abhängigkeit von einem Auftraggeber ist ein Strukturrisiko (Übertragung der Client-Concentration-Logik aus der Beratungspraxis).",
+        "was_es_misst": "Hauptwert: gewonnenes ÷ eingereichtes Proposal-Volumen (Euro-Basis, rollierend 24 Monate), EU gesondert. Fester Zweitwert: Stückquote (gewonnene ÷ eingereichte Anzahl). Kontext: Kofinanzierungsvolumen ÷ Grundauftrag und Geberkonzentration.",
+        "warum": "Volumenbasis konsistent mit der Wiederbeauftragungsquote: Ein großes EU-Kontingent und ein Kleinstantrag sind nicht dasselbe Urteil — Volumen misst, was strategisch zählt (Diversifizierung, EU-Practice). Die Stückquote läuft als fester Zweitwert mit, weil bei kleinen Fallzahlen ein einzelner Großantrag die Volumenquote dominieren kann: Divergieren beide, ist das selbst die Diagnose — Volumen hoch, Stück niedrig heißt, die großen sitzen, die kleinen nicht; umgekehrt Fleiß ohne strategische Treffer.",
         "verifizierung": "BD-Übersicht, rollierend über 24 Monate wegen kleiner Fallzahlen.",
-        "verworfen": null
-      }
+        "verworfen": "Geprüft und verworfen: Stückquote als Hauptwert (belohnt viele kleine, sichere Anträge — Goodhart; das strategisch wichtigste Ereignis, der große EU-Gewinn, bewegt die Zahl kaum); offene Proposals im Nenner (unentschieden ist kein Misserfolg)."
+      },
+      "history": [
+        {
+          "period": "2024/25",
+          "value": 27
+        },
+        {
+          "period": "2025/26",
+          "value": 31
+        },
+        {
+          "period": "2026/27",
+          "value": 54
+        }
+      ],
+      "unit_short": "%"
     },
     {
       "id": "partnerfeedback_jahr",
@@ -75,13 +104,23 @@
         "warum": "Veränderungsfragen tragen den Vergleich in sich und brauchen keine Baseline. 2–3 Befragte je Organisation, damit ein Organisationsbild entsteht statt einer Einzelwahrnehmung; Divergenz zwischen Ebenen ist selbst ein Befund. Die ungestützte Frage wird quantifiziert als Expertise-Quote (Anteil Organisationen mit fachlicher Nennung) und prospektiv gegen Pipeline und Folgeaufträge gespiegelt.",
         "verifizierung": "Fixer Gesprächsleitfaden (siehe Partnerfeedback_Leitfaden.md), Partnerliste einmalig durch AoA/CLT beschlossen und über Jahre identisch — Änderungen nur mit dokumentierter Begründung. JDU führt die Gespräche, nie der betroffene AV. Auswertung nur auf Organisationsebene.",
         "verworfen": "Geprüft und verworfen: absolute Zufriedenheitswerte (ohne Baseline aussagelos, Höflichkeitsbias); jährlich neu zusammengestellte Partnerliste (Ergebnis wäre wählbar); ein Befragter je Organisation (misst Einzelwahrnehmung statt Organisationsbild)."
-      }
+      },
+      "history": [
+        {
+          "period": "2026 (Baseline)",
+          "value": 0
+        },
+        {
+          "period": "2027",
+          "value": 5
+        }
+      ]
     },
     {
       "id": "delivery_quote",
       "paket": 3,
       "paket_name": "Struktur-Effizienz",
-      "name": "Delivery-Quote",
+      "name": "Direkte Wirkungsmittel (Delivery-Quote)",
       "unit": "%",
       "direction": "higher_better",
       "cadence": "jährlich",
@@ -90,13 +129,24 @@
       "current": 80,
       "n_label": "Basis: Auftragsbudgets gesamt",
       "info": {
-        "was_es_misst": "Anteil der Auftragsmittel, der in Partnerleistung fließt, statt sich in interner Abwicklung zu verbrauchen.",
+        "was_es_misst": "Anteil der Auftragsmittel, der direkt in Wirkung beim Partner fließt — statt sich in interner Abwicklung zu verbrauchen. (Intern auch: Delivery-Quote.)",
         "warum": "Die Non-Profit-Übersetzung der Marge: 'aus weniger mehr' wörtlich genommen – mehr vom selben Geld kommt beim Partner an. Klare Handlungsrichtung: Reibung senken, genau der Machine-Room-Auftrag.",
         "verifizierung": "Voraussetzung: Budgets/Instrumentenkonzepte je Projekt werden nach internen operativen vs. wirkungsbezogenen Ausgaben unterteilt — diese Trennung existiert in den heutigen Budgets und Operationsplänen nicht und muss vor der Baseline geschaffen werden (Arbeitsauftrag Finance/F&A). Abgrenzung einmalig definiert, dokumentiert und eingefroren; danach eine Jahreszahl aus der Kostenstellenlogik.",
         "verworfen": "Geprüft und verworfen: VZE/Umsatz (misst Portfoliomix und verwaltetes Volumen, belohnt Auslagerung, bestraft die gewollte Verschiebung zu mehr Beratung) und Overhead-Quote (zentral gesetzt, kein beweglicher Wert)."
       },
       "display": "secondary_in:fachzeit",
-      "voraussetzung": "Strukturelle Voraussetzung, VOR der Baseline zu schaffen: Budgets und Instrumentenkonzepte (der Ressourcenüberblick je Projekt) müssen nach internen operativen Ausgaben vs. wirkungsbezogenen Ausgaben unterteilt werden. Diese Trennung ist in den heutigen Budgets und Operationsplänen nicht enthalten — ohne sie ist die Delivery-Quote nicht erhebbar. Arbeitsauftrag an Finance/F&A: Abgrenzungslogik einmalig definieren, in die Budget- und OP-Struktur einziehen, dann einfrieren."
+      "voraussetzung": "Strukturelle Voraussetzung, VOR der Baseline zu schaffen: Budgets und Instrumentenkonzepte (der Ressourcenüberblick je Projekt) müssen nach internen operativen Ausgaben vs. wirkungsbezogenen Ausgaben unterteilt werden. Diese Trennung ist in den heutigen Budgets und Operationsplänen nicht enthalten — ohne sie ist die Delivery-Quote nicht erhebbar. Arbeitsauftrag an Finance/F&A: Abgrenzungslogik einmalig definieren, in die Budget- und OP-Struktur einziehen, dann einfrieren.",
+      "history": [
+        {
+          "period": "2026",
+          "value": 78
+        },
+        {
+          "period": "2027",
+          "value": 80
+        }
+      ],
+      "tab_label": "Direkte Wirkungsmittel"
     },
     {
       "id": "partnerbogen",
@@ -116,7 +166,25 @@
         "warum": "Partner beurteilen das Erlebnis, nicht die Substanz (Maister: Zufriedenheit = Wahrnehmung minus Erwartung); Problem-Fit steht deshalb als erste Frage (Levishchenko 2020) — die häufigste Qualitätslücke ist das falsche Problem, nicht die falsche Antwort. Zufriedenheit allein belegt keine Wirkung (Hershock 2021): Dieser Score steht nie allein, sondern neben Uptake und Peer-Review.",
         "verifizierung": "Keine Auswahl — Vollerhebung: Jede im Register abgeschlossene Episode löst den Bogen automatisch aus (kalendergetriggert beim Abschluss); Auswahl durch AV oder Cluster wäre Rosinenpicken. Rücklaufquote wird immer ausgewiesen — Score ohne Rücklauf ungültig. Tokenisierter Einmal-Link je Episode. Werte < 3,0 lösen Closed-Loop-Nachfassen binnen 14 Tagen aus.",
         "verworfen": "Geprüft und verworfen: Stichproben-Auswahl der Episoden (manipulierbar); jährliche Sammelbefragung statt episodengetrieben (Erinnerungsbias, keine Episodenzuordnung); NPS als Einzelwert (instabil bei kleinem n, keine Handlungsrichtung)."
-      }
+      },
+      "history": [
+        {
+          "period": "2026-Q3",
+          "value": 3.6
+        },
+        {
+          "period": "2026-Q4",
+          "value": 3.7
+        },
+        {
+          "period": "2027-Q1",
+          "value": 3.8
+        },
+        {
+          "period": "2027-Q2",
+          "value": 3.9
+        }
+      ]
     },
     {
       "id": "uptake",
@@ -135,7 +203,21 @@
         "warum": "Die härteste Qualitätszahl der Beratung: Ein Rat, der nicht verwendet wird, hatte keine Qualität. Implementierungsverfolgung gilt in der Forschung als eigenständige Messgröße (Levishchenko 2020; Ahouandjinou 2026). Genau diese Frage stellt das Programm-M&E strukturell nie – es misst Wirkungen, nicht die Verwendung von Rat.",
         "verifizierung": "Kalendergetriggerte Wiedervorlage aus dem Episodenregister; Partner- und AV-Angabe gegeneinander; Warum-Sätze gehen an die Evidence & ToC Engine.",
         "verworfen": null
-      }
+      },
+      "history": [
+        {
+          "period": "2026-H2",
+          "value": 42
+        },
+        {
+          "period": "2027-H1",
+          "value": 49
+        },
+        {
+          "period": "2027-H2",
+          "value": 55
+        }
+      ]
     },
     {
       "id": "peer_review",
@@ -155,7 +237,17 @@
         "warum": "Das Fachurteil als strukturierte Stichprobe. Primär ein Standardsetzungs-Instrument: Das Kriterienraster definiert erstmals, was gute Beratung bei GIZ Jordan heißt. Deklariert als Richtungssignal, nicht als Kennzahl im statistischen Sinn – die Fallzahl ist dafür zu klein, und das sagen wir offen.",
         "verifizierung": "Zufallsauswahl durch den Steward aus dem Episodenregister – die bewertete Einheit wählt nie selbst (kein Rosinenpicken). Bögen archiviert.",
         "verworfen": null
-      }
+      },
+      "history": [
+        {
+          "period": "2026-H2",
+          "value": 2.9
+        },
+        {
+          "period": "2027-H1",
+          "value": null
+        }
+      ]
     },
     {
       "id": "mechanismus",
@@ -174,13 +266,38 @@
         "warum": "Misst, ob die Struktur in der Beratungsarbeit ankommt (Struktur-Adoption). Analytisch bleibt die Kreuzung mit den Qualitätswerten aus Paket 2 erhalten (Dosis-Wirkung: Episoden mit vs. ohne Strukturbeteiligung) — sie ist der Beleg, dass Struktur und Qualität zusammenhängen. Die Paketzuordnung ist Anzeige-, nicht Daten-Logik. Inkrementalitätslogik statt Kausalbehauptung (Arman 2026); Implementierung und Verbesserung getrennt belegen (Raineri 2011).",
         "verifizierung": "Zwei Felder im ohnehin ausgefüllten Episodenbogen; Plausibilisierung gegen die Anfragenlisten der Practices.",
         "verworfen": null
-      }
+      },
+      "history": [
+        {
+          "period": "2026-Q3",
+          "value": 34
+        },
+        {
+          "period": "2026-Q4",
+          "value": 39
+        },
+        {
+          "period": "2027-Q1",
+          "value": 44
+        },
+        {
+          "period": "2027-Q2",
+          "value": 48
+        }
+      ],
+      "tab_label": "Gesamt",
+      "detail_tabs": [
+        "gesamt",
+        "practices",
+        "machine_room"
+      ],
+      "context_line": "Detail unterscheidet Practices und Machine Room; Board zeigt Gesamt (mindestens eine Struktur beteiligt)."
     },
     {
       "id": "fachzeit",
       "paket": 3,
       "paket_name": "Struktur-Effizienz",
-      "name": "Freigesetzte Ressourcen",
+      "name": "Freigesetzte Beratungsressourcen",
       "unit": "% Fachzeit",
       "direction": "higher_better",
       "cadence": "halbjährlich (2-Wochen-Protokoll)",
@@ -195,11 +312,26 @@
         "verifizierung": "Standardprotokoll; Sprünge > 30 % gegen Vorperiode werden vom Steward rückgefragt.",
         "verworfen": "Geprüft und verworfen: individuelle Auslastung als Steuerungsgröße (Hygiene-Falle, mitbestimmungswidrig)."
       },
-      "context_line": "Drei Werte, feste Hierarchie: Fachzeit (Zeit, Hauptwert) · Inhouse-Beratungsquote (Make-or-Buy) · Delivery-Quote (Geld beim Partner). Drei Rechenwege, kein Index.",
+      "context_line": "Zeit · Substanz · Geld — drei Rechenwege, kein Index. Tabs: Verhältnis Beratung/Admin · Inhouse-Beratung · Direkte Wirkungsmittel.",
       "secondary_kpis": [
         "inhouse_beratungsquote",
         "delivery_quote"
-      ]
+      ],
+      "history": [
+        {
+          "period": "2026-H2",
+          "value": 66
+        },
+        {
+          "period": "2027-H1",
+          "value": 69
+        },
+        {
+          "period": "2027-H2",
+          "value": 72
+        }
+      ],
+      "tab_label": "Verhältnis Beratung/Admin"
     },
     {
       "id": "inhouse_beratungsquote",
@@ -222,7 +354,18 @@
         "verifizierung": "Euro-Basis aus zwei Finance-Quellen: Personalkosten der Fachrollen (lt. eingefrorener Rollen-Taxonomie) und Consulting-Ausgaben aus den Vertragsübersichten. Bewusst keine Umrechnung über Beratertage/Tagessätze — die Tagessatz-Annahme würde Verhandlungsmasse.",
         "verworfen": "Geprüft und verworfen: Berater-VZE ÷ Consultingbudget als Roh-Verhältnis (Einheiten-Mix VZE/Euro, nur über manipulierbare Tagessatz-Annahme umrechenbar); Berater-VZE-Anteil an Gesamt-VZE als Beweis-KPI (misst Binnenstruktur statt Make-or-Buy — läuft als Diagnostik weiter); allgemeine Eigenleistungsquote (unspezifisch, geht in dieser Kennzahl auf)."
       },
-      "voraussetzung": "Rollen-Taxonomie (Voraussetzung 4) — die Fach-Personalkosten setzen die eingefrorene Zuordnung fachlich/administrativ voraus."
+      "voraussetzung": "Rollen-Taxonomie (Voraussetzung 4) — die Fach-Personalkosten setzen die eingefrorene Zuordnung fachlich/administrativ voraus.",
+      "history": [
+        {
+          "period": "2026",
+          "value": 64
+        },
+        {
+          "period": "2027",
+          "value": 67
+        }
+      ],
+      "tab_label": "Inhouse-Beratung"
     },
     {
       "id": "schmerzpunkt",
@@ -241,7 +384,17 @@
         "warum": "Die Transformation misst sich an ihren eigenen Ausgangsschmerzen. Die Baseline entsteht im Reach-In kostenlos mit – und es ist das sichtbarste Versprechen an die Teams: Eure Beiträge verschwinden nicht.",
         "verifizierung": "Identische Liste, identischer Teilnehmerkreis, dokumentiert durch BT 3.",
         "verworfen": null
-      }
+      },
+      "history": [
+        {
+          "period": "Reach-In 2026",
+          "value": 3.2
+        },
+        {
+          "period": "Wiedervorlage 2027",
+          "value": 2.7
+        }
+      ]
     }
   ],
   "not_measured": {

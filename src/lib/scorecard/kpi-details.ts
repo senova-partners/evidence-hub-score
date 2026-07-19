@@ -251,8 +251,8 @@ export const KPI_DETAILS: Record<string, KpiDetail> = {
     ],
     raw_summary: { episoden: 14, nur_practice: 3, nur_mr: 2, beides: 2, keins: 7 },
     formula_text:
-      "Episoden mit mindestens einem Ja ÷ Episoden gesamt × 100. Auswertung nur auf Episoden-/Portfolio-Ebene, nie je Person.",
-    worked_example: "(3 + 2 + 2) ÷ 14 = 7 ÷ 14 = 50 %",
+      "Drei Sichten aus denselben zwei Häkchen je Episode: Gesamt (mindestens ein Ja — Board-Wert), Practices (Practice-Produkt genutzt), Machine Room (MR-Zuarbeit). Die getrennte Sicht zeigt, WELCHER Teil der Struktur in der Beratungsarbeit ankommt — Practices und MR können sich unterschiedlich schnell durchsetzen. Dosis-Wirkungs-Kreuzung mit den Qualitätswerten läuft je Sicht getrennt.",
+    worked_example: "Gesamt: (3 + 2 + 2) ÷ 14 = 50 % · Practices: (3 + 2) ÷ 14 = 36 % · Machine Room: (2 + 2) ÷ 14 = 29 %",
     erhebung: {
       owner: "AV je Episode",
       cadence: "nach Episodenabschluss",
