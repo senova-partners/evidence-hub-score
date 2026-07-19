@@ -102,9 +102,42 @@ function KpiTabPanel({ kpi }: { kpi: KpiDef }) {
   const tr = trend(kpi.id, current, baseline);
   const voraussetzung = kpi.voraussetzung?.[locale];
 
+  // Data completeness gate: a tab is only "complete" when a detail config
+  // exists AND the history series carries at least one real point.
+  const historyHasData = history.length > 0 && history.some((p) => p.value != null);
+  const missing: string[] = [];
+  if (!detail) missing.push("Detail-Konfiguration");
+  if (!historyHasData) missing.push("Verlaufsdaten");
+
+  if (missing.length > 0) {
+    return (
+      <div className="flex flex-col gap-4">
+        <p className="text-[12px] text-muted-foreground">{kpi.nLabel[locale]}</p>
+        <div
+          role="alert"
+          className="hairline p-6 text-[13px]"
+          style={{ borderLeft: "3px solid var(--giz-red)" }}
+        >
+          <div
+            className="text-[12px] uppercase tracking-wide mb-2"
+            style={{ color: "var(--giz-red)" }}
+          >
+            ✕ Meldung fehlt
+          </div>
+          <div>
+            Für <span className="font-semibold">{kpi.name[locale]}</span> liegen noch keine{" "}
+            {missing.join(" und ")} vor. Sobald die Meldung eingeht, erscheinen hier Verlauf,
+            Erhebung, Rohdaten und Berechnung.
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col gap-8">
       <p className="text-[12px] text-muted-foreground -mt-4">{kpi.nLabel[locale]}</p>
+
 
       {voraussetzung && (
         <div
