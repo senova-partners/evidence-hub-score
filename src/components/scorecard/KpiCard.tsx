@@ -118,11 +118,7 @@ export function KpiCard({
       </div>
 
       {/* Row 3 — Value (fills remaining height, bottom-aligned for shared baseline) */}
-      <div
-        className={`mt-[10px] flex-1 flex items-end text-[36px] leading-none font-semibold tabular-nums ${
-          missing ? "text-[color:var(--giz-red)]" : ""
-        }`}
-      >
+      <div className="mt-[10px] flex-1 flex items-end text-[36px] leading-none font-semibold tabular-nums">
         {bareValue(v, kpi, locale)}
       </div>
 
