@@ -79,8 +79,8 @@
     },
     {
       "id": "delivery_quote",
-      "paket": 1,
-      "paket_name": "Außenbeweis",
+      "paket": 3,
+      "paket_name": "Struktur-Effizienz",
       "name": "Delivery-Quote",
       "unit": "%",
       "direction": "higher_better",
@@ -100,7 +100,7 @@
       "id": "partnerbogen",
       "paket": 2,
       "paket_name": "Beratungsqualität",
-      "name": "Episoden-Feedback (Partnerbogen)",
+      "name": "Partnerbogen (je Beratungsepisode)",
       "unit": "1–5",
       "direction": "higher_better",
       "cadence": "je Beratungsepisode",
@@ -110,10 +110,10 @@
       "n_label": "n = 14 Episoden · Rücklauf 63 %",
       "context_line": "Score ohne Rücklaufquote ungültig",
       "info": {
-        "was_es_misst": "Fünf Fragen an den Partner nach jeder abgeschlossenen Beratungsepisode; erste Frage: Hat die Beratung unser Problem adressiert – oder das des Beraters?",
-        "warum": "Partner beurteilen das Erlebnis, nicht die Substanz (Maister: Zufriedenheit = Wahrnehmung minus Erwartung). Problem-Fit vor Ergebnisbeurteilung (Levishchenko 2020). Zufriedenheit allein belegt keine Wirkung (Hershock 2021) – deshalb steht dieser Score nie allein, sondern neben Uptake und Peer-Review.",
-        "verifizierung": "Standardbogen, zwei Minuten, tokenisierter Einmal-Link je Episode; kritische Werte (< 3,0) lösen Closed-Loop-Nachfassen binnen 14 Tagen aus.",
-        "verworfen": null
+        "was_es_misst": "Fünf Fragen an den Partner nach jeder abgeschlossenen Beratungsepisode. Eine Episode ist die abgegrenzte Beratungseinheit mit vier Bestimmungsstücken: Anlass (die fachliche Frage des Partners), Empfänger (Partnerorganisation), Ergebnis (Empfehlung/Produkt), Zeitraum (Beginn und Abschluss) — registriert vom AV im Episodenregister. Fragen im Wortlaut: F1 Problem-Fit (\"Die Beratung hat das Problem adressiert, das wir lösen wollten — nicht ein anderes\"), F2 Verständnis, F3 Timing, F4 Umsetzbarkeit, F5 Weiterempfehlung, F6 offen (\"Was hätte die Beratung wertvoller gemacht?\"). Skala 1–5. Vollständiger Bogen: Episodenbogen_Partner.md.",
+        "warum": "Partner beurteilen das Erlebnis, nicht die Substanz (Maister: Zufriedenheit = Wahrnehmung minus Erwartung); Problem-Fit steht deshalb als erste Frage (Levishchenko 2020) — die häufigste Qualitätslücke ist das falsche Problem, nicht die falsche Antwort. Zufriedenheit allein belegt keine Wirkung (Hershock 2021): Dieser Score steht nie allein, sondern neben Uptake und Peer-Review.",
+        "verifizierung": "Keine Auswahl — Vollerhebung: Jede im Register abgeschlossene Episode löst den Bogen automatisch aus (kalendergetriggert beim Abschluss); Auswahl durch AV oder Cluster wäre Rosinenpicken. Rücklaufquote wird immer ausgewiesen — Score ohne Rücklauf ungültig. Tokenisierter Einmal-Link je Episode. Werte < 3,0 lösen Closed-Loop-Nachfassen binnen 14 Tagen aus.",
+        "verworfen": "Geprüft und verworfen: Stichproben-Auswahl der Episoden (manipulierbar); jährliche Sammelbefragung statt episodengetrieben (Erinnerungsbias, keine Episodenzuordnung); NPS als Einzelwert (instabil bei kleinem n, keine Handlungsrichtung)."
       }
     },
     {

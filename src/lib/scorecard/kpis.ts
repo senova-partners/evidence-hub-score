@@ -112,7 +112,7 @@ export const KPIS: KpiDef[] = [
   },
   {
     id: "delivery_quote",
-    pkg: "aussenbeweis",
+    pkg: "struktur_effizienz",
     name: { de: "Delivery-Quote", en: "Delivery share" },
     unit: { de: "%", en: "%" },
     unitShort: { de: "%", en: "%" },
@@ -143,7 +143,7 @@ export const KPIS: KpiDef[] = [
   {
     id: "partnerbogen",
     pkg: "beratungsqualitaet",
-    name: { de: "Partnerbogen-Score", en: "Partner feedback score" },
+    name: { de: "Partnerbogen (je Beratungsepisode)", en: "Partner form (per advisory episode)" },
     unit: { de: "1–5", en: "1–5" },
     unitShort: { de: "Pkt", en: "pts" },
     format: "score",
@@ -155,18 +155,21 @@ export const KPIS: KpiDef[] = [
     },
     info: {
       was: {
-        de: "Fünf Fragen an den Partner nach jeder abgeschlossenen Beratungsepisode; erste Frage: Hat die Beratung unser Problem adressiert — oder das des Beraters?",
-        en: "Five questions to the partner after every closed advisory episode; first question: Did the advice address our problem — or the adviser's?",
+        de: "Fünf Fragen an den Partner nach jeder abgeschlossenen Beratungsepisode. Eine Episode ist die abgegrenzte Beratungseinheit mit vier Bestimmungsstücken: Anlass (die fachliche Frage des Partners), Empfänger (Partnerorganisation), Ergebnis (Empfehlung/Produkt), Zeitraum (Beginn und Abschluss) — registriert vom AV im Episodenregister. Fragen im Wortlaut: F1 Problem-Fit („Die Beratung hat das Problem adressiert, das wir lösen wollten — nicht ein anderes“), F2 Verständnis, F3 Timing, F4 Umsetzbarkeit, F5 Weiterempfehlung, F6 offen („Was hätte die Beratung wertvoller gemacht?“). Skala 1–5. Vollständiger Bogen: Episodenbogen_Partner.md.",
+        en: "Five questions to the partner after every closed advisory episode. An episode is the delimited advisory unit with four elements: occasion (the partner's substantive question), recipient (partner organisation), result (recommendation/product), period (start and close date) — registered by the AV in the episode register. Questions verbatim: F1 problem fit (\"The advice addressed the problem we wanted to solve — not a different one\"), F2 understanding, F3 timing, F4 feasibility, F5 recommendation, F6 open (\"What would have made the advice more valuable?\"). Scale 1–5. Full form: Episodenbogen_Partner.md.",
       },
       warum: {
-        de: "Partner beurteilen das Erlebnis, nicht die Substanz (Maister: Zufriedenheit = Wahrnehmung minus Erwartung). Problem-Fit vor Ergebnisbeurteilung (Levishchenko 2020). Zufriedenheit allein belegt keine Wirkung (Hershock 2021) — deshalb steht dieser Score nie allein, sondern neben Uptake und Peer-Review.",
-        en: "Partners judge the experience, not the substance (Maister: satisfaction = perception minus expectation). Problem fit precedes outcome judgment (Levishchenko 2020). Satisfaction alone does not prove effect (Hershock 2021) — hence this score never stands alone, always beside Uptake and Peer Review.",
+        de: "Partner beurteilen das Erlebnis, nicht die Substanz (Maister: Zufriedenheit = Wahrnehmung minus Erwartung); Problem-Fit steht deshalb als erste Frage (Levishchenko 2020) — die häufigste Qualitätslücke ist das falsche Problem, nicht die falsche Antwort. Zufriedenheit allein belegt keine Wirkung (Hershock 2021): Dieser Score steht nie allein, sondern neben Uptake und Peer-Review.",
+        en: "Partners judge the experience, not the substance (Maister: satisfaction = perception minus expectation); problem fit is therefore the first question (Levishchenko 2020) — the most common quality gap is the wrong problem, not the wrong answer. Satisfaction alone does not prove effect (Hershock 2021): this score never stands alone, always beside Uptake and Peer Review.",
       },
       wie: {
-        de: "Standardbogen, zwei Minuten, tokenisierter Einmal-Link je Episode; kritische Werte (< 3,0) lösen Closed-Loop-Nachfassen binnen 14 Tagen aus.",
-        en: "Standard form, two minutes, tokenised single-use link per episode; critical values (< 3.0) trigger closed-loop follow-up within 14 days.",
+        de: "Keine Auswahl — Vollerhebung: Jede im Register abgeschlossene Episode löst den Bogen automatisch aus (kalendergetriggert beim Abschluss); Auswahl durch AV oder Cluster wäre Rosinenpicken. Rücklaufquote wird immer ausgewiesen — Score ohne Rücklauf ungültig. Tokenisierter Einmal-Link je Episode. Werte < 3,0 lösen Closed-Loop-Nachfassen binnen 14 Tagen aus.",
+        en: "No selection — full census: every episode closed in the register triggers the form automatically (calendar-triggered at close); selection by AV or cluster would invite cherry-picking. Response rate is always shown — score invalid without it. Tokenised single-use link per episode. Values < 3.0 trigger closed-loop follow-up within 14 days.",
       },
-      verworfen: null,
+      verworfen: {
+        de: "Geprüft und verworfen: Stichproben-Auswahl der Episoden (manipulierbar); jährliche Sammelbefragung statt episodengetrieben (Erinnerungsbias, keine Episodenzuordnung); NPS als Einzelwert (instabil bei kleinem n, keine Handlungsrichtung).",
+        en: "Reviewed and rejected: sampled selection of episodes (manipulable); annual aggregate survey rather than episode-driven (recall bias, no episode attribution); NPS as a single value (unstable at small n, no direction of action).",
+      },
     },
   },
   {
