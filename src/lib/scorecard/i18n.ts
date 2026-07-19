@@ -57,6 +57,8 @@ export const T: Dict = {
   warum: { de: "Warum diese Kennzahl", en: "Why this measure" },
   wie: { de: "Wie verifiziert", en: "How verified" },
   verworfen: { de: "Geprüft und verworfen", en: "Considered and rejected" },
+  einheit: { de: "Einheit", en: "Unit" },
+  kontext: { de: "Kontext", en: "Context" },
   baseline: { de: "Baseline", en: "Baseline" },
   trend: { de: "Verlauf", en: "Trend" },
 

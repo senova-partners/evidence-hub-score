@@ -14,6 +14,7 @@ export const KPIS: KpiDef[] = [
     pkg: "aussenbeweis",
     name: { de: "Wiederbeauftragungsquote", en: "Repeat commissioning rate" },
     unit: { de: "%", en: "%" },
+    unitShort: { de: "%", en: "%" },
     format: "percent",
     direction: "higher_better",
     nLabel: { de: "n = 28 Aufträge", en: "n = 28 commissions" },
@@ -38,6 +39,7 @@ export const KPIS: KpiDef[] = [
     pkg: "aussenbeweis",
     name: { de: "Kofinanzierung & Proposal-Erfolg", en: "Co-financing & proposal success" },
     unit: { de: "%", en: "%" },
+    unitShort: { de: "%", en: "%" },
     format: "percent",
     direction: "higher_better",
     nLabel: { de: "n = 21 Proposals (EU: 6)", en: "n = 21 proposals (EU: 6)" },
@@ -66,6 +68,7 @@ export const KPIS: KpiDef[] = [
     pkg: "aussenbeweis",
     name: { de: "Partner-Delta", en: "Partner delta" },
     unit: { de: "Saldo besser − schlechter", en: "balance better − worse" },
+    unitShort: { de: "±", en: "±" },
     format: "delta",
     direction: "higher_better",
     nLabel: { de: "n = 10 Schlüsselpartner", en: "n = 10 key partners" },
@@ -90,6 +93,7 @@ export const KPIS: KpiDef[] = [
     pkg: "aussenbeweis",
     name: { de: "Delivery-Quote", en: "Delivery share" },
     unit: { de: "%", en: "%" },
+    unitShort: { de: "%", en: "%" },
     format: "percent",
     direction: "higher_better",
     nLabel: { de: "Basis: Auftragsbudgets gesamt", en: "Base: total commission budgets" },
@@ -119,6 +123,7 @@ export const KPIS: KpiDef[] = [
     pkg: "beratungsqualitaet",
     name: { de: "Partnerbogen-Score", en: "Partner feedback score" },
     unit: { de: "1–5", en: "1–5" },
+    unitShort: { de: "Pkt", en: "pts" },
     format: "score",
     direction: "higher_better",
     nLabel: { de: "n = 14 Episoden · Rücklauf 63 %", en: "n = 14 episodes · response 63 %" },
@@ -147,6 +152,7 @@ export const KPIS: KpiDef[] = [
     pkg: "beratungsqualitaet",
     name: { de: "Uptake-Quote (6 Monate)", en: "Uptake rate (6 months)" },
     unit: { de: "% umgesetzt oder angepasst", en: "% implemented or adapted" },
+    unitShort: { de: "%", en: "%" },
     format: "percent",
     direction: "higher_better",
     nLabel: { de: "n = 11 Episoden fällig", en: "n = 11 episodes due" },
@@ -171,6 +177,7 @@ export const KPIS: KpiDef[] = [
     pkg: "beratungsqualitaet",
     name: { de: "Peer-Review-Rating", en: "Peer review rating" },
     unit: { de: "1–5", en: "1–5" },
+    unitShort: { de: "Pkt", en: "pts" },
     format: "score",
     direction: "higher_better",
     nLabel: { de: "n = 6 Produkte je Halbjahr", en: "n = 6 products per half-year" },
@@ -195,6 +202,7 @@ export const KPIS: KpiDef[] = [
     pkg: "beratungsqualitaet",
     name: { de: "Mechanismus-Beteiligung", en: "Mechanism participation" },
     unit: { de: "% Episoden mit Struktur-Beteiligung", en: "% episodes with structure involvement" },
+    unitShort: { de: "%", en: "%" },
     format: "percent",
     direction: "higher_better",
     nLabel: { de: "n = 14 Episoden", en: "n = 14 episodes" },
@@ -221,6 +229,7 @@ export const KPIS: KpiDef[] = [
     pkg: "struktur",
     name: { de: "Fachzeit-Quote", en: "Expert-time share" },
     unit: { de: "% Fachzeit", en: "% expert time" },
+    unitShort: { de: "%", en: "%" },
     format: "percent",
     direction: "higher_better",
     scharnier: true,
@@ -249,6 +258,7 @@ export const KPIS: KpiDef[] = [
     pkg: "struktur",
     name: { de: "Testvorgang", en: "Test procedure" },
     unit: { de: "Kalendertage", en: "calendar days" },
+    unitShort: { de: "d", en: "d" },
     format: "days",
     direction: "lower_better",
     nLabel: {
@@ -279,6 +289,7 @@ export const KPIS: KpiDef[] = [
     pkg: "struktur",
     name: { de: "Abflusstreue", en: "Disbursement adherence" },
     unit: { de: "% Ist vs. Plan", en: "% actual vs. plan" },
+    unitShort: { de: "%", en: "%" },
     format: "percent",
     direction: "higher_better",
     nLabel: { de: "Basis: Portfolio-Planabfluss", en: "Base: portfolio planned disbursement" },
@@ -306,6 +317,7 @@ export const KPIS: KpiDef[] = [
     pkg: "struktur",
     name: { de: "Schmerzpunkt-Wiedervorlage", en: "Pain-point re-review" },
     unit: { de: "Ø 1 (gelöst) – 5 (unverändert)", en: "avg 1 (solved) – 5 (unchanged)" },
+    unitShort: { de: "Pkt", en: "pts" },
     format: "score",
     direction: "lower_better",
     nLabel: {
@@ -356,12 +368,10 @@ export function decimalsFor(format: KpiFormat): number {
   return format === "score" ? 1 : 0;
 }
 
-/** Unit string with leading space, e.g. " %", " d", " 1–5". */
+/** Short unit suffix rendered on the card (leading thin space). Empty string yields no suffix. */
 export function unitSuffix(kpi: KpiDef, locale: Locale): string {
-  const u = kpi.unit[locale];
-  if (!u) return "";
-  // Short units go tight; longer descriptive units get a separator space.
-  return u.length <= 3 ? ` ${u}` : ` ${u}`;
+  const u = kpi.unitShort[locale];
+  return u ? `\u202F${u}` : "";
 }
 
 export function formatValue(v: number | null, kpi: KpiDef, locale: Locale): string {
@@ -380,7 +390,7 @@ export function formatDelta(
   if (v === null || v === undefined || baseline === null || baseline === undefined) return "—";
   const d = v - baseline;
   const digits = decimalsFor(kpi.format);
-  const sign = d > 0 ? "+" : d < 0 ? "−" : "";
+  const sign = d > 0 ? "+" : d < 0 ? "−" : "±";
   const abs = Math.abs(d);
   return `${sign}${fmtNumber(abs, locale, digits)}${unitSuffix(kpi, locale)}`;
 }

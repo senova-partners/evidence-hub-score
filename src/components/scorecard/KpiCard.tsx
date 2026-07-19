@@ -7,6 +7,16 @@ import type { KpiValue } from "@/lib/scorecard/types";
 
 const trendGlyph = { up: "↑", down: "↓", flat: "→", missing: "✕" } as const;
 
+/**
+ * Fixed 4-line template — same height across all cards.
+ *   1  Title  + ⓘ
+ *   2  Value  (formatted number + short unit; "—" if missing)
+ *   3  Delta  vs baseline (or status "Meldung fehlt" if missing)
+ *   4  Footer (baseline · n-label · flags)
+ *
+ * Long-form unit and context_line are intentionally NOT rendered here —
+ * they live in the Info panel.
+ */
 export function KpiCard({
   kpiId,
   value,
@@ -28,20 +38,12 @@ export function KpiCard({
 
   const trWord =
     tr === "up"
-      ? locale === "de"
-        ? "verbessert"
-        : "improved"
+      ? locale === "de" ? "verbessert" : "improved"
       : tr === "down"
-        ? locale === "de"
-          ? "verschlechtert"
-          : "declined"
+        ? locale === "de" ? "verschlechtert" : "declined"
         : tr === "flat"
-          ? locale === "de"
-            ? "stabil"
-            : "stable"
-          : locale === "de"
-            ? "Meldung fehlt"
-            : "report missing";
+          ? locale === "de" ? "stabil" : "stable"
+          : locale === "de" ? "Meldung fehlt" : "report missing";
 
   const label = missing
     ? `${kpi.name[locale]}: ${trWord}`
@@ -51,12 +53,12 @@ export function KpiCard({
 
   return (
     <div
-      className={`hairline p-4 flex flex-col gap-2 bg-card ${
+      className={`hairline p-4 bg-card grid grid-rows-[auto_1fr_auto_auto] gap-2 min-h-[168px] ${
         kpi.scharnier ? "border-l-2 border-l-[color:var(--giz-red)]" : ""
       }`}
       aria-label={label}
     >
-      {/* Package label deliberately NOT repeated — lives in the section heading. */}
+      {/* Row 1 — Title + Info */}
       <div className="flex items-start justify-between gap-2">
         <Link
           to="/app/kpi/$id"
@@ -73,48 +75,43 @@ export function KpiCard({
         <InfoPanel kpiId={kpiId} />
       </div>
 
-      {missing ? (
-        <div className="flex items-baseline gap-3 mt-1">
-          <div className="text-[28px] font-semibold leading-none text-[color:var(--giz-red)]">
-            ✕
-          </div>
-          <div className="text-[13px] text-[color:var(--giz-red)] font-semibold">
-            {t("missing")}
-          </div>
-        </div>
-      ) : (
-        <div className="flex items-baseline gap-3 mt-1">
-          <div className="text-[28px] font-semibold tabular-nums leading-none">
-            {formatValue(v, kpi, locale)}
-          </div>
-          <div className="text-[12px] text-muted-foreground tabular-nums">
+      {/* Row 2 — Value (uniform size across all cards) */}
+      <div
+        className={`text-[32px] font-semibold tabular-nums leading-none self-center ${
+          missing ? "text-[color:var(--giz-red)]" : ""
+        }`}
+      >
+        {missing ? "—" : formatValue(v, kpi, locale)}
+      </div>
+
+      {/* Row 3 — Delta or missing status */}
+      <div className="text-[12px] tabular-nums">
+        {missing ? (
+          <span className="text-[color:var(--giz-red)] font-semibold">
+            <span aria-hidden>✕</span> {t("missing")}
+          </span>
+        ) : (
+          <span className="text-muted-foreground">
             <span aria-hidden>{trendGlyph[tr]}</span>{" "}
             {formatDelta(v, baseline, kpi, locale)} {t("vs_baseline")}
-          </div>
-        </div>
-      )}
+          </span>
+        )}
+      </div>
 
-      <div className="flex items-center gap-2 text-[12px] mt-1">
+      {/* Row 4 — Footer */}
+      <div className="flex items-center gap-2 text-[12px]">
         <span
           aria-hidden
-          className={`inline-block w-2 h-2 rounded-full ${
+          className={`inline-block w-2 h-2 rounded-full shrink-0 ${
             missing ? "bg-[color:var(--giz-red)]" : "bg-foreground"
           }`}
         />
-        <span className="text-muted-foreground">
-          {missing
-            ? t("missing")
-            : `${t("baseline")} ${formatValue(baseline ?? null, kpi, locale)}`}
+        <span className="text-muted-foreground truncate">
+          {`${t("baseline")} ${formatValue(baseline ?? null, kpi, locale)}`}
           {` · ${kpi.nLabel[locale]}`}
           {flagged ? ` · ${t("flagged")}` : ""}
         </span>
       </div>
-
-      {kpi.contextLine && !missing && (
-        <div className="text-[11px] text-muted-foreground italic">
-          {kpi.contextLine[locale]}
-        </div>
-      )}
     </div>
   );
 }
