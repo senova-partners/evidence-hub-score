@@ -545,6 +545,68 @@
       },
       "formula_text": "Mittelwert über alle Punkte aller Cluster-Listen; identische Liste, identischer Teilnehmerkreis wie im Reach-In.",
       "worked_example": "81 ÷ 30 = 2,7 (Baseline 3,2 → Verbesserung um 0,5)"
+    },
+    "pipeline": {
+      "raw_schema": [
+        "Lead",
+        "Geber",
+        "Cluster",
+        "Stage",
+        "Volumen (Mio €)",
+        "Letzte Bewegung"
+      ],
+      "raw_rows": [
+        [
+          "EU Green Transition Facility",
+          "EU",
+          "W&E",
+          "2 — Formalisiert (AD eingereicht)",
+          "4,0",
+          "2027-Q1"
+        ],
+        [
+          "EU Skills Partnership",
+          "EU",
+          "E&T",
+          "2 — Formalisiert (AD in Vorb.)",
+          "0,9",
+          "2027-Q1"
+        ],
+        [
+          "Wasserfonds Drittgeber X",
+          "Drittgeber",
+          "W&E",
+          "1 — Identifiziert",
+          "1,5",
+          "2026-Q4"
+        ],
+        [
+          "Stiftung Y Governance",
+          "Drittgeber",
+          "GOV",
+          "1 — Identifiziert",
+          "0,6",
+          "2026-Q3 ⚠ 2 Quartale ohne Bewegung → schließen"
+        ],
+        [
+          "…",
+          "…",
+          "…",
+          "…",
+          "…",
+          "Auszug — Register bei BD"
+        ]
+      ],
+      "raw_summary": {
+        "stage1_n": 12,
+        "stage1_mio": 8.4,
+        "stage2_n": 5,
+        "stage2_mio": 6.1,
+        "stage3_n": 2,
+        "stage3_mio": 4.0
+      },
+      "formula_text": "Keine Kennzahl im Beweis-Sinn: Anzahl + Volumen je Stage, dazu Konversionsquoten Stage 1→2 und 2→3 (Anzahl- und Volumenbasis) als Trend über Quartale. Stage-Mapping je Gebertyp einmalig fixiert (EU: Lead → Action Document → Contribution Agreement).",
+      "worked_example": "Konversion 1→2: 6,1 ÷ 8,4 Mio = 73 % (Volumen) · 2→3: 4,0 ÷ 6,1 = 66 % · Lesart: schmaler, aber konvertierender Trichter — Engpass ist die Lead-Identifikation, nicht die Proposal-Qualität."
     }
   }
 }

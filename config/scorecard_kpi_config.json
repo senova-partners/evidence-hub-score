@@ -297,6 +297,67 @@
       "name": "Evidenzbank",
       "role": "qualitative Fallbelege ('wäre letztes Jahr nicht gegangen') – eigene Seite, keine KPI-Karte, kein Trend",
       "display": "Liste mit Cluster, Datum, geschätzter Ersparnis"
+    },
+    {
+      "id": "pipeline",
+      "name": "Akquise-Pipeline (EU & Drittmittel)",
+      "role": "Diagnostik, kein Beweis-KPI: misst Aktivität und Zukunft, nicht erzielte Qualität. Erklärt KPI 2 — stagniert der Proposal-Erfolg, zeigt der Trichter, ob es am Anfang (keine Leads: Foresight-Problem) oder an der Konversion (Kapazität/Qualität im Proposal) hakt. Macht zugleich sichtbar, ob eine hohe Win-Rate nur Risikoscheu ist (dünner Trichter).",
+      "display": "Trichter-Zeile in der Diagnostik: Anzahl + Volumen je Stage, Konversionsquoten als Trend; EU-Aufschlüsselung im Detail",
+      "stages": [
+        {
+          "id": 1,
+          "name": "Identifiziert",
+          "definition": "Lead erkannt, Gespräch geführt, nichts Formales",
+          "mapping": {
+            "EU": "Lead / Programming-Signal",
+            "Drittgeber": "Interessensbekundung, Ausschreibung gesichtet"
+          }
+        },
+        {
+          "id": 2,
+          "name": "Formalisiert",
+          "definition": "Dokument im Verfahren",
+          "mapping": {
+            "EU": "Action Document in Vorbereitung / eingereicht",
+            "Drittgeber": "Concept Note, Proposal, Ausschreibungsteilnahme"
+          }
+        },
+        {
+          "id": 3,
+          "name": "Beauftragt",
+          "definition": "Vertrag / Beitrag gezeichnet",
+          "mapping": {
+            "EU": "Contribution Agreement gezeichnet",
+            "Drittgeber": "Vertrag / Zusage gezeichnet"
+          }
+        }
+      ],
+      "erhebung": {
+        "wer": "BD/JDU mit Cluster-Koordinatoren (EU-Practice als Anker)",
+        "wann": "quartalsweiser Pipeline-Review, 30 Minuten, fester TOP",
+        "wie": "Laufendes Register durchgehen: je Eintrag Stage, Volumen, Geber, Cluster, Aktualitätsdatum. Hygiene-Regel: Leads ohne Bewegung seit 2 Quartalen werden aktiv geschlossen — sonst verfettet Stage 1 und die Sicht lügt.",
+        "goodhart_hinweis": "Bewusst KEIN Beweis-KPI und kein Zielwert auf Stage 1: Leads kosten nichts, die Zahl wäre beliebig aufpumpbar."
+      },
+      "mock": {
+        "stage1": {
+          "anzahl": 12,
+          "volumen_mio": 8.4
+        },
+        "stage2": {
+          "anzahl": 5,
+          "volumen_mio": 6.1
+        },
+        "stage3": {
+          "anzahl": 2,
+          "volumen_mio": 4.0
+        },
+        "eu_anteil": {
+          "stage2_anzahl": 3,
+          "stage2_volumen_mio": 4.9,
+          "stage3_anzahl": 1,
+          "stage3_volumen_mio": 4.0
+        }
+      }
     }
   ]
 }
