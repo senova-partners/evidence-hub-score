@@ -25,28 +25,26 @@ export interface KpiDetail {
 
 export const KPI_DETAILS: Record<string, KpiDetail> = {
   wiederbeauftragung: {
-    raw_schema: ["Auftrag", "Cluster", "Volumen (Mio €)", "Konsultationsjahr", "Status"],
+    raw_schema: ["Auftrag", "Cluster", "Volumen (Mio €)", "Entscheidung (Konsultation)", "Status"],
     raw_rows: [
-      ["A-2024-007", "W&E", "6,4", "2025", "verlängert"],
-      ["A-2024-011", "GOV", "3,8", "2025", "aufgestockt (+1,2)"],
-      ["A-2024-014", "E&T", "2,9", "2025", "Folgemodul"],
-      ["A-2025-011", "W&E", "5,1", "2026", "verlängert"],
-      ["A-2025-014", "E&T", "4,2", "2026", "aufgestockt (+0,8)"],
-      ["A-2025-019", "GOV", "3,3", "2026", "ausgelaufen"],
-      ["A-2025-021", "W&E", "2,7", "2026", "Folgemodul"],
-      ["… (28 Aufträge gesamt über 2 Konsultationszyklen)", "…", "…", "…", "Auszug — vollständige Liste bei JDU/BD"],
+      ["A-2025-011", "W&E", "4,2", "2026", "verlängert (+0,0)"],
+      ["A-2025-014", "E&T", "3,1", "2026", "aufgestockt (+1,4)"],
+      ["A-2025-019", "GOV", "2,8", "2026", "ausgelaufen"],
+      ["A-2025-021", "W&E", "5,0", "2025", "Folgemodul (5,5)"],
+      ["…", "…", "…", "…", "Auszug — vollständige Liste bei JDU/BD"],
     ],
     raw_summary: {
-      volumen_entscheidung_mio: 41.5,
-      volumen_fortgefuehrt_mio: 16.9,
-      volumen_aufstockungen_mio: 2.7,
-      volumen_folgemodul_mio: 2.8,
-      auftraege_gesamt: 28,
-      auftraege_fortgefuehrt: 14,
+      volumen_zur_entscheidung_mio_24m: 41.5,
+      fortgefuehrt_mio: 17.6,
+      aufstockung_mio: 2.3,
+      folgemodule_mio: 2.5,
+      ausgelaufen_mio: 19.1,
+      kontext_anzahl_gesamt: 28,
+      kontext_anzahl_fortgefuehrt: 14,
     },
     formula_text:
-      "(fortgeführtes Volumen + Aufstockungen + Folgemodul-Volumen) ÷ zur Entscheidung stehendes Volumen × 100. Rollierendes 24-Monats-Fenster über zwei Verhandlungszyklen; Werte > 100 % zulässig, wenn Aufstockungen das ursprüngliche Volumen übersteigen. Auftragszahlen (gesamt/fortgeführt) laufen als ungewerteter Kontext mit — Konsolidierung ist kein Verlust.",
-    worked_example: "(16,9 + 2,7 + 2,8) ÷ 41,5 = 22,4 ÷ 41,5 = 54 %  ·  Kontext: 14 von 28 Aufträgen fortgeführt",
+      "(fortgeführtes Volumen + Aufstockungen + Folgemodul-Volumen) ÷ zur Entscheidung stehendes Volumen × 100, rollierend 24 Monate, erhoben nach Abschluss der Regierungskonsultationen. Anzahl der Aufträge nur als Kontext (Konsolidierung ist kein Verlust).",
+    worked_example: "(17,6 + 2,3 + 2,5) ÷ 41,5 = 22,4 ÷ 41,5 = 54 %  ·  Kontext: 14 von 28 Aufträgen fortgeführt",
     erhebung: {
       owner: "JDU / BD",
       cadence:
@@ -63,19 +61,25 @@ export const KPI_DETAILS: Record<string, KpiDetail> = {
       ["P-26-05", "BMZ Sondermittel", "2,1", "gewonnen"],
       ["P-26-07", "EU", "3,5", "abgelehnt"],
       ["P-26-09", "Drittgeber", "1,2", "offen (zählt nicht)"],
-      ["…", "…", "…", "Auszug — Register bei BD"],
+      ["…", "…", "…", "Auszug — Register bei BD, 21 Proposals in 24 Monaten"],
     ],
     raw_summary: {
-      eingereicht_24m: 21,
-      gewonnen_24m: 8,
-      eu_eingereicht: 6,
-      eu_gewonnen: 2,
+      eingereicht_volumen_mio_24m: 14.6,
+      gewonnen_volumen_mio_24m: 7.9,
+      eingereicht_anzahl: 21,
+      gewonnen_anzahl: 8,
+      eu_eingereicht_volumen_mio: 8.3,
+      eu_gewonnen_volumen_mio: 4.0,
+      eu_eingereicht_anzahl: 6,
+      eu_gewonnen_anzahl: 2,
       kofi_volumen_mio: 6.2,
       grundauftrag_mio: 18.5,
+      geberkonzentration_bmz_anteil_prozent: 71,
     },
     formula_text:
-      "Hauptwert: gewonnene ÷ eingereichte Proposals (rollierend 24 Monate) × 100. Kontext: EU separat; Kofinanzierungsvolumen ÷ Grundauftrag.",
-    worked_example: "8 ÷ 21 = 38 % · EU: 2 ÷ 6 = 33 % · Kofi: 6,2 ÷ 18,5 Mio = 34 %",
+      "Hauptwert: gewonnenes ÷ eingereichtes Volumen × 100, rollierend 24 Monate; offene Proposals zählen weder im Zähler noch im Nenner. Zweitwert: Stückquote (Anzahl). EU gesondert (beide Basen), Kofinanzierung (Kofi-Volumen ÷ Grundauftrag). Geberkonzentration als Kontextzeile ohne Zielwert.",
+    worked_example:
+      "Volumen: 7,9 ÷ 14,6 = 54 % · Stück: 8 ÷ 21 = 38 % · EU: 4,0 ÷ 8,3 = 48 % (Volumen), 2 ÷ 6 = 33 % (Stück) · Kofi: 6,2 ÷ 18,5 = 34 % · Lesart 54 vs. 38: die großen Anträge sitzen, die kleinen nicht.",
     erhebung: {
       owner: "BD",
       cadence: "quartalsweise, rollierend 24 Monate",
@@ -120,6 +124,7 @@ export const KPI_DETAILS: Record<string, KpiDetail> = {
   delivery_quote: {
     raw_schema: ["Position", "Betrag (Mio €)"],
     raw_rows: [
+      ["⚠ Voraussetzung", "Budget-/OP-Struktur muss nach intern-operativ vs. wirkungsbezogen unterteilt sein — heute nicht vorhanden"],
       ["Auftragsmittel gesamt (Jahr)", "24,0"],
       ["davon interne Abwicklung (Kostenstellen lt. eingefrorener Abgrenzung)", "4,8"],
       ["davon Partnerleistung", "19,2"],
@@ -132,25 +137,24 @@ export const KPI_DETAILS: Record<string, KpiDetail> = {
       owner: "Finance",
       cadence: "jährlich",
       methode: "eine Jahreszahl aus der Kostenstellenlogik, nach eingefrorener Abgrenzung",
-      verifizierung: "Abgrenzung interne Abwicklung / Partnerleistung dokumentiert und eingefroren; Vier-Augen-Prüfung durch Finance",
+      verifizierung: "Abgrenzung interne Abwicklung / Partnerleistung dokumentiert und eingefroren; Vier-Augen-Prüfung durch Finance; setzt Voraussetzung 2 (Budgets/OP nach intern-operativ vs. wirkungsbezogen) voraus",
     },
   },
 
   inhouse_beratungsquote: {
     raw_schema: ["Position", "Betrag (Mio €)"],
     raw_rows: [
-      ["Interne Fach-Personalkosten (lt. eingefrorener Rollen-Taxonomie)", "8,2"],
-      ["Externe Consulting-Ausgaben (Vertragsübersichten)", "4,0"],
-      ["Summe Beratungsleistung (Basis)", "12,2"],
+      ["Interne Fach-Personalkosten (Fachrollen lt. Taxonomie, inkl. Mischrollen-Anteile)", "4,8"],
+      ["Externe Consulting-Ausgaben (Unteraufträge lt. Vertragsübersichten)", "2,4"],
+      ["⚠ Voraussetzung", "Rollen-Taxonomie definiert und eingefroren (Voraussetzung 4)"],
     ],
     raw_summary: {
-      interne_fach_personalkosten_mio: 8.2,
-      externe_consulting_mio: 4.0,
-      basis_mio: 12.2,
+      fach_personalkosten_mio: 4.8,
+      consulting_ausgaben_mio: 2.4,
     },
     formula_text:
-      "interne Fach-Personalkosten ÷ (interne Fach-Personalkosten + externe Consulting-Ausgaben) × 100. Euro-Basis, keine Tagessatz-Umrechnung.",
-    worked_example: "8,2 ÷ (8,2 + 4,0) = 8,2 ÷ 12,2 = 67 %",
+      "Interne Fach-Personalkosten ÷ (interne Fach-Personalkosten + externe Consulting-Ausgaben) × 100, beide in Euro. Kein 100%-Ziel — gemessen wird die Substitutionsrichtung.",
+    worked_example: "4,8 ÷ (4,8 + 2,4) = 4,8 ÷ 7,2 = 67 %",
     erhebung: {
       owner: "Finance (mit HR-Rollen-Taxonomie)",
       cadence: "jährlich",
