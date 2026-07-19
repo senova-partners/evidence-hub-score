@@ -13,25 +13,38 @@ export const KPIS: KpiDef[] = [
     id: "wiederbeauftragung",
     pkg: "aussenbeweis",
     name: { de: "Wiederbeauftragungsquote", en: "Repeat commissioning rate" },
-    unit: { de: "%", en: "%" },
+    unit: {
+      de: "% fortgeführtes Volumen (kann > 100 % liegen, wenn Aufstockungen das ursprüngliche Volumen übersteigen)",
+      en: "% continued volume (may exceed 100 % when top-ups exceed the original volume)",
+    },
     unitShort: { de: "%", en: "%" },
     format: "percent",
     direction: "higher_better",
-    nLabel: { de: "n = 28 Aufträge", en: "n = 28 commissions" },
+    nLabel: {
+      de: "Basis: 41,5 Mio € zur Entscheidung stehendes Volumen",
+      en: "Base: EUR 41.5 m volume up for decision",
+    },
+    contextLine: {
+      de: "Kontext: 14 von 28 Aufträgen fortgeführt — Konsolidierung durch Zusammenlegung ist kein Verlust, daher ungewertet.",
+      en: "Context: 14 of 28 commissions continued — consolidation through merging is not a loss and stays unweighted.",
+    },
     info: {
       was: {
-        de: "Anteil der Aufträge, die verlängert, aufgestockt oder mit einem Folgemodul fortgeführt wurden.",
-        en: "Share of commissions extended, expanded or continued with a follow-on module.",
+        de: "Anteil des Auftragsvolumens, das verlängert, aufgestockt oder mit einem Folgemodul fortgeführt wurde, gemessen am insgesamt zur Entscheidung stehenden Volumen.",
+        en: "Share of commission volume that was extended, topped up or continued with a follow-on module, measured against the total volume up for decision.",
       },
       warum: {
-        de: "Der härteste Außenbeweis: Auftraggeber zahlen nach, wo sie überzeugt sind. Wiederbeauftragung ist das Qualitätsurteil, das sich intern nicht schönreden lässt (Loyalitätslogik nach Bain/Reichheld).",
-        en: "The hardest external proof: clients pay again where they are convinced. Repeat commissioning is the quality verdict that cannot be talked away internally (loyalty logic per Bain/Reichheld).",
+        de: "Fortgeführtes und aufgestocktes Auftragsvolumen ist ein Qualitätsurteil der Auftraggeber mit Budgetbindung. Volumen statt Stückzahl, damit gewollte Konsolidierung nicht als Rückgang erscheint.",
+        en: "Continued and topped-up commission volume is a client quality verdict backed by budget. Volume rather than count, so intended consolidation does not read as decline.",
       },
       wie: {
-        de: "Zählung aus der Auftragsübersicht des Jahres, Vier-Augen-Prüfung durch Finance.",
-        en: "Count from the annual commission overview, four-eyes check by Finance.",
+        de: "Erhebung nach Abschluss der jährlichen Regierungskonsultationen, rollierend über 24 Monate bzw. zwei Verhandlungszyklen. Vier-Augen-Prüfung durch Finance gegen Auftragsübersicht.",
+        en: "Recorded after the annual government consultations, rolling over 24 months resp. two negotiation cycles. Four-eyes check by Finance against the commission overview.",
       },
-      verworfen: null,
+      verworfen: {
+        de: "Stückzahl-Quote (bestraft gewollte Konsolidierung) · Kalenderjahres-Messung zum 31.12. (misst den Verhandlungszyklus statt der Qualität) · Herausrechnen exogen ausgelaufener Aufträge (macht den Nenner verhandelbar).",
+        en: "Count-based rate (penalises intended consolidation) · Calendar-year cut-off at 31 Dec (measures the negotiation cycle, not quality) · Excluding commissions that ended for exogenous reasons (makes the denominator negotiable).",
+      },
     },
   },
   {
