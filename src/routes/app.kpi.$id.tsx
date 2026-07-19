@@ -302,3 +302,52 @@ function Stat({ label, value }: { label: string; value: string }) {
     </div>
   );
 }
+
+function MechanismusPanel({ kpi }: { kpi: KpiDef }) {
+  const [viewId, setViewId] = useState<MechanismusView["id"]>("gesamt");
+  const view = MECHANISMUS_VIEWS.find((v) => v.id === viewId) ?? MECHANISMUS_VIEWS[0];
+
+  const preamble = (
+    <div
+      role="tablist"
+      aria-label="Mechanismus-Sichten"
+      className="flex gap-6 hairline-b -mt-4"
+    >
+      {MECHANISMUS_VIEWS.map((v) => {
+        const isActive = v.id === viewId;
+        return (
+          <button
+            key={v.id}
+            role="tab"
+            aria-selected={isActive}
+            onClick={() => setViewId(v.id)}
+            className={
+              "py-2 text-[13px] -mb-px border-b-2 " +
+              (isActive
+                ? "border-[color:var(--foreground)] text-foreground font-semibold"
+                : "border-transparent text-muted-foreground hover:text-foreground")
+            }
+          >
+            {v.label}
+          </button>
+        );
+      })}
+    </div>
+  );
+
+  return (
+    <KpiTabPanel
+      key={view.id}
+      kpi={kpi}
+      preamble={preamble}
+      overrides={{
+        baseline: view.baseline,
+        current: view.current,
+        history: view.history,
+        workedExample: view.workedExample,
+        subtitle: view.definition,
+      }}
+    />
+  );
+}
+
