@@ -9,6 +9,7 @@ import {
   CartesianGrid,
 } from "recharts";
 import type { HistoryPoint } from "@/lib/scorecard/history";
+import { computeYDomain, baselineLabel } from "./trend-chart-scale";
 
 /**
  * Full trend chart for the detail view. Same data source as the card sparkline
@@ -24,16 +25,8 @@ export function TrendChart({
   label: string;
 }) {
   const data = history.map((p) => ({ period: p.period, value: p.value }));
+  const yDomain = computeYDomain(history, baseline);
 
-  // Zoom Y-axis to the actual value range (± 15 % padding), including baseline
-  // if it exists. Otherwise a 66 → 72 % rise disappears against a 0-scale.
-  const nums: number[] = data.map((d) => d.value).filter((v): v is number => v != null);
-  if (baseline !== undefined) nums.push(baseline);
-  const min = Math.min(...nums);
-  const max = Math.max(...nums);
-  const span = Math.max(max - min, 1);
-  const pad = span * 0.15;
-  const yDomain: [number, number] = nums.length ? [min - pad, max + pad] : [0, 1];
 
   return (
     <>
@@ -71,7 +64,7 @@ export function TrendChart({
                 stroke="var(--muted-foreground)"
                 strokeDasharray="4 4"
                 label={{
-                  value: `Baseline ${baseline}`,
+                  value: baselineLabel(baseline),
                   fontSize: 11,
                   fill: "var(--muted-foreground)",
                   position: "insideTopRight",
