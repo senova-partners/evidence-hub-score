@@ -21,21 +21,34 @@ export interface KpiDetail {
 
 export const KPI_DETAILS: Record<string, KpiDetail> = {
   wiederbeauftragung: {
-    raw_schema: ["Auftrag", "Cluster", "Ende", "Status"],
+    raw_schema: ["Auftrag", "Cluster", "Volumen (Mio €)", "Konsultationsjahr", "Status"],
     raw_rows: [
-      ["A-2025-011", "W&E", "2026-03", "verlängert"],
-      ["A-2025-014", "E&T", "2026-05", "aufgestockt"],
-      ["A-2025-019", "GOV", "2026-06", "ausgelaufen"],
-      ["A-2025-021", "W&E", "2026-06", "Folgemodul"],
-      ["A-2025-mehr", "…", "…", "Auszug — vollständige Liste bei JDU/BD"],
+      ["A-2024-007", "W&E", "6,4", "2025", "verlängert"],
+      ["A-2024-011", "GOV", "3,8", "2025", "aufgestockt (+1,2)"],
+      ["A-2024-014", "E&T", "2,9", "2025", "Folgemodul"],
+      ["A-2025-011", "W&E", "5,1", "2026", "verlängert"],
+      ["A-2025-014", "E&T", "4,2", "2026", "aufgestockt (+0,8)"],
+      ["A-2025-019", "GOV", "3,3", "2026", "ausgelaufen"],
+      ["A-2025-021", "W&E", "2,7", "2026", "Folgemodul"],
+      ["… (28 Aufträge gesamt über 2 Konsultationszyklen)", "…", "…", "…", "Auszug — vollständige Liste bei JDU/BD"],
     ],
-    raw_summary: { gesamt: 28, verlaengert: 9, aufgestockt: 3, folgemodul: 2, ausgelaufen: 14 },
-    formula_text: "(verlängert + aufgestockt + Folgemodul) ÷ Aufträge gesamt × 100",
-    worked_example: "(9 + 3 + 2) ÷ 28 = 14 ÷ 28 = 50 %",
+    raw_summary: {
+      volumen_entscheidung_mio: 41.5,
+      volumen_fortgefuehrt_mio: 16.9,
+      volumen_aufstockungen_mio: 2.7,
+      volumen_folgemodul_mio: 2.8,
+      auftraege_gesamt: 28,
+      auftraege_fortgefuehrt: 14,
+    },
+    formula_text:
+      "(fortgeführtes Volumen + Aufstockungen + Folgemodul-Volumen) ÷ zur Entscheidung stehendes Volumen × 100. Rollierendes 24-Monats-Fenster über zwei Verhandlungszyklen; Werte > 100 % zulässig, wenn Aufstockungen das ursprüngliche Volumen übersteigen. Auftragszahlen (gesamt/fortgeführt) laufen als ungewerteter Kontext mit — Konsolidierung ist kein Verlust.",
+    worked_example: "(16,9 + 2,7 + 2,8) ÷ 41,5 = 22,4 ÷ 41,5 = 54 %  ·  Kontext: 14 von 28 Aufträgen fortgeführt",
     erhebung: {
       owner: "JDU / BD",
-      cadence: "quartalsweise, Jahresschluss verbindlich",
-      verifizierung: "Vier-Augen-Prüfung durch Finance gegen Auftragsübersicht",
+      cadence:
+        "jährlich nach Abschluss der Regierungskonsultationen, rollierend über 24 Monate (zwei Verhandlungszyklen); leere Jahre fängt das rollierende Fenster auf",
+      verifizierung:
+        "Vier-Augen-Prüfung durch Finance gegen Auftragsübersicht; Volumina aus Vertragsakten, keine Qualifizierung einzelner Jahre als „zählt nicht“",
     },
   },
 

@@ -1,0 +1,302 @@
+{
+  "meta": {
+    "title": "Expert Powerhouse Scorecard",
+    "version": "1.0",
+    "baseline_period": "2026-Q3",
+    "locale_default": "de-DE",
+    "verdict_rule": {
+      "text": "Paket 1–2 steigen, Paket 3 stabil oder besser.",
+      "logic": "P1_P2_improving_AND_P3_stable_or_better",
+      "incomplete_handling": "Fehlt ein Messpunkt in Paket 1 oder 2, lautet das Verdict 'unvollständig – Meldung fehlt'. Niemals 'erfüllt' bei Lücken. Fehlende Werte werden nie geschätzt."
+    },
+    "display_rules": {
+      "package_label": "nur als Sektionsüberschrift, nicht in der Karte wiederholen",
+      "trend_arrow": "zeigt Verbesserung/Verschlechterung gemäß direction, nicht arithmetisches Vorzeichen",
+      "missing_value": "Karte zeigt '× Meldung fehlt', Wert leer, kein Trend",
+      "meldetreue": "nur im Header (x/12 pünktlich), keine eigene KPI-Karte",
+      "n_label": "je Karte ausschreiben, z.B. 'n = 14 Episoden'"
+    }
+  },
+  "kpis": [
+    {
+      "id": "wiederbeauftragung",
+      "paket": 1,
+      "paket_name": "Außenbeweis",
+      "name": "Wiederbeauftragungsquote",
+      "unit": "% des zur Entscheidung stehenden Volumens",
+      "direction": "higher_better",
+      "cadence": "nach Abschluss der jährlichen Regierungskonsultationen, rollierend 24 Monate",
+      "owner": "JDU / BD",
+      "baseline": 48,
+      "current": 54,
+      "n_label": "Basis: 41,5 Mio € zur Entscheidung (24 M.)",
+      "info": {
+        "was_es_misst": "Anteil des zur Entscheidung stehenden Auftragsvolumens, der fortgeführt, aufgestockt oder in Folgemodule überführt wurde — gemessen in Volumen, nicht Stückzahl, rollierend über zwei Verhandlungszyklen (24 Monate).",
+        "warum": "Fortgeführtes und aufgestocktes Auftragsvolumen ist ein Qualitätsurteil der Auftraggeber mit Budgetbindung. Volumen statt Anzahl, damit Konsolidierung (Zusammenlegung von Projekten) nicht als Verlust zählt; rollierend, weil Beauftragungen gebündelt in den jährlichen Regierungskonsultationen fallen und ein einzelnes Jahr Zyklus misst, nicht Urteil. Aufstockungen können die Quote über 100 % heben — das ist dann eine echte Aussage.",
+        "verifizierung": "Zählung aus der Auftrags- und Kommissionsübersicht nach Abschluss der Verhandlungsrunde; Vier-Augen-Prüfung durch Finance. Keine Qualifizierung einzelner Jahre als \"zählt nicht\" — das rollierende Fenster fängt leere Jahre auf, ohne dass der Nenner verhandelbar wird.",
+        "verworfen": "Geprüft und verworfen: Stückzahl-Quote (bestraft gewollte Konsolidierung); Kalenderjahres-Messung (misst Verhandlungszyklus statt Qualität); Herausrechnen exogen ausgelaufener Aufträge (macht den Nenner zur Verhandlungsmasse)."
+      },
+      "context_line": "Anzahl der Aufträge als Kontextzeile im Detail"
+    },
+    {
+      "id": "kofi_proposal",
+      "paket": 1,
+      "paket_name": "Außenbeweis",
+      "name": "Kofinanzierung & Proposal-Erfolg",
+      "unit": "%",
+      "direction": "higher_better",
+      "cadence": "jährlich, rollierend 24 Monate",
+      "owner": "JDU / BD",
+      "baseline": 33,
+      "current": 38,
+      "n_label": "n = 21 Proposals (EU: 6)",
+      "context_line": "EU gesondert ausgewiesen · Geberkonzentration als Kontextzeile",
+      "info": {
+        "was_es_misst": "Drittmittel im Verhältnis zum Grundauftrag sowie gewonnene vs. eingereichte Angebote, EU gesondert.",
+        "warum": "Externe Zahlungsbereitschaft als Qualitätsurteil. Die Geberkonzentration läuft als Kontext mit: Abhängigkeit von einem Auftraggeber ist ein Strukturrisiko (Übertragung der Client-Concentration-Logik aus der Beratungspraxis).",
+        "verifizierung": "BD-Übersicht, rollierend über 24 Monate wegen kleiner Fallzahlen.",
+        "verworfen": null
+      }
+    },
+    {
+      "id": "partner_delta",
+      "paket": 1,
+      "paket_name": "Außenbeweis",
+      "name": "Partner-Delta",
+      "unit": "Saldo besser − schlechter",
+      "direction": "higher_better",
+      "cadence": "jährlich",
+      "owner": "JDU",
+      "baseline": 0,
+      "current": 5,
+      "n_label": "n = 10 Schlüsselpartner",
+      "info": {
+        "was_es_misst": "Jährlich dieselben ~10 Schlüsselpartner, zwei Veränderungsfragen: Ist die GIZ schneller geworden? Ist der fachliche Rat besser geworden? (besser / gleich / schlechter) plus die ungestützte Expertise-Frage: Wofür würden Sie GIZ Jordan von sich aus um Rat fragen?",
+        "warum": "Veränderungsfragen tragen den Vergleich in sich und brauchen keine Baseline. Die ungestützte Frage testet, ob das Expert Powerhouse außen existiert, nicht nur innen (Markenlogik: ungestützte Assoziation, Keller).",
+        "verifizierung": "Standardisierter Gesprächsleitfaden, gleiche Partnerliste über die Jahre, dokumentiert je Gespräch.",
+        "verworfen": null
+      }
+    },
+    {
+      "id": "delivery_quote",
+      "paket": 1,
+      "paket_name": "Außenbeweis",
+      "name": "Delivery-Quote",
+      "unit": "%",
+      "direction": "higher_better",
+      "cadence": "jährlich",
+      "owner": "Finance",
+      "baseline": 78,
+      "current": 80,
+      "n_label": "Basis: Auftragsbudgets gesamt",
+      "info": {
+        "was_es_misst": "Anteil der Auftragsmittel, der in Partnerleistung fließt, statt sich in interner Abwicklung zu verbrauchen.",
+        "warum": "Die Non-Profit-Übersetzung der Marge: 'aus weniger mehr' wörtlich genommen – mehr vom selben Geld kommt beim Partner an. Klare Handlungsrichtung: Reibung senken, genau der Machine-Room-Auftrag.",
+        "verifizierung": "Kostenstellenabgrenzung 'interne Abwicklung' einmalig durch Finance definiert, dokumentiert und eingefroren; danach eine Jahreszahl.",
+        "verworfen": "Geprüft und verworfen: VZE/Umsatz (misst Portfoliomix und verwaltetes Volumen, belohnt Auslagerung, bestraft die gewollte Verschiebung zu mehr Beratung) und Overhead-Quote (zentral gesetzt, kein beweglicher Wert)."
+      }
+    },
+    {
+      "id": "partnerbogen",
+      "paket": 2,
+      "paket_name": "Beratungsqualität",
+      "name": "Partnerbogen-Score",
+      "unit": "1–5",
+      "direction": "higher_better",
+      "cadence": "je Beratungsepisode",
+      "owner": "AV löst aus, Steward konsolidiert",
+      "baseline": 3.6,
+      "current": 3.9,
+      "n_label": "n = 14 Episoden · Rücklauf 63 %",
+      "context_line": "Score ohne Rücklaufquote ungültig",
+      "info": {
+        "was_es_misst": "Fünf Fragen an den Partner nach jeder abgeschlossenen Beratungsepisode; erste Frage: Hat die Beratung unser Problem adressiert – oder das des Beraters?",
+        "warum": "Partner beurteilen das Erlebnis, nicht die Substanz (Maister: Zufriedenheit = Wahrnehmung minus Erwartung). Problem-Fit vor Ergebnisbeurteilung (Levishchenko 2020). Zufriedenheit allein belegt keine Wirkung (Hershock 2021) – deshalb steht dieser Score nie allein, sondern neben Uptake und Peer-Review.",
+        "verifizierung": "Standardbogen, zwei Minuten, tokenisierter Einmal-Link je Episode; kritische Werte (< 3,0) lösen Closed-Loop-Nachfassen binnen 14 Tagen aus.",
+        "verworfen": null
+      }
+    },
+    {
+      "id": "uptake",
+      "paket": 2,
+      "paket_name": "Beratungsqualität",
+      "name": "Uptake-Quote (6 Monate)",
+      "unit": "% umgesetzt oder angepasst",
+      "direction": "higher_better",
+      "cadence": "6 Monate nach Episodenabschluss",
+      "owner": "AV, aus der Wiedervorlage-Queue",
+      "baseline": 42,
+      "current": 55,
+      "n_label": "n = 11 Episoden fällig",
+      "info": {
+        "was_es_misst": "Sechs Monate nach jeder Beratungsepisode: Empfehlung umgesetzt, angepasst übernommen oder nicht genutzt – plus ein Satz warum. Angepasste Übernahme zählt als Erfolg: Der Partner hat sich den Rat angeeignet.",
+        "warum": "Die härteste Qualitätszahl der Beratung: Ein Rat, der nicht verwendet wird, hatte keine Qualität. Implementierungsverfolgung gilt in der Forschung als eigenständige Messgröße (Levishchenko 2020; Ahouandjinou 2026). Genau diese Frage stellt das Programm-M&E strukturell nie – es misst Wirkungen, nicht die Verwendung von Rat.",
+        "verifizierung": "Kalendergetriggerte Wiedervorlage aus dem Episodenregister; Partner- und AV-Angabe gegeneinander; Warum-Sätze gehen an die Evidence & ToC Engine.",
+        "verworfen": null
+      }
+    },
+    {
+      "id": "peer_review",
+      "paket": 2,
+      "paket_name": "Beratungsqualität",
+      "name": "Peer-Review-Rating",
+      "unit": "1–5",
+      "direction": "higher_better",
+      "cadence": "halbjährlich",
+      "owner": "Cross-Cluster-Panel",
+      "baseline": 2.9,
+      "current": null,
+      "n_label": "n = 6 Produkte je Halbjahr",
+      "status": "missing",
+      "info": {
+        "was_es_misst": "Zwei Beratungsprodukte je Cluster und Halbjahr, bewertet nach fünf Kriterien: Evidenzbasis, Problemschärfe, Kontextpassung, Umsetzbarkeit, Klarheit – mit Pflicht-Begründungssatz je Kriterium.",
+        "warum": "Das Fachurteil als strukturierte Stichprobe. Primär ein Standardsetzungs-Instrument: Das Kriterienraster definiert erstmals, was gute Beratung bei GIZ Jordan heißt. Deklariert als Richtungssignal, nicht als Kennzahl im statistischen Sinn – die Fallzahl ist dafür zu klein, und das sagen wir offen.",
+        "verifizierung": "Zufallsauswahl durch den Steward aus dem Episodenregister – die bewertete Einheit wählt nie selbst (kein Rosinenpicken). Bögen archiviert.",
+        "verworfen": null
+      }
+    },
+    {
+      "id": "mechanismus",
+      "paket": 2,
+      "paket_name": "Beratungsqualität",
+      "name": "Mechanismus-Beteiligung",
+      "unit": "% Episoden mit Struktur-Beteiligung",
+      "direction": "higher_better",
+      "cadence": "je Beratungsepisode",
+      "owner": "AV im Episodenbogen",
+      "baseline": 34,
+      "current": 48,
+      "n_label": "n = 14 Episoden",
+      "info": {
+        "was_es_misst": "Je Episode zwei Ja/Nein-Felder: Wurde ein Practice-Produkt genutzt? Hat der Machine Room zugearbeitet?",
+        "warum": "Verbindet Qualität mit Struktur: Steigen die Qualitätswerte besonders dort, wo die Struktur beteiligt war, ist der Zusammenhang belegbar – steigen sie überall gleich, war es gute Arbeit, nicht das Powerhouse. Inkrementalitätslogik statt Kausalbehauptung (Arman 2026); Implementierung und Verbesserung getrennt belegen (Raineri 2011).",
+        "verifizierung": "Zwei Felder im ohnehin ausgefüllten Episodenbogen; Plausibilisierung gegen die Anfragenlisten der Practices.",
+        "verworfen": null
+      }
+    },
+    {
+      "id": "fachzeit",
+      "paket": 3,
+      "paket_name": "Struktur-Effizienz",
+      "name": "Fachzeit-Quote",
+      "unit": "% Fachzeit",
+      "direction": "higher_better",
+      "cadence": "halbjährlich (2-Wochen-Protokoll)",
+      "owner": "AVs, nur Team-Aggregate",
+      "baseline": 66,
+      "current": 72,
+      "n_label": "n = 9 Teams (aggregiert, n ≥ 5)",
+      "scharnier": true,
+      "info": {
+        "was_es_misst": "Anteil der Expertenzeit für fachliche Arbeit statt Administration; zweiwöchige Selbstprotokollierung, gemeldet ausschließlich als Team-Aggregat.",
+        "warum": "Die Scharnierzahl: Sie erklärt den Mechanismus, warum aus weniger mehr wird – die Struktur gibt Expertenzeit für Expertenarbeit frei. Ohne sie sind Qualität und Effizienz zwei unverbundene Behauptungen (Maister: Health- vor Hygiene-Faktoren; BCG: Reibung an Schnittstellen als größter Leistungsverlust). Keine individuelle Auslastungsmessung – Mitbestimmung, nur Aggregate ab n ≥ 5, keine Anreizkopplung.",
+        "verifizierung": "Standardprotokoll; Sprünge > 30 % gegen Vorperiode werden vom Steward rückgefragt.",
+        "verworfen": "Geprüft und verworfen: individuelle Auslastung als Steuerungsgröße (Hygiene-Falle, mitbestimmungswidrig)."
+      }
+    },
+    {
+      "id": "testvorgang",
+      "paket": 3,
+      "paket_name": "Struktur-Effizienz",
+      "name": "Testvorgang",
+      "unit": "Kalendertage",
+      "direction": "lower_better",
+      "cadence": "quartalsweise",
+      "owner": "Steward",
+      "baseline": 21,
+      "current": 17,
+      "n_label": "1 identischer Vorgang je Quartal · 6 beteiligte Personen (Baseline 9)",
+      "info": {
+        "was_es_misst": "Ein identisch spezifizierter Vorgang (z. B. dieselbe Beschaffungsanfrage) läuft quartalsweise durchs System; gemessen werden Kalendertage bis Erledigung und Anzahl beteiligter Personen.",
+        "warum": "Weil die Anforderung konstant ist, ist jede Veränderung Struktureffekt – der interne Vergleichsmaßstab, den wir ohne Kontrollgruppe sonst nicht haben (Pre/Post-Logik).",
+        "verifizierung": "Spezifikation schriftlich fixiert und eingefroren – sie wird nie angepasst (Goodhart-Disziplin); Steward dokumentiert Zeitstempel je Station.",
+        "verworfen": "First-Time-Right-Quote als separater KPI gestrichen: Überlappung – beide messen Prozessreibung."
+      }
+    },
+    {
+      "id": "abflusstreue",
+      "paket": 3,
+      "paket_name": "Struktur-Effizienz",
+      "name": "Abflusstreue",
+      "unit": "% Ist vs. Plan",
+      "direction": "higher_better",
+      "cadence": "jährlich, quartalsweise Zwischenstand",
+      "owner": "Controlling",
+      "baseline": 84,
+      "current": 89,
+      "n_label": "Basis: Portfolio-Planabfluss",
+      "info": {
+        "was_es_misst": "Ist-Abfluss gegen Plan-Abfluss; Restmittelquote zum Jahresende als Zusatzangabe.",
+        "warum": "Lokal steuerbare Effizienz in der Sprache von BMZ und Zentrale. Misst das Machine-Room-Versprechen direkt: Planbarkeit und Umsetzungsgeschwindigkeit statt Jahresend-Hektik und Mittelrückgabe.",
+        "verifizierung": "Eine Zahl aus dem Controlling-Bericht.",
+        "verworfen": "Ersatz für die verworfene Overhead-Quote: Diese ist in der GIZ administrativ gesetzt und für uns kein beweglicher Wert."
+      }
+    },
+    {
+      "id": "schmerzpunkt",
+      "paket": 3,
+      "paket_name": "Struktur-Effizienz",
+      "name": "Schmerzpunkt-Wiedervorlage",
+      "unit": "Ø 1 (gelöst) – 5 (unverändert)",
+      "direction": "lower_better",
+      "cadence": "jährlich",
+      "owner": "BT 3",
+      "baseline": 3.2,
+      "current": 2.7,
+      "n_label": "n = 3 Cluster-Listen, identischer Teilnehmerkreis",
+      "info": {
+        "was_es_misst": "Die dokumentierten Wünsche aus dem Reach-In werden nach zwölf Monaten denselben Delegationen identisch wiedervorgelegt: Wie sehr ist das heute noch ein Problem? Neue Schmerzpunkte als offenes Zusatzfeld.",
+        "warum": "Die Transformation misst sich an ihren eigenen Ausgangsschmerzen. Die Baseline entsteht im Reach-In kostenlos mit – und es ist das sichtbarste Versprechen an die Teams: Eure Beiträge verschwinden nicht.",
+        "verifizierung": "Identische Liste, identischer Teilnehmerkreis, dokumentiert durch BT 3.",
+        "verworfen": null
+      }
+    }
+  ],
+  "not_measured": {
+    "title": "Bewusst nicht gemessen",
+    "items": [
+      "Individuelle Auslastung als Steuerungsgröße (Hygiene-Falle, mitbestimmungswidrig)",
+      "Aktivitätszahlen (Meetings, Trainings) – messen Beschäftigung, nicht Wirkung",
+      "NPS als alleinstehender Score – instabil bei kleinen Stichproben, keine Handlungsrichtung",
+      "Keine Kennzahl ist an individuelle Anreize gekoppelt (Goodhart)"
+    ],
+    "rejected": [
+      {
+        "kpi": "VZE zu Umsatz",
+        "grund": "substitutionsanfällig (Auslagerung an Consultants verbessert die Zahl), misst Portfoliomix statt Effizienz, bestraft die gewollte Verschiebung zu mehr Beratung"
+      },
+      {
+        "kpi": "Personaleinsatz gesamt je Umsatz",
+        "grund": "auch repariert: Umsatz ist in der EZ durchgeleitetes Volumen, kein Wertmaß; keine legitime Handlungsrichtung"
+      },
+      {
+        "kpi": "Overhead-Quote",
+        "grund": "administrativ von der GIZ-Zentrale gesetzt, kein beweglicher Wert, kein Benchmark"
+      },
+      {
+        "kpi": "First-Time-Right als eigener KPI",
+        "grund": "Überlappung mit dem Testvorgang; bleibt als optionale Diagnostik-Strichliste"
+      }
+    ]
+  },
+  "diagnostik_context": [
+    {
+      "id": "eigenleistung",
+      "name": "Eigenleistungsquote",
+      "role": "Kontextzeile ohne Zielwert – erklärt Bewegungen der Delivery-Quote, wird nicht gesteuert",
+      "display": "grau, kein Trendpfeil, keine Karte"
+    },
+    {
+      "id": "geberkonzentration",
+      "name": "Geberkonzentration (BMZ-Anteil)",
+      "role": "Risiko-Kontext zu Kofi/Proposal",
+      "display": "Kontextzeile in Karte kofi_proposal"
+    },
+    {
+      "id": "evidenzbank",
+      "name": "Evidenzbank",
+      "role": "qualitative Fallbelege ('wäre letztes Jahr nicht gegangen') – eigene Seite, keine KPI-Karte, kein Trend",
+      "display": "Liste mit Cluster, Datum, geschätzter Ersparnis"
+    }
+  ]
+}
