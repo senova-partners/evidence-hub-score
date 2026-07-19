@@ -115,7 +115,7 @@ function seed(): Store {
     peer_review: 2.9,
     mechanismus: 34,
     fachzeit: 66,
-    inhouse_beratungsquote: 64,
+    inhouse_beratungsquote: 40,
     berater_vze_anteil: 58,
     testvorgang: 21,
     abflusstreue: 84,
