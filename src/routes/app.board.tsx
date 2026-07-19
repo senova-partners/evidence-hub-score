@@ -1,9 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useStore, type Store } from "@/lib/scorecard/store";
-import { KPIS, PKG_LABEL } from "@/lib/scorecard/kpis";
+import { KPIS, PKG_LABEL, kpiById } from "@/lib/scorecard/kpis";
 import { KpiCard } from "@/components/scorecard/KpiCard";
 import { VerdictBadge } from "@/components/scorecard/VerdictBadge";
-import { computeVerdict, meldetreue } from "@/lib/scorecard/verdict";
+import { computeVerdict, meldetreue, boardKpis } from "@/lib/scorecard/verdict";
 import { useT, useLocale } from "@/lib/scorecard/useT";
 
 export const Route = createFileRoute("/app/board")({
@@ -18,10 +18,13 @@ function Board() {
   const verdict = computeVerdict(store, session.quarter);
   const mt = meldetreue(store, session.quarter);
 
+  const visible = boardKpis();
   const grouped = (["aussenbeweis", "beratungsqualitaet", "struktur"] as const).map((pkg) => ({
     pkg,
-    kpis: KPIS.filter((k) => k.pkg === pkg),
+    kpis: visible.filter((k) => k.pkg === pkg),
   }));
+  // Silence unused warning; KPIS/kpiById remain re-exportable for other views.
+  void KPIS; void kpiById;
 
   return (
     <div className="flex flex-col gap-8">

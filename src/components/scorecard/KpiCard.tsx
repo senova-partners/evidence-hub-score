@@ -3,6 +3,7 @@ import { kpiById, formatValue, formatDelta } from "@/lib/scorecard/kpis";
 import { trend } from "@/lib/scorecard/verdict";
 import { useT, useLocale } from "@/lib/scorecard/useT";
 import { InfoPanel } from "./InfoPanel";
+import { useStore, type Store } from "@/lib/scorecard/store";
 import type { KpiValue } from "@/lib/scorecard/types";
 
 const trendGlyph = { up: "↑", down: "↓", flat: "→", missing: "✕" } as const;
@@ -98,6 +99,9 @@ export function KpiCard({
         )}
       </div>
 
+      {/* Secondary KPI (embedded in same card, e.g. Delivery-Quote inside Freigesetzte Ressourcen) */}
+      {kpi.secondaryKpiId && <SecondaryLine primaryQuarter={value?.quarter} secondaryId={kpi.secondaryKpiId} />}
+
       {/* Row 4 — Footer */}
       <div className="flex items-center gap-2 text-[12px]">
         <span
@@ -112,6 +116,31 @@ export function KpiCard({
           {flagged ? ` · ${t("flagged")}` : ""}
         </span>
       </div>
+    </div>
+  );
+}
+
+function SecondaryLine({ primaryQuarter, secondaryId }: { primaryQuarter?: string; secondaryId: string }) {
+  const locale = useLocale();
+  const store = useStore((s: Store) => s);
+  const kpi = kpiById(secondaryId);
+  if (!kpi) return null;
+  const q = primaryQuarter ?? store.session?.quarter;
+  const v = q ? store.values[secondaryId]?.[q]?.value ?? null : null;
+  const b = store.baselines[secondaryId];
+  const tr = trend(secondaryId, v, b);
+  const glyph = tr === "up" ? "↑" : tr === "down" ? "↓" : tr === "flat" ? "→" : "✕";
+  return (
+    <div className="text-[11px] hairline-t pt-2 flex items-baseline gap-2">
+      <span className="text-muted-foreground uppercase tracking-wide text-[10px] shrink-0">
+        {locale === "de" ? "Zweitwert" : "Secondary"} · {kpi.name[locale]}
+      </span>
+      <span className="tabular-nums font-semibold ml-auto">
+        {v === null ? "—" : formatValue(v, kpi, locale)}
+      </span>
+      <span aria-hidden className="text-muted-foreground tabular-nums text-[10px]">
+        {glyph} {formatDelta(v, b, kpi, locale)}
+      </span>
     </div>
   );
 }

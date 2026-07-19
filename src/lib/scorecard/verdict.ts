@@ -47,20 +47,29 @@ export function trend(
  *   - Sonst: Paket 1 UND Paket 2 mehrheitlich steigend UND Paket 3 stabil/besser → "erfüllt".
  *   - Sonst: "nicht_erfuellt".
  */
+export function boardKpis() {
+  // KPIs shown on the board grid: exclude diagnostik-only and secondary-embedded.
+  const secondaries = new Set(
+    KPIS.map((k) => k.secondaryKpiId).filter(Boolean) as string[],
+  );
+  return KPIS.filter((k) => !k.diagnostik && !secondaries.has(k.id));
+}
+
 export function computeVerdict(store: Store, quarter: string): Verdict {
-  const missingBaseline = KPIS.some((k) => store.baselines[k.id] === undefined);
+  const active = boardKpis();
+  const missingBaseline = active.some((k) => store.baselines[k.id] === undefined);
   if (missingBaseline) return "baseline_fehlt";
 
-  const missingP1P2 = KPIS.filter(
-    (k) => k.pkg === "aussenbeweis" || k.pkg === "beratungsqualitaet",
-  ).some((k) => {
-    const v = store.values[k.id]?.[quarter]?.value;
-    return v === null || v === undefined;
-  });
+  const missingP1P2 = active
+    .filter((k) => k.pkg === "aussenbeweis" || k.pkg === "beratungsqualitaet")
+    .some((k) => {
+      const v = store.values[k.id]?.[quarter]?.value;
+      return v === null || v === undefined;
+    });
   if (missingP1P2) return "unvollstaendig";
 
   const packageRising = (pkg: "aussenbeweis" | "beratungsqualitaet") => {
-    const kpis = KPIS.filter((k) => k.pkg === pkg);
+    const kpis = active.filter((k) => k.pkg === pkg);
     const rep = kpis
       .map((k) => ({ k, v: store.values[k.id]?.[quarter]?.value ?? null }))
       .filter((x) => x.v !== null);
@@ -72,7 +81,7 @@ export function computeVerdict(store: Store, quarter: string): Verdict {
   };
 
   const packageStableOrBetter = () => {
-    const kpis = KPIS.filter((k) => k.pkg === "struktur");
+    const kpis = active.filter((k) => k.pkg === "struktur");
     const rep = kpis
       .map((k) => ({ k, v: store.values[k.id]?.[quarter]?.value ?? null }))
       .filter((x) => x.v !== null);
@@ -90,16 +99,14 @@ export function computeVerdict(store: Store, quarter: string): Verdict {
   return ok ? "erfuellt" : "nicht_erfuellt";
 }
 
-/**
- * Meldetreue-Header: wie viele der 12 KPIs haben in diesem Quartal einen Wert?
- * Denominator ist immer KPIS.length (12), konsistent zum tatsächlichen Set.
- */
+/** Meldetreue: wie viele der aktiven Board-KPIs haben in diesem Quartal einen Wert? */
 export function meldetreue(
   store: Store,
   quarter: string,
 ): { onTime: number; total: number } {
-  const total = KPIS.length;
-  const onTime = KPIS.filter((k) => {
+  const active = boardKpis();
+  const total = active.length;
+  const onTime = active.filter((k) => {
     const v = store.values[k.id]?.[quarter];
     return v && v.value !== null && v.value !== undefined && v.reported;
   }).length;

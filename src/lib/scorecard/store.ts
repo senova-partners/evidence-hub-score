@@ -40,7 +40,7 @@ export interface Store {
   lockedQuarters: string[];
 }
 
-const KEY = "giz-scorecard-v5";
+const KEY = "giz-scorecard-v6";
 type Listener = () => void;
 const listeners = new Set<Listener>();
 

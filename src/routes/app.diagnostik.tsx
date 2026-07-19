@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useStore, type Store } from "@/lib/scorecard/store";
-import { KPIS, formatValue, formatDelta } from "@/lib/scorecard/kpis";
+import { KPIS, formatValue, formatDelta, kpiById } from "@/lib/scorecard/kpis";
 import { useT, useLocale } from "@/lib/scorecard/useT";
 import { trend } from "@/lib/scorecard/verdict";
 import { PIPELINE_STAGES, conversion } from "@/lib/scorecard/pipeline";
@@ -15,12 +15,21 @@ function Diagnostik() {
   const t = useT();
   const locale = useLocale();
 
-  const rows = KPIS.map((k) => {
+  const diagnostikKpis = KPIS.filter((k) => k.diagnostik).map((k) => {
     const v = store.values[k.id]?.[q]?.value ?? null;
     const b = store.baselines[k.id];
-    const tr = trend(k.id, v, b);
-    return { k, v, b, tr };
-  }).filter((r) => r.tr === "down" || r.tr === "missing");
+    return { k, v, b, tr: trend(k.id, v, b) };
+  });
+
+  const rows = KPIS.filter((k) => !k.diagnostik)
+    .map((k) => {
+      const v = store.values[k.id]?.[q]?.value ?? null;
+      const b = store.baselines[k.id];
+      const tr = trend(k.id, v, b);
+      return { k, v, b, tr };
+    })
+    .filter((r) => r.tr === "down" || r.tr === "missing");
+  void kpiById;
 
   return (
     <div className="flex flex-col gap-10">
@@ -32,6 +41,47 @@ function Diagnostik() {
             : "Deviations only. Context rows show where the test clamps."}
         </p>
       </div>
+
+      {/* Demoted diagnostik rows: Testvorgang & Abflusstreue (immer sichtbar, kein Beweis) */}
+      {diagnostikKpis.length > 0 && (
+        <section className="flex flex-col gap-3">
+          <div>
+            <div className="text-[12px] uppercase tracking-wide text-muted-foreground">
+              {locale === "de" ? "Diagnostik · kein Beweis-KPI" : "Diagnostic · not a proof KPI"}
+            </div>
+            <h2 className="text-[16px] font-semibold mt-1">
+              {locale === "de" ? "Prozess-Kontext" : "Process context"}
+            </h2>
+          </div>
+          <table className="w-full text-[13px]">
+            <thead>
+              <tr className="hairline-b text-left text-[12px] text-muted-foreground uppercase tracking-wide">
+                <th className="py-2">KPI</th>
+                <th className="py-2 text-right">{q}</th>
+                <th className="py-2 text-right">Baseline</th>
+                <th className="py-2 text-right">Δ</th>
+                <th className="py-2 pl-4">Trend</th>
+              </tr>
+            </thead>
+            <tbody>
+              {diagnostikKpis.map(({ k, v, b, tr }) => (
+                <tr key={k.id} className="hairline-b">
+                  <td className="py-2">{k.name[locale]}</td>
+                  <td className="py-2 text-right tabular-nums">{formatValue(v, k, locale)}</td>
+                  <td className="py-2 text-right tabular-nums text-muted-foreground">
+                    {formatValue(b ?? null, k, locale)}
+                  </td>
+                  <td className="py-2 text-right tabular-nums">{formatDelta(v, b, k, locale)}</td>
+                  <td className="py-2 pl-4" aria-hidden>
+                    {tr === "up" ? "↑" : tr === "down" ? "↓" : tr === "flat" ? "→" : "✕"}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </section>
+      )}
+
 
       {rows.length === 0 ? (
         <div className="hairline p-6 text-[14px] text-muted-foreground">
