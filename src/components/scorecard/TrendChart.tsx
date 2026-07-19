@@ -8,29 +8,31 @@ import {
   ResponsiveContainer,
   CartesianGrid,
 } from "recharts";
+import type { HistoryPoint } from "@/lib/scorecard/history";
 
-interface Point {
-  quarter: string;
-  value: number | null;
-}
-
+/**
+ * Full trend chart for the detail view. Same data source as the card sparkline
+ * (KPI_HISTORY), but with axes, baseline reference line and point labels.
+ */
 export function TrendChart({
-  data,
+  history,
   baseline,
   label,
 }: {
-  data: Point[];
+  history: HistoryPoint[];
   baseline: number | undefined;
   label: string;
 }) {
+  const data = history.map((p) => ({ period: p.period, value: p.value }));
+
   return (
     <>
       <div className="w-full h-64" aria-hidden>
         <ResponsiveContainer>
-          <LineChart data={data} margin={{ top: 12, right: 16, left: 8, bottom: 8 }}>
+          <LineChart data={data} margin={{ top: 12, right: 24, left: 8, bottom: 8 }}>
             <CartesianGrid stroke="var(--hairline)" vertical={false} />
             <XAxis
-              dataKey="quarter"
+              dataKey="period"
               stroke="var(--muted-foreground)"
               tick={{ fontSize: 12 }}
               tickLine={false}
@@ -56,7 +58,12 @@ export function TrendChart({
                 y={baseline}
                 stroke="var(--muted-foreground)"
                 strokeDasharray="4 4"
-                label={{ value: "Baseline", fontSize: 11, fill: "var(--muted-foreground)", position: "insideTopRight" }}
+                label={{
+                  value: "Baseline",
+                  fontSize: 11,
+                  fill: "var(--muted-foreground)",
+                  position: "insideTopRight",
+                }}
               />
             )}
             <Line
@@ -66,25 +73,25 @@ export function TrendChart({
               strokeWidth={1.5}
               dot={{ r: 3, fill: "var(--foreground)" }}
               activeDot={{ r: 4 }}
-              connectNulls
+              label={{ position: "top", fontSize: 11, fill: "var(--foreground)" }}
+              connectNulls={false}
             />
           </LineChart>
         </ResponsiveContainer>
       </div>
 
-      {/* Screen-reader fallback */}
       <table className="sr-only">
         <caption>{label}</caption>
         <thead>
           <tr>
-            <th>Quarter</th>
+            <th>Period</th>
             <th>Value</th>
           </tr>
         </thead>
         <tbody>
           {data.map((p) => (
-            <tr key={p.quarter}>
-              <td>{p.quarter}</td>
+            <tr key={p.period}>
+              <td>{p.period}</td>
               <td>{p.value ?? "missing"}</td>
             </tr>
           ))}

@@ -1,7 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useStore, QUARTERS, type Store } from "@/lib/scorecard/store";
+import { useStore, type Store } from "@/lib/scorecard/store";
 import { kpiById, PKG_LABEL, formatValue, formatDelta } from "@/lib/scorecard/kpis";
 import { kpiDetail } from "@/lib/scorecard/kpi-details";
+import { kpiHistory } from "@/lib/scorecard/history";
 import { TrendChart } from "@/components/scorecard/TrendChart";
 import { InfoPanel } from "@/components/scorecard/InfoPanel";
 import { useT, useLocale } from "@/lib/scorecard/useT";
@@ -23,10 +24,7 @@ function KpiDetail() {
   const detail = kpiDetail(id);
 
   const baseline = store.baselines[id];
-  const data = QUARTERS.map((q) => ({
-    quarter: q,
-    value: store.values[id]?.[q]?.value ?? null,
-  }));
+  const history = kpiHistory(id);
   const current = store.values[id]?.[store.session!.quarter]?.value ?? null;
   const tr = trend(id, current, baseline);
 
@@ -57,7 +55,7 @@ function KpiDetail() {
 
       {/* VERLAUF */}
       <Section title="Verlauf">
-        <TrendChart data={data} baseline={baseline} label={kpi.name[locale]} />
+        <TrendChart history={history} baseline={baseline} label={kpi.name[locale]} />
       </Section>
 
       {/* ERHEBUNG */}
