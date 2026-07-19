@@ -9,15 +9,30 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as AppRouteImport } from './routes/app'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as PartnerTokenRouteImport } from './routes/partner.$token'
+import { Route as AppUptakeRouteImport } from './routes/app.uptake'
+import { Route as AppStewardRouteImport } from './routes/app.steward'
+import { Route as AppReviewRouteImport } from './routes/app.review'
+import { Route as AppPeerReviewRouteImport } from './routes/app.peer-review'
 import { Route as AppNichtGemessenRouteImport } from './routes/app.nicht-gemessen'
+import { Route as AppMeldungRouteImport } from './routes/app.meldung'
 import { Route as AppExportRouteImport } from './routes/app.export'
 import { Route as AppEvidenzbankRouteImport } from './routes/app.evidenzbank'
+import { Route as AppEpisodenRouteImport } from './routes/app.episoden'
 import { Route as AppDiagnostikRouteImport } from './routes/app.diagnostik'
+import { Route as AppClosedLoopRouteImport } from './routes/app.closed-loop'
 import { Route as AppBoardRouteImport } from './routes/app.board'
+import { Route as AppMeldungHistorieRouteImport } from './routes/app.meldung.historie'
 import { Route as AppKpiIdRouteImport } from './routes/app.kpi.$id'
 
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AppRoute = AppRouteImport.update({
   id: '/app',
   path: '/app',
@@ -28,9 +43,39 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PartnerTokenRoute = PartnerTokenRouteImport.update({
+  id: '/partner/$token',
+  path: '/partner/$token',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppUptakeRoute = AppUptakeRouteImport.update({
+  id: '/uptake',
+  path: '/uptake',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppStewardRoute = AppStewardRouteImport.update({
+  id: '/steward',
+  path: '/steward',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppReviewRoute = AppReviewRouteImport.update({
+  id: '/review',
+  path: '/review',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppPeerReviewRoute = AppPeerReviewRouteImport.update({
+  id: '/peer-review',
+  path: '/peer-review',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppNichtGemessenRoute = AppNichtGemessenRouteImport.update({
   id: '/nicht-gemessen',
   path: '/nicht-gemessen',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppMeldungRoute = AppMeldungRouteImport.update({
+  id: '/meldung',
+  path: '/meldung',
   getParentRoute: () => AppRoute,
 } as any)
 const AppExportRoute = AppExportRouteImport.update({
@@ -43,15 +88,30 @@ const AppEvidenzbankRoute = AppEvidenzbankRouteImport.update({
   path: '/evidenzbank',
   getParentRoute: () => AppRoute,
 } as any)
+const AppEpisodenRoute = AppEpisodenRouteImport.update({
+  id: '/episoden',
+  path: '/episoden',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppDiagnostikRoute = AppDiagnostikRouteImport.update({
   id: '/diagnostik',
   path: '/diagnostik',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppClosedLoopRoute = AppClosedLoopRouteImport.update({
+  id: '/closed-loop',
+  path: '/closed-loop',
   getParentRoute: () => AppRoute,
 } as any)
 const AppBoardRoute = AppBoardRouteImport.update({
   id: '/board',
   path: '/board',
   getParentRoute: () => AppRoute,
+} as any)
+const AppMeldungHistorieRoute = AppMeldungHistorieRouteImport.update({
+  id: '/historie',
+  path: '/historie',
+  getParentRoute: () => AppMeldungRoute,
 } as any)
 const AppKpiIdRoute = AppKpiIdRouteImport.update({
   id: '/kpi/$id',
@@ -62,74 +122,143 @@ const AppKpiIdRoute = AppKpiIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/app': typeof AppRouteWithChildren
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/app/board': typeof AppBoardRoute
+  '/app/closed-loop': typeof AppClosedLoopRoute
   '/app/diagnostik': typeof AppDiagnostikRoute
+  '/app/episoden': typeof AppEpisodenRoute
   '/app/evidenzbank': typeof AppEvidenzbankRoute
   '/app/export': typeof AppExportRoute
+  '/app/meldung': typeof AppMeldungRouteWithChildren
   '/app/nicht-gemessen': typeof AppNichtGemessenRoute
+  '/app/peer-review': typeof AppPeerReviewRoute
+  '/app/review': typeof AppReviewRoute
+  '/app/steward': typeof AppStewardRoute
+  '/app/uptake': typeof AppUptakeRoute
+  '/partner/$token': typeof PartnerTokenRoute
   '/app/kpi/$id': typeof AppKpiIdRoute
+  '/app/meldung/historie': typeof AppMeldungHistorieRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/app': typeof AppRouteWithChildren
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/app/board': typeof AppBoardRoute
+  '/app/closed-loop': typeof AppClosedLoopRoute
   '/app/diagnostik': typeof AppDiagnostikRoute
+  '/app/episoden': typeof AppEpisodenRoute
   '/app/evidenzbank': typeof AppEvidenzbankRoute
   '/app/export': typeof AppExportRoute
+  '/app/meldung': typeof AppMeldungRouteWithChildren
   '/app/nicht-gemessen': typeof AppNichtGemessenRoute
+  '/app/peer-review': typeof AppPeerReviewRoute
+  '/app/review': typeof AppReviewRoute
+  '/app/steward': typeof AppStewardRoute
+  '/app/uptake': typeof AppUptakeRoute
+  '/partner/$token': typeof PartnerTokenRoute
   '/app/kpi/$id': typeof AppKpiIdRoute
+  '/app/meldung/historie': typeof AppMeldungHistorieRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/app': typeof AppRouteWithChildren
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/app/board': typeof AppBoardRoute
+  '/app/closed-loop': typeof AppClosedLoopRoute
   '/app/diagnostik': typeof AppDiagnostikRoute
+  '/app/episoden': typeof AppEpisodenRoute
   '/app/evidenzbank': typeof AppEvidenzbankRoute
   '/app/export': typeof AppExportRoute
+  '/app/meldung': typeof AppMeldungRouteWithChildren
   '/app/nicht-gemessen': typeof AppNichtGemessenRoute
+  '/app/peer-review': typeof AppPeerReviewRoute
+  '/app/review': typeof AppReviewRoute
+  '/app/steward': typeof AppStewardRoute
+  '/app/uptake': typeof AppUptakeRoute
+  '/partner/$token': typeof PartnerTokenRoute
   '/app/kpi/$id': typeof AppKpiIdRoute
+  '/app/meldung/historie': typeof AppMeldungHistorieRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/app'
+    | '/sitemap.xml'
     | '/app/board'
+    | '/app/closed-loop'
     | '/app/diagnostik'
+    | '/app/episoden'
     | '/app/evidenzbank'
     | '/app/export'
+    | '/app/meldung'
     | '/app/nicht-gemessen'
+    | '/app/peer-review'
+    | '/app/review'
+    | '/app/steward'
+    | '/app/uptake'
+    | '/partner/$token'
     | '/app/kpi/$id'
+    | '/app/meldung/historie'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/app'
+    | '/sitemap.xml'
     | '/app/board'
+    | '/app/closed-loop'
     | '/app/diagnostik'
+    | '/app/episoden'
     | '/app/evidenzbank'
     | '/app/export'
+    | '/app/meldung'
     | '/app/nicht-gemessen'
+    | '/app/peer-review'
+    | '/app/review'
+    | '/app/steward'
+    | '/app/uptake'
+    | '/partner/$token'
     | '/app/kpi/$id'
+    | '/app/meldung/historie'
   id:
     | '__root__'
     | '/'
     | '/app'
+    | '/sitemap.xml'
     | '/app/board'
+    | '/app/closed-loop'
     | '/app/diagnostik'
+    | '/app/episoden'
     | '/app/evidenzbank'
     | '/app/export'
+    | '/app/meldung'
     | '/app/nicht-gemessen'
+    | '/app/peer-review'
+    | '/app/review'
+    | '/app/steward'
+    | '/app/uptake'
+    | '/partner/$token'
     | '/app/kpi/$id'
+    | '/app/meldung/historie'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AppRoute: typeof AppRouteWithChildren
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  PartnerTokenRoute: typeof PartnerTokenRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/app': {
       id: '/app'
       path: '/app'
@@ -144,11 +273,53 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/partner/$token': {
+      id: '/partner/$token'
+      path: '/partner/$token'
+      fullPath: '/partner/$token'
+      preLoaderRoute: typeof PartnerTokenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/uptake': {
+      id: '/app/uptake'
+      path: '/uptake'
+      fullPath: '/app/uptake'
+      preLoaderRoute: typeof AppUptakeRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/steward': {
+      id: '/app/steward'
+      path: '/steward'
+      fullPath: '/app/steward'
+      preLoaderRoute: typeof AppStewardRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/review': {
+      id: '/app/review'
+      path: '/review'
+      fullPath: '/app/review'
+      preLoaderRoute: typeof AppReviewRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/peer-review': {
+      id: '/app/peer-review'
+      path: '/peer-review'
+      fullPath: '/app/peer-review'
+      preLoaderRoute: typeof AppPeerReviewRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/app/nicht-gemessen': {
       id: '/app/nicht-gemessen'
       path: '/nicht-gemessen'
       fullPath: '/app/nicht-gemessen'
       preLoaderRoute: typeof AppNichtGemessenRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/meldung': {
+      id: '/app/meldung'
+      path: '/meldung'
+      fullPath: '/app/meldung'
+      preLoaderRoute: typeof AppMeldungRouteImport
       parentRoute: typeof AppRoute
     }
     '/app/export': {
@@ -165,11 +336,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppEvidenzbankRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/episoden': {
+      id: '/app/episoden'
+      path: '/episoden'
+      fullPath: '/app/episoden'
+      preLoaderRoute: typeof AppEpisodenRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/app/diagnostik': {
       id: '/app/diagnostik'
       path: '/diagnostik'
       fullPath: '/app/diagnostik'
       preLoaderRoute: typeof AppDiagnostikRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/closed-loop': {
+      id: '/app/closed-loop'
+      path: '/closed-loop'
+      fullPath: '/app/closed-loop'
+      preLoaderRoute: typeof AppClosedLoopRouteImport
       parentRoute: typeof AppRoute
     }
     '/app/board': {
@@ -178,6 +363,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/app/board'
       preLoaderRoute: typeof AppBoardRouteImport
       parentRoute: typeof AppRoute
+    }
+    '/app/meldung/historie': {
+      id: '/app/meldung/historie'
+      path: '/historie'
+      fullPath: '/app/meldung/historie'
+      preLoaderRoute: typeof AppMeldungHistorieRouteImport
+      parentRoute: typeof AppMeldungRoute
     }
     '/app/kpi/$id': {
       id: '/app/kpi/$id'
@@ -189,21 +381,47 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface AppMeldungRouteChildren {
+  AppMeldungHistorieRoute: typeof AppMeldungHistorieRoute
+}
+
+const AppMeldungRouteChildren: AppMeldungRouteChildren = {
+  AppMeldungHistorieRoute: AppMeldungHistorieRoute,
+}
+
+const AppMeldungRouteWithChildren = AppMeldungRoute._addFileChildren(
+  AppMeldungRouteChildren,
+)
+
 interface AppRouteChildren {
   AppBoardRoute: typeof AppBoardRoute
+  AppClosedLoopRoute: typeof AppClosedLoopRoute
   AppDiagnostikRoute: typeof AppDiagnostikRoute
+  AppEpisodenRoute: typeof AppEpisodenRoute
   AppEvidenzbankRoute: typeof AppEvidenzbankRoute
   AppExportRoute: typeof AppExportRoute
+  AppMeldungRoute: typeof AppMeldungRouteWithChildren
   AppNichtGemessenRoute: typeof AppNichtGemessenRoute
+  AppPeerReviewRoute: typeof AppPeerReviewRoute
+  AppReviewRoute: typeof AppReviewRoute
+  AppStewardRoute: typeof AppStewardRoute
+  AppUptakeRoute: typeof AppUptakeRoute
   AppKpiIdRoute: typeof AppKpiIdRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
   AppBoardRoute: AppBoardRoute,
+  AppClosedLoopRoute: AppClosedLoopRoute,
   AppDiagnostikRoute: AppDiagnostikRoute,
+  AppEpisodenRoute: AppEpisodenRoute,
   AppEvidenzbankRoute: AppEvidenzbankRoute,
   AppExportRoute: AppExportRoute,
+  AppMeldungRoute: AppMeldungRouteWithChildren,
   AppNichtGemessenRoute: AppNichtGemessenRoute,
+  AppPeerReviewRoute: AppPeerReviewRoute,
+  AppReviewRoute: AppReviewRoute,
+  AppStewardRoute: AppStewardRoute,
+  AppUptakeRoute: AppUptakeRoute,
   AppKpiIdRoute: AppKpiIdRoute,
 }
 
@@ -212,6 +430,8 @@ const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AppRoute: AppRouteWithChildren,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
+  PartnerTokenRoute: PartnerTokenRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
