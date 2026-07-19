@@ -7,6 +7,10 @@
 export interface KpiErhebung {
   owner: string;
   cadence: string;
+  /** Methode = how the measurement is produced. If set, the detail view uses
+   *  this instead of the KPI info's "wie" text, to keep Wie and Verifizierung
+   *  from duplicating. */
+  methode?: string;
   verifizierung: string;
 }
 
@@ -127,7 +131,31 @@ export const KPI_DETAILS: Record<string, KpiDetail> = {
     erhebung: {
       owner: "Finance",
       cadence: "jährlich",
-      verifizierung: "eingefrorene Kostenstellenabgrenzung, dokumentiert",
+      methode: "eine Jahreszahl aus der Kostenstellenlogik, nach eingefrorener Abgrenzung",
+      verifizierung: "Abgrenzung interne Abwicklung / Partnerleistung dokumentiert und eingefroren; Vier-Augen-Prüfung durch Finance",
+    },
+  },
+
+  inhouse_beratungsquote: {
+    raw_schema: ["Position", "Betrag (Mio €)"],
+    raw_rows: [
+      ["Interne Fach-Personalkosten (lt. eingefrorener Rollen-Taxonomie)", "8,2"],
+      ["Externe Consulting-Ausgaben (Vertragsübersichten)", "4,0"],
+      ["Summe Beratungsleistung (Basis)", "12,2"],
+    ],
+    raw_summary: {
+      interne_fach_personalkosten_mio: 8.2,
+      externe_consulting_mio: 4.0,
+      basis_mio: 12.2,
+    },
+    formula_text:
+      "interne Fach-Personalkosten ÷ (interne Fach-Personalkosten + externe Consulting-Ausgaben) × 100. Euro-Basis, keine Tagessatz-Umrechnung.",
+    worked_example: "8,2 ÷ (8,2 + 4,0) = 8,2 ÷ 12,2 = 67 %",
+    erhebung: {
+      owner: "Finance (mit HR-Rollen-Taxonomie)",
+      cadence: "jährlich",
+      methode: "zwei Finance-Quellen: Personalkosten der Fachrollen + Consulting-Ausgaben aus Vertragsübersichten",
+      verifizierung: "Fachrollen-Zuordnung folgt der eingefrorenen Rollen-Taxonomie; keine Umrechnung über Beratertage",
     },
   },
 
