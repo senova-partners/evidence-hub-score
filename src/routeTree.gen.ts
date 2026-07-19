@@ -13,6 +13,7 @@ import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as AppRouteImport } from './routes/app'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PartnerTokenRouteImport } from './routes/partner.$token'
+import { Route as AppVoraussetzungenRouteImport } from './routes/app.voraussetzungen'
 import { Route as AppUptakeRouteImport } from './routes/app.uptake'
 import { Route as AppStewardRouteImport } from './routes/app.steward'
 import { Route as AppReviewRouteImport } from './routes/app.review'
@@ -47,6 +48,11 @@ const PartnerTokenRoute = PartnerTokenRouteImport.update({
   id: '/partner/$token',
   path: '/partner/$token',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AppVoraussetzungenRoute = AppVoraussetzungenRouteImport.update({
+  id: '/voraussetzungen',
+  path: '/voraussetzungen',
+  getParentRoute: () => AppRoute,
 } as any)
 const AppUptakeRoute = AppUptakeRouteImport.update({
   id: '/uptake',
@@ -135,6 +141,7 @@ export interface FileRoutesByFullPath {
   '/app/review': typeof AppReviewRoute
   '/app/steward': typeof AppStewardRoute
   '/app/uptake': typeof AppUptakeRoute
+  '/app/voraussetzungen': typeof AppVoraussetzungenRoute
   '/partner/$token': typeof PartnerTokenRoute
   '/app/kpi/$id': typeof AppKpiIdRoute
   '/app/meldung/historie': typeof AppMeldungHistorieRoute
@@ -155,6 +162,7 @@ export interface FileRoutesByTo {
   '/app/review': typeof AppReviewRoute
   '/app/steward': typeof AppStewardRoute
   '/app/uptake': typeof AppUptakeRoute
+  '/app/voraussetzungen': typeof AppVoraussetzungenRoute
   '/partner/$token': typeof PartnerTokenRoute
   '/app/kpi/$id': typeof AppKpiIdRoute
   '/app/meldung/historie': typeof AppMeldungHistorieRoute
@@ -176,6 +184,7 @@ export interface FileRoutesById {
   '/app/review': typeof AppReviewRoute
   '/app/steward': typeof AppStewardRoute
   '/app/uptake': typeof AppUptakeRoute
+  '/app/voraussetzungen': typeof AppVoraussetzungenRoute
   '/partner/$token': typeof PartnerTokenRoute
   '/app/kpi/$id': typeof AppKpiIdRoute
   '/app/meldung/historie': typeof AppMeldungHistorieRoute
@@ -198,6 +207,7 @@ export interface FileRouteTypes {
     | '/app/review'
     | '/app/steward'
     | '/app/uptake'
+    | '/app/voraussetzungen'
     | '/partner/$token'
     | '/app/kpi/$id'
     | '/app/meldung/historie'
@@ -218,6 +228,7 @@ export interface FileRouteTypes {
     | '/app/review'
     | '/app/steward'
     | '/app/uptake'
+    | '/app/voraussetzungen'
     | '/partner/$token'
     | '/app/kpi/$id'
     | '/app/meldung/historie'
@@ -238,6 +249,7 @@ export interface FileRouteTypes {
     | '/app/review'
     | '/app/steward'
     | '/app/uptake'
+    | '/app/voraussetzungen'
     | '/partner/$token'
     | '/app/kpi/$id'
     | '/app/meldung/historie'
@@ -279,6 +291,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/partner/$token'
       preLoaderRoute: typeof PartnerTokenRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/app/voraussetzungen': {
+      id: '/app/voraussetzungen'
+      path: '/voraussetzungen'
+      fullPath: '/app/voraussetzungen'
+      preLoaderRoute: typeof AppVoraussetzungenRouteImport
+      parentRoute: typeof AppRoute
     }
     '/app/uptake': {
       id: '/app/uptake'
@@ -406,6 +425,7 @@ interface AppRouteChildren {
   AppReviewRoute: typeof AppReviewRoute
   AppStewardRoute: typeof AppStewardRoute
   AppUptakeRoute: typeof AppUptakeRoute
+  AppVoraussetzungenRoute: typeof AppVoraussetzungenRoute
   AppKpiIdRoute: typeof AppKpiIdRoute
 }
 
@@ -422,6 +442,7 @@ const AppRouteChildren: AppRouteChildren = {
   AppReviewRoute: AppReviewRoute,
   AppStewardRoute: AppStewardRoute,
   AppUptakeRoute: AppUptakeRoute,
+  AppVoraussetzungenRoute: AppVoraussetzungenRoute,
   AppKpiIdRoute: AppKpiIdRoute,
 }
 

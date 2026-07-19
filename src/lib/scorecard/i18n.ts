@@ -33,6 +33,7 @@ export const T: Dict = {
   nav_closed_loop: { de: "Closed-Loop", en: "Closed-loop" },
   nav_peer: { de: "Peer-Review", en: "Peer review" },
   nav_steward: { de: "Steward-Konsole", en: "Steward console" },
+  nav_voraussetzungen: { de: "Voraussetzungen", en: "Preconditions" },
 
   // verdict
   verdict_erfuellt: { de: "Test erfüllt", en: "Test passed" },

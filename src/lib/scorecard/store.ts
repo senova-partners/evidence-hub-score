@@ -38,9 +38,10 @@ export interface Store {
   changeLog: ChangeLogEntry[];
   reviewNotes: Record<string, string>; // halfYear -> text
   lockedQuarters: string[];
+  voraussetzungen: Record<string, "offen" | "definiert" | "eingefuehrt">;
 }
 
-const KEY = "giz-scorecard-v6";
+const KEY = "giz-scorecard-v7";
 type Listener = () => void;
 const listeners = new Set<Listener>();
 
@@ -338,5 +339,10 @@ function seed(): Store {
     changeLog,
     reviewNotes: {},
     lockedQuarters: [],
+    voraussetzungen: {
+      episode_definition: "offen",
+      budget_trennung: "offen",
+      struktur_beteiligung_erfassung: "offen",
+    },
   };
 }

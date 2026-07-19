@@ -92,9 +92,11 @@
       "info": {
         "was_es_misst": "Anteil der Auftragsmittel, der in Partnerleistung fließt, statt sich in interner Abwicklung zu verbrauchen.",
         "warum": "Die Non-Profit-Übersetzung der Marge: 'aus weniger mehr' wörtlich genommen – mehr vom selben Geld kommt beim Partner an. Klare Handlungsrichtung: Reibung senken, genau der Machine-Room-Auftrag.",
-        "verifizierung": "Kostenstellenabgrenzung 'interne Abwicklung' einmalig durch Finance definiert, dokumentiert und eingefroren; danach eine Jahreszahl.",
+        "verifizierung": "Voraussetzung: Budgets/Instrumentenkonzepte je Projekt werden nach internen operativen vs. wirkungsbezogenen Ausgaben unterteilt — diese Trennung existiert in den heutigen Budgets und Operationsplänen nicht und muss vor der Baseline geschaffen werden (Arbeitsauftrag Finance/F&A). Abgrenzung einmalig definiert, dokumentiert und eingefroren; danach eine Jahreszahl aus der Kostenstellenlogik.",
         "verworfen": "Geprüft und verworfen: VZE/Umsatz (misst Portfoliomix und verwaltetes Volumen, belohnt Auslagerung, bestraft die gewollte Verschiebung zu mehr Beratung) und Overhead-Quote (zentral gesetzt, kein beweglicher Wert)."
-      }
+      },
+      "display": "secondary_in:fachzeit",
+      "voraussetzung": "Strukturelle Voraussetzung, VOR der Baseline zu schaffen: Budgets und Instrumentenkonzepte (der Ressourcenüberblick je Projekt) müssen nach internen operativen Ausgaben vs. wirkungsbezogenen Ausgaben unterteilt werden. Diese Trennung ist in den heutigen Budgets und Operationsplänen nicht enthalten — ohne sie ist die Delivery-Quote nicht erhebbar. Arbeitsauftrag an Finance/F&A: Abgrenzungslogik einmalig definieren, in die Budget- und OP-Struktur einziehen, dann einfrieren."
     },
     {
       "id": "partnerbogen",
@@ -157,8 +159,8 @@
     },
     {
       "id": "mechanismus",
-      "paket": 2,
-      "paket_name": "Beratungsqualität",
+      "paket": 3,
+      "paket_name": "Struktur-Effizienz",
       "name": "Mechanismus-Beteiligung",
       "unit": "% Episoden mit Struktur-Beteiligung",
       "direction": "higher_better",
@@ -169,7 +171,7 @@
       "n_label": "n = 14 Episoden",
       "info": {
         "was_es_misst": "Je Episode zwei Ja/Nein-Felder: Wurde ein Practice-Produkt genutzt? Hat der Machine Room zugearbeitet?",
-        "warum": "Verbindet Qualität mit Struktur: Steigen die Qualitätswerte besonders dort, wo die Struktur beteiligt war, ist der Zusammenhang belegbar – steigen sie überall gleich, war es gute Arbeit, nicht das Powerhouse. Inkrementalitätslogik statt Kausalbehauptung (Arman 2026); Implementierung und Verbesserung getrennt belegen (Raineri 2011).",
+        "warum": "Misst, ob die Struktur in der Beratungsarbeit ankommt (Struktur-Adoption). Analytisch bleibt die Kreuzung mit den Qualitätswerten aus Paket 2 erhalten (Dosis-Wirkung: Episoden mit vs. ohne Strukturbeteiligung) — sie ist der Beleg, dass Struktur und Qualität zusammenhängen. Die Paketzuordnung ist Anzeige-, nicht Daten-Logik. Inkrementalitätslogik statt Kausalbehauptung (Arman 2026); Implementierung und Verbesserung getrennt belegen (Raineri 2011).",
         "verifizierung": "Zwei Felder im ohnehin ausgefüllten Episodenbogen; Plausibilisierung gegen die Anfragenlisten der Practices.",
         "verworfen": null
       }
@@ -178,7 +180,7 @@
       "id": "fachzeit",
       "paket": 3,
       "paket_name": "Struktur-Effizienz",
-      "name": "Fachzeit-Quote",
+      "name": "Freigesetzte Ressourcen",
       "unit": "% Fachzeit",
       "direction": "higher_better",
       "cadence": "halbjährlich (2-Wochen-Protokoll)",
@@ -188,49 +190,13 @@
       "n_label": "n = 9 Teams (aggregiert, n ≥ 5)",
       "scharnier": true,
       "info": {
-        "was_es_misst": "Anteil der Expertenzeit für fachliche Arbeit statt Administration; zweiwöchige Selbstprotokollierung, gemeldet ausschließlich als Team-Aggregat.",
+        "was_es_misst": "Hauptwert: Fachzeit-Quote — Anteil der Expertenzeit für fachliche Arbeit statt Administration (zweiwöchige Selbstprotokollierung, nur Team-Aggregate). Zweitwert: Delivery-Quote — Anteil der Auftragsmittel, der in Partnerleistung fließt statt in interner Abwicklung. Dieselbe Reibung in zwei Währungen: Zeit und Geld. Bewusst KEIN gewichteter Index: Ein Index hätte keinen sauberen Rechenweg von Rohdaten zu Wert, die Gewichtung würde Verhandlungsmasse (Goodhart), und die diagnostische Trennung ginge verloren — Zeit frei, aber Geld versickert (oder umgekehrt) sind zwei verschiedene Probleme.",
         "warum": "Die Scharnierzahl: Sie erklärt den Mechanismus, warum aus weniger mehr wird – die Struktur gibt Expertenzeit für Expertenarbeit frei. Ohne sie sind Qualität und Effizienz zwei unverbundene Behauptungen (Maister: Health- vor Hygiene-Faktoren; BCG: Reibung an Schnittstellen als größter Leistungsverlust). Keine individuelle Auslastungsmessung – Mitbestimmung, nur Aggregate ab n ≥ 5, keine Anreizkopplung.",
         "verifizierung": "Standardprotokoll; Sprünge > 30 % gegen Vorperiode werden vom Steward rückgefragt.",
         "verworfen": "Geprüft und verworfen: individuelle Auslastung als Steuerungsgröße (Hygiene-Falle, mitbestimmungswidrig)."
-      }
-    },
-    {
-      "id": "testvorgang",
-      "paket": 3,
-      "paket_name": "Struktur-Effizienz",
-      "name": "Testvorgang",
-      "unit": "Kalendertage",
-      "direction": "lower_better",
-      "cadence": "quartalsweise",
-      "owner": "Steward",
-      "baseline": 21,
-      "current": 17,
-      "n_label": "1 identischer Vorgang je Quartal · 6 beteiligte Personen (Baseline 9)",
-      "info": {
-        "was_es_misst": "Ein identisch spezifizierter Vorgang (z. B. dieselbe Beschaffungsanfrage) läuft quartalsweise durchs System; gemessen werden Kalendertage bis Erledigung und Anzahl beteiligter Personen.",
-        "warum": "Weil die Anforderung konstant ist, ist jede Veränderung Struktureffekt – der interne Vergleichsmaßstab, den wir ohne Kontrollgruppe sonst nicht haben (Pre/Post-Logik).",
-        "verifizierung": "Spezifikation schriftlich fixiert und eingefroren – sie wird nie angepasst (Goodhart-Disziplin); Steward dokumentiert Zeitstempel je Station.",
-        "verworfen": "First-Time-Right-Quote als separater KPI gestrichen: Überlappung – beide messen Prozessreibung."
-      }
-    },
-    {
-      "id": "abflusstreue",
-      "paket": 3,
-      "paket_name": "Struktur-Effizienz",
-      "name": "Abflusstreue",
-      "unit": "% Ist vs. Plan",
-      "direction": "higher_better",
-      "cadence": "jährlich, quartalsweise Zwischenstand",
-      "owner": "Controlling",
-      "baseline": 84,
-      "current": 89,
-      "n_label": "Basis: Portfolio-Planabfluss",
-      "info": {
-        "was_es_misst": "Ist-Abfluss gegen Plan-Abfluss; Restmittelquote zum Jahresende als Zusatzangabe.",
-        "warum": "Lokal steuerbare Effizienz in der Sprache von BMZ und Zentrale. Misst das Machine-Room-Versprechen direkt: Planbarkeit und Umsetzungsgeschwindigkeit statt Jahresend-Hektik und Mittelrückgabe.",
-        "verifizierung": "Eine Zahl aus dem Controlling-Bericht.",
-        "verworfen": "Ersatz für die verworfene Overhead-Quote: Diese ist in der GIZ administrativ gesetzt und für uns kein beweglicher Wert."
-      }
+      },
+      "secondary_kpi": "delivery_quote",
+      "context_line": "Zweitwert in derselben Karte: Delivery-Quote (Geld-Währung). Zwei Zahlen, zwei Rechenwege, ein Anzeigeort — kein Index."
     },
     {
       "id": "schmerzpunkt",
@@ -280,6 +246,42 @@
     ]
   },
   "diagnostik_context": [
+    {
+      "id": "testvorgang",
+      "name": "Testvorgang",
+      "role": "Diagnostik (aus dem Beweis-Paket überführt): das einzige Instrument mit konstantem Vergleichsmaßstab (eingefrorene Spezifikation). Darf bei Kapazitätsmangel aussetzen; die Option bleibt.",
+      "display": "Diagnostik-Zeile mit Wert, Baseline und Trendpfeil (direction beibehalten)",
+      "direction": "lower_better",
+      "unit": "Kalendertage",
+      "baseline": 21,
+      "current": 17,
+      "owner": "Steward",
+      "cadence": "quartalsweise",
+      "info": {
+        "was_es_misst": "Ein identisch spezifizierter Vorgang (z. B. dieselbe Beschaffungsanfrage) läuft quartalsweise durchs System; gemessen werden Kalendertage bis Erledigung und Anzahl beteiligter Personen.",
+        "warum": "Weil die Anforderung konstant ist, ist jede Veränderung Struktureffekt – der interne Vergleichsmaßstab, den wir ohne Kontrollgruppe sonst nicht haben (Pre/Post-Logik).",
+        "verifizierung": "Spezifikation schriftlich fixiert und eingefroren – sie wird nie angepasst (Goodhart-Disziplin); Steward dokumentiert Zeitstempel je Station.",
+        "verworfen": "First-Time-Right-Quote als separater KPI gestrichen: Überlappung – beide messen Prozessreibung."
+      }
+    },
+    {
+      "id": "abflusstreue",
+      "name": "Abflusstreue",
+      "role": "Diagnostik (aus dem Beweis-Paket überführt): BMZ-lesbare Effizienzsprache, erklärt Jahresend-Muster. Kostet null — eine Controlling-Zahl. Im Beweis ersetzt durch die Delivery-Quote, die misst, wohin das Geld fließt, nicht nur ob es abfließt.",
+      "display": "Diagnostik-Zeile mit Wert, Baseline und Trendpfeil (direction beibehalten)",
+      "direction": "higher_better",
+      "unit": "% Ist vs. Plan",
+      "baseline": 84,
+      "current": 89,
+      "owner": "Controlling",
+      "cadence": "jährlich, quartalsweise Zwischenstand",
+      "info": {
+        "was_es_misst": "Ist-Abfluss gegen Plan-Abfluss; Restmittelquote zum Jahresende als Zusatzangabe.",
+        "warum": "Lokal steuerbare Effizienz in der Sprache von BMZ und Zentrale. Misst das Machine-Room-Versprechen direkt: Planbarkeit und Umsetzungsgeschwindigkeit statt Jahresend-Hektik und Mittelrückgabe.",
+        "verifizierung": "Eine Zahl aus dem Controlling-Bericht.",
+        "verworfen": "Ersatz für die verworfene Overhead-Quote: Diese ist in der GIZ administrativ gesetzt und für uns kein beweglicher Wert."
+      }
+    },
     {
       "id": "eigenleistung",
       "name": "Eigenleistungsquote",
@@ -359,5 +361,44 @@
         }
       }
     }
-  ]
+  ],
+  "voraussetzungen": {
+    "title": "Strukturelle Voraussetzungen der Messung",
+    "hinweis": "Vor der Baseline zu schaffen. Eigene Seite im Prototyp; je Voraussetzung Status-Tracking (offen / definiert / eingeführt). Die drei Punkte sind zugleich die ersten konkreten Mandate des Daten-Büros (DAIO) aus dem Messgerüst.",
+    "items": [
+      {
+        "id": "episode_definition",
+        "titel": "Beratungsepisode portfolioübergreifend definieren und einführen",
+        "beschreibung": "Das GIZ-Datenbüro (DAIO) definiert die Beratungsepisode als einheitliche Messeinheit (Anlass · Empfänger · Ergebnis · Zeitraum) und führt sie portfolioweit ein — inklusive Episodenregister und Abschluss-Trigger. Diese Einheit existiert im heutigen Berichtswesen nicht.",
+        "owner": "DAIO, mit AVs und JDU",
+        "betroffene_kpis": [
+          "partnerbogen",
+          "uptake",
+          "peer_review",
+          "mechanismus"
+        ],
+        "status": "offen"
+      },
+      {
+        "id": "budget_trennung",
+        "titel": "Operative vs. wirkungsbezogene Ausgaben in Budgets/Instrumentenkonzepten trennen",
+        "beschreibung": "Budgets und Instrumentenkonzepte (Ressourcenüberblick je Projekt) werden nach internen operativen und wirkungsbezogenen Ausgaben unterteilt — in heutigen Budgets und Operationsplänen nicht enthalten. Abgrenzungslogik einmalig definieren, in Budget-/OP-Template einziehen, rückwirkende Zuordnung fürs Baseline-Jahr, dann einfrieren.",
+        "owner": "Finance/F&A, Definition mit DAIO",
+        "betroffene_kpis": [
+          "delivery_quote"
+        ],
+        "status": "offen"
+      },
+      {
+        "id": "struktur_beteiligung_erfassung",
+        "titel": "Struktur-Beteiligung je Beratungsepisode erfassen",
+        "beschreibung": "Je Episode wird erfasst, ob Machine Room bzw. Practices unterstützt haben (zwei Ja/Nein-Felder im Episodenbogen) — Grundlage für den Anteil struktur-unterstützter Episoden und die Dosis-Wirkungs-Auswertung. Setzt die Episoden-Definition (Voraussetzung 1) voraus.",
+        "owner": "AVs im Episodenregister, Standard durch DAIO",
+        "betroffene_kpis": [
+          "mechanismus"
+        ],
+        "status": "offen"
+      }
+    ]
+  }
 }

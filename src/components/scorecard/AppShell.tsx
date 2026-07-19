@@ -8,6 +8,7 @@ const NAV_BY_ROLE: Record<Role, Array<{ to: string; key: string }>> = {
   clt: [
     { to: "/app/board", key: "nav_board" },
     { to: "/app/diagnostik", key: "nav_diagnostik" },
+    { to: "/app/voraussetzungen", key: "nav_voraussetzungen" },
     { to: "/app/evidenzbank", key: "nav_evidenz" },
     { to: "/app/nicht-gemessen", key: "nav_nicht_gemessen" },
     { to: "/app/export", key: "nav_export" },
@@ -16,6 +17,7 @@ const NAV_BY_ROLE: Record<Role, Array<{ to: string; key: string }>> = {
     { to: "/app/board", key: "nav_board" },
     { to: "/app/review", key: "nav_review" },
     { to: "/app/diagnostik", key: "nav_diagnostik" },
+    { to: "/app/voraussetzungen", key: "nav_voraussetzungen" },
     { to: "/app/evidenzbank", key: "nav_evidenz" },
     { to: "/app/nicht-gemessen", key: "nav_nicht_gemessen" },
     { to: "/app/export", key: "nav_export" },
@@ -23,6 +25,7 @@ const NAV_BY_ROLE: Record<Role, Array<{ to: string; key: string }>> = {
   cc: [
     { to: "/app/board", key: "nav_board" },
     { to: "/app/diagnostik", key: "nav_diagnostik" },
+    { to: "/app/voraussetzungen", key: "nav_voraussetzungen" },
     { to: "/app/evidenzbank", key: "nav_evidenz" },
     { to: "/app/export", key: "nav_export" },
   ],
@@ -30,6 +33,7 @@ const NAV_BY_ROLE: Record<Role, Array<{ to: string; key: string }>> = {
     { to: "/app/steward", key: "nav_steward" },
     { to: "/app/board", key: "nav_board" },
     { to: "/app/diagnostik", key: "nav_diagnostik" },
+    { to: "/app/voraussetzungen", key: "nav_voraussetzungen" },
     { to: "/app/evidenzbank", key: "nav_evidenz" },
     { to: "/app/nicht-gemessen", key: "nav_nicht_gemessen" },
     { to: "/app/export", key: "nav_export" },
