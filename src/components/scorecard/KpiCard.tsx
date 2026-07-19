@@ -3,6 +3,8 @@ import { kpiById } from "@/lib/scorecard/kpis";
 import { trend } from "@/lib/scorecard/verdict";
 import { useLocale } from "@/lib/scorecard/useT";
 import { InfoPanel } from "./InfoPanel";
+import { Sparkline } from "./Sparkline";
+import { kpiHistory } from "@/lib/scorecard/history";
 import { useStore, type Store } from "@/lib/scorecard/store";
 import type { KpiValue } from "@/lib/scorecard/types";
 import {
@@ -17,15 +19,9 @@ import {
 const trendGlyph = { up: "↗", down: "↘", flat: "→", missing: "✕" } as const;
 
 /**
- * Board card — fixed five-slot template. Same height across all 9 cards,
- * value baseline aligned via fixed row sizing. Any overflow is clipped
- * (ellipsis on text rows) — the card never grows.
- *
- *   1  Title (truncate)               + ⓘ
- *   2  Subtitle (plain, muted, 13px, truncate)
- *   3  Value (bare number, uniform 36px, bottom-aligned in slot)
- *   4  Delta "↗ +0,3 seit Baseline"   or  "Meldung fehlt" (red)
- *   5  Footer "Baseline 3,6 · 14 Episoden" (truncate)
+ * Board card — fixed five-slot template. Whole card is a Link to the detail
+ * route; the ⓘ button stops propagation. Row 3 pairs the bare value with a
+ * per-card sparkline; the sparkline collapses on cards narrower than 260px.
  */
 export function KpiCard({
   kpiId,
@@ -44,6 +40,7 @@ export function KpiCard({
   const v = value?.value ?? null;
   const tr = trend(kpiId, v, baseline);
   const missing = v === null;
+  const history = kpiHistory(kpiId);
 
   const subtitle = CARD_SUBTITLE[kpiId]?.[locale] ?? "";
   const footerN = CARD_FOOTER_N[kpiId]?.[locale] ?? "";
@@ -51,17 +48,11 @@ export function KpiCard({
   const meldungFehlt = locale === "de" ? "Meldung fehlt" : "Report missing";
   const letzteRunde = locale === "de" ? "Letzte Runde" : "Last round";
 
-  // Footer text — special cases: missing values show "Letzte Runde"; scharnier
-  // renders its two secondary values instead.
-  let footerText = `${locale === "de" ? "Baseline" : "Baseline"} ${bareBaseline(
-    baseline,
-    kpi,
-    locale,
-  )}${footerN ? ` · ${footerN}` : ""}`;
+  let footerText = `Baseline ${bareBaseline(baseline, kpi, locale)}${
+    footerN ? ` · ${footerN}` : ""
+  }`;
 
   if (missing) {
-    // "Letzte Runde 2,9 · Session 15.07." (peer_review). For any other missing
-    // card we substitute the standard n-label after the baseline.
     const sessionHint =
       kpiId === "peer_review" ? (locale === "de" ? "Session 15.07." : "Session 15 Jul") : footerN;
     footerText = `${letzteRunde} ${bareBaseline(baseline, kpi, locale)}${
@@ -69,7 +60,6 @@ export function KpiCard({
     }`;
   }
 
-  // Scharnier: two secondary values compacted into the footer slot.
   const secondaryIds = kpi.secondaryKpiIds ?? (kpi.secondaryKpiId ? [kpi.secondaryKpiId] : []);
   if (secondaryIds.length > 0 && !missing) {
     const q = value?.quarter ?? store.session?.quarter;
@@ -90,26 +80,30 @@ export function KpiCard({
     : `${kpi.name[locale]}, ${bareValue(v, kpi, locale)}, ${bareDelta(v, baseline, kpi, locale)} ${seitBaseline}`;
 
   return (
-    <div
-      className="hairline bg-card overflow-hidden flex flex-col h-[236px] p-6"
+    <Link
+      to="/app/kpi/$id"
+      params={{ id: kpiId }}
       aria-label={ariaLabel}
+      className="@container hairline bg-card overflow-hidden flex flex-col h-[236px] p-6 hover:bg-[color:var(--hover,transparent)] focus:outline focus:outline-1 focus:outline-[color:var(--giz-red)]"
     >
-      {/* Row 1 — Title + Info (28px slot) */}
+      {/* Row 1 — Title + Info */}
       <div className="flex items-start justify-between gap-2 h-7">
-        <Link
-          to="/app/kpi/$id"
-          params={{ id: kpiId }}
-          className="text-[14px] font-semibold hover:underline truncate leading-tight"
+        <span
+          className="text-[14px] font-semibold truncate leading-tight"
           title={kpi.name[locale]}
         >
           {kpi.name[locale]}
-        </Link>
-        <div className="shrink-0 -mt-1 -mr-1">
+        </span>
+        <div
+          className="shrink-0 -mt-1 -mr-1"
+          onClick={(e) => e.stopPropagation()}
+          onPointerDown={(e) => e.stopPropagation()}
+        >
           <InfoPanel kpiId={kpiId} />
         </div>
       </div>
 
-      {/* Row 2 — Subtitle (20px slot, 10px gap above) */}
+      {/* Row 2 — Subtitle */}
       <div
         className="mt-[10px] h-5 text-[13px] leading-5 text-muted-foreground truncate"
         title={subtitle}
@@ -117,12 +111,19 @@ export function KpiCard({
         {subtitle}
       </div>
 
-      {/* Row 3 — Value (fills remaining height, bottom-aligned for shared baseline) */}
-      <div className="mt-[10px] flex-1 flex items-end text-[36px] leading-none font-semibold tabular-nums">
-        {bareValue(v, kpi, locale)}
+      {/* Row 3 — Value + Sparkline (sparkline hidden below 260px card width) */}
+      <div className="mt-[10px] flex-1 flex items-end justify-between gap-3">
+        <span className="text-[36px] leading-none font-semibold tabular-nums">
+          {bareValue(v, kpi, locale)}
+        </span>
+        {history.length >= 2 && (
+          <span className="hidden @[260px]:inline-flex">
+            <Sparkline history={history} />
+          </span>
+        )}
       </div>
 
-      {/* Row 4 — Delta / status (20px slot) */}
+      {/* Row 4 — Delta / status */}
       <div className="mt-[10px] h-5 text-[12px] leading-5 truncate">
         {missing ? (
           <span className="text-[color:var(--giz-red)] font-semibold">{meldungFehlt}</span>
@@ -134,13 +135,13 @@ export function KpiCard({
         )}
       </div>
 
-      {/* Row 5 — Footer (20px slot) */}
+      {/* Row 5 — Footer */}
       <div
         className="mt-[10px] h-5 text-[12px] leading-5 text-muted-foreground truncate"
         title={footerText}
       >
         {footerText}
       </div>
-    </div>
+    </Link>
   );
 }
