@@ -41,7 +41,7 @@ export interface Store {
   voraussetzungen: Record<string, "offen" | "definiert" | "eingefuehrt">;
 }
 
-const KEY = "giz-scorecard-v7";
+const KEY = "giz-scorecard-v8";
 type Listener = () => void;
 const listeners = new Set<Listener>();
 
@@ -114,11 +114,12 @@ function seed(): Store {
     peer_review: 2.9,
     mechanismus: 34,
     fachzeit: 66,
+    inhouse_beratungsquote: 64,
+    berater_vze_anteil: 58,
     testvorgang: 21,
     abflusstreue: 84,
     schmerzpunkt: 3.2,
   };
-  // Q1, Q2, Q3 — linear zwischen Baseline und aktuellem Wert interpoliert.
   const trends: Record<string, [number, number, number]> = {
     wiederbeauftragung: [44, 49, 54],
     kofi_proposal: [33, 35, 38],
@@ -129,11 +130,12 @@ function seed(): Store {
     peer_review: [2.9, 3.1, 3.2],
     mechanismus: [34, 41, 48],
     fachzeit: [66, 69, 72],
+    inhouse_beratungsquote: [64, 65, 67],
+    berater_vze_anteil: [58, 59, 61],
     testvorgang: [21, 19, 17],
     abflusstreue: [84, 86, 89],
     schmerzpunkt: [3.2, 3.0, 2.7],
   };
-  // Per-KPI n counts for the seeded values (matches the nLabel wording).
   const nCounts: Record<string, number> = {
     wiederbeauftragung: 28,
     kofi_proposal: 21,
@@ -144,6 +146,8 @@ function seed(): Store {
     peer_review: 6,
     mechanismus: 14,
     fachzeit: 9,
+    inhouse_beratungsquote: 0,
+    berater_vze_anteil: 0,
     testvorgang: 1,
     abflusstreue: 0,
     schmerzpunkt: 3,
@@ -343,6 +347,7 @@ function seed(): Store {
       episode_definition: "offen",
       budget_trennung: "offen",
       struktur_beteiligung_erfassung: "offen",
+      rollen_taxonomie: "offen",
     },
   };
 }

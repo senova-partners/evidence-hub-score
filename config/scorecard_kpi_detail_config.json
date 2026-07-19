@@ -124,6 +124,10 @@
       ],
       "raw_rows": [
         [
+          "⚠ Voraussetzung",
+          "Budget-/OP-Struktur muss nach intern-operativ vs. wirkungsbezogen unterteilt sein — heute nicht vorhanden"
+        ],
+        [
           "Auftragsmittel gesamt (Jahr)",
           "24,0"
         ],
@@ -141,7 +145,8 @@
         "interne_abwicklung_mio": 4.8
       },
       "formula_text": "(Auftragsmittel − interne Abwicklung) ÷ Auftragsmittel × 100. Abgrenzung 'interne Abwicklung' einmalig definiert und eingefroren.",
-      "worked_example": "(24,0 − 4,8) ÷ 24,0 = 19,2 ÷ 24,0 = 80 %"
+      "worked_example": "(24,0 − 4,8) ÷ 24,0 = 19,2 ÷ 24,0 = 80 %",
+      "voraussetzung": "Budgets und Instrumentenkonzepte je Projekt nach internen operativen vs. wirkungsbezogenen Ausgaben unterteilen — heute in Budgets und Operationsplänen nicht enthalten. Ohne diese Struktur keine Erhebung. Schrittfolge: (1) Finance definiert Abgrenzungslogik, (2) Kategorisierung wird in Budget-/OP-Template eingezogen, (3) einmalige rückwirkende Zuordnung fürs Baseline-Jahr, (4) Abgrenzung eingefroren."
     },
     "partnerbogen": {
       "raw_schema": [
@@ -618,6 +623,73 @@
       },
       "formula_text": "Je Organisation: Median der 2–3 Befragten je Frage (bei Divergenz konservativerer Wert; Divergenz wird notiert). Hauptwert: Saldo Organisationen besser − schlechter (Frage 2). Expertise-Quote: Organisationen mit ≥1 fachlicher Nennung (P/F) ÷ Organisationen. Prospektiver Abgleich der Nennungen mit Pipeline und Folgeaufträgen.",
       "worked_example": "F2: 6 besser − 1 schlechter = +5 · Expertise-Quote: 7 ÷ 9 = 78 % · Abgleich: Nennung \"Wasser-Daten\" (F) ohne Portfolio-Angebot → als Lead an Pipeline übergeben"
+    },
+    "berater_vze_anteil": {
+      "raw_schema": [
+        "Stellenkategorie (Taxonomie)",
+        "VZE",
+        "Einordnung"
+      ],
+      "raw_rows": [
+        [
+          "Fachplaner/Berater national & international",
+          "38,0",
+          "fachlich"
+        ],
+        [
+          "Projektadministration & Finanzen",
+          "16,5",
+          "administrativ"
+        ],
+        [
+          "Mischrollen (z. B. Officer 50/50 lt. Anteilsregel)",
+          "8,0",
+          "4,0 fachlich / 4,0 administrativ"
+        ],
+        [
+          "Machine Room / Service-Einheiten",
+          "9,5",
+          "administrativ (zentralisiert)"
+        ],
+        [
+          "⚠ Voraussetzung",
+          "",
+          "Rollen-Taxonomie muss definiert und eingefroren sein — heute nicht sauber vorhanden"
+        ]
+      ],
+      "raw_summary": {
+        "gesamt_vze": 72.0,
+        "fachlich_vze": 42.0,
+        "kontext_umsatz_mio": 21.0
+      },
+      "formula_text": "Fachliche VZE (inkl. Mischrollen-Anteile lt. eingefrorener Taxonomie) ÷ Gesamt-VZE × 100. Kontextzeile ohne Wertung: Umsatz je Berater-VZE.",
+      "worked_example": "42,0 ÷ 72,0 = 58 % (Baseline) · Kontext: 21,0 Mio ÷ 42,0 = 0,50 Mio je Berater-VZE"
+    },
+    "inhouse_beratungsquote": {
+      "raw_schema": [
+        "Position",
+        "Betrag (Mio €)"
+      ],
+      "raw_rows": [
+        [
+          "Interne Fach-Personalkosten (Fachrollen lt. Taxonomie, inkl. Mischrollen-Anteile)",
+          "4,8"
+        ],
+        [
+          "Externe Consulting-Ausgaben (Unteraufträge lt. Vertragsübersichten)",
+          "2,4"
+        ],
+        [
+          "⚠ Voraussetzung",
+          "Rollen-Taxonomie definiert und eingefroren (Voraussetzung 4)"
+        ]
+      ],
+      "raw_summary": {
+        "fach_personalkosten_mio": 4.8,
+        "consulting_ausgaben_mio": 2.4
+      },
+      "formula_text": "Interne Fach-Personalkosten ÷ (interne Fach-Personalkosten + externe Consulting-Ausgaben) × 100, beide in Euro. Kein 100%-Ziel — gemessen wird die Substitutionsrichtung.",
+      "worked_example": "4,8 ÷ (4,8 + 2,4) = 4,8 ÷ 7,2 = 67 %"
     }
   }
 }

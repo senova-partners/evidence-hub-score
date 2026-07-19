@@ -51,6 +51,19 @@ const ITEMS: Array<{
     owner: "AVs im Episodenregister, Standard durch DAIO",
     kpis: ["mechanismus"],
   },
+  {
+    id: "rollen_taxonomie",
+    titel: {
+      de: "Rollen-Taxonomie: fachliche vs. administrative Stellen definieren",
+      en: "Role taxonomy: define expert vs. administrative positions",
+    },
+    beschreibung: {
+      de: "Einmalige Taxonomie, welche Stellenkategorie als fachlich, welche als administrativ zählt, inkl. Anteilsregel für Mischrollen — existiert heute nicht sauber. Definiert, dokumentiert, eingefroren; sonst wird die Zuordnung Verhandlungsmasse. Mitbestimmungsunkritisch, weil Stellenkategorien bewertet werden, nicht Personen.",
+      en: "One-off taxonomy classifying which position categories count as expert vs. administrative, incl. a share rule for mixed roles — not cleanly available today. Defined, documented, frozen; otherwise the classification becomes negotiable. Uncontroversial for co-determination as categories, not individuals, are assessed.",
+    },
+    owner: "HR (mit DAIO)",
+    kpis: ["inhouse_beratungsquote", "berater_vze_anteil"],
+  },
 ];
 
 const STATUS_LABEL: Record<Status, { de: string; en: string }> = {

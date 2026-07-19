@@ -99,8 +99,11 @@ export function KpiCard({
         )}
       </div>
 
-      {/* Secondary KPI (embedded in same card, e.g. Delivery-Quote inside Freigesetzte Ressourcen) */}
+      {/* Secondary KPIs (embedded in same card, e.g. Inhouse-Beratung & Delivery inside Freigesetzte Ressourcen) */}
       {kpi.secondaryKpiId && <SecondaryLine primaryQuarter={value?.quarter} secondaryId={kpi.secondaryKpiId} />}
+      {kpi.secondaryKpiIds?.map((sid) => (
+        <SecondaryLine key={sid} primaryQuarter={value?.quarter} secondaryId={sid} />
+      ))}
 
       {/* Row 4 — Footer */}
       <div className="flex items-center gap-2 text-[12px]">

@@ -257,33 +257,69 @@ export const KPIS: KpiDef[] = [
     id: "fachzeit",
     pkg: "struktur",
     name: { de: "Freigesetzte Ressourcen", en: "Freed resources" },
-    unit: { de: "% Fachzeit (Hauptwert) · Delivery-% (Zweitwert)", en: "% expert time (primary) · delivery % (secondary)" },
+    unit: { de: "% Fachzeit (Hauptwert) · Inhouse-Beratung % · Delivery-% (Zweitwerte)", en: "% expert time (primary) · inhouse advisory % · delivery % (secondary)" },
     unitShort: { de: "%", en: "%" },
     format: "percent",
     direction: "higher_better",
     scharnier: true,
-    secondaryKpiId: "delivery_quote",
+    secondaryKpiIds: ["inhouse_beratungsquote", "delivery_quote"],
     nLabel: { de: "n = 9 Teams (aggregiert, n ≥ 5)", en: "n = 9 teams (aggregated, n ≥ 5)" },
     contextLine: {
-      de: "Zweitwert in derselben Karte: Delivery-Quote (Geld-Währung). Zwei Zahlen, zwei Rechenwege, ein Anzeigeort — kein Index.",
-      en: "Secondary value in the same card: delivery share (money currency). Two numbers, two calculations, one display — no index.",
+      de: "Drei Werte, feste Hierarchie: Fachzeit (Zeit, Hauptwert) · Inhouse-Beratungsquote (Make-or-Buy) · Delivery-Quote (Geld beim Partner). Drei Rechenwege, kein Index.",
+      en: "Three values, fixed hierarchy: expert time (primary) · inhouse advisory share (make-or-buy) · delivery share (money at partner). Three calculations, no index.",
     },
     info: {
       was: {
-        de: "Hauptwert: Fachzeit-Quote — Anteil der Expertenzeit für fachliche Arbeit statt Administration (zweiwöchige Selbstprotokollierung, nur Team-Aggregate). Zweitwert: Delivery-Quote — Anteil der Auftragsmittel, der in Partnerleistung fließt statt in interner Abwicklung. Dieselbe Reibung in zwei Währungen: Zeit und Geld. Bewusst KEIN gewichteter Index: Ein Index hätte keinen sauberen Rechenweg von Rohdaten zu Wert, die Gewichtung würde Verhandlungsmasse (Goodhart), und die diagnostische Trennung ginge verloren — Zeit frei, aber Geld versickert (oder umgekehrt) sind zwei verschiedene Probleme.",
-        en: "Primary value: expert-time share — share of expert time on substantive work rather than admin (two-week self-logging, team aggregates only). Secondary value: delivery share — share of commission funds flowing into partner delivery. The same friction in two currencies: time and money. Deliberately NOT a weighted index — an index would have no clean path from raw data to value, the weights would become negotiable (Goodhart), and the diagnostic split would be lost.",
+        de: "Die Scharnier-Karte in drei Währungen. Hauptwert: Fachzeit-Quote — Anteil der Expertenzeit für fachliche Arbeit statt Administration (zweiwöchige Selbstprotokollierung, nur Team-Aggregate). Zweitwerte: Inhouse-Beratungsquote (Make-or-Buy: Anteil inhouse generierter Beratungsleistung, Euro-Basis) und Delivery-Quote (Anteil Auftragsmittel beim Partner). Zeit, Substanz, Geld — dieselbe Freisetzungsgeschichte, drei Rechenwege, bewusst kein Index.",
+        en: "The hinge card in three currencies. Primary: expert-time share. Secondaries: inhouse advisory share (make-or-buy, in euros) and delivery share (partner). Time, substance, money — same story, three calculations, deliberately no index.",
       },
       warum: {
         de: "Die Scharnierzahl: Sie erklärt den Mechanismus, warum aus weniger mehr wird — die Struktur gibt Expertenzeit für Expertenarbeit frei. Ohne sie sind Qualität und Effizienz zwei unverbundene Behauptungen (Maister: Health- vor Hygiene-Faktoren; BCG: Reibung an Schnittstellen als größter Leistungsverlust). Keine individuelle Auslastungsmessung — Mitbestimmung, nur Aggregate ab n ≥ 5, keine Anreizkopplung.",
-        en: "The hinge figure: it explains the mechanism for how less becomes more — the structure frees up expert time for expert work. Without it, quality and efficiency are two disconnected claims (Maister: health before hygiene factors; BCG: friction at interfaces as the largest performance loss). No individual utilisation tracking — co-determination, aggregates only from n ≥ 5, no incentive coupling.",
+        en: "The hinge figure explains how less becomes more.",
       },
       wie: {
-        de: "Standardprotokoll; Sprünge > 30 % gegen Vorperiode werden vom Steward rückgefragt. Delivery-Quote als eine Jahreszahl aus der Kostenstellenlogik (siehe delivery_quote).",
-        en: "Standard log; jumps > 30 % against the previous period are queried by the steward. Delivery share as one annual figure from cost-centre logic (see delivery_quote).",
+        de: "Standardprotokoll; Sprünge > 30 % gegen Vorperiode werden vom Steward rückgefragt.",
+        en: "Standard log; jumps > 30 % vs. prior period are queried by the steward.",
       },
       verworfen: {
-        de: "Geprüft und verworfen: individuelle Auslastung als Steuerungsgröße (Hygiene-Falle, mitbestimmungswidrig); gewichteter Index aus Fachzeit + Delivery (Gewichtung wird Verhandlungsmasse, diagnostische Trennung geht verloren).",
-        en: "Considered and rejected: individual utilisation as a steering figure (hygiene trap, incompatible with co-determination); a weighted index of expert time + delivery (weights become negotiable, diagnostic split lost).",
+        de: "Geprüft und verworfen: individuelle Auslastung als Steuerungsgröße; gewichteter Index aus den drei Werten (Gewichtung wird Verhandlungsmasse).",
+        en: "Rejected: individual utilisation; weighted index of the three values (weights become negotiable).",
+      },
+    },
+  },
+  {
+    id: "inhouse_beratungsquote",
+    pkg: "struktur",
+    name: { de: "Inhouse-Beratungsquote", en: "Inhouse advisory share" },
+    unit: { de: "% der Beratungsleistung inhouse (Euro-Basis)", en: "% of advisory work inhouse (euro basis)" },
+    unitShort: { de: "%", en: "%" },
+    format: "percent",
+    direction: "higher_better",
+    nLabel: { de: "Basis: Fach-Personalkosten + Consulting-Ausgaben", en: "Base: expert payroll + consulting spend" },
+    contextLine: {
+      de: "Kein 100%-Ziel: misst Substitutionsrichtung, nicht ein Ideal — externe Spitzenexpertise für Nischen und Lastspitzen bleibt legitim.",
+      en: "No 100 % target: measures direction of substitution, not an ideal.",
+    },
+    voraussetzung: {
+      de: "Rollen-Taxonomie (Voraussetzung 4) — Fach-Personalkosten setzen die eingefrorene Zuordnung fachlich/administrativ voraus.",
+      en: "Role taxonomy (precondition 4) — expert payroll requires the frozen role classification.",
+    },
+    info: {
+      was: {
+        de: "Make-or-Buy der Beratung: interne Fach-Personalkosten ÷ (interne Fach-Personalkosten + externe Consulting-Ausgaben), beides in Euro. Wie viel unserer Beratungsleistung ist inhouse generiert, wie viel zugekauft?",
+        en: "Make-or-buy of advisory work: internal expert payroll ÷ (internal expert payroll + external consulting spend), both in euros.",
+      },
+      warum: {
+        de: "Ein Expertenhaus, das seine Expertise überwiegend im Unterauftrag einkauft, ist ein Widerspruch in sich. Zielwert bewusst NICHT 100 %: gemessen wird die Richtung, kein Ideal — sonst erzeugt die Kennzahl Druck, sinnvolle externe Vergabe zu vermeiden (Goodhart in Gegenrichtung).",
+        en: "An expert house that mostly subcontracts its expertise contradicts itself. Target deliberately not 100 % — direction, not ideal.",
+      },
+      wie: {
+        de: "Euro-Basis aus zwei Finance-Quellen: Personalkosten der Fachrollen (lt. eingefrorener Rollen-Taxonomie) und Consulting-Ausgaben aus den Vertragsübersichten. Bewusst keine Umrechnung über Beratertage/Tagessätze.",
+        en: "Euro basis from two finance sources; deliberately no day-rate conversion.",
+      },
+      verworfen: {
+        de: "Geprüft und verworfen: Berater-VZE ÷ Consultingbudget (Einheiten-Mix, Tagessatz manipulierbar); Berater-VZE-Anteil als Beweis-KPI (läuft als Diagnostik weiter); allgemeine Eigenleistungsquote (unspezifisch).",
+        en: "Rejected: advisor FTE ÷ consulting budget; advisor FTE share as a proof KPI (kept as diagnostic).",
       },
     },
   },
@@ -374,6 +410,35 @@ export const KPIS: KpiDef[] = [
         en: "Identical list, identical participants, documented by BT 3.",
       },
       verworfen: null,
+    },
+  },
+  {
+    id: "berater_vze_anteil",
+    pkg: "struktur",
+    diagnostik: true,
+    name: { de: "Berater-VZE-Anteil", en: "Advisor FTE share" },
+    unit: { de: "% der Gesamt-VZE in Fachrollen", en: "% of total FTE in expert roles" },
+    unitShort: { de: "%", en: "%" },
+    format: "percent",
+    direction: "higher_better",
+    nLabel: { de: "Basis: HR-Stellenübersicht (aggregiert)", en: "Base: HR headcount overview (aggregated)" },
+    info: {
+      was: {
+        de: "Anteil der Vollzeitäquivalente in Berater-/Fachrollen an den Gesamt-VZE — die Struktur-Schicht der Freisetzung: Verschiebt sich die Organisation von Verwaltungs- zu Expertenrollen?",
+        en: "Share of FTE in expert roles — structural layer of freed capacity.",
+      },
+      warum: {
+        de: "Die Fachzeit-Quote misst nur das Verhalten vorhandener Fachkräfte; sie ist blind für die Personalstruktur. Erst beide Schichten zusammen ergeben das Bild. Nenner bewusst Gesamt-VZE, nicht Umsatz.",
+        en: "Expert-time share is blind to headcount structure; both layers together tell the story.",
+      },
+      wie: {
+        de: "Jährlich aus der HR-Stellenübersicht, aggregiert — bewertet werden Stellenkategorien, nie Personen. Voraussetzung: eingefrorene Rollen-Taxonomie.",
+        en: "Annually from HR overview, aggregated. Precondition: frozen role taxonomy.",
+      },
+      verworfen: {
+        de: "Geprüft und verworfen: Berater-VZE ÷ Umsatz (Portfoliomix-anfällig).",
+        en: "Rejected: advisor FTE ÷ revenue (portfolio-mix biased).",
+      },
     },
   },
 ];

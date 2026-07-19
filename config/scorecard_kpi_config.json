@@ -190,13 +190,39 @@
       "n_label": "n = 9 Teams (aggregiert, n ≥ 5)",
       "scharnier": true,
       "info": {
-        "was_es_misst": "Hauptwert: Fachzeit-Quote — Anteil der Expertenzeit für fachliche Arbeit statt Administration (zweiwöchige Selbstprotokollierung, nur Team-Aggregate). Zweitwert: Delivery-Quote — Anteil der Auftragsmittel, der in Partnerleistung fließt statt in interner Abwicklung. Dieselbe Reibung in zwei Währungen: Zeit und Geld. Bewusst KEIN gewichteter Index: Ein Index hätte keinen sauberen Rechenweg von Rohdaten zu Wert, die Gewichtung würde Verhandlungsmasse (Goodhart), und die diagnostische Trennung ginge verloren — Zeit frei, aber Geld versickert (oder umgekehrt) sind zwei verschiedene Probleme.",
+        "was_es_misst": "Die Scharnier-Karte in drei Währungen. Hauptwert: Fachzeit-Quote — Anteil der Expertenzeit für fachliche Arbeit statt Administration (zweiwöchige Selbstprotokollierung, nur Team-Aggregate). Zweitwerte: Inhouse-Beratungsquote (Make-or-Buy: Anteil inhouse generierter Beratungsleistung, Euro-Basis) und Delivery-Quote (Anteil Auftragsmittel beim Partner). Zeit, Substanz, Geld — dieselbe Freisetzungsgeschichte, drei Rechenwege, bewusst kein Index.",
         "warum": "Die Scharnierzahl: Sie erklärt den Mechanismus, warum aus weniger mehr wird – die Struktur gibt Expertenzeit für Expertenarbeit frei. Ohne sie sind Qualität und Effizienz zwei unverbundene Behauptungen (Maister: Health- vor Hygiene-Faktoren; BCG: Reibung an Schnittstellen als größter Leistungsverlust). Keine individuelle Auslastungsmessung – Mitbestimmung, nur Aggregate ab n ≥ 5, keine Anreizkopplung.",
         "verifizierung": "Standardprotokoll; Sprünge > 30 % gegen Vorperiode werden vom Steward rückgefragt.",
         "verworfen": "Geprüft und verworfen: individuelle Auslastung als Steuerungsgröße (Hygiene-Falle, mitbestimmungswidrig)."
       },
-      "secondary_kpi": "delivery_quote",
-      "context_line": "Zweitwert in derselben Karte: Delivery-Quote (Geld-Währung). Zwei Zahlen, zwei Rechenwege, ein Anzeigeort — kein Index."
+      "context_line": "Drei Werte, feste Hierarchie: Fachzeit (Zeit, Hauptwert) · Inhouse-Beratungsquote (Make-or-Buy) · Delivery-Quote (Geld beim Partner). Drei Rechenwege, kein Index.",
+      "secondary_kpis": [
+        "inhouse_beratungsquote",
+        "delivery_quote"
+      ]
+    },
+    {
+      "id": "inhouse_beratungsquote",
+      "paket": 3,
+      "paket_name": "Struktur-Effizienz",
+      "name": "Inhouse-Beratungsquote",
+      "unit": "% der Beratungsleistung inhouse (Euro-Basis)",
+      "unit_short": "%",
+      "direction": "higher_better",
+      "cadence": "jährlich",
+      "owner": "Finance (Personalkosten Fachrollen + Consulting-Ausgaben)",
+      "baseline": 64,
+      "current": 67,
+      "n_label": "Basis: Fach-Personalkosten + Consulting-Ausgaben",
+      "display": "secondary_in:fachzeit",
+      "context_line": "Kein 100%-Ziel: misst Substitutionsrichtung, nicht ein Ideal — externe Spitzenexpertise für Nischen und Lastspitzen bleibt legitim.",
+      "info": {
+        "was_es_misst": "Make-or-Buy der Beratung: interne Fach-Personalkosten ÷ (interne Fach-Personalkosten + externe Consulting-Ausgaben), beides in Euro. Wie viel unserer Beratungsleistung ist inhouse generiert, wie viel zugekauft?",
+        "warum": "Ein Expertenhaus, das seine Expertise überwiegend im Unterauftrag einkauft, ist ein Widerspruch in sich. Die Quote wendet die Substitutionsfalle (mit der VZE/Umsatz verworfen wurde) positiv: Sinkt sie bei wachsendem Portfolio, wird das Haus zur Durchleitstation; steigt sie, baut es Substanz auf — mit Karrierepfaden über die Practices. Zielwert ist bewusst NICHT 100 %: gemessen wird die Richtung, kein Ideal — sonst erzeugt die Kennzahl Druck, sinnvolle externe Vergabe zu vermeiden (Goodhart in Gegenrichtung).",
+        "verifizierung": "Euro-Basis aus zwei Finance-Quellen: Personalkosten der Fachrollen (lt. eingefrorener Rollen-Taxonomie) und Consulting-Ausgaben aus den Vertragsübersichten. Bewusst keine Umrechnung über Beratertage/Tagessätze — die Tagessatz-Annahme würde Verhandlungsmasse.",
+        "verworfen": "Geprüft und verworfen: Berater-VZE ÷ Consultingbudget als Roh-Verhältnis (Einheiten-Mix VZE/Euro, nur über manipulierbare Tagessatz-Annahme umrechenbar); Berater-VZE-Anteil an Gesamt-VZE als Beweis-KPI (misst Binnenstruktur statt Make-or-Buy — läuft als Diagnostik weiter); allgemeine Eigenleistungsquote (unspezifisch, geht in dieser Kennzahl auf)."
+      },
+      "voraussetzung": "Rollen-Taxonomie (Voraussetzung 4) — die Fach-Personalkosten setzen die eingefrorene Zuordnung fachlich/administrativ voraus."
     },
     {
       "id": "schmerzpunkt",
@@ -283,10 +309,22 @@
       }
     },
     {
-      "id": "eigenleistung",
-      "name": "Eigenleistungsquote",
-      "role": "Kontextzeile ohne Zielwert – erklärt Bewegungen der Delivery-Quote, wird nicht gesteuert",
-      "display": "grau, kein Trendpfeil, keine Karte"
+      "id": "berater_vze_anteil",
+      "name": "Berater-VZE-Anteil",
+      "role": "Diagnostik (aus der Scharnier-Karte überführt): Binnenverschiebung von Verwaltungs- zu Fachrollen — sehenswert, aber nicht beweispflichtig; die Make-or-Buy-Frage beantwortet die Inhouse-Beratungsquote.",
+      "display": "Diagnostik-Zeile mit Wert, Baseline, Trendpfeil",
+      "direction": "higher_better",
+      "unit": "% der Gesamt-VZE in Fachrollen",
+      "baseline": 58,
+      "current": 61,
+      "owner": "HR, Taxonomie mit DAIO",
+      "cadence": "jährlich",
+      "info": {
+        "was_es_misst": "Anteil der Vollzeitäquivalente in Berater-/Fachrollen an den Gesamt-VZE — die Struktur-Schicht der Freisetzung: Verschiebt sich die Organisation von Verwaltungs- zu Expertenrollen?",
+        "warum": "Die Fachzeit-Quote misst nur das Verhalten der vorhandenen Fachkräfte; sie ist blind für die Personalstruktur. Erst beide Schichten zusammen ergeben das Bild: Struktur rauf + Verhalten rauf = Powerhouse wirkt doppelt. Struktur rauf, Verhalten flach = neue Fachstellen ersticken in Admin (Machine Room liefert nicht). Struktur flach, Verhalten rauf = Entlastung wirkt, Organisation stellt noch nicht um. Nenner bewusst Gesamt-VZE, nicht Umsatz — der Umsatz-Nenner würde die verworfenen Probleme (Portfoliomix, durchgeleitetes Volumen als Scheinwert) zurückimportieren.",
+        "verifizierung": "Jährlich aus der HR-Stellenübersicht, aggregiert — bewertet werden Stellenkategorien, nie Personen (mitbestimmungsunkritisch). Voraussetzung: einmalige Rollen-Taxonomie (fachlich / administrativ / Mischrolle mit Anteilsregel), definiert und eingefroren.",
+        "verworfen": "Geprüft und verworfen: Berater-VZE ÷ Umsatz (Portfoliomix-anfällig, Umsatz kein Wertmaß — Umsatz je Berater-VZE läuft nur als ungewertete Kontextzeile)."
+      }
     },
     {
       "id": "geberkonzentration",
@@ -396,6 +434,17 @@
         "owner": "AVs im Episodenregister, Standard durch DAIO",
         "betroffene_kpis": [
           "mechanismus"
+        ],
+        "status": "offen"
+      },
+      {
+        "id": "rollen_taxonomie",
+        "titel": "Rollen-Taxonomie: fachliche vs. administrative Stellen definieren",
+        "beschreibung": "Einmalige Taxonomie, welche Stellenkategorie als fachlich, welche als administrativ zählt, inkl. Anteilsregel für Mischrollen — existiert heute nicht sauber. Definiert, dokumentiert, eingefroren; sonst wird die Zuordnung Verhandlungsmasse. Mitbestimmungsunkritisch, weil Stellenkategorien bewertet werden, nicht Personen.",
+        "owner": "HR (mit DAIO)",
+        "betroffene_kpis": [
+          "inhouse_beratungsquote",
+          "berater_vze_anteil (Diagnostik)"
         ],
         "status": "offen"
       }

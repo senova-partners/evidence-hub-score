@@ -49,9 +49,11 @@ export function trend(
  */
 export function boardKpis() {
   // KPIs shown on the board grid: exclude diagnostik-only and secondary-embedded.
-  const secondaries = new Set(
-    KPIS.map((k) => k.secondaryKpiId).filter(Boolean) as string[],
-  );
+  const secondaries = new Set<string>();
+  for (const k of KPIS) {
+    if (k.secondaryKpiId) secondaries.add(k.secondaryKpiId);
+    if (k.secondaryKpiIds) k.secondaryKpiIds.forEach((id) => secondaries.add(id));
+  }
   return KPIS.filter((k) => !k.diagnostik && !secondaries.has(k.id));
 }
 
