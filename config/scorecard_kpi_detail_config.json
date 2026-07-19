@@ -754,12 +754,16 @@
       ],
       "raw_rows": [
         [
-          "Interne Fach-Personalkosten (Fachrollen lt. Taxonomie, inkl. Mischrollen-Anteile)",
+          "Interne Fach-Personalkosten (Fachrollen lt. Taxonomie)",
           "4,8"
         ],
         [
-          "Externe Consulting-Ausgaben (Unteraufträge lt. Vertragsübersichten)",
+          "Externe Consulting-Ausgaben (Unteraufträge)",
           "2,4"
+        ],
+        [
+          "Finanzierungen (Zuschüsse/Grants an Durchführungspartner)",
+          "4,7"
         ],
         [
           "⚠ Voraussetzung",
@@ -768,10 +772,11 @@
       ],
       "raw_summary": {
         "fach_personalkosten_mio": 4.8,
-        "consulting_ausgaben_mio": 2.4
+        "consulting_ausgaben_mio": 2.4,
+        "finanzierungen_mio": 4.7
       },
-      "formula_text": "Interne Fach-Personalkosten ÷ (interne Fach-Personalkosten + externe Consulting-Ausgaben) × 100, beide in Euro. Kein 100%-Ziel — gemessen wird die Substitutionsrichtung.",
-      "worked_example": "4,8 ÷ (4,8 + 2,4) = 4,8 ÷ 7,2 = 67 %"
+      "formula_text": "Hauptwert (Inhouse-Anteil der Leistungserbringung): Fach-Personalkosten ÷ (Fach-Personalkosten + Consulting + Finanzierungen) × 100. Zweitwert (Expertise-Substitution): Fach-Personalkosten ÷ (Fach-Personalkosten + Consulting) × 100. Divergenz-Lesart: Sinkt der Hauptwert bei stabilem Zweitwert, wächst der Finanzierungsanteil im Portfolio — kein Substanzverlust; sinken beide, wird Expertise ausgelagert.",
+      "worked_example": "Hauptwert: 4,8 ÷ (4,8 + 2,4 + 4,7) = 4,8 ÷ 11,9 = 40 % · Zweitwert: 4,8 ÷ 7,2 = 67 %"
     }
   }
 }
