@@ -1,22 +1,31 @@
 import { Link } from "@tanstack/react-router";
-import { kpiById, formatValue, formatDelta } from "@/lib/scorecard/kpis";
+import { kpiById } from "@/lib/scorecard/kpis";
 import { trend } from "@/lib/scorecard/verdict";
-import { useT, useLocale } from "@/lib/scorecard/useT";
+import { useLocale } from "@/lib/scorecard/useT";
 import { InfoPanel } from "./InfoPanel";
 import { useStore, type Store } from "@/lib/scorecard/store";
 import type { KpiValue } from "@/lib/scorecard/types";
+import {
+  CARD_SUBTITLE,
+  CARD_FOOTER_N,
+  SECONDARY_LABEL,
+  bareValue,
+  bareDelta,
+  bareBaseline,
+} from "./board-presentation";
 
-const trendGlyph = { up: "↑", down: "↓", flat: "→", missing: "✕" } as const;
+const trendGlyph = { up: "↗", down: "↘", flat: "→", missing: "✕" } as const;
 
 /**
- * Fixed 4-line template — same height across all cards.
- *   1  Title  + ⓘ
- *   2  Value  (formatted number + short unit; "—" if missing)
- *   3  Delta  vs baseline (or status "Meldung fehlt" if missing)
- *   4  Footer (baseline · n-label · flags)
+ * Board card — fixed five-slot template. Same height across all 9 cards,
+ * value baseline aligned via fixed row sizing. Any overflow is clipped
+ * (ellipsis on text rows) — the card never grows.
  *
- * Long-form unit and context_line are intentionally NOT rendered here —
- * they live in the Info panel.
+ *   1  Title (truncate)               + ⓘ
+ *   2  Subtitle (plain, muted, 13px, truncate)
+ *   3  Value (bare number, uniform 36px, bottom-aligned in slot)
+ *   4  Delta "↗ +0,3 seit Baseline"   or  "Meldung fehlt" (red)
+ *   5  Footer "Baseline 3,6 · 14 Episoden" (truncate)
  */
 export function KpiCard({
   kpiId,
@@ -28,122 +37,110 @@ export function KpiCard({
   baseline: number | undefined;
 }) {
   const kpi = kpiById(kpiId);
-  const t = useT();
   const locale = useLocale();
+  const store = useStore((s: Store) => s);
   if (!kpi) return null;
 
   const v = value?.value ?? null;
   const tr = trend(kpiId, v, baseline);
   const missing = v === null;
-  const flagged = value?.flagged;
 
-  const trWord =
-    tr === "up"
-      ? locale === "de" ? "verbessert" : "improved"
-      : tr === "down"
-        ? locale === "de" ? "verschlechtert" : "declined"
-        : tr === "flat"
-          ? locale === "de" ? "stabil" : "stable"
-          : locale === "de" ? "Meldung fehlt" : "report missing";
+  const subtitle = CARD_SUBTITLE[kpiId]?.[locale] ?? "";
+  const footerN = CARD_FOOTER_N[kpiId]?.[locale] ?? "";
+  const seitBaseline = locale === "de" ? "seit Baseline" : "since baseline";
+  const meldungFehlt = locale === "de" ? "Meldung fehlt" : "Report missing";
+  const letzteRunde = locale === "de" ? "Letzte Runde" : "Last round";
 
-  const label = missing
-    ? `${kpi.name[locale]}: ${trWord}`
-    : `${kpi.name[locale]}, ${formatValue(v, kpi, locale)}, ${trWord} ggü. ${t(
-        "baseline",
-      )} ${formatValue(baseline ?? null, kpi, locale)}`;
+  // Footer text — special cases: missing values show "Letzte Runde"; scharnier
+  // renders its two secondary values instead.
+  let footerText = `${locale === "de" ? "Baseline" : "Baseline"} ${bareBaseline(
+    baseline,
+    kpi,
+    locale,
+  )}${footerN ? ` · ${footerN}` : ""}`;
+
+  if (missing) {
+    // "Letzte Runde 2,9 · Session 15.07." (peer_review). For any other missing
+    // card we substitute the standard n-label after the baseline.
+    const sessionHint =
+      kpiId === "peer_review" ? (locale === "de" ? "Session 15.07." : "Session 15 Jul") : footerN;
+    footerText = `${letzteRunde} ${bareBaseline(baseline, kpi, locale)}${
+      sessionHint ? ` · ${sessionHint}` : ""
+    }`;
+  }
+
+  // Scharnier: two secondary values compacted into the footer slot.
+  const secondaryIds = kpi.secondaryKpiIds ?? (kpi.secondaryKpiId ? [kpi.secondaryKpiId] : []);
+  if (secondaryIds.length > 0 && !missing) {
+    const q = value?.quarter ?? store.session?.quarter;
+    const parts = secondaryIds
+      .map((sid) => {
+        const sk = kpiById(sid);
+        if (!sk) return null;
+        const sv = q ? store.values[sid]?.[q]?.value ?? null : null;
+        const label = SECONDARY_LABEL[sid]?.[locale] ?? sk.name[locale];
+        return `${label} ${bareValue(sv, sk, locale)}`;
+      })
+      .filter(Boolean);
+    if (parts.length > 0) footerText = parts.join(" · ");
+  }
+
+  const ariaLabel = missing
+    ? `${kpi.name[locale]}: ${meldungFehlt}`
+    : `${kpi.name[locale]}, ${bareValue(v, kpi, locale)}, ${bareDelta(v, baseline, kpi, locale)} ${seitBaseline}`;
 
   return (
     <div
-      className={`hairline p-4 bg-card grid grid-rows-[auto_1fr_auto_auto] gap-2 min-h-[168px] ${
-        kpi.scharnier ? "border-l-2 border-l-[color:var(--giz-red)]" : ""
-      }`}
-      aria-label={label}
+      className="hairline bg-card overflow-hidden flex flex-col h-[236px] p-6"
+      aria-label={ariaLabel}
     >
-      {/* Row 1 — Title + Info */}
-      <div className="flex items-start justify-between gap-2">
+      {/* Row 1 — Title + Info (28px slot) */}
+      <div className="flex items-start justify-between gap-2 h-7">
         <Link
           to="/app/kpi/$id"
           params={{ id: kpiId }}
-          className="text-[14px] font-semibold hover:underline leading-snug"
+          className="text-[14px] font-semibold hover:underline truncate leading-tight"
+          title={kpi.name[locale]}
         >
           {kpi.name[locale]}
-          {kpi.scharnier && (
-            <span className="ml-2 text-[11px] font-normal text-muted-foreground">
-              · {t("scharnier")}
-            </span>
-          )}
         </Link>
-        <InfoPanel kpiId={kpiId} />
+        <div className="shrink-0 -mt-1 -mr-1">
+          <InfoPanel kpiId={kpiId} />
+        </div>
       </div>
 
-      {/* Row 2 — Value (uniform size across all cards) */}
+      {/* Row 2 — Subtitle (20px slot, 10px gap above) */}
       <div
-        className={`text-[32px] font-semibold tabular-nums leading-none self-center ${
-          missing ? "text-[color:var(--giz-red)]" : ""
-        }`}
+        className="mt-[10px] h-5 text-[13px] leading-5 text-muted-foreground truncate"
+        title={subtitle}
       >
-        {missing ? "—" : formatValue(v, kpi, locale)}
+        {subtitle}
       </div>
 
-      {/* Row 3 — Delta or missing status */}
-      <div className="text-[12px] tabular-nums">
+      {/* Row 3 — Value (fills remaining height, bottom-aligned for shared baseline) */}
+      <div className="mt-[10px] flex-1 flex items-end text-[36px] leading-none font-semibold tabular-nums">
+        {bareValue(v, kpi, locale)}
+      </div>
+
+      {/* Row 4 — Delta / status (20px slot) */}
+      <div className="mt-[10px] h-5 text-[12px] leading-5 truncate">
         {missing ? (
-          <span className="text-[color:var(--giz-red)] font-semibold">
-            <span aria-hidden>✕</span> {t("missing")}
-          </span>
+          <span className="text-[color:var(--giz-red)] font-semibold">{meldungFehlt}</span>
         ) : (
-          <span className="text-muted-foreground">
-            <span aria-hidden>{trendGlyph[tr]}</span>{" "}
-            {formatDelta(v, baseline, kpi, locale)} {t("vs_baseline")}
+          <span className="text-muted-foreground tabular-nums">
+            <span aria-hidden>{trendGlyph[tr]}</span> {bareDelta(v, baseline, kpi, locale)}{" "}
+            {seitBaseline}
           </span>
         )}
       </div>
 
-      {/* Secondary KPIs (embedded in same card, e.g. Inhouse-Beratung & Delivery inside Freigesetzte Ressourcen) */}
-      {kpi.secondaryKpiId && <SecondaryLine primaryQuarter={value?.quarter} secondaryId={kpi.secondaryKpiId} />}
-      {kpi.secondaryKpiIds?.map((sid) => (
-        <SecondaryLine key={sid} primaryQuarter={value?.quarter} secondaryId={sid} />
-      ))}
-
-      {/* Row 4 — Footer */}
-      <div className="flex items-center gap-2 text-[12px]">
-        <span
-          aria-hidden
-          className={`inline-block w-2 h-2 rounded-full shrink-0 ${
-            missing ? "bg-[color:var(--giz-red)]" : "bg-foreground"
-          }`}
-        />
-        <span className="text-muted-foreground truncate">
-          {`${t("baseline")} ${formatValue(baseline ?? null, kpi, locale)}`}
-          {` · ${kpi.nLabel[locale]}`}
-          {flagged ? ` · ${t("flagged")}` : ""}
-        </span>
+      {/* Row 5 — Footer (20px slot) */}
+      <div
+        className="mt-[10px] h-5 text-[12px] leading-5 text-muted-foreground truncate"
+        title={footerText}
+      >
+        {footerText}
       </div>
-    </div>
-  );
-}
-
-function SecondaryLine({ primaryQuarter, secondaryId }: { primaryQuarter?: string; secondaryId: string }) {
-  const locale = useLocale();
-  const store = useStore((s: Store) => s);
-  const kpi = kpiById(secondaryId);
-  if (!kpi) return null;
-  const q = primaryQuarter ?? store.session?.quarter;
-  const v = q ? store.values[secondaryId]?.[q]?.value ?? null : null;
-  const b = store.baselines[secondaryId];
-  const tr = trend(secondaryId, v, b);
-  const glyph = tr === "up" ? "↑" : tr === "down" ? "↓" : tr === "flat" ? "→" : "✕";
-  return (
-    <div className="text-[11px] hairline-t pt-2 flex items-baseline gap-2">
-      <span className="text-muted-foreground uppercase tracking-wide text-[10px] shrink-0">
-        {locale === "de" ? "Zweitwert" : "Secondary"} · {kpi.name[locale]}
-      </span>
-      <span className="tabular-nums font-semibold ml-auto">
-        {v === null ? "—" : formatValue(v, kpi, locale)}
-      </span>
-      <span aria-hidden className="text-muted-foreground tabular-nums text-[10px]">
-        {glyph} {formatDelta(v, b, kpi, locale)}
-      </span>
     </div>
   );
 }
