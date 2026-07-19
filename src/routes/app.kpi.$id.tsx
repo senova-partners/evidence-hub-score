@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useStore, QUARTERS, type Store } from "@/lib/scorecard/store";
 import { kpiById, PKG_LABEL, formatValue, formatDelta } from "@/lib/scorecard/kpis";
+import { kpiDetail } from "@/lib/scorecard/kpi-details";
 import { TrendChart } from "@/components/scorecard/TrendChart";
 import { InfoPanel } from "@/components/scorecard/InfoPanel";
 import { useT, useLocale } from "@/lib/scorecard/useT";
@@ -19,6 +20,7 @@ function KpiDetail() {
   const locale = useLocale();
   const kpi = kpiById(id);
   if (!kpi) return <p>Unknown KPI.</p>;
+  const detail = kpiDetail(id);
 
   const baseline = store.baselines[id];
   const data = QUARTERS.map((q) => ({
@@ -29,7 +31,7 @@ function KpiDetail() {
   const tr = trend(id, current, baseline);
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-8">
       <div>
         <Link to="/app/board" className="text-[12px] text-muted-foreground hover:underline">
           ← {t("nav_board")}
@@ -53,12 +55,109 @@ function KpiDetail() {
         />
       </div>
 
-      <section className="hairline p-6">
-        <h2 className="text-[13px] uppercase tracking-wide text-muted-foreground mb-4">
-          {t("trend")}
-        </h2>
+      {/* VERLAUF */}
+      <Section title="Verlauf">
         <TrendChart data={data} baseline={baseline} label={kpi.name[locale]} />
-      </section>
+      </Section>
+
+      {/* ERHEBUNG */}
+      {detail && (
+        <Section title="Erhebung">
+          <dl className="grid grid-cols-1 md:grid-cols-4 gap-6 text-[13px]">
+            <Field label="Wer erhebt" value={detail.erhebung.owner} />
+            <Field label="Wann" value={detail.erhebung.cadence} />
+            <Field label="Wie" value={kpi.info.wie[locale]} />
+            <Field label="Verifizierung" value={detail.erhebung.verifizierung} />
+          </dl>
+        </Section>
+      )}
+
+      {/* ROHDATEN */}
+      {detail && (
+        <Section title="Rohdaten">
+          <div className="overflow-x-auto">
+            <table className="w-full text-[13px] tabular-nums">
+              <thead>
+                <tr className="hairline-b">
+                  {detail.raw_schema.map((h) => (
+                    <th
+                      key={h}
+                      className="text-left font-semibold py-2 pr-4 text-[12px] uppercase tracking-wide text-muted-foreground"
+                    >
+                      {h}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {detail.raw_rows.map((row, i) => (
+                  <tr key={i} className="hairline-b">
+                    {row.map((cell, j) => (
+                      <td key={j} className="py-2 pr-4 align-top">
+                        {String(cell)}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div className="mt-4 text-[12px] text-muted-foreground">
+            <span className="uppercase tracking-wide mr-2">Zählung</span>
+            {Object.entries(detail.raw_summary).map(([k, v], i, arr) => (
+              <span key={k}>
+                <span className="text-foreground">{formatSummaryKey(k)}</span>{" "}
+                <span className="tabular-nums">{v === null ? "—" : String(v)}</span>
+                {i < arr.length - 1 ? " · " : ""}
+              </span>
+            ))}
+          </div>
+        </Section>
+      )}
+
+      {/* BERECHNUNG */}
+      {detail && (
+        <Section title="Berechnung">
+          <div className="flex flex-col gap-4 text-[13px]">
+            <div>
+              <div className="text-[12px] uppercase tracking-wide text-muted-foreground mb-1">
+                Formel
+              </div>
+              <div>{detail.formula_text}</div>
+            </div>
+            <div>
+              <div className="text-[12px] uppercase tracking-wide text-muted-foreground mb-1">
+                Rechenweg
+              </div>
+              <div className="font-mono text-[13px] tabular-nums whitespace-pre-wrap">
+                {detail.worked_example}
+              </div>
+            </div>
+          </div>
+        </Section>
+      )}
+    </div>
+  );
+}
+
+function formatSummaryKey(k: string): string {
+  return k.replace(/_/g, " ") + ":";
+}
+
+function Section({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <section className="hairline p-6">
+      <h2 className="text-[13px] uppercase tracking-wide text-muted-foreground mb-4">{title}</h2>
+      {children}
+    </section>
+  );
+}
+
+function Field({ label, value }: { label: string; value: string }) {
+  return (
+    <div>
+      <dt className="text-[12px] uppercase tracking-wide text-muted-foreground mb-1">{label}</dt>
+      <dd>{value}</dd>
     </div>
   );
 }
@@ -71,4 +170,3 @@ function Stat({ label, value }: { label: string; value: string }) {
     </div>
   );
 }
-
