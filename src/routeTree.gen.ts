@@ -9,38 +9,134 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as AppRouteImport } from './routes/app'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AppNichtGemessenRouteImport } from './routes/app.nicht-gemessen'
+import { Route as AppExportRouteImport } from './routes/app.export'
+import { Route as AppEvidenzbankRouteImport } from './routes/app.evidenzbank'
+import { Route as AppDiagnostikRouteImport } from './routes/app.diagnostik'
+import { Route as AppBoardRouteImport } from './routes/app.board'
+import { Route as AppKpiIdRouteImport } from './routes/app.kpi.$id'
 
+const AppRoute = AppRouteImport.update({
+  id: '/app',
+  path: '/app',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AppNichtGemessenRoute = AppNichtGemessenRouteImport.update({
+  id: '/nicht-gemessen',
+  path: '/nicht-gemessen',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppExportRoute = AppExportRouteImport.update({
+  id: '/export',
+  path: '/export',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppEvidenzbankRoute = AppEvidenzbankRouteImport.update({
+  id: '/evidenzbank',
+  path: '/evidenzbank',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppDiagnostikRoute = AppDiagnostikRouteImport.update({
+  id: '/diagnostik',
+  path: '/diagnostik',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppBoardRoute = AppBoardRouteImport.update({
+  id: '/board',
+  path: '/board',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppKpiIdRoute = AppKpiIdRouteImport.update({
+  id: '/kpi/$id',
+  path: '/kpi/$id',
+  getParentRoute: () => AppRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/app': typeof AppRouteWithChildren
+  '/app/board': typeof AppBoardRoute
+  '/app/diagnostik': typeof AppDiagnostikRoute
+  '/app/evidenzbank': typeof AppEvidenzbankRoute
+  '/app/export': typeof AppExportRoute
+  '/app/nicht-gemessen': typeof AppNichtGemessenRoute
+  '/app/kpi/$id': typeof AppKpiIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/app': typeof AppRouteWithChildren
+  '/app/board': typeof AppBoardRoute
+  '/app/diagnostik': typeof AppDiagnostikRoute
+  '/app/evidenzbank': typeof AppEvidenzbankRoute
+  '/app/export': typeof AppExportRoute
+  '/app/nicht-gemessen': typeof AppNichtGemessenRoute
+  '/app/kpi/$id': typeof AppKpiIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/app': typeof AppRouteWithChildren
+  '/app/board': typeof AppBoardRoute
+  '/app/diagnostik': typeof AppDiagnostikRoute
+  '/app/evidenzbank': typeof AppEvidenzbankRoute
+  '/app/export': typeof AppExportRoute
+  '/app/nicht-gemessen': typeof AppNichtGemessenRoute
+  '/app/kpi/$id': typeof AppKpiIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/app'
+    | '/app/board'
+    | '/app/diagnostik'
+    | '/app/evidenzbank'
+    | '/app/export'
+    | '/app/nicht-gemessen'
+    | '/app/kpi/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/app'
+    | '/app/board'
+    | '/app/diagnostik'
+    | '/app/evidenzbank'
+    | '/app/export'
+    | '/app/nicht-gemessen'
+    | '/app/kpi/$id'
+  id:
+    | '__root__'
+    | '/'
+    | '/app'
+    | '/app/board'
+    | '/app/diagnostik'
+    | '/app/evidenzbank'
+    | '/app/export'
+    | '/app/nicht-gemessen'
+    | '/app/kpi/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AppRoute: typeof AppRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/app': {
+      id: '/app'
+      path: '/app'
+      fullPath: '/app'
+      preLoaderRoute: typeof AppRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,11 +144,74 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/app/nicht-gemessen': {
+      id: '/app/nicht-gemessen'
+      path: '/nicht-gemessen'
+      fullPath: '/app/nicht-gemessen'
+      preLoaderRoute: typeof AppNichtGemessenRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/export': {
+      id: '/app/export'
+      path: '/export'
+      fullPath: '/app/export'
+      preLoaderRoute: typeof AppExportRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/evidenzbank': {
+      id: '/app/evidenzbank'
+      path: '/evidenzbank'
+      fullPath: '/app/evidenzbank'
+      preLoaderRoute: typeof AppEvidenzbankRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/diagnostik': {
+      id: '/app/diagnostik'
+      path: '/diagnostik'
+      fullPath: '/app/diagnostik'
+      preLoaderRoute: typeof AppDiagnostikRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/board': {
+      id: '/app/board'
+      path: '/board'
+      fullPath: '/app/board'
+      preLoaderRoute: typeof AppBoardRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/kpi/$id': {
+      id: '/app/kpi/$id'
+      path: '/kpi/$id'
+      fullPath: '/app/kpi/$id'
+      preLoaderRoute: typeof AppKpiIdRouteImport
+      parentRoute: typeof AppRoute
+    }
   }
 }
 
+interface AppRouteChildren {
+  AppBoardRoute: typeof AppBoardRoute
+  AppDiagnostikRoute: typeof AppDiagnostikRoute
+  AppEvidenzbankRoute: typeof AppEvidenzbankRoute
+  AppExportRoute: typeof AppExportRoute
+  AppNichtGemessenRoute: typeof AppNichtGemessenRoute
+  AppKpiIdRoute: typeof AppKpiIdRoute
+}
+
+const AppRouteChildren: AppRouteChildren = {
+  AppBoardRoute: AppBoardRoute,
+  AppDiagnostikRoute: AppDiagnostikRoute,
+  AppEvidenzbankRoute: AppEvidenzbankRoute,
+  AppExportRoute: AppExportRoute,
+  AppNichtGemessenRoute: AppNichtGemessenRoute,
+  AppKpiIdRoute: AppKpiIdRoute,
+}
+
+const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AppRoute: AppRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
