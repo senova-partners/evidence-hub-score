@@ -117,51 +117,6 @@
       "formula_text": "Hauptwert: gewonnene ÷ eingereichte Proposals (rollierend 24 Monate) × 100. Kontext: EU separat; Kofinanzierungsvolumen ÷ Grundauftrag.",
       "worked_example": "8 ÷ 21 = 38 % · EU: 2 ÷ 6 = 33 % · Kofi: 6,2 ÷ 18,5 Mio = 34 %"
     },
-    "partner_delta": {
-      "raw_schema": [
-        "Partner (Organisation)",
-        "Schneller geworden?",
-        "Rat besser geworden?"
-      ],
-      "raw_rows": [
-        [
-          "Ministerium A",
-          "besser",
-          "besser"
-        ],
-        [
-          "Ministerium B",
-          "gleich",
-          "besser"
-        ],
-        [
-          "Behörde C",
-          "besser",
-          "gleich"
-        ],
-        [
-          "Kommune D",
-          "schlechter",
-          "gleich"
-        ],
-        [
-          "… (10 Gespräche gesamt)",
-          "…",
-          "…"
-        ]
-      ],
-      "raw_summary": {
-        "n": 10,
-        "rat_besser": 6,
-        "rat_gleich": 3,
-        "rat_schlechter": 1,
-        "tempo_besser": 6,
-        "tempo_gleich": 3,
-        "tempo_schlechter": 1
-      },
-      "formula_text": "Saldo = Anzahl 'besser' − Anzahl 'schlechter' (Frage Beratungsqualität). Tempo-Frage als Zweitwert im Detail.",
-      "worked_example": "Rat: 6 besser − 1 schlechter = +5 · Tempo: 6 − 1 = +5"
-    },
     "delivery_quote": {
       "raw_schema": [
         "Position",
@@ -607,6 +562,62 @@
       },
       "formula_text": "Keine Kennzahl im Beweis-Sinn: Anzahl + Volumen je Stage, dazu Konversionsquoten Stage 1→2 und 2→3 (Anzahl- und Volumenbasis) als Trend über Quartale. Stage-Mapping je Gebertyp einmalig fixiert (EU: Lead → Action Document → Contribution Agreement).",
       "worked_example": "Konversion 1→2: 6,1 ÷ 8,4 Mio = 73 % (Volumen) · 2→3: 4,0 ÷ 6,1 = 66 % · Lesart: schmaler, aber konvertierender Trichter — Engpass ist die Lead-Identifikation, nicht die Proposal-Qualität."
+    },
+    "partnerfeedback_jahr": {
+      "raw_schema": [
+        "Organisation",
+        "Ebene",
+        "F1 Zusammenarbeit",
+        "F2 Rat",
+        "F3 Nennungen (kodiert)"
+      ],
+      "raw_rows": [
+        [
+          "Ministerium A",
+          "Arbeitsebene",
+          "besser",
+          "besser",
+          "P (Klimafinanzierung)"
+        ],
+        [
+          "Ministerium A",
+          "Leitungsebene",
+          "besser",
+          "gleich",
+          "U (Projektumsetzung)"
+        ],
+        [
+          "Behörde C",
+          "Arbeitsebene",
+          "besser",
+          "besser",
+          "F (Wasser-Daten) ⚠ nicht im Portfolio → Pipeline"
+        ],
+        [
+          "Planungsministerium",
+          "Leitungsebene",
+          "gleich",
+          "besser",
+          "P (EU-Programmierung)"
+        ],
+        [
+          "… (9 Organisationen, 22 Gespräche)",
+          "…",
+          "…",
+          "…",
+          "…"
+        ]
+      ],
+      "raw_summary": {
+        "organisationen": 9,
+        "gespraeche": 22,
+        "f2_org_besser": 6,
+        "f2_org_gleich": 2,
+        "f2_org_schlechter": 1,
+        "expertise_quote_orgs_mit_P_oder_F": 7
+      },
+      "formula_text": "Je Organisation: Median der 2–3 Befragten je Frage (bei Divergenz konservativerer Wert; Divergenz wird notiert). Hauptwert: Saldo Organisationen besser − schlechter (Frage 2). Expertise-Quote: Organisationen mit ≥1 fachlicher Nennung (P/F) ÷ Organisationen. Prospektiver Abgleich der Nennungen mit Pipeline und Folgeaufträgen.",
+      "worked_example": "F2: 6 besser − 1 schlechter = +5 · Expertise-Quote: 7 ÷ 9 = 78 % · Abgleich: Nennung \"Wasser-Daten\" (F) ohne Portfolio-Angebot → als Lead an Pipeline übergeben"
     }
   }
 }

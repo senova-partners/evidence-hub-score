@@ -59,22 +59,22 @@
       }
     },
     {
-      "id": "partner_delta",
+      "id": "partnerfeedback_jahr",
       "paket": 1,
       "paket_name": "Außenbeweis",
-      "name": "Partner-Delta",
+      "name": "Partnerfeedback (jährlich)",
       "unit": "Saldo besser − schlechter",
       "direction": "higher_better",
       "cadence": "jährlich",
       "owner": "JDU",
       "baseline": 0,
       "current": 5,
-      "n_label": "n = 10 Schlüsselpartner",
+      "n_label": "n = 8–10 Organisationen, je 2–3 Befragte",
       "info": {
-        "was_es_misst": "Jährlich dieselben ~10 Schlüsselpartner, zwei Veränderungsfragen: Ist die GIZ schneller geworden? Ist der fachliche Rat besser geworden? (besser / gleich / schlechter) plus die ungestützte Expertise-Frage: Wofür würden Sie GIZ Jordan von sich aus um Rat fragen?",
-        "warum": "Veränderungsfragen tragen den Vergleich in sich und brauchen keine Baseline. Die ungestützte Frage testet, ob das Expert Powerhouse außen existiert, nicht nur innen (Markenlogik: ungestützte Assoziation, Keller).",
-        "verifizierung": "Standardisierter Gesprächsleitfaden, gleiche Partnerliste über die Jahre, dokumentiert je Gespräch.",
-        "verworfen": null
+        "was_es_misst": "Jährliches Gespräch mit den zentralsten Partnerorganisationen (2–3 Befragte je Organisation, Arbeits- und Leitungsebene): zwei Veränderungsfragen (Zusammenarbeit schneller? Rat besser?) plus die ungestützte Expertise-Frage. Hauptwert: Saldo der Organisationen (besser − schlechter) zur Frage nach dem fachlichen Rat.",
+        "warum": "Veränderungsfragen tragen den Vergleich in sich und brauchen keine Baseline. 2–3 Befragte je Organisation, damit ein Organisationsbild entsteht statt einer Einzelwahrnehmung; Divergenz zwischen Ebenen ist selbst ein Befund. Die ungestützte Frage wird quantifiziert als Expertise-Quote (Anteil Organisationen mit fachlicher Nennung) und prospektiv gegen Pipeline und Folgeaufträge gespiegelt.",
+        "verifizierung": "Fixer Gesprächsleitfaden (siehe Partnerfeedback_Leitfaden.md), Partnerliste einmalig durch AoA/CLT beschlossen und über Jahre identisch — Änderungen nur mit dokumentierter Begründung. JDU führt die Gespräche, nie der betroffene AV. Auswertung nur auf Organisationsebene.",
+        "verworfen": "Geprüft und verworfen: absolute Zufriedenheitswerte (ohne Baseline aussagelos, Höflichkeitsbias); jährlich neu zusammengestellte Partnerliste (Ergebnis wäre wählbar); ein Befragter je Organisation (misst Einzelwahrnehmung statt Organisationsbild)."
       }
     },
     {
@@ -100,7 +100,7 @@
       "id": "partnerbogen",
       "paket": 2,
       "paket_name": "Beratungsqualität",
-      "name": "Partnerbogen-Score",
+      "name": "Episoden-Feedback (Partnerbogen)",
       "unit": "1–5",
       "direction": "higher_better",
       "cadence": "je Beratungsepisode",
