@@ -20,7 +20,7 @@ export const T: Dict = {
   meldetreue_short: { de: "Meldetreue", en: "On-time" },
 
   // nav
-  nav_board: { de: "Beweis Board", en: "Evidence Board" },
+  nav_board: { de: "Performance Board", en: "Performance Board" },
   nav_diagnostik: { de: "Diagnostik", en: "Diagnostics" },
   nav_evidenz: { de: "Evidenzbank", en: "Evidence bank" },
   nav_nicht_gemessen: { de: "Nicht gemessen", en: "Not measured" },
