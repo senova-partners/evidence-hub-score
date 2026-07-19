@@ -77,28 +77,37 @@ export const KPIS: KpiDef[] = [
     },
   },
   {
-    id: "partner_delta",
+    id: "partnerfeedback_jahr",
     pkg: "aussenbeweis",
-    name: { de: "Partner-Delta", en: "Partner delta" },
-    unit: { de: "Saldo besser − schlechter", en: "balance better − worse" },
+    name: { de: "Partnerfeedback (jährlich)", en: "Partner feedback (annual)" },
+    unit: {
+      de: "Saldo Organisationen besser − schlechter (Frage Rat)",
+      en: "Balance of organisations better − worse (advice question)",
+    },
     unitShort: { de: "±", en: "±" },
     format: "delta",
     direction: "higher_better",
-    nLabel: { de: "n = 10 Schlüsselpartner", en: "n = 10 key partners" },
+    nLabel: {
+      de: "n = 8–10 Organisationen, je 2–3 Befragte",
+      en: "n = 8–10 organisations, 2–3 respondents each",
+    },
     info: {
       was: {
-        de: "Jährlich dieselben ~10 Schlüsselpartner, zwei Veränderungsfragen: Ist die GIZ schneller geworden? Ist der fachliche Rat besser geworden? (besser / gleich / schlechter) plus die ungestützte Expertise-Frage: Wofür würden Sie GIZ Jordan von sich aus um Rat fragen?",
-        en: "Yearly the same ~10 key partners, two change questions: Has GIZ become faster? Has the substantive advice become better? (better / same / worse), plus the unaided expertise question: What would you spontaneously ask GIZ Jordan for advice on?",
+        de: "Jährliches Gespräch mit den zentralsten Partnerorganisationen (2–3 Befragte je Organisation, Arbeits- und Leitungsebene): zwei Veränderungsfragen (Zusammenarbeit schneller? Rat besser?) plus die ungestützte Expertise-Frage. Hauptwert: Saldo der Organisationen (besser − schlechter) zur Frage nach dem fachlichen Rat.",
+        en: "Annual interview with the most central partner organisations (2–3 respondents each, working and leadership level): two change questions (cooperation faster? advice better?) plus the unaided expertise question. Main value: organisation-level balance (better − worse) on the advice question.",
       },
       warum: {
-        de: "Veränderungsfragen tragen den Vergleich in sich und brauchen keine Baseline. Die ungestützte Frage testet, ob das Expert Powerhouse außen existiert, nicht nur innen (Markenlogik: ungestützte Assoziation, Keller).",
-        en: "Change questions carry the comparison in themselves and need no baseline. The unaided question tests whether the Expert Powerhouse exists outside, not only inside (brand logic: unaided association, Keller).",
+        de: "Veränderungsfragen tragen den Vergleich in sich und brauchen keine Baseline. 2–3 Befragte je Organisation, damit ein Organisationsbild entsteht statt einer Einzelwahrnehmung; Divergenz zwischen Ebenen ist selbst ein Befund. Die ungestützte Frage wird quantifiziert als Expertise-Quote (Anteil Organisationen mit fachlicher Nennung) und prospektiv gegen Pipeline und Folgeaufträge gespiegelt.",
+        en: "Change questions carry the comparison in themselves and need no baseline. 2–3 respondents per organisation so an organisational picture emerges rather than a single perception; divergence between levels is itself a finding. The unaided question is quantified as an expertise share (organisations with a substantive naming) and mirrored prospectively against pipeline and follow-on commissions.",
       },
       wie: {
-        de: "Standardisierter Gesprächsleitfaden, gleiche Partnerliste über die Jahre, dokumentiert je Gespräch.",
-        en: "Standardised interview guide, same partner list across years, documented per interview.",
+        de: "Fixer Gesprächsleitfaden (siehe Partnerfeedback_Leitfaden.md), Partnerliste einmalig durch AoA/CLT beschlossen und über Jahre identisch — Änderungen nur mit dokumentierter Begründung. JDU führt die Gespräche, nie der betroffene AV. Auswertung nur auf Organisationsebene.",
+        en: "Fixed interview guide (see Partnerfeedback_Leitfaden.md); partner list decided once by AoA/CLT and kept identical across years — changes only with documented justification. JDU runs the interviews, never the responsible AV. Analysis only at organisation level.",
       },
-      verworfen: null,
+      verworfen: {
+        de: "Geprüft und verworfen: absolute Zufriedenheitswerte (ohne Baseline aussagelos, Höflichkeitsbias); jährlich neu zusammengestellte Partnerliste (Ergebnis wäre wählbar); ein Befragter je Organisation (misst Einzelwahrnehmung statt Organisationsbild).",
+        en: "Reviewed and rejected: absolute satisfaction scores (meaningless without baseline, courtesy bias); a partner list reassembled each year (result would be selectable); a single respondent per organisation (measures individual perception, not the organisational picture).",
+      },
     },
   },
   {

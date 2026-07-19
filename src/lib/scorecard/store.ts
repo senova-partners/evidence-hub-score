@@ -40,7 +40,7 @@ export interface Store {
   lockedQuarters: string[];
 }
 
-const KEY = "giz-scorecard-v3";
+const KEY = "giz-scorecard-v4";
 type Listener = () => void;
 const listeners = new Set<Listener>();
 
@@ -106,7 +106,7 @@ function seed(): Store {
   const baselines: Record<string, number> = {
     wiederbeauftragung: 44,
     kofi_proposal: 33,
-    partner_delta: 0,
+    partnerfeedback_jahr: 0,
     delivery_quote: 78,
     partnerbogen: 3.6,
     uptake: 42,
@@ -121,7 +121,7 @@ function seed(): Store {
   const trends: Record<string, [number, number, number]> = {
     wiederbeauftragung: [44, 49, 54],
     kofi_proposal: [33, 35, 38],
-    partner_delta: [0, 2, 5],
+    partnerfeedback_jahr: [0, 2, 5],
     delivery_quote: [78, 79, 80],
     partnerbogen: [3.6, 3.7, 3.9],
     uptake: [42, 48, 55],
@@ -136,7 +136,7 @@ function seed(): Store {
   const nCounts: Record<string, number> = {
     wiederbeauftragung: 28,
     kofi_proposal: 21,
-    partner_delta: 10,
+    partnerfeedback_jahr: 10,
     delivery_quote: 0,
     partnerbogen: 14,
     uptake: 11,
@@ -227,7 +227,7 @@ function seed(): Store {
       id: "s2",
       role: "jdu",
       quarter: CURRENT_QUARTER,
-      values: { wiederbeauftragung: 54, kofi_proposal: 38, partner_delta: 5 },
+      values: { wiederbeauftragung: 54, kofi_proposal: 38, partnerfeedback_jahr: 5 },
       submittedAt: "2026-10-02T09:00:00Z",
       deadline: "2026-09-30",
       status: "late",

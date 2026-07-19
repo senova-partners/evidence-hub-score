@@ -79,31 +79,37 @@ export const KPI_DETAILS: Record<string, KpiDetail> = {
     },
   },
 
-  partner_delta: {
-    raw_schema: ["Partner (Organisation)", "Schneller geworden?", "Rat besser geworden?"],
+  partnerfeedback_jahr: {
+    raw_schema: [
+      "Organisation",
+      "Ebene",
+      "F1 Zusammenarbeit",
+      "F2 Rat",
+      "F3 Nennungen (kodiert)",
+    ],
     raw_rows: [
-      ["Ministerium A", "besser", "besser"],
-      ["Ministerium B", "gleich", "besser"],
-      ["Behörde C", "besser", "gleich"],
-      ["Kommune D", "schlechter", "gleich"],
-      ["… (10 Gespräche gesamt)", "…", "…"],
+      ["Ministerium A", "Arbeitsebene", "besser", "besser", "P (Klimafinanzierung)"],
+      ["Ministerium A", "Leitungsebene", "besser", "gleich", "U (Projektumsetzung)"],
+      ["Behörde C", "Arbeitsebene", "besser", "besser", "F (Wasser-Daten) ⚠ nicht im Portfolio → Pipeline"],
+      ["Planungsministerium", "Leitungsebene", "gleich", "besser", "P (EU-Programmierung)"],
+      ["… (9 Organisationen, 22 Gespräche)", "…", "…", "…", "…"],
     ],
     raw_summary: {
-      n: 10,
-      rat_besser: 6,
-      rat_gleich: 3,
-      rat_schlechter: 1,
-      tempo_besser: 6,
-      tempo_gleich: 3,
-      tempo_schlechter: 1,
+      organisationen: 9,
+      gespraeche: 22,
+      f2_org_besser: 6,
+      f2_org_gleich: 2,
+      f2_org_schlechter: 1,
+      expertise_quote_orgs_mit_P_oder_F: 7,
     },
     formula_text:
-      "Saldo = Anzahl „besser“ − Anzahl „schlechter“ (Frage Beratungsqualität). Tempo-Frage als Zweitwert im Detail.",
-    worked_example: "Rat: 6 besser − 1 schlechter = +5 · Tempo: 6 − 1 = +5",
+      "Je Organisation: Median der 2–3 Befragten je Frage (bei Divergenz konservativerer Wert; Divergenz wird notiert). Hauptwert: Saldo Organisationen besser − schlechter (Frage 2). Expertise-Quote: Organisationen mit ≥1 fachlicher Nennung (P/F) ÷ Organisationen. Prospektiver Abgleich der Nennungen mit Pipeline und Folgeaufträgen.",
+    worked_example:
+      "F2: 6 besser − 1 schlechter = +5 · Expertise-Quote: 7 ÷ 9 = 78 % · Abgleich: Nennung „Wasser-Daten“ (F) ohne Portfolio-Angebot → als Lead an Pipeline übergeben",
     erhebung: {
-      owner: "AoA / Partner Steward",
+      owner: "JDU (nie der betroffene AV); Partnerliste durch AoA/CLT",
       cadence: "jährlich, gleiche Partnerliste",
-      verifizierung: "standardisierter Gesprächsleitfaden, dokumentiert je Gespräch",
+      verifizierung: "fixer Gesprächsleitfaden (Partnerfeedback_Leitfaden.md), Auswertung auf Organisationsebene",
     },
   },
 

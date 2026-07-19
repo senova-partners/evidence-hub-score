@@ -8,7 +8,7 @@ import type { Role } from "@/lib/scorecard/types";
 // Which KPIs each submitter role reports — v1.0 mapping to real owners.
 const ROLE_KPIS: Partial<Record<Role, string[]>> = {
   av: ["partnerbogen", "uptake", "mechanismus"],
-  jdu: ["wiederbeauftragung", "kofi_proposal", "partner_delta"],
+  jdu: ["wiederbeauftragung", "kofi_proposal", "partnerfeedback_jahr"],
   finance: ["delivery_quote", "abflusstreue"],
   bt3: ["schmerzpunkt", "fachzeit"],
   steward: ["testvorgang"],
