@@ -271,7 +271,8 @@ export const KPI_DETAILS: Record<string, KpiDetail> = {
     erhebung: {
       owner: "Teams selbst (Aggregat)",
       cadence: "zweiwöchige Selbstprotokollierung, quartalsweise Meldung",
-      verifizierung: "n ≥ 5, Sprünge > 30 % gegen Vorperiode werden vom Steward rückgefragt",
+      methode: "einheitliches Zeit-Kategorienschema; Meldung nur als personengewichtetes Team-Aggregat",
+      verifizierung: "n ≥ 5 je Team; Sprünge > 30 Prozentpunkte gegen Vorperiode werden vom Steward rückgefragt",
     },
   },
 
