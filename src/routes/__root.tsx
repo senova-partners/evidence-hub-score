@@ -77,14 +77,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "Expert Powerhouse Scorecard — GIZ Jordan" },
+      {
+        name: "description",
+        content:
+          "Quarterly evidence board for the GIZ Jordan Expert Powerhouse: 12 KPIs across three packages, manual data entry, one printable snapshot.",
+      },
+      { name: "author", content: "GIZ Jordan" },
+      { property: "og:title", content: "Expert Powerhouse Scorecard — GIZ Jordan" },
+      { property: "og:description", content: "The quarterly evidence board for the Expert Powerhouse." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
       {
