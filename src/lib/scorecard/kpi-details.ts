@@ -150,7 +150,7 @@ export const KPI_DETAILS: Record<string, KpiDetail> = {
     ],
     raw_summary: { versendet: 22, beantwortet: 14, summe_episoden_mittel: 54.6 },
     formula_text:
-      "Score = Mittelwert der Episoden-Mittelwerte (beantwortete Bögen). Rücklauf = beantwortet ÷ versendet. Score ohne Rücklaufquote ungültig.",
+      "Episoden-Mittelwert aus F1–F5; KPI-Wert = Mittelwert der Episoden-Mittel (beantwortete Bögen); Rücklauf = beantwortet ÷ versendet. Vollerhebung: jeder Episoden-Abschluss triggert den Bogen, keine Auswahl. Episode = Beratungseinheit (Anlass · Empfänger · Ergebnis · Zeitraum), Definition und Fragebogen-Wortlaut in Episodenbogen_Partner.md.",
     worked_example: "54,6 ÷ 14 = 3,9 · Rücklauf: 14 ÷ 22 = 64 %",
     erhebung: {
       owner: "AV je Episode",
