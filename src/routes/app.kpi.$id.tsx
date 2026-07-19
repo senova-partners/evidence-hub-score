@@ -158,6 +158,13 @@ function KpiTabPanel({
     <div className="flex flex-col gap-8">
       <p className="text-[12px] text-muted-foreground -mt-4">{kpi.nLabel[locale]}</p>
 
+      {preamble}
+
+      {overrides?.subtitle && (
+        <p className="text-[13px] -mt-4">{overrides.subtitle}</p>
+      )}
+
+
 
       {voraussetzung && (
         <div
