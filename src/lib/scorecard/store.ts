@@ -104,7 +104,7 @@ export function resetDemo() {
 function seed(): Store {
   // Baselines und Q3-Werte aus dem KPI-Config v1.0.
   const baselines: Record<string, number> = {
-    wiederbeauftragung: 46,
+    wiederbeauftragung: 44,
     kofi_proposal: 33,
     partner_delta: 0,
     delivery_quote: 78,
