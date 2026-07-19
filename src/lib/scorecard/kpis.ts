@@ -368,12 +368,10 @@ export function decimalsFor(format: KpiFormat): number {
   return format === "score" ? 1 : 0;
 }
 
-/** Unit string with leading space, e.g. " %", " d", " 1–5". */
+/** Short unit suffix rendered on the card (leading thin space). Empty string yields no suffix. */
 export function unitSuffix(kpi: KpiDef, locale: Locale): string {
-  const u = kpi.unit[locale];
-  if (!u) return "";
-  // Short units go tight; longer descriptive units get a separator space.
-  return u.length <= 3 ? ` ${u}` : ` ${u}`;
+  const u = kpi.unitShort[locale];
+  return u ? `\u202F${u}` : "";
 }
 
 export function formatValue(v: number | null, kpi: KpiDef, locale: Locale): string {
@@ -392,7 +390,7 @@ export function formatDelta(
   if (v === null || v === undefined || baseline === null || baseline === undefined) return "—";
   const d = v - baseline;
   const digits = decimalsFor(kpi.format);
-  const sign = d > 0 ? "+" : d < 0 ? "−" : "";
+  const sign = d > 0 ? "+" : d < 0 ? "−" : "±";
   const abs = Math.abs(d);
   return `${sign}${fmtNumber(abs, locale, digits)}${unitSuffix(kpi, locale)}`;
 }
