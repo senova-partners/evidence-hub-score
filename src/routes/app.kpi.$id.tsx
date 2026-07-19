@@ -87,7 +87,11 @@ function KpiDetailPage() {
         </div>
       )}
 
-      <KpiTabPanel key={active.id} kpi={active} />
+      {active.id === "mechanismus" ? (
+        <MechanismusPanel kpi={active} />
+      ) : (
+        <KpiTabPanel key={active.id} kpi={active} />
+      )}
     </div>
   );
 }
