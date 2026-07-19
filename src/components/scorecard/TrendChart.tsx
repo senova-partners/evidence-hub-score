@@ -71,7 +71,7 @@ export function TrendChart({
                 stroke="var(--muted-foreground)"
                 strokeDasharray="4 4"
                 label={{
-                  value: "Baseline",
+                  value: `Baseline ${baseline}`,
                   fontSize: 11,
                   fill: "var(--muted-foreground)",
                   position: "insideTopRight",
