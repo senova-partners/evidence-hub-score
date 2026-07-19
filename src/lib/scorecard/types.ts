@@ -44,6 +44,8 @@ export interface KpiDef {
   scharnier?: boolean;
   /** Per-KPI n label, e.g. "n = 14 Episoden". */
   nLabel: { de: string; en: string };
+  /** Optional short label used when this KPI appears as a tab under a hinge card. Falls back to name. */
+  tabLabel?: { de: string; en: string };
   /** Optional context line — rendered ONLY in the Info panel, never on the card. */
   contextLine?: { de: string; en: string };
   info: {
