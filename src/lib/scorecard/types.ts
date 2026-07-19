@@ -34,15 +34,17 @@ export interface KpiDef {
   id: string;
   pkg: Package;
   name: { de: string; en: string };
-  /** Free display unit, appended after the number (e.g. "%", "d", "1–5", "Saldo"). */
+  /** Long-form unit for the Info panel (e.g. "% umgesetzt oder angepasst"). */
   unit: { de: string; en: string };
+  /** Short unit rendered on the card next to the value (e.g. "%", "d", "Pkt", "±"). Empty string for no suffix. */
+  unitShort: { de: string; en: string };
   /** Numeric formatting hint. */
   format: KpiFormat;
   direction: "higher_better" | "lower_better";
   scharnier?: boolean;
   /** Per-KPI n label, e.g. "n = 14 Episoden". */
   nLabel: { de: string; en: string };
-  /** Optional context line shown beneath the value. */
+  /** Optional context line — rendered ONLY in the Info panel, never on the card. */
   contextLine?: { de: string; en: string };
   info: {
     was: { de: string; en: string };
