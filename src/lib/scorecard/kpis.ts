@@ -290,6 +290,7 @@ export const KPIS: KpiDef[] = [
   {
     id: "testvorgang",
     pkg: "struktur",
+    diagnostik: true,
     name: { de: "Testvorgang", en: "Test procedure" },
     unit: { de: "Kalendertage", en: "calendar days" },
     unitShort: { de: "d", en: "d" },
@@ -321,6 +322,7 @@ export const KPIS: KpiDef[] = [
   {
     id: "abflusstreue",
     pkg: "struktur",
+    diagnostik: true,
     name: { de: "Abflusstreue", en: "Disbursement adherence" },
     unit: { de: "% Ist vs. Plan", en: "% actual vs. plan" },
     unitShort: { de: "%", en: "%" },
