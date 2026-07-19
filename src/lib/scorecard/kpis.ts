@@ -300,33 +300,36 @@ export const KPIS: KpiDef[] = [
   {
     id: "inhouse_beratungsquote",
     pkg: "struktur",
-    name: { de: "Inhouse-Beratungsquote", en: "Inhouse advisory share" },
+    name: { de: "Inhouse-Anteil der Leistungserbringung", en: "Inhouse share of service delivery" },
     tabLabel: { de: "Inhouse-Beratung", en: "Inhouse advisory" },
-    unit: { de: "% der Beratungsleistung inhouse (Euro-Basis)", en: "% of advisory work inhouse (euro basis)" },
+    unit: { de: "% der Leistungserbringung inhouse (Euro-Basis)", en: "% of service delivery inhouse (euro basis)" },
     unitShort: { de: "%", en: "%" },
     format: "percent",
     direction: "higher_better",
-    nLabel: { de: "Basis: Fach-Personalkosten + Consulting-Ausgaben", en: "Base: expert payroll + consulting spend" },
+    nLabel: {
+      de: "Basis: Fach-Personalkosten + Consulting + Finanzierungen",
+      en: "Base: expert payroll + consulting + financings",
+    },
     contextLine: {
-      de: "Kein 100%-Ziel: misst Substitutionsrichtung, nicht ein Ideal — externe Spitzenexpertise für Nischen und Lastspitzen bleibt legitim.",
-      en: "No 100 % target: measures direction of substitution, not an ideal.",
+      de: "Zweitwert: Expertise-Substitution (nur Consulting im Nenner). Kein 100%-Ziel — Finanzierungen und externe Spitzenexpertise bleiben legitime Instrumente.",
+      en: "Secondary: expertise substitution (consulting only in denominator). No 100 % target — financings and external top expertise remain legitimate instruments.",
     },
     voraussetzung: {
-      de: "Rollen-Taxonomie (Voraussetzung 4) — Fach-Personalkosten setzen die eingefrorene Zuordnung fachlich/administrativ voraus.",
+      de: "Rollen-Taxonomie (Voraussetzung 4) — die Fach-Personalkosten setzen die eingefrorene Zuordnung fachlich/administrativ voraus.",
       en: "Role taxonomy (precondition 4) — expert payroll requires the frozen role classification.",
     },
     info: {
       was: {
-        de: "Make-or-Buy der Beratung: interne Fach-Personalkosten ÷ (interne Fach-Personalkosten + externe Consulting-Ausgaben), beides in Euro. Wie viel unserer Beratungsleistung ist inhouse generiert, wie viel zugekauft?",
-        en: "Make-or-buy of advisory work: internal expert payroll ÷ (internal expert payroll + external consulting spend), both in euros.",
+        de: "Hauptwert: interne Fach-Personalkosten ÷ (interne Fach-Personalkosten + Consulting-Ausgaben + Finanzierungen), Euro-Basis — wie viel der Leistungserbringung trägt die GIZ mit eigener Expertise, wie viel läuft über Consultants und Finanzierungsinstrumente? Zweitwert: Expertise-Substitution — dieselbe Rechnung nur mit Consulting-Ausgaben im Nenner (die schärfere Make-or-Buy-Aussage, unverzerrt vom Finanzierungsanteil des Portfolios).",
+        en: "Primary: internal expert payroll ÷ (expert payroll + consulting + financings). Secondary: expertise substitution — same calculation with consulting only in the denominator.",
       },
       warum: {
-        de: "Ein Expertenhaus, das seine Expertise überwiegend im Unterauftrag einkauft, ist ein Widerspruch in sich. Zielwert bewusst NICHT 100 %: gemessen wird die Richtung, kein Ideal — sonst erzeugt die Kennzahl Druck, sinnvolle externe Vergabe zu vermeiden (Goodhart in Gegenrichtung).",
-        en: "An expert house that mostly subcontracts its expertise contradicts itself. Target deliberately not 100 % — direction, not ideal.",
+        de: "Ein Expertenhaus definiert sich darüber, wie viel es selbst erbringt statt durchzuleiten — über Consultants wie über Finanzierungen. Der Hauptwert zeigt das Gesamtbild der Leistungserbringung; der Zweitwert isoliert die Expertise-Substitution, weil ein steigender Finanzierungsanteil im Portfoliomix den Hauptwert drücken kann, ohne dass sich am eigenen Beratungsanspruch etwas ändert — die Divergenz beider Werte ist selbst die Diagnose. Kein 100%-Ziel: gemessen wird die Richtung, kein Ideal.",
+        en: "An expert house is defined by how much it delivers itself vs. passes through. Divergence between primary and secondary is itself the diagnosis.",
       },
       wie: {
-        de: "Euro-Basis aus zwei Finance-Quellen: Personalkosten der Fachrollen (lt. eingefrorener Rollen-Taxonomie) und Consulting-Ausgaben aus den Vertragsübersichten. Bewusst keine Umrechnung über Beratertage/Tagessätze.",
-        en: "Euro basis from two finance sources; deliberately no day-rate conversion.",
+        de: "Drei Finance-Zahlen: Fach-Personalkosten (lt. eingefrorener Rollen-Taxonomie), Consulting-Ausgaben und Finanzierungsvolumen aus den Vertrags- und Finanzübersichten. Keine Tagessatz-Umrechnung.",
+        en: "Three finance figures: expert payroll, consulting spend, financing volume. No day-rate conversion.",
       },
       verworfen: {
         de: "Geprüft und verworfen: Berater-VZE ÷ Consultingbudget (Einheiten-Mix, Tagessatz manipulierbar); Berater-VZE-Anteil als Beweis-KPI (läuft als Diagnostik weiter); allgemeine Eigenleistungsquote (unspezifisch).",

@@ -62,7 +62,7 @@ export const CARD_FOOTER_N: Record<string, { de: string; en: string }> = {
 /** Short label for the two secondary values embedded in the Scharnier footer. */
 export const SECONDARY_LABEL: Record<string, { de: string; en: string }> = {
   inhouse_beratungsquote: { de: "Inhouse", en: "Inhouse" },
-  delivery_quote: { de: "Beim Partner", en: "At partner" },
+  delivery_quote: { de: "Wirkungsmittel", en: "Impact funds" },
 };
 
 const decimalsFor = (fmt: KpiDef["format"]) => (fmt === "score" ? 1 : 0);

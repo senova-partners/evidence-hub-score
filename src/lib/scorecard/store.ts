@@ -41,7 +41,7 @@ export interface Store {
   voraussetzungen: Record<string, "offen" | "definiert" | "eingefuehrt">;
 }
 
-const KEY = "giz-scorecard-v10";
+const KEY = "giz-scorecard-v11";
 type Listener = () => void;
 const listeners = new Set<Listener>();
 
@@ -115,7 +115,7 @@ function seed(): Store {
     peer_review: 2.9,
     mechanismus: 34,
     fachzeit: 66,
-    inhouse_beratungsquote: 64,
+    inhouse_beratungsquote: 40,
     berater_vze_anteil: 58,
     testvorgang: 21,
     abflusstreue: 84,
@@ -132,7 +132,7 @@ function seed(): Store {
     peer_review: [2.9, 3.1, 3.2],
     mechanismus: [34, 42, 50],
     fachzeit: [66, 69, 72],
-    inhouse_beratungsquote: [64, 65, 67],
+    inhouse_beratungsquote: [40, 42, 44],
     berater_vze_anteil: [58, 59, 61],
     testvorgang: [21, 19, 17],
     abflusstreue: [84, 86, 89],
