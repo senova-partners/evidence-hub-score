@@ -116,7 +116,8 @@ export const KPIS: KpiDef[] = [
   {
     id: "delivery_quote",
     pkg: "struktur",
-    name: { de: "Delivery-Quote", en: "Delivery share" },
+    name: { de: "Direkte Wirkungsmittel (Delivery-Quote)", en: "Direct impact funds (delivery share)" },
+    tabLabel: { de: "Direkte Wirkungsmittel", en: "Direct impact funds" },
     unit: { de: "%", en: "%" },
     unitShort: { de: "%", en: "%" },
     format: "percent",
@@ -259,7 +260,8 @@ export const KPIS: KpiDef[] = [
   {
     id: "fachzeit",
     pkg: "struktur",
-    name: { de: "Freigesetzte Ressourcen", en: "Freed resources" },
+    name: { de: "Freigesetzte Beratungsressourcen", en: "Freed advisory resources" },
+    tabLabel: { de: "Verhältnis Beratung/Admin", en: "Advisory/admin ratio" },
     unit: { de: "% Fachzeit (Hauptwert) · Inhouse-Beratung % · Delivery-% (Zweitwerte)", en: "% expert time (primary) · inhouse advisory % · delivery % (secondary)" },
     unitShort: { de: "%", en: "%" },
     format: "percent",
@@ -294,6 +296,7 @@ export const KPIS: KpiDef[] = [
     id: "inhouse_beratungsquote",
     pkg: "struktur",
     name: { de: "Inhouse-Beratungsquote", en: "Inhouse advisory share" },
+    tabLabel: { de: "Inhouse-Beratung", en: "Inhouse advisory" },
     unit: { de: "% der Beratungsleistung inhouse (Euro-Basis)", en: "% of advisory work inhouse (euro basis)" },
     unitShort: { de: "%", en: "%" },
     format: "percent",
