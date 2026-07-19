@@ -25,6 +25,16 @@ export function TrendChart({
 }) {
   const data = history.map((p) => ({ period: p.period, value: p.value }));
 
+  // Zoom Y-axis to the actual value range (± 15 % padding), including baseline
+  // if it exists. Otherwise a 66 → 72 % rise disappears against a 0-scale.
+  const nums: number[] = data.map((d) => d.value).filter((v): v is number => v != null);
+  if (baseline !== undefined) nums.push(baseline);
+  const min = Math.min(...nums);
+  const max = Math.max(...nums);
+  const span = Math.max(max - min, 1);
+  const pad = span * 0.15;
+  const yDomain: [number, number] = nums.length ? [min - pad, max + pad] : [0, 1];
+
   return (
     <>
       <div className="w-full h-64" aria-hidden>
@@ -44,6 +54,8 @@ export function TrendChart({
               tickLine={false}
               axisLine={{ stroke: "var(--hairline)" }}
               width={40}
+              domain={yDomain}
+              allowDecimals
             />
             <Tooltip
               contentStyle={{
