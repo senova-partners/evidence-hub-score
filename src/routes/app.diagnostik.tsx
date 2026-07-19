@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useStore, type Store } from "@/lib/scorecard/store";
-import { KPIS, formatValue, formatDelta } from "@/lib/scorecard/kpis";
+import { KPIS, formatValue, formatDelta, kpiById } from "@/lib/scorecard/kpis";
 import { useT, useLocale } from "@/lib/scorecard/useT";
 import { trend } from "@/lib/scorecard/verdict";
 import { PIPELINE_STAGES, conversion } from "@/lib/scorecard/pipeline";
@@ -15,12 +15,21 @@ function Diagnostik() {
   const t = useT();
   const locale = useLocale();
 
-  const rows = KPIS.map((k) => {
+  const diagnostikKpis = KPIS.filter((k) => k.diagnostik).map((k) => {
     const v = store.values[k.id]?.[q]?.value ?? null;
     const b = store.baselines[k.id];
-    const tr = trend(k.id, v, b);
-    return { k, v, b, tr };
-  }).filter((r) => r.tr === "down" || r.tr === "missing");
+    return { k, v, b, tr: trend(k.id, v, b) };
+  });
+
+  const rows = KPIS.filter((k) => !k.diagnostik)
+    .map((k) => {
+      const v = store.values[k.id]?.[q]?.value ?? null;
+      const b = store.baselines[k.id];
+      const tr = trend(k.id, v, b);
+      return { k, v, b, tr };
+    })
+    .filter((r) => r.tr === "down" || r.tr === "missing");
+  void kpiById;
 
   return (
     <div className="flex flex-col gap-10">
