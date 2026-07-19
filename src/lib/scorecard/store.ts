@@ -119,7 +119,7 @@ function seed(): Store {
   };
   // Q1, Q2, Q3 — linear zwischen Baseline und aktuellem Wert interpoliert.
   const trends: Record<string, [number, number, number]> = {
-    wiederbeauftragung: [46, 48, 51],
+    wiederbeauftragung: [44, 49, 54],
     kofi_proposal: [33, 35, 38],
     partner_delta: [0, 2, 5],
     delivery_quote: [78, 79, 80],
@@ -227,7 +227,7 @@ function seed(): Store {
       id: "s2",
       role: "jdu",
       quarter: CURRENT_QUARTER,
-      values: { wiederbeauftragung: 51, kofi_proposal: 38, partner_delta: 5 },
+      values: { wiederbeauftragung: 54, kofi_proposal: 38, partner_delta: 5 },
       submittedAt: "2026-10-02T09:00:00Z",
       deadline: "2026-09-30",
       status: "late",
