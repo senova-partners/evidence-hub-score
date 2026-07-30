@@ -5,6 +5,7 @@ import { kpiById, PKG_LABEL, formatValue, formatDelta } from "@/lib/scorecard/kp
 import { kpiDetail } from "@/lib/scorecard/kpi-details";
 import { kpiHistory, type HistoryPoint } from "@/lib/scorecard/history";
 import { MECHANISMUS_VIEWS, type MechanismusView } from "@/lib/scorecard/mechanismus-views";
+import { KOFI_VIEWS, PIPELINE_SUMMARY, type KofiView } from "@/lib/scorecard/kofi-views";
 import { TrendChart } from "@/components/scorecard/TrendChart";
 import { InfoPanel } from "@/components/scorecard/InfoPanel";
 import { useT, useLocale } from "@/lib/scorecard/useT";
@@ -89,6 +90,8 @@ function KpiDetailPage() {
 
       {active.id === "mechanismus" ? (
         <MechanismusPanel kpi={active} />
+      ) : active.id === "kofi_proposal" ? (
+        <KofiPanel kpi={active} />
       ) : (
         <KpiTabPanel key={active.id} kpi={active} />
       )}
@@ -351,3 +354,100 @@ function MechanismusPanel({ kpi }: { kpi: KpiDef }) {
   );
 }
 
+function KofiPanel({ kpi }: { kpi: KpiDef }) {
+  const [viewId, setViewId] = useState<KofiView["id"]>("volumen");
+  const view = KOFI_VIEWS.find((v) => v.id === viewId) ?? KOFI_VIEWS[0];
+
+  const preamble = (
+    <div
+      role="tablist"
+      aria-label="Kofi/Proposal-Sichten"
+      className="flex gap-6 hairline-b -mt-4"
+    >
+      {KOFI_VIEWS.map((v) => {
+        const isActive = v.id === viewId;
+        return (
+          <button
+            key={v.id}
+            role="tab"
+            aria-selected={isActive}
+            onClick={() => setViewId(v.id)}
+            className={
+              "py-2 text-[13px] -mb-px border-b-2 " +
+              (isActive
+                ? "border-[color:var(--foreground)] text-foreground font-semibold"
+                : "border-transparent text-muted-foreground hover:text-foreground")
+            }
+          >
+            {v.label}
+          </button>
+        );
+      })}
+    </div>
+  );
+
+  return (
+    <>
+      <KpiTabPanel
+        key={view.id}
+        kpi={kpi}
+        preamble={preamble}
+        overrides={{
+          baseline: view.baseline,
+          current: view.current,
+          history: view.history,
+          workedExample: view.workedExample,
+          subtitle: view.definition,
+        }}
+      />
+      <PipelineFooter />
+    </>
+  );
+}
+
+function PipelineFooter() {
+  const p = PIPELINE_SUMMARY;
+  return (
+    <section
+      aria-labelledby="pipeline-heading"
+      className="mt-8 hairline p-6 rounded-none bg-card"
+    >
+      <div className="flex items-baseline justify-between mb-3">
+        <h3 id="pipeline-heading" className="text-[13px] font-semibold uppercase tracking-wider">
+          Vorlaufende Diagnostik — Akquise-Pipeline
+        </h3>
+        <a
+          href="/app/diagnostik#pipeline"
+          className="text-[12px] text-muted-foreground hover:text-foreground underline underline-offset-4"
+        >
+          Zur Pipeline →
+        </a>
+      </div>
+      <p className="text-[12px] text-muted-foreground leading-relaxed mb-3">
+        Getrennt bewertet, verbunden navigiert: Stagniert der Proposal-Erfolg, zeigt der Trichter,
+        ob es am Anfang klemmt (wenige Leads → Foresight-Problem) oder an der Konversion
+        (viele Leads, wenige formalisiert → Kapazität oder Proposal-Qualität).
+      </p>
+      <div className="grid grid-cols-3 gap-4 text-[13px] tabular-nums">
+        <div className="hairline p-3">
+          <div className="text-[11px] text-muted-foreground uppercase tracking-wider">1 · Identifiziert</div>
+          <div className="text-[18px] font-semibold mt-1">{p.stage1.count} Leads</div>
+          <div className="text-[12px] text-muted-foreground">{p.stage1.volumeMio.toString().replace(".", ",")} Mio €</div>
+        </div>
+        <div className="hairline p-3">
+          <div className="text-[11px] text-muted-foreground uppercase tracking-wider">2 · Formalisiert</div>
+          <div className="text-[18px] font-semibold mt-1">{p.stage2.count} Leads</div>
+          <div className="text-[12px] text-muted-foreground">{p.stage2.volumeMio.toString().replace(".", ",")} Mio € · davon EU: {p.eu.stage2Count}</div>
+        </div>
+        <div className="hairline p-3">
+          <div className="text-[11px] text-muted-foreground uppercase tracking-wider">3 · Beauftragt</div>
+          <div className="text-[18px] font-semibold mt-1">{p.stage3.count} Verträge</div>
+          <div className="text-[12px] text-muted-foreground">{p.stage3.volumeMio.toString().replace(".", ",")} Mio € · davon EU: {p.eu.stage3Count}</div>
+        </div>
+      </div>
+      <div className="text-[12px] text-muted-foreground mt-3">
+        Konversion Volumen · {p.conversionVolume}
+      </div>
+    </section>
+  );
+}

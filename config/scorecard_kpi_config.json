@@ -5,9 +5,9 @@
     "baseline_period": "2026-Q3",
     "locale_default": "de-DE",
     "verdict_rule": {
-      "text": "Paket 1 und 3 steigen, Paket 2 stabil oder besser.",
-      "logic": "P1_P3_improving_AND_P2_stable_or_better",
-      "incomplete_handling": "Fehlt ein Messpunkt in Paket 1 oder 3, lautet das Verdict 'unvollständig – Meldung fehlt'. Niemals 'erfüllt' bei Lücken. Fehlende Werte werden nie geschätzt."
+      "text": "Paket 1–2 steigen, Paket 3 stabil oder besser.",
+      "logic": "P1_P2_improving_AND_P3_stable_or_better",
+      "incomplete_handling": "Fehlt ein Messpunkt in Paket 1 oder 2, lautet das Verdict 'unvollständig – Meldung fehlt'. Niemals 'erfüllt' bei Lücken. Fehlende Werte werden nie geschätzt."
     },
     "display_rules": {
       "package_label": "nur als Sektionsüberschrift, nicht in der Karte wiederholen",
@@ -263,7 +263,7 @@
       "n_label": "n = 14 Episoden",
       "info": {
         "was_es_misst": "Je Episode zwei Ja/Nein-Felder: Wurde ein Practice-Produkt genutzt? Hat der Machine Room zugearbeitet?",
-        "warum": "Misst, ob die Struktur in der Beratungsarbeit ankommt (Struktur-Adoption). Analytisch bleibt die Kreuzung mit den Qualitätswerten aus Paket 1 erhalten (Dosis-Wirkung: Episoden mit vs. ohne Strukturbeteiligung) — sie ist der Beleg, dass Struktur und Qualität zusammenhängen. Die Paketzuordnung ist Anzeige-, nicht Daten-Logik. Inkrementalitätslogik statt Kausalbehauptung (Arman 2026); Implementierung und Verbesserung getrennt belegen (Raineri 2011)."
+        "warum": "Misst, ob die Struktur in der Beratungsarbeit ankommt (Struktur-Adoption). Analytisch bleibt die Kreuzung mit den Qualitätswerten aus Paket 2 erhalten (Dosis-Wirkung: Episoden mit vs. ohne Strukturbeteiligung) — sie ist der Beleg, dass Struktur und Qualität zusammenhängen. Die Paketzuordnung ist Anzeige-, nicht Daten-Logik. Inkrementalitätslogik statt Kausalbehauptung (Arman 2026); Implementierung und Verbesserung getrennt belegen (Raineri 2011).",
         "verifizierung": "Zwei Felder im ohnehin ausgefüllten Episodenbogen; Plausibilisierung gegen die Anfragenlisten der Practices.",
         "verworfen": null
       },
