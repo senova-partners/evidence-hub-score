@@ -41,11 +41,25 @@ export function trend(
 }
 
 /**
- * Verdict rule (v1.0):
- *   - Baselines vollständig? sonst "baseline_fehlt".
- *   - Fehlt ein Messpunkt in Paket 1 oder 3? → "unvollstaendig" (nie "erfüllt").
- *   - Sonst: Paket 1 UND Paket 3 mehrheitlich steigend UND Paket 2 stabil/besser → "erfüllt".
- *   - Sonst: "nicht_erfuellt".
+ * Verdict rule (v1.1 — strengere Fassung).
+ *
+ * Grundregel: "aus weniger DURCHGEHEND Besseres". Eine Verschlechterung in
+ * einem Beweis-Paket darf kein grünes Quartal produzieren — sonst mittelt
+ * das Urteil Bewegungen weg, die einzeln erklärungspflichtig sind.
+ *
+ *   1. Fehlt eine Baseline eines Board-KPIs? → "baseline_fehlt".
+ *   2. Fehlt ein Wert in Paket 1 oder Paket 2? → "unvollstaendig" (nie "erfüllt").
+ *   3. "Erfüllt" nur, wenn ALLE drei Pakete "steigend im engen Sinn" sind:
+ *      mindestens ein KPI verbessert UND kein KPI verschlechtert.
+ *      "Flat" (Bewegung unter Toleranz `eps`) zählt weder als Verbesserung
+ *      noch als Verschlechterung — nur echte Verschlechterungen kippen das
+ *      Urteil. Damit sinken kleine Zufallsschwankungen nicht sofort auf rot.
+ *   4. Sonst: "nicht_erfuellt".
+ *
+ * Ersetzt die frühere Mehrheitsregel (≥50 % steigend), die eine Verschlech-
+ * terung in einem 3er-Paket toleriert hätte. Beispiel: Außenbeweis mit
+ * Wiederbeauftragung ↑, Kofi ↑, Partnerfeedback ↓ war unter v1.0 grün — unter
+ * v1.1 rot, mit klarer Adresse für den Halbjahres-Review.
  */
 export function boardKpis() {
   // KPIs shown on the board grid: exclude diagnostik-only and secondary-embedded.
@@ -70,34 +84,27 @@ export function computeVerdict(store: Store, quarter: string): Verdict {
     });
   if (missingP1P2) return "unvollstaendig";
 
-  const packageRising = (pkg: "aussenbeweis" | "beratungsqualitaet") => {
+  /**
+   * A package is "rising" (v1.1) iff:
+   *   - at least one KPI is trending "up" (improved beyond `eps`), AND
+   *   - no KPI is trending "down" (worsened beyond `eps`).
+   * "flat" moves are ignored — small noise does not kip the verdict.
+   */
+  const packageRisingStrict = (pkg: "aussenbeweis" | "beratungsqualitaet" | "struktur") => {
     const kpis = active.filter((k) => k.pkg === pkg);
-    const rep = kpis
-      .map((k) => ({ k, v: store.values[k.id]?.[quarter]?.value ?? null }))
-      .filter((x) => x.v !== null);
-    if (rep.length === 0) return false;
-    const ups = rep.filter(
-      (x) => trend(x.k.id, x.v, store.baselines[x.k.id]) === "up",
-    ).length;
-    return ups / rep.length >= 0.5;
-  };
-
-  const packageStableOrBetter = () => {
-    const kpis = active.filter((k) => k.pkg === "struktur");
-    const rep = kpis
-      .map((k) => ({ k, v: store.values[k.id]?.[quarter]?.value ?? null }))
-      .filter((x) => x.v !== null);
-    if (rep.length === 0) return false;
-    return rep.every((x) => {
-      const tr = trend(x.k.id, x.v, store.baselines[x.k.id]);
-      return tr === "up" || tr === "flat";
-    });
+    const trends = kpis
+      .map((k) => trend(k.id, store.values[k.id]?.[quarter]?.value ?? null, store.baselines[k.id]))
+      .filter((t) => t !== "missing");
+    if (trends.length === 0) return false;
+    const hasImprovement = trends.some((t) => t === "up");
+    const hasWorsening = trends.some((t) => t === "down");
+    return hasImprovement && !hasWorsening;
   };
 
   const ok =
-    packageRising("aussenbeweis") &&
-    packageRising("beratungsqualitaet") &&
-    packageStableOrBetter();
+    packageRisingStrict("aussenbeweis") &&
+    packageRisingStrict("beratungsqualitaet") &&
+    packageRisingStrict("struktur");
   return ok ? "erfuellt" : "nicht_erfuellt";
 }
 
