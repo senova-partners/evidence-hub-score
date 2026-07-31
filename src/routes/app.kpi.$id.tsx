@@ -118,7 +118,7 @@ function KpiTabPanel({
   const store = useStore((s: Store) => s);
   const t = useT();
   const locale = useLocale();
-  const detail = kpiDetailLocalized(kpi.id);
+  const detail = kpiDetailLocalized(kpi.id, locale);
   const baseline = overrides?.baseline ?? store.baselines[kpi.id];
   const history = overrides?.history ?? kpiHistory(kpi.id);
   const current =
@@ -130,8 +130,8 @@ function KpiTabPanel({
   // exists AND the history series carries at least one real point.
   const historyHasData = history.length > 0 && history.some((p) => p.value != null);
   const missing: string[] = [];
-  if (!detail) missing.push("Detail-Konfiguration");
-  if (!historyHasData) missing.push("Verlaufsdaten");
+  if (!detail) missing.push(t("d_missing_detail_config"));
+  if (!historyHasData) missing.push(t("d_missing_history"));
 
   if (missing.length > 0) {
     return (
@@ -146,12 +146,11 @@ function KpiTabPanel({
             className="text-[12px] uppercase tracking-wide mb-2"
             style={{ color: "var(--giz-red)" }}
           >
-            ✕ Meldung fehlt
+            {t("d_missing_headline")}
           </div>
           <div>
-            Für <span className="font-semibold">{kpi.name[locale]}</span> liegen noch keine{" "}
-            {missing.join(" und ")} vor. Sobald die Meldung eingeht, erscheinen hier Verlauf,
-            Erhebung, Rohdaten und Berechnung.
+            {t("d_missing_prefix")} <span className="font-semibold">{kpi.name[locale]}</span>{" "}
+            {t("d_missing_body").replace("{missing}", missing.join(` ${t("d_and")} `))}
           </div>
         </div>
       </div>
@@ -177,7 +176,7 @@ function KpiTabPanel({
           style={{ borderLeft: "3px solid var(--giz-red)" }}
         >
           <div className="text-[11px] uppercase tracking-wide text-muted-foreground mb-1">
-            Voraussetzung
+            {t("d_voraussetzung")}
           </div>
           {voraussetzung}
         </div>
@@ -192,26 +191,26 @@ function KpiTabPanel({
         />
       </div>
 
-      <Section title="Verlauf">
+      <Section title={t("sec_verlauf")}>
         <TrendChart history={history} baseline={baseline} label={kpi.name[locale]} />
       </Section>
 
       {detail && (
-        <Section title="Erhebung">
+        <Section title={t("sec_erhebung")}>
           <dl className="grid grid-cols-1 md:grid-cols-4 gap-6 text-[13px]">
-            <Field label="Wer erhebt" value={detail.erhebung.owner} />
-            <Field label="Wann" value={detail.erhebung.cadence} />
+            <Field label={t("f_owner")} value={detail.erhebung.owner} />
+            <Field label={t("f_when")} value={detail.erhebung.cadence} />
             <Field
-              label="Wie (Methode)"
+              label={t("f_method")}
               value={detail.erhebung.methode ?? kpi.info.wie[locale]}
             />
-            <Field label="Verifizierung (Prüfregel)" value={detail.erhebung.verifizierung} />
+            <Field label={t("f_verification")} value={detail.erhebung.verifizierung} />
           </dl>
         </Section>
       )}
 
       {detail && (
-        <Section title="Rohdaten">
+        <Section title={t("sec_rohdaten")}>
           <div className="overflow-x-auto">
             <table className="w-full text-[13px] tabular-nums">
               <thead>
@@ -240,10 +239,10 @@ function KpiTabPanel({
             </table>
           </div>
           <div className="mt-4 text-[12px] text-muted-foreground">
-            <span className="uppercase tracking-wide mr-2">Zählung</span>
+            <span className="uppercase tracking-wide mr-2">{t("d_counts")}</span>
             {Object.entries(detail.raw_summary).map(([k, v], i, arr) => (
               <span key={k}>
-                <span className="text-foreground">{formatSummaryKey(k)}</span>{" "}
+                <span className="text-foreground">{summaryKeyLabel(k, locale)}</span>{" "}
                 <span className="tabular-nums">{v === null ? "—" : String(v)}</span>
                 {i < arr.length - 1 ? " · " : ""}
               </span>
@@ -253,17 +252,17 @@ function KpiTabPanel({
       )}
 
       {detail && (
-        <Section title="Berechnung">
+        <Section title={t("sec_berechnung")}>
           <div className="flex flex-col gap-4 text-[13px]">
             <div>
               <div className="text-[12px] uppercase tracking-wide text-muted-foreground mb-1">
-                Formel
+                {t("d_formula")}
               </div>
               <div>{detail.formula_text}</div>
             </div>
             <div>
               <div className="text-[12px] uppercase tracking-wide text-muted-foreground mb-1">
-                Rechenweg
+                {t("d_worked_example")}
               </div>
               <div className="font-mono text-[13px] tabular-nums whitespace-pre-wrap">
                 {overrides?.workedExample ?? detail.worked_example}
@@ -274,10 +273,6 @@ function KpiTabPanel({
       )}
     </div>
   );
-}
-
-function formatSummaryKey(k: string): string {
-  return k.replace(/_/g, " ") + ":";
 }
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
@@ -315,7 +310,7 @@ function MechanismusPanel({ kpi }: { kpi: KpiDef }) {
   const preamble = (
     <div
       role="tablist"
-      aria-label="Mechanismus-Sichten"
+      aria-label={t("mech_views_label")}
       className="flex gap-6 hairline-b -mt-4"
     >
       {MECHANISMUS_VIEWS.map((v) => {
@@ -364,7 +359,7 @@ function KofiPanel({ kpi }: { kpi: KpiDef }) {
   const preamble = (
     <div
       role="tablist"
-      aria-label="Kofi/Proposal-Sichten"
+      aria-label={t("kofi_views_label")}
       className="flex gap-6 hairline-b -mt-4"
     >
       {KOFI_VIEWS.map((v) => {
