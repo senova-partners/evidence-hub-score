@@ -303,6 +303,7 @@ function Stat({ label, value }: { label: string; value: string }) {
 }
 
 function MechanismusPanel({ kpi }: { kpi: KpiDef }) {
+  const t = useT();
   const locale = useLocale();
   const [viewId, setViewId] = useState<MechanismusView["id"]>("gesamt");
   const view = MECHANISMUS_VIEWS.find((v) => v.id === viewId) ?? MECHANISMUS_VIEWS[0];
@@ -352,6 +353,7 @@ function MechanismusPanel({ kpi }: { kpi: KpiDef }) {
 }
 
 function KofiPanel({ kpi }: { kpi: KpiDef }) {
+  const t = useT();
   const locale = useLocale();
   const [viewId, setViewId] = useState<KofiView["id"]>("volumen");
   const view = KOFI_VIEWS.find((v) => v.id === viewId) ?? KOFI_VIEWS[0];
