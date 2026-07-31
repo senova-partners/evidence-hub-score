@@ -10,6 +10,8 @@ import {
 } from "recharts";
 import type { HistoryPoint } from "@/lib/scorecard/history";
 import { computeYDomain, baselineLabel } from "./trend-chart-scale";
+import { localizePeriod } from "@/lib/scorecard/periods";
+import { useLocale } from "@/lib/scorecard/useT";
 
 /**
  * Full trend chart for the detail view. Same data source as the card sparkline
@@ -24,7 +26,11 @@ export function TrendChart({
   baseline: number | undefined;
   label: string;
 }) {
-  const data = history.map((p) => ({ period: p.period, value: p.value }));
+  const locale = useLocale();
+  const data = history.map((p) => ({
+    period: localizePeriod(p.period, locale),
+    value: p.value,
+  }));
   const yDomain = computeYDomain(history, baseline);
 
 
