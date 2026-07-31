@@ -1,3 +1,6 @@
+import type { Locale } from "./types";
+import { KPI_DETAILS_EN } from "./kpi-details.en";
+
 // KPI detail data — Rohdaten-Auszug, Zählung, Formel, Rechenweg, Erhebung.
 // Merge über KPI-id mit KPIS (kpis.ts). Der Board-Wert wird aus raw_summary
 // berechnet (formula), nie hartcodiert. Rohdaten zeigen einen Auszug plus
