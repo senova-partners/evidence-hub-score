@@ -2,13 +2,14 @@ import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useStore, type Store } from "@/lib/scorecard/store";
 import { kpiById, PKG_LABEL, formatValue, formatDelta } from "@/lib/scorecard/kpis";
-import { kpiDetail } from "@/lib/scorecard/kpi-details";
+import { kpiDetailLocalized, summaryKeyLabel } from "@/lib/scorecard/kpi-details";
 import { kpiHistory, type HistoryPoint } from "@/lib/scorecard/history";
 import { MECHANISMUS_VIEWS, type MechanismusView } from "@/lib/scorecard/mechanismus-views";
 import { KOFI_VIEWS, PIPELINE_SUMMARY, type KofiView } from "@/lib/scorecard/kofi-views";
 import { TrendChart } from "@/components/scorecard/TrendChart";
 import { InfoPanel } from "@/components/scorecard/InfoPanel";
 import { useT, useLocale } from "@/lib/scorecard/useT";
+import { pick } from "@/lib/scorecard/i18n";
 import { trend } from "@/lib/scorecard/verdict";
 import type { KpiDef } from "@/lib/scorecard/types";
 
@@ -117,7 +118,7 @@ function KpiTabPanel({
   const store = useStore((s: Store) => s);
   const t = useT();
   const locale = useLocale();
-  const detail = kpiDetail(kpi.id);
+  const detail = kpiDetailLocalized(kpi.id);
   const baseline = overrides?.baseline ?? store.baselines[kpi.id];
   const history = overrides?.history ?? kpiHistory(kpi.id);
   const current =
@@ -307,6 +308,7 @@ function Stat({ label, value }: { label: string; value: string }) {
 }
 
 function MechanismusPanel({ kpi }: { kpi: KpiDef }) {
+  const locale = useLocale();
   const [viewId, setViewId] = useState<MechanismusView["id"]>("gesamt");
   const view = MECHANISMUS_VIEWS.find((v) => v.id === viewId) ?? MECHANISMUS_VIEWS[0];
 
@@ -331,7 +333,7 @@ function MechanismusPanel({ kpi }: { kpi: KpiDef }) {
                 : "border-transparent text-muted-foreground hover:text-foreground")
             }
           >
-            {v.label}
+            {pick(v.label, locale)}
           </button>
         );
       })}
@@ -347,14 +349,15 @@ function MechanismusPanel({ kpi }: { kpi: KpiDef }) {
         baseline: view.baseline,
         current: view.current,
         history: view.history,
-        workedExample: view.workedExample,
-        subtitle: view.definition,
+        workedExample: pick(view.workedExample, locale),
+        subtitle: pick(view.definition, locale),
       }}
     />
   );
 }
 
 function KofiPanel({ kpi }: { kpi: KpiDef }) {
+  const locale = useLocale();
   const [viewId, setViewId] = useState<KofiView["id"]>("volumen");
   const view = KOFI_VIEWS.find((v) => v.id === viewId) ?? KOFI_VIEWS[0];
 
@@ -379,7 +382,7 @@ function KofiPanel({ kpi }: { kpi: KpiDef }) {
                 : "border-transparent text-muted-foreground hover:text-foreground")
             }
           >
-            {v.label}
+            {pick(v.label, locale)}
           </button>
         );
       })}
@@ -396,8 +399,8 @@ function KofiPanel({ kpi }: { kpi: KpiDef }) {
           baseline: view.baseline,
           current: view.current,
           history: view.history,
-          workedExample: view.workedExample,
-          subtitle: view.definition,
+          workedExample: pick(view.workedExample, locale),
+          subtitle: pick(view.definition, locale),
         }}
       />
       <PipelineFooter />
