@@ -376,3 +376,113 @@ export const KPI_DETAILS: Record<string, KpiDetail> = {
 };
 
 export const kpiDetail = (id: string): KpiDetail | undefined => KPI_DETAILS[id];
+
+/**
+ * Locale-aware detail record. English content comes from the overlay in
+ * kpi-details.en.ts; every field falls back to the German source when no
+ * translation exists yet, so the view never renders empty.
+ */
+export function kpiDetailLocalized(id: string, locale: Locale): KpiDetail | undefined {
+  const de = KPI_DETAILS[id];
+  if (!de) return undefined;
+  if (locale === "de") return de;
+  const en = KPI_DETAILS_EN[id];
+  if (!en) return de;
+  return {
+    ...de,
+    ...(en.raw_schema ? { raw_schema: en.raw_schema } : {}),
+    ...(en.raw_rows ? { raw_rows: en.raw_rows } : {}),
+    ...(en.formula_text ? { formula_text: en.formula_text } : {}),
+    ...(en.worked_example ? { worked_example: en.worked_example } : {}),
+    erhebung: { ...de.erhebung, ...en.erhebung },
+  };
+}
+
+/** Word-level glossary for the raw_summary keys shown under the raw table. */
+const SUMMARY_TOKENS_EN: Record<string, string> = {
+  volumen: "volume",
+  zur: "up for",
+  entscheidung: "decision",
+  mio: "EUR m",
+  fortgefuehrt: "continued",
+  aufstockung: "top-ups",
+  folgemodule: "follow-on modules",
+  ausgelaufen: "ended",
+  kontext: "context",
+  anzahl: "count",
+  gesamt: "total",
+  eingereicht: "submitted",
+  gewonnen: "won",
+  kofi: "co-financing",
+  grundauftrag: "core commission",
+  geberkonzentration: "donor concentration",
+  bmz: "BMZ",
+  anteil: "share",
+  prozent: "percent",
+  organisationen: "organisations",
+  gespraeche: "interviews",
+  besser: "better",
+  gleich: "same",
+  schlechter: "worse",
+  expertise: "expertise",
+  quote: "rate",
+  orgs: "orgs",
+  mit: "with",
+  oder: "or",
+  auftragsmittel: "commission funds",
+  interne: "internal",
+  abwicklung: "processing",
+  fach: "expert",
+  personalkosten: "staff costs",
+  consulting: "consulting",
+  ausgaben: "spend",
+  finanzierungen: "financing",
+  versendet: "sent",
+  beantwortet: "returned",
+  summe: "sum",
+  episoden: "episodes",
+  mittel: "mean",
+  faellig: "due",
+  umgesetzt: "implemented",
+  angepasst: "adapted",
+  nicht: "not",
+  genutzt: "used",
+  ausstehend: "pending",
+  produkte: "products",
+  je: "per",
+  runde: "round",
+  letzte: "last",
+  aktuelle: "current",
+  aktuell: "current",
+  nur: "only",
+  practice: "practice",
+  mr: "MR",
+  beides: "both",
+  keins: "none",
+  teams: "teams",
+  personen: "people",
+  gewichtete: "weighted",
+  prozentpunkte: "percentage points",
+  tage: "days",
+  beteiligte: "people involved",
+  plan: "planned",
+  ist: "actual",
+  listen: "lists",
+  punkte: "points",
+  scores: "scores",
+  vze: "FTE",
+  fachlich: "expert",
+  umsatz: "revenue",
+};
+
+/** Render a raw_summary key as a label in the active locale. */
+export function summaryKeyLabel(key: string, locale: Locale): string {
+  if (locale === "de") return key.replace(/_/g, " ") + ":";
+  return (
+    key
+      .split("_")
+      .map((token) => SUMMARY_TOKENS_EN[token.toLowerCase()] ?? token)
+      .join(" ") + ":"
+  );
+}
+
