@@ -5,7 +5,7 @@
     "baseline_period": "2026-Q3",
     "locale_default": "de-DE",
     "verdict_rule": {
-      "text": "Paket 1–2 steigen, Paket 3 stabil oder besser.",
+      "text": "Paket 1 und 2 steigen, Paket 3 stabil oder besser.",
       "logic": "P1_P2_improving_AND_P3_stable_or_better",
       "incomplete_handling": "Fehlt ein Messpunkt in Paket 1 oder 2, lautet das Verdict 'unvollständig – Meldung fehlt'. Niemals 'erfüllt' bei Lücken. Fehlende Werte werden nie geschätzt."
     },
