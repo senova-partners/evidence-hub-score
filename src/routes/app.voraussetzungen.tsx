@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { useStore, setStore, type Store } from "@/lib/scorecard/store";
 import { useLocale } from "@/lib/scorecard/useT";
@@ -5,12 +6,20 @@ import { kpiById } from "@/lib/scorecard/kpis";
 
 type Status = "offen" | "definiert" | "eingefuehrt";
 
+interface RevisionsReferenz {
+  bericht: string;
+  massnahme: string;
+  frist: string;
+  einordnung: string;
+}
+
 const ITEMS: Array<{
   id: string;
   titel: { de: string; en: string };
   beschreibung: { de: string; en: string };
   owner: string;
   kpis: string[];
+  revisions_referenz?: RevisionsReferenz;
 }> = [
   {
     id: "episode_definition",
@@ -37,6 +46,14 @@ const ITEMS: Array<{
     },
     owner: "Finance/F&A, Definition mit DAIO",
     kpis: ["delivery_quote"],
+    revisions_referenz: {
+      bericht: "IA_2024_0040 (WE-Cluster Jordanien, Prüfung 09/2024, Bericht 02/2025)",
+      massnahme:
+        "Ausweitung der Wirtschaftlichkeitsberechnung auf alle Cluster-Mitarbeiter inkl. temporär von CKs übernommener AVs — Feststellung 'Wirtschaftlichkeitsberechnung' (Kritikalität Mittel), Verantwortung OEJO",
+      frist: "30.04.2025",
+      einordnung:
+        "Diese Voraussetzung erfüllt zugleich den offenen Prüfauftrag. Die Budget-Trennung operativ/wirkungsbezogen ist keine externe Zusatzforderung, sondern die konsequente Weiterentwicklung einer bereits mandatierten Maßnahme.",
+    },
   },
   {
     id: "struktur_beteiligung_erfassung",
@@ -117,6 +134,9 @@ function VoraussetzungenPage() {
               <p className="text-[13px] leading-relaxed text-foreground/90 pl-9">
                 {item.beschreibung[locale]}
               </p>
+              {item.revisions_referenz && (
+                <RevisionsBox data={item.revisions_referenz} locale={locale} />
+              )}
               <dl className="pl-9 grid grid-cols-[auto_1fr] gap-x-4 gap-y-1 text-[12px]">
                 <dt className="text-muted-foreground">{locale === "de" ? "Verantwortlich" : "Owner"}</dt>
                 <dd>{item.owner}</dd>
@@ -166,5 +186,29 @@ function StatusPill({ status, locale }: { status: Status; locale: "de" | "en" })
     <span className={`text-[11px] px-2 py-[1px] uppercase tracking-wide ${color}`}>
       {STATUS_LABEL[status][locale]}
     </span>
+  );
+}
+
+function RevisionsBox({ data, locale }: { data: RevisionsReferenz; locale: "de" | "en" }) {
+  const rows: Array<[string, string]> = [
+    [locale === "de" ? "Bericht" : "Report", data.bericht],
+    [locale === "de" ? "Maßnahme" : "Measure", data.massnahme],
+    [locale === "de" ? "Frist" : "Deadline", data.frist],
+    [locale === "de" ? "Einordnung" : "Assessment", data.einordnung],
+  ];
+  return (
+    <div className="ml-9 hairline p-3">
+      <div className="text-[11px] uppercase tracking-wide text-muted-foreground mb-2">
+        {locale === "de" ? "Revisions-Referenz" : "Audit reference"}
+      </div>
+      <dl className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1 text-[12px] text-muted-foreground">
+        {rows.map(([label, value]) => (
+          <Fragment key={label}>
+            <dt>{label}</dt>
+            <dd className="leading-relaxed">{value}</dd>
+          </Fragment>
+        ))}
+      </dl>
+    </div>
   );
 }
