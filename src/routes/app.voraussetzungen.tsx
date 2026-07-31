@@ -45,6 +45,14 @@ const ITEMS: Array<{
     },
     owner: "Finance/F&A, Definition mit DAIO",
     kpis: ["delivery_quote"],
+    revisions_referenz: {
+      bericht: "IA_2024_0040 (WE-Cluster Jordanien, Prüfung 09/2024, Bericht 02/2025)",
+      massnahme:
+        "Ausweitung der Wirtschaftlichkeitsberechnung auf alle Cluster-Mitarbeiter inkl. temporär von CKs übernommener AVs — Feststellung 'Wirtschaftlichkeitsberechnung' (Kritikalität Mittel), Verantwortung OEJO",
+      frist: "30.04.2025",
+      einordnung:
+        "Diese Voraussetzung erfüllt zugleich den offenen Prüfauftrag. Die Budget-Trennung operativ/wirkungsbezogen ist keine externe Zusatzforderung, sondern die konsequente Weiterentwicklung einer bereits mandatierten Maßnahme.",
+    },
   },
   {
     id: "struktur_beteiligung_erfassung",
