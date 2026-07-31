@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useStore, type Store } from "@/lib/scorecard/store";
 import { KPIS } from "@/lib/scorecard/kpis";
-import { useLocale } from "@/lib/scorecard/useT";
+import { useT, useLocale } from "@/lib/scorecard/useT";
 import { fmtDate } from "@/lib/scorecard/i18n";
 
 export const Route = createFileRoute("/app/meldung/historie")({
@@ -9,6 +9,7 @@ export const Route = createFileRoute("/app/meldung/historie")({
 });
 
 function Historie() {
+  const t = useT();
   const store = useStore((s: Store) => s);
   const session = store.session!;
   const locale = useLocale();
@@ -47,10 +48,10 @@ function Historie() {
                 {it.submittedAt ? fmtDate(it.submittedAt, locale) : "—"}
               </td>
               <td className="py-2">
-                {it.status === "on_time" && "● pünktlich"}
-                {it.status === "late" && "● verspätet"}
-                {it.status === "missing" && "✕ fehlt"}
-                {it.status === "draft" && "○ Entwurf"}
+                {it.status === "on_time" && `● ${t("on_time")}`}
+                {it.status === "late" && `● ${t("late")}`}
+                {it.status === "missing" && `✕ ${t("status_missing")}`}
+                {it.status === "draft" && `○ ${t("status_draft")}`}
               </td>
             </tr>
           ))}

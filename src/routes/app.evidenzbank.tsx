@@ -75,6 +75,7 @@ function Evidenzbank() {
 }
 
 function AddStoryForm({ onClose }: { onClose: () => void }) {
+  const t = useT();
   const store = useStore((s: Store) => s);
   const [cluster, setCluster] = useState(store.session!.cluster ?? "Governance");
   const [sentences, setSentences] = useState("");
@@ -112,7 +113,7 @@ function AddStoryForm({ onClose }: { onClose: () => void }) {
       />
       <textarea
         className="hairline bg-background px-3 py-2 text-[13px] min-h-24"
-        placeholder="3 Sätze"
+        placeholder={t("ev_sentences_placeholder")}
         maxLength={500}
         value={sentences}
         onChange={(e) => setSentences(e.target.value)}

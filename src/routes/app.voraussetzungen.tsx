@@ -3,21 +3,22 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useStore, setStore, type Store } from "@/lib/scorecard/store";
 import { useLocale } from "@/lib/scorecard/useT";
 import { kpiById } from "@/lib/scorecard/kpis";
+import { pick, type Bi } from "@/lib/scorecard/i18n";
 
 type Status = "offen" | "definiert" | "eingefuehrt";
 
 interface RevisionsReferenz {
-  bericht: string;
-  massnahme: string;
-  frist: string;
-  einordnung: string;
+  bericht: Bi;
+  massnahme: Bi;
+  frist: Bi;
+  einordnung: Bi;
 }
 
 const ITEMS: Array<{
   id: string;
   titel: { de: string; en: string };
   beschreibung: { de: string; en: string };
-  owner: string;
+  owner: Bi;
   kpis: string[];
   revisions_referenz?: RevisionsReferenz;
 }> = [
@@ -31,7 +32,7 @@ const ITEMS: Array<{
       de: "Das GIZ-Datenbüro (DAIO) definiert die Beratungsepisode als einheitliche Messeinheit (Anlass · Empfänger · Ergebnis · Zeitraum) und führt sie portfolioweit ein — inklusive Episodenregister und Abschluss-Trigger. Diese Einheit existiert im heutigen Berichtswesen nicht.",
       en: "The GIZ data office (DAIO) defines the advisory episode as a unified measurement unit (occasion · recipient · result · period) and rolls it out portfolio-wide — including the episode register and closure trigger. This unit does not exist in current reporting.",
     },
-    owner: "DAIO, mit AVs und JDU",
+    owner: { de: "DAIO, mit AVs und JDU", en: "DAIO, with AVs and JDU" },
     kpis: ["partnerbogen", "uptake", "peer_review", "mechanismus"],
   },
   {
@@ -44,15 +45,22 @@ const ITEMS: Array<{
       de: "Budgets und Instrumentenkonzepte (Ressourcenüberblick je Projekt) werden nach internen operativen und wirkungsbezogenen Ausgaben unterteilt — in heutigen Budgets und Operationsplänen nicht enthalten. Abgrenzungslogik einmalig definieren, in Budget-/OP-Template einziehen, rückwirkende Zuordnung fürs Baseline-Jahr, dann einfrieren.",
       en: "Budgets and instrument concepts (project resource overview) are split into internal operational and impact-related spend — not present in today's budgets/OPs. Define the boundary once, embed it in the budget/OP template, backfill for the baseline year, then freeze.",
     },
-    owner: "Finance/F&A, Definition mit DAIO",
+    owner: { de: "Finance/F&A, Definition mit DAIO", en: "Finance/F&A, definition with DAIO" },
     kpis: ["delivery_quote"],
     revisions_referenz: {
-      bericht: "IA_2024_0040 (WE-Cluster Jordanien, Prüfung 09/2024, Bericht 02/2025)",
-      massnahme:
-        "Ausweitung der Wirtschaftlichkeitsberechnung auf alle Cluster-Mitarbeiter inkl. temporär von CKs übernommener AVs — Feststellung 'Wirtschaftlichkeitsberechnung' (Kritikalität Mittel), Verantwortung OEJO",
-      frist: "30.04.2025",
-      einordnung:
-        "Diese Voraussetzung erfüllt zugleich den offenen Prüfauftrag. Die Budget-Trennung operativ/wirkungsbezogen ist keine externe Zusatzforderung, sondern die konsequente Weiterentwicklung einer bereits mandatierten Maßnahme.",
+      bericht: {
+        de: "IA_2024_0040 (WE-Cluster Jordanien, Prüfung 09/2024, Bericht 02/2025)",
+        en: "IA_2024_0040 (W&E cluster Jordan, audit 09/2024, report 02/2025)",
+      },
+      massnahme: {
+        de: "Ausweitung der Wirtschaftlichkeitsberechnung auf alle Cluster-Mitarbeiter inkl. temporär von CKs übernommener AVs — Feststellung 'Wirtschaftlichkeitsberechnung' (Kritikalität Mittel), Verantwortung OEJO",
+        en: "Extend the cost-effectiveness calculation to all cluster staff incl. AVs temporarily taken over from CKs — finding 'cost-effectiveness calculation' (criticality medium), responsibility OEJO",
+      },
+      frist: { de: "30.04.2025", en: "30 Apr 2025" },
+      einordnung: {
+        de: "Diese Voraussetzung erfüllt zugleich den offenen Prüfauftrag. Die Budget-Trennung operativ/wirkungsbezogen ist keine externe Zusatzforderung, sondern die konsequente Weiterentwicklung einer bereits mandatierten Maßnahme.",
+        en: "This precondition also closes the open audit action. Splitting budgets into operational vs. impact-related is not an external add-on but the consistent continuation of an already mandated measure.",
+      },
     },
   },
   {
@@ -65,7 +73,7 @@ const ITEMS: Array<{
       de: "Je Episode wird erfasst, ob Machine Room bzw. Practices unterstützt haben (zwei Ja/Nein-Felder im Episodenbogen) — Grundlage für den Anteil struktur-unterstützter Episoden und die Dosis-Wirkungs-Auswertung. Setzt die Episoden-Definition (Voraussetzung 1) voraus.",
       en: "Per episode, record whether Machine Room / Practices contributed (two yes/no fields in the episode form) — the basis for structure-supported episode share and dose-effect analysis. Requires the episode definition (precondition 1).",
     },
-    owner: "AVs im Episodenregister, Standard durch DAIO",
+    owner: { de: "AVs im Episodenregister, Standard durch DAIO", en: "AVs in the episode register, standard set by DAIO" },
     kpis: ["mechanismus"],
   },
   {
@@ -78,7 +86,7 @@ const ITEMS: Array<{
       de: "Einmalige Taxonomie, welche Stellenkategorie als fachlich, welche als administrativ zählt, inkl. Anteilsregel für Mischrollen — existiert heute nicht sauber. Definiert, dokumentiert, eingefroren; sonst wird die Zuordnung Verhandlungsmasse. Mitbestimmungsunkritisch, weil Stellenkategorien bewertet werden, nicht Personen.",
       en: "One-off taxonomy classifying which position categories count as expert vs. administrative, incl. a share rule for mixed roles — not cleanly available today. Defined, documented, frozen; otherwise the classification becomes negotiable. Uncontroversial for co-determination as categories, not individuals, are assessed.",
     },
-    owner: "HR (mit DAIO)",
+    owner: { de: "HR (mit DAIO)", en: "HR (with DAIO)" },
     kpis: ["inhouse_beratungsquote", "berater_vze_anteil"],
   },
 ];
@@ -139,7 +147,7 @@ function VoraussetzungenPage() {
               )}
               <dl className="pl-9 grid grid-cols-[auto_1fr] gap-x-4 gap-y-1 text-[12px]">
                 <dt className="text-muted-foreground">{locale === "de" ? "Verantwortlich" : "Owner"}</dt>
-                <dd>{item.owner}</dd>
+                <dd>{pick(item.owner, locale)}</dd>
                 <dt className="text-muted-foreground">{locale === "de" ? "Betrifft KPIs" : "Affects KPIs"}</dt>
                 <dd className="flex flex-wrap gap-x-2 gap-y-1">
                   {item.kpis.map((id) => {
@@ -191,10 +199,10 @@ function StatusPill({ status, locale }: { status: Status; locale: "de" | "en" })
 
 function RevisionsBox({ data, locale }: { data: RevisionsReferenz; locale: "de" | "en" }) {
   const rows: Array<[string, string]> = [
-    [locale === "de" ? "Bericht" : "Report", data.bericht],
-    [locale === "de" ? "Maßnahme" : "Measure", data.massnahme],
-    [locale === "de" ? "Frist" : "Deadline", data.frist],
-    [locale === "de" ? "Einordnung" : "Assessment", data.einordnung],
+    [locale === "de" ? "Bericht" : "Report", pick(data.bericht, locale)],
+    [locale === "de" ? "Maßnahme" : "Measure", pick(data.massnahme, locale)],
+    [locale === "de" ? "Frist" : "Deadline", pick(data.frist, locale)],
+    [locale === "de" ? "Einordnung" : "Assessment", pick(data.einordnung, locale)],
   ];
   return (
     <div className="ml-9 hairline p-3">

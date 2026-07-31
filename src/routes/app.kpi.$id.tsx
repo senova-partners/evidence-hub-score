@@ -2,13 +2,14 @@ import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useStore, type Store } from "@/lib/scorecard/store";
 import { kpiById, PKG_LABEL, formatValue, formatDelta } from "@/lib/scorecard/kpis";
-import { kpiDetail } from "@/lib/scorecard/kpi-details";
+import { kpiDetailLocalized, summaryKeyLabel } from "@/lib/scorecard/kpi-details";
 import { kpiHistory, type HistoryPoint } from "@/lib/scorecard/history";
 import { MECHANISMUS_VIEWS, type MechanismusView } from "@/lib/scorecard/mechanismus-views";
 import { KOFI_VIEWS, PIPELINE_SUMMARY, type KofiView } from "@/lib/scorecard/kofi-views";
 import { TrendChart } from "@/components/scorecard/TrendChart";
 import { InfoPanel } from "@/components/scorecard/InfoPanel";
 import { useT, useLocale } from "@/lib/scorecard/useT";
+import { pick, fmtDecimal } from "@/lib/scorecard/i18n";
 import { trend } from "@/lib/scorecard/verdict";
 import type { KpiDef } from "@/lib/scorecard/types";
 
@@ -117,7 +118,7 @@ function KpiTabPanel({
   const store = useStore((s: Store) => s);
   const t = useT();
   const locale = useLocale();
-  const detail = kpiDetail(kpi.id);
+  const detail = kpiDetailLocalized(kpi.id, locale);
   const baseline = overrides?.baseline ?? store.baselines[kpi.id];
   const history = overrides?.history ?? kpiHistory(kpi.id);
   const current =
@@ -129,8 +130,8 @@ function KpiTabPanel({
   // exists AND the history series carries at least one real point.
   const historyHasData = history.length > 0 && history.some((p) => p.value != null);
   const missing: string[] = [];
-  if (!detail) missing.push("Detail-Konfiguration");
-  if (!historyHasData) missing.push("Verlaufsdaten");
+  if (!detail) missing.push(t("d_missing_detail_config"));
+  if (!historyHasData) missing.push(t("d_missing_history"));
 
   if (missing.length > 0) {
     return (
@@ -145,12 +146,11 @@ function KpiTabPanel({
             className="text-[12px] uppercase tracking-wide mb-2"
             style={{ color: "var(--giz-red)" }}
           >
-            ✕ Meldung fehlt
+            {t("d_missing_headline")}
           </div>
           <div>
-            Für <span className="font-semibold">{kpi.name[locale]}</span> liegen noch keine{" "}
-            {missing.join(" und ")} vor. Sobald die Meldung eingeht, erscheinen hier Verlauf,
-            Erhebung, Rohdaten und Berechnung.
+            {t("d_missing_prefix")} <span className="font-semibold">{kpi.name[locale]}</span>{" "}
+            {t("d_missing_body").replace("{missing}", missing.join(` ${t("d_and")} `))}
           </div>
         </div>
       </div>
@@ -176,7 +176,7 @@ function KpiTabPanel({
           style={{ borderLeft: "3px solid var(--giz-red)" }}
         >
           <div className="text-[11px] uppercase tracking-wide text-muted-foreground mb-1">
-            Voraussetzung
+            {t("d_voraussetzung")}
           </div>
           {voraussetzung}
         </div>
@@ -191,26 +191,26 @@ function KpiTabPanel({
         />
       </div>
 
-      <Section title="Verlauf">
+      <Section title={t("sec_verlauf")}>
         <TrendChart history={history} baseline={baseline} label={kpi.name[locale]} />
       </Section>
 
       {detail && (
-        <Section title="Erhebung">
+        <Section title={t("sec_erhebung")}>
           <dl className="grid grid-cols-1 md:grid-cols-4 gap-6 text-[13px]">
-            <Field label="Wer erhebt" value={detail.erhebung.owner} />
-            <Field label="Wann" value={detail.erhebung.cadence} />
+            <Field label={t("f_owner")} value={detail.erhebung.owner} />
+            <Field label={t("f_when")} value={detail.erhebung.cadence} />
             <Field
-              label="Wie (Methode)"
+              label={t("f_method")}
               value={detail.erhebung.methode ?? kpi.info.wie[locale]}
             />
-            <Field label="Verifizierung (Prüfregel)" value={detail.erhebung.verifizierung} />
+            <Field label={t("f_verification")} value={detail.erhebung.verifizierung} />
           </dl>
         </Section>
       )}
 
       {detail && (
-        <Section title="Rohdaten">
+        <Section title={t("sec_rohdaten")}>
           <div className="overflow-x-auto">
             <table className="w-full text-[13px] tabular-nums">
               <thead>
@@ -239,10 +239,10 @@ function KpiTabPanel({
             </table>
           </div>
           <div className="mt-4 text-[12px] text-muted-foreground">
-            <span className="uppercase tracking-wide mr-2">Zählung</span>
+            <span className="uppercase tracking-wide mr-2">{t("d_counts")}</span>
             {Object.entries(detail.raw_summary).map(([k, v], i, arr) => (
               <span key={k}>
-                <span className="text-foreground">{formatSummaryKey(k)}</span>{" "}
+                <span className="text-foreground">{summaryKeyLabel(k, locale)}</span>{" "}
                 <span className="tabular-nums">{v === null ? "—" : String(v)}</span>
                 {i < arr.length - 1 ? " · " : ""}
               </span>
@@ -252,17 +252,17 @@ function KpiTabPanel({
       )}
 
       {detail && (
-        <Section title="Berechnung">
+        <Section title={t("sec_berechnung")}>
           <div className="flex flex-col gap-4 text-[13px]">
             <div>
               <div className="text-[12px] uppercase tracking-wide text-muted-foreground mb-1">
-                Formel
+                {t("d_formula")}
               </div>
               <div>{detail.formula_text}</div>
             </div>
             <div>
               <div className="text-[12px] uppercase tracking-wide text-muted-foreground mb-1">
-                Rechenweg
+                {t("d_worked_example")}
               </div>
               <div className="font-mono text-[13px] tabular-nums whitespace-pre-wrap">
                 {overrides?.workedExample ?? detail.worked_example}
@@ -273,10 +273,6 @@ function KpiTabPanel({
       )}
     </div>
   );
-}
-
-function formatSummaryKey(k: string): string {
-  return k.replace(/_/g, " ") + ":";
 }
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
@@ -307,13 +303,15 @@ function Stat({ label, value }: { label: string; value: string }) {
 }
 
 function MechanismusPanel({ kpi }: { kpi: KpiDef }) {
+  const t = useT();
+  const locale = useLocale();
   const [viewId, setViewId] = useState<MechanismusView["id"]>("gesamt");
   const view = MECHANISMUS_VIEWS.find((v) => v.id === viewId) ?? MECHANISMUS_VIEWS[0];
 
   const preamble = (
     <div
       role="tablist"
-      aria-label="Mechanismus-Sichten"
+      aria-label={t("mech_views_label")}
       className="flex gap-6 hairline-b -mt-4"
     >
       {MECHANISMUS_VIEWS.map((v) => {
@@ -331,7 +329,7 @@ function MechanismusPanel({ kpi }: { kpi: KpiDef }) {
                 : "border-transparent text-muted-foreground hover:text-foreground")
             }
           >
-            {v.label}
+            {pick(v.label, locale)}
           </button>
         );
       })}
@@ -347,21 +345,23 @@ function MechanismusPanel({ kpi }: { kpi: KpiDef }) {
         baseline: view.baseline,
         current: view.current,
         history: view.history,
-        workedExample: view.workedExample,
-        subtitle: view.definition,
+        workedExample: pick(view.workedExample, locale),
+        subtitle: pick(view.definition, locale),
       }}
     />
   );
 }
 
 function KofiPanel({ kpi }: { kpi: KpiDef }) {
+  const t = useT();
+  const locale = useLocale();
   const [viewId, setViewId] = useState<KofiView["id"]>("volumen");
   const view = KOFI_VIEWS.find((v) => v.id === viewId) ?? KOFI_VIEWS[0];
 
   const preamble = (
     <div
       role="tablist"
-      aria-label="Kofi/Proposal-Sichten"
+      aria-label={t("kofi_views_label")}
       className="flex gap-6 hairline-b -mt-4"
     >
       {KOFI_VIEWS.map((v) => {
@@ -379,7 +379,7 @@ function KofiPanel({ kpi }: { kpi: KpiDef }) {
                 : "border-transparent text-muted-foreground hover:text-foreground")
             }
           >
-            {v.label}
+            {pick(v.label, locale)}
           </button>
         );
       })}
@@ -396,8 +396,8 @@ function KofiPanel({ kpi }: { kpi: KpiDef }) {
           baseline: view.baseline,
           current: view.current,
           history: view.history,
-          workedExample: view.workedExample,
-          subtitle: view.definition,
+          workedExample: pick(view.workedExample, locale),
+          subtitle: pick(view.definition, locale),
         }}
       />
       <PipelineFooter />
@@ -406,7 +406,15 @@ function KofiPanel({ kpi }: { kpi: KpiDef }) {
 }
 
 function PipelineFooter() {
+  const t = useT();
+  const locale = useLocale();
   const p = PIPELINE_SUMMARY;
+  const mio = (v: number) => `${fmtDecimal(v, locale)} ${t("mio_eur")}`;
+  const stages = [
+    { key: "pipe_stage1", count: p.stage1.count, vol: p.stage1.volumeMio, unit: t("pipe_leads"), eu: null },
+    { key: "pipe_stage2", count: p.stage2.count, vol: p.stage2.volumeMio, unit: t("pipe_leads"), eu: p.eu.stage2Count },
+    { key: "pipe_stage3", count: p.stage3.count, vol: p.stage3.volumeMio, unit: t("pipe_contracts"), eu: p.eu.stage3Count },
+  ];
   return (
     <section
       aria-labelledby="pipeline-heading"
@@ -414,39 +422,34 @@ function PipelineFooter() {
     >
       <div className="flex items-baseline justify-between mb-3">
         <h3 id="pipeline-heading" className="text-[13px] font-semibold uppercase tracking-wider">
-          Vorlaufende Diagnostik — Akquise-Pipeline
+          {t("pipe_title")}
         </h3>
         <a
           href="/app/diagnostik#pipeline"
           className="text-[12px] text-muted-foreground hover:text-foreground underline underline-offset-4"
         >
-          Zur Pipeline →
+          {t("pipe_link")}
         </a>
       </div>
-      <p className="text-[12px] text-muted-foreground leading-relaxed mb-3">
-        Getrennt bewertet, verbunden navigiert: Stagniert der Proposal-Erfolg, zeigt der Trichter,
-        ob es am Anfang klemmt (wenige Leads → Foresight-Problem) oder an der Konversion
-        (viele Leads, wenige formalisiert → Kapazität oder Proposal-Qualität).
-      </p>
+      <p className="text-[12px] text-muted-foreground leading-relaxed mb-3">{t("pipe_intro")}</p>
       <div className="grid grid-cols-3 gap-4 text-[13px] tabular-nums">
-        <div className="hairline p-3">
-          <div className="text-[11px] text-muted-foreground uppercase tracking-wider">1 · Identifiziert</div>
-          <div className="text-[18px] font-semibold mt-1">{p.stage1.count} Leads</div>
-          <div className="text-[12px] text-muted-foreground">{p.stage1.volumeMio.toString().replace(".", ",")} Mio €</div>
-        </div>
-        <div className="hairline p-3">
-          <div className="text-[11px] text-muted-foreground uppercase tracking-wider">2 · Formalisiert</div>
-          <div className="text-[18px] font-semibold mt-1">{p.stage2.count} Leads</div>
-          <div className="text-[12px] text-muted-foreground">{p.stage2.volumeMio.toString().replace(".", ",")} Mio € · davon EU: {p.eu.stage2Count}</div>
-        </div>
-        <div className="hairline p-3">
-          <div className="text-[11px] text-muted-foreground uppercase tracking-wider">3 · Beauftragt</div>
-          <div className="text-[18px] font-semibold mt-1">{p.stage3.count} Verträge</div>
-          <div className="text-[12px] text-muted-foreground">{p.stage3.volumeMio.toString().replace(".", ",")} Mio € · davon EU: {p.eu.stage3Count}</div>
-        </div>
+        {stages.map((s) => (
+          <div key={s.key} className="hairline p-3">
+            <div className="text-[11px] text-muted-foreground uppercase tracking-wider">
+              {t(s.key)}
+            </div>
+            <div className="text-[18px] font-semibold mt-1">
+              {s.count} {s.unit}
+            </div>
+            <div className="text-[12px] text-muted-foreground">
+              {mio(s.vol)}
+              {s.eu != null ? ` \u00b7 ${t("pipe_of_which_eu")}: ${s.eu}` : ""}
+            </div>
+          </div>
+        ))}
       </div>
       <div className="text-[12px] text-muted-foreground mt-3">
-        Konversion Volumen · {p.conversionVolume}
+        {t("pipe_conv_volume")} · {p.conversionVolume}
       </div>
     </section>
   );
