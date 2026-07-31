@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { useStore, setStore, type Store } from "@/lib/scorecard/store";
 import { useLocale } from "@/lib/scorecard/useT";
@@ -185,5 +186,29 @@ function StatusPill({ status, locale }: { status: Status; locale: "de" | "en" })
     <span className={`text-[11px] px-2 py-[1px] uppercase tracking-wide ${color}`}>
       {STATUS_LABEL[status][locale]}
     </span>
+  );
+}
+
+function RevisionsBox({ data, locale }: { data: RevisionsReferenz; locale: "de" | "en" }) {
+  const rows: Array<[string, string]> = [
+    [locale === "de" ? "Bericht" : "Report", data.bericht],
+    [locale === "de" ? "Maßnahme" : "Measure", data.massnahme],
+    [locale === "de" ? "Frist" : "Deadline", data.frist],
+    [locale === "de" ? "Einordnung" : "Assessment", data.einordnung],
+  ];
+  return (
+    <div className="ml-9 hairline p-3">
+      <div className="text-[11px] uppercase tracking-wide text-muted-foreground mb-2">
+        {locale === "de" ? "Revisions-Referenz" : "Audit reference"}
+      </div>
+      <dl className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1 text-[12px] text-muted-foreground">
+        {rows.map(([label, value]) => (
+          <Fragment key={label}>
+            <dt>{label}</dt>
+            <dd className="leading-relaxed">{value}</dd>
+          </Fragment>
+        ))}
+      </dl>
+    </div>
   );
 }
