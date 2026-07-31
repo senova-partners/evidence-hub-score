@@ -242,6 +242,9 @@ export const T: Dict = {
   pipe_contracts: { de: "Verträge", en: "contracts" },
   pipe_of_which_eu: { de: "davon EU", en: "of which EU" },
   pipe_conv_volume: { de: "Konversion Volumen", en: "Conversion by volume" },
+  pipe_stage1: { de: "1 · Identifiziert", en: "1 · Identified" },
+  pipe_stage2: { de: "2 · Formalisiert", en: "2 · Formalised" },
+  pipe_stage3: { de: "3 · Beauftragt", en: "3 · Commissioned" },
   ctx_fachzeit: {
     de: "Drei Währungen derselben Freisetzung: Zeit · Substanz · Geld — drei Rechenwege, kein Index.",
     en: "Three currencies of the same release: time · substance · money — three calculations, no composite index.",
