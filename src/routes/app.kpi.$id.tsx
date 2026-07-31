@@ -9,7 +9,7 @@ import { KOFI_VIEWS, PIPELINE_SUMMARY, type KofiView } from "@/lib/scorecard/kof
 import { TrendChart } from "@/components/scorecard/TrendChart";
 import { InfoPanel } from "@/components/scorecard/InfoPanel";
 import { useT, useLocale } from "@/lib/scorecard/useT";
-import { pick } from "@/lib/scorecard/i18n";
+import { pick, fmtDecimal } from "@/lib/scorecard/i18n";
 import { trend } from "@/lib/scorecard/verdict";
 import type { KpiDef } from "@/lib/scorecard/types";
 
@@ -406,7 +406,15 @@ function KofiPanel({ kpi }: { kpi: KpiDef }) {
 }
 
 function PipelineFooter() {
+  const t = useT();
+  const locale = useLocale();
   const p = PIPELINE_SUMMARY;
+  const mio = (v: number) => `${fmtDecimal(v, locale)} ${t("mio_eur")}`;
+  const stages = [
+    { key: "pipe_stage1", count: p.stage1.count, vol: p.stage1.volumeMio, unit: t("pipe_leads"), eu: null },
+    { key: "pipe_stage2", count: p.stage2.count, vol: p.stage2.volumeMio, unit: t("pipe_leads"), eu: p.eu.stage2Count },
+    { key: "pipe_stage3", count: p.stage3.count, vol: p.stage3.volumeMio, unit: t("pipe_contracts"), eu: p.eu.stage3Count },
+  ];
   return (
     <section
       aria-labelledby="pipeline-heading"
@@ -414,39 +422,34 @@ function PipelineFooter() {
     >
       <div className="flex items-baseline justify-between mb-3">
         <h3 id="pipeline-heading" className="text-[13px] font-semibold uppercase tracking-wider">
-          Vorlaufende Diagnostik — Akquise-Pipeline
+          {t("pipe_title")}
         </h3>
         <a
           href="/app/diagnostik#pipeline"
           className="text-[12px] text-muted-foreground hover:text-foreground underline underline-offset-4"
         >
-          Zur Pipeline →
+          {t("pipe_link")}
         </a>
       </div>
-      <p className="text-[12px] text-muted-foreground leading-relaxed mb-3">
-        Getrennt bewertet, verbunden navigiert: Stagniert der Proposal-Erfolg, zeigt der Trichter,
-        ob es am Anfang klemmt (wenige Leads → Foresight-Problem) oder an der Konversion
-        (viele Leads, wenige formalisiert → Kapazität oder Proposal-Qualität).
-      </p>
+      <p className="text-[12px] text-muted-foreground leading-relaxed mb-3">{t("pipe_intro")}</p>
       <div className="grid grid-cols-3 gap-4 text-[13px] tabular-nums">
-        <div className="hairline p-3">
-          <div className="text-[11px] text-muted-foreground uppercase tracking-wider">1 · Identifiziert</div>
-          <div className="text-[18px] font-semibold mt-1">{p.stage1.count} Leads</div>
-          <div className="text-[12px] text-muted-foreground">{p.stage1.volumeMio.toString().replace(".", ",")} Mio €</div>
-        </div>
-        <div className="hairline p-3">
-          <div className="text-[11px] text-muted-foreground uppercase tracking-wider">2 · Formalisiert</div>
-          <div className="text-[18px] font-semibold mt-1">{p.stage2.count} Leads</div>
-          <div className="text-[12px] text-muted-foreground">{p.stage2.volumeMio.toString().replace(".", ",")} Mio € · davon EU: {p.eu.stage2Count}</div>
-        </div>
-        <div className="hairline p-3">
-          <div className="text-[11px] text-muted-foreground uppercase tracking-wider">3 · Beauftragt</div>
-          <div className="text-[18px] font-semibold mt-1">{p.stage3.count} Verträge</div>
-          <div className="text-[12px] text-muted-foreground">{p.stage3.volumeMio.toString().replace(".", ",")} Mio € · davon EU: {p.eu.stage3Count}</div>
-        </div>
+        {stages.map((s) => (
+          <div key={s.key} className="hairline p-3">
+            <div className="text-[11px] text-muted-foreground uppercase tracking-wider">
+              {t(s.key)}
+            </div>
+            <div className="text-[18px] font-semibold mt-1">
+              {s.count} {s.unit}
+            </div>
+            <div className="text-[12px] text-muted-foreground">
+              {mio(s.vol)}
+              {s.eu != null ? ` \u00b7 ${t("pipe_of_which_eu")}: ${s.eu}` : ""}
+            </div>
+          </div>
+        ))}
       </div>
       <div className="text-[12px] text-muted-foreground mt-3">
-        Konversion Volumen · {p.conversionVolume}
+        {t("pipe_conv_volume")} \u00b7 {p.conversionVolume}
       </div>
     </section>
   );
