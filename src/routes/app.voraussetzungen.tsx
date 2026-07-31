@@ -5,12 +5,20 @@ import { kpiById } from "@/lib/scorecard/kpis";
 
 type Status = "offen" | "definiert" | "eingefuehrt";
 
+interface RevisionsReferenz {
+  bericht: string;
+  massnahme: string;
+  frist: string;
+  einordnung: string;
+}
+
 const ITEMS: Array<{
   id: string;
   titel: { de: string; en: string };
   beschreibung: { de: string; en: string };
   owner: string;
   kpis: string[];
+  revisions_referenz?: RevisionsReferenz;
 }> = [
   {
     id: "episode_definition",
