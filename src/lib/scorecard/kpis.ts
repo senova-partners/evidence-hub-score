@@ -470,11 +470,11 @@ export const PKG_LABEL: Record<
   { de: string; en: string }
 > = {
   beratungsqualitaet: {
-    de: "Paket 1 — Beratungsqualität",
-    en: "Package 1 — Advisory quality",
+    de: "PAKET 1 — BERATUNGSQUALITÄT",
+    en: "PACKAGE 1 — ADVISORY QUALITY",
   },
-  struktur: { de: "Paket 2 — Struktur-Effizienz", en: "Package 2 — Structural efficiency" },
-  aussenbeweis: { de: "Paket 3 — Außenbeweis", en: "Package 3 — External proof" },
+  struktur: { de: "PAKET 2 — STRUKTUR-EFFIZIENZ", en: "PACKAGE 2 — STRUCTURAL EFFICIENCY" },
+  aussenbeweis: { de: "PAKET 3 — AUSSENBEWEIS", en: "PACKAGE 3 — EXTERNAL PROOF" },
 };
 
 export const kpiById = (id: string) => KPIS.find((k) => k.id === id);
