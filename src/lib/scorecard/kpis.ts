@@ -3,8 +3,8 @@ import { fmtNumber } from "./i18n";
 
 // ---------------------------------------------------------------------------
 // KPIs — verbindliche Fassung v1.x (Juli 2026)
-// Board (3-3-3): Paket 1 — Außenbeweis (3) · Paket 2 — Beratungsqualität (3)
-//               · Paket 3 — Struktur-Effizienz (3 Karten; Scharnier trägt zwei
+// Board (3-3-3): Paket 1 — Beratungsqualität (3) · Paket 2 — Struktur-Effizienz (3 Karten)
+//               · Paket 3 — Außenbeweis (3). Scharnier trägt zwei
 //                 eingebettete Zweitwerte, außerdem drei Diagnostik-KPIs).
 // Quelle: config/scorecard_kpi_config.json (Wahrheitsquelle). Bei Änderungen
 // zuerst das JSON aktualisieren, dann dieses Modul angleichen — sonst driften
