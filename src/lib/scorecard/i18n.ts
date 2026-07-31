@@ -336,6 +336,7 @@ export const T: Dict = {
   },
   pr_draw: { de: "Ziehung starten", en: "Draw" },
   pr_rate: { de: "bewerten", en: "rate" },
+  pr_reason_placeholder: { de: "Begründung (Pflicht)", en: "Reasoning (required)" },
   pr_edit: { de: "bearbeiten", en: "edit" },
   pr_crit_fachlich: { de: "fachlich", en: "substance" },
   pr_crit_klarheit: { de: "Klarheit", en: "clarity" },

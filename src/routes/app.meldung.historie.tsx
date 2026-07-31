@@ -47,10 +47,10 @@ function Historie() {
                 {it.submittedAt ? fmtDate(it.submittedAt, locale) : "—"}
               </td>
               <td className="py-2">
-                {it.status === "on_time" && "● pünktlich"}
-                {it.status === "late" && "● verspätet"}
-                {it.status === "missing" && "✕ fehlt"}
-                {it.status === "draft" && "○ Entwurf"}
+                {it.status === "on_time" && `● ${t("on_time")}`}
+                {it.status === "late" && `● ${t("late")}`}
+                {it.status === "missing" && `✕ ${t("status_missing")}`}
+                {it.status === "draft" && `○ ${t("status_draft")}`}
               </td>
             </tr>
           ))}

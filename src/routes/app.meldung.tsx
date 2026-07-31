@@ -154,7 +154,7 @@ function Meldung() {
 
       {requiresN && (
         <label className="flex flex-col gap-1">
-          <span className="text-[12px] text-muted-foreground">n (Aggregatgröße)</span>
+          <span className="text-[12px] text-muted-foreground">{t("n_field_label")}</span>
           <input
             type="number"
             value={n}

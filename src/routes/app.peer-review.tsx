@@ -116,7 +116,7 @@ function ScoreForm({
         required
         value={j}
         onChange={(e) => setJ(e.target.value)}
-        placeholder="Begründung (Pflicht)"
+        placeholder={t("pr_reason_placeholder")}
         className="hairline bg-background px-3 py-2 text-[13px] min-h-20"
       />
       <button
