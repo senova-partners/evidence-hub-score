@@ -151,7 +151,7 @@ export const KPIS: KpiDef[] = [
     },
   },
 
-  // ============ Paket 2 — Beratungsqualität ============
+  // ============ Paket 1 — Beratungsqualität ============
   {
     id: "partnerbogen",
     pkg: "beratungsqualitaet",
