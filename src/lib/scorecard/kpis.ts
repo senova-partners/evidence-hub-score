@@ -12,7 +12,7 @@ import { fmtNumber } from "./i18n";
 // ---------------------------------------------------------------------------
 
 export const KPIS: KpiDef[] = [
-  // ============ Paket 1 — Außenbeweis ============
+  // ============ Paket 3 — Außenbeweis ============
   {
     id: "wiederbeauftragung",
     pkg: "aussenbeweis",
@@ -151,7 +151,7 @@ export const KPIS: KpiDef[] = [
     },
   },
 
-  // ============ Paket 2 — Beratungsqualität ============
+  // ============ Paket 1 — Beratungsqualität ============
   {
     id: "partnerbogen",
     pkg: "beratungsqualitaet",
@@ -265,7 +265,7 @@ export const KPIS: KpiDef[] = [
     },
   },
 
-  // ============ Paket 3 — Struktur-Effizienz ============
+  // ============ Paket 2 — Struktur-Effizienz ============
   {
     id: "fachzeit",
     pkg: "struktur",
