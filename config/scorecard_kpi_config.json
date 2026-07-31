@@ -5,7 +5,7 @@
     "baseline_period": "2026-Q3",
     "locale_default": "de-DE",
     "verdict_rule": {
-      "text": "Paket 1–2 steigen, Paket 3 stabil oder besser.",
+      "text": "Paket 1 und 2 steigen, Paket 3 stabil oder besser.",
       "logic": "P1_P2_improving_AND_P3_stable_or_better",
       "incomplete_handling": "Fehlt ein Messpunkt in Paket 1 oder 2, lautet das Verdict 'unvollständig – Meldung fehlt'. Niemals 'erfüllt' bei Lücken. Fehlende Werte werden nie geschätzt."
     },
@@ -20,7 +20,7 @@
   "kpis": [
     {
       "id": "wiederbeauftragung",
-      "paket": 1,
+      "paket": 3,
       "paket_name": "Außenbeweis",
       "name": "Wiederbeauftragungsquote",
       "unit": "% des zur Entscheidung stehenden Volumens",
@@ -54,7 +54,7 @@
     },
     {
       "id": "kofi_proposal",
-      "paket": 1,
+      "paket": 3,
       "paket_name": "Außenbeweis",
       "name": "Kofinanzierung & Proposal-Erfolg",
       "unit": "% des eingereichten Volumens gewonnen",
@@ -89,7 +89,7 @@
     },
     {
       "id": "partnerfeedback_jahr",
-      "paket": 1,
+      "paket": 3,
       "paket_name": "Außenbeweis",
       "name": "Partnerfeedback (jährlich)",
       "unit": "Saldo besser − schlechter",
@@ -118,7 +118,7 @@
     },
     {
       "id": "delivery_quote",
-      "paket": 3,
+      "paket": 2,
       "paket_name": "Struktur-Effizienz",
       "name": "Direkte Wirkungsmittel (Delivery-Quote)",
       "unit": "%",
@@ -150,7 +150,7 @@
     },
     {
       "id": "partnerbogen",
-      "paket": 2,
+      "paket": 1,
       "paket_name": "Beratungsqualität",
       "name": "Partnerbogen (je Beratungsepisode)",
       "unit": "1–5",
@@ -188,7 +188,7 @@
     },
     {
       "id": "uptake",
-      "paket": 2,
+      "paket": 1,
       "paket_name": "Beratungsqualität",
       "name": "Uptake-Quote (6 Monate)",
       "unit": "% umgesetzt oder angepasst",
@@ -221,7 +221,7 @@
     },
     {
       "id": "peer_review",
-      "paket": 2,
+      "paket": 1,
       "paket_name": "Beratungsqualität",
       "name": "Peer-Review-Rating",
       "unit": "1–5",
@@ -251,7 +251,7 @@
     },
     {
       "id": "mechanismus",
-      "paket": 3,
+      "paket": 2,
       "paket_name": "Struktur-Effizienz",
       "name": "Mechanismus-Beteiligung",
       "unit": "% Episoden mit Struktur-Beteiligung",
@@ -295,7 +295,7 @@
     },
     {
       "id": "fachzeit",
-      "paket": 3,
+      "paket": 2,
       "paket_name": "Struktur-Effizienz",
       "name": "Freigesetzte Beratungsressourcen",
       "unit": "% Fachzeit",
@@ -335,7 +335,7 @@
     },
     {
       "id": "inhouse_beratungsquote",
-      "paket": 3,
+      "paket": 2,
       "paket_name": "Struktur-Effizienz",
       "name": "Inhouse-Anteil der Leistungserbringung",
       "unit": "% der Leistungserbringung inhouse (Euro-Basis)",
@@ -369,7 +369,7 @@
     },
     {
       "id": "schmerzpunkt",
-      "paket": 3,
+      "paket": 2,
       "paket_name": "Struktur-Effizienz",
       "name": "Schmerzpunkt-Wiedervorlage",
       "unit": "Ø 1 (gelöst) – 5 (unverändert)",

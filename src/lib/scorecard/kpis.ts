@@ -3,8 +3,8 @@ import { fmtNumber } from "./i18n";
 
 // ---------------------------------------------------------------------------
 // KPIs — verbindliche Fassung v1.x (Juli 2026)
-// Board (3-3-3): Paket 1 — Außenbeweis (3) · Paket 2 — Beratungsqualität (3)
-//               · Paket 3 — Struktur-Effizienz (3 Karten; Scharnier trägt zwei
+// Board (3-3-3): Paket 1 — Beratungsqualität (3) · Paket 2 — Struktur-Effizienz (3 Karten)
+//               · Paket 3 — Außenbeweis (3). Scharnier trägt zwei
 //                 eingebettete Zweitwerte, außerdem drei Diagnostik-KPIs).
 // Quelle: config/scorecard_kpi_config.json (Wahrheitsquelle). Bei Änderungen
 // zuerst das JSON aktualisieren, dann dieses Modul angleichen — sonst driften
@@ -469,12 +469,12 @@ export const PKG_LABEL: Record<
   "aussenbeweis" | "beratungsqualitaet" | "struktur",
   { de: string; en: string }
 > = {
-  aussenbeweis: { de: "Paket 1 — Außenbeweis", en: "Package 1 — External proof" },
   beratungsqualitaet: {
-    de: "Paket 2 — Beratungsqualität",
-    en: "Package 2 — Advisory quality",
+    de: "Paket 1 — Beratungsqualität",
+    en: "Package 1 — Advisory quality",
   },
-  struktur: { de: "Paket 3 — Struktur-Effizienz", en: "Package 3 — Structural efficiency" },
+  struktur: { de: "Paket 2 — Struktur-Effizienz", en: "Package 2 — Structural efficiency" },
+  aussenbeweis: { de: "Paket 3 — Außenbeweis", en: "Package 3 — External proof" },
 };
 
 export const kpiById = (id: string) => KPIS.find((k) => k.id === id);

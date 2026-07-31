@@ -44,8 +44,8 @@ export const T: Dict = {
   },
   verdict_baseline: { de: "Baseline fehlt", en: "Baseline missing" },
   verdict_rule: {
-    de: "Regel: Paket 1 und 3 steigen, Paket 2 stabil oder besser. Fehlt eine Meldung in Paket 1 oder 3, gilt 'unvollständig'.",
-    en: "Rule: Packages 1 and 3 rise, package 2 stable or better. A missing value in package 1 or 3 counts as 'incomplete'.",
+    de: "Regel: Paket 1 und 2 steigen, Paket 3 stabil oder besser. Fehlt eine Meldung in Paket 1 oder 2, gilt 'unvollständig'.",
+    en: "Rule: Packages 1 and 2 rise, package 3 stable or better. A missing value in package 1 or 2 counts as 'incomplete'.",
   },
 
   // kpi card
