@@ -77,7 +77,7 @@ export function computeVerdict(store: Store, quarter: string): Verdict {
   if (missingBaseline) return "baseline_fehlt";
 
   const missingP1P2 = active
-    .filter((k) => k.pkg === "aussenbeweis" || k.pkg === "beratungsqualitaet")
+    .filter((k) => k.pkg === "beratungsqualitaet" || k.pkg === "struktur")
     .some((k) => {
       const v = store.values[k.id]?.[quarter]?.value;
       return v === null || v === undefined;
@@ -102,9 +102,9 @@ export function computeVerdict(store: Store, quarter: string): Verdict {
   };
 
   const ok =
-    packageRisingStrict("aussenbeweis") &&
     packageRisingStrict("beratungsqualitaet") &&
-    packageRisingStrict("struktur");
+    packageRisingStrict("struktur") &&
+    packageRisingStrict("aussenbeweis");
   return ok ? "erfuellt" : "nicht_erfuellt";
 }
 
