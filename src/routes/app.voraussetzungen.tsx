@@ -133,6 +133,9 @@ function VoraussetzungenPage() {
               <p className="text-[13px] leading-relaxed text-foreground/90 pl-9">
                 {item.beschreibung[locale]}
               </p>
+              {item.revisions_referenz && (
+                <RevisionsBox data={item.revisions_referenz} locale={locale} />
+              )}
               <dl className="pl-9 grid grid-cols-[auto_1fr] gap-x-4 gap-y-1 text-[12px]">
                 <dt className="text-muted-foreground">{locale === "de" ? "Verantwortlich" : "Owner"}</dt>
                 <dd>{item.owner}</dd>
