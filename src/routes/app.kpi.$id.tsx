@@ -449,7 +449,7 @@ function PipelineFooter() {
         ))}
       </div>
       <div className="text-[12px] text-muted-foreground mt-3">
-        {t("pipe_conv_volume")} \u00b7 {p.conversionVolume}
+        {t("pipe_conv_volume")} · {p.conversionVolume}
       </div>
     </section>
   );
