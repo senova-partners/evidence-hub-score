@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { useStore, setStore, CLUSTERS, type Store } from "@/lib/scorecard/store";
-import { useLocale } from "@/lib/scorecard/useT";
+import { useT, useLocale } from "@/lib/scorecard/useT";
 
 export const Route = createFileRoute("/app/peer-review")({
   component: PeerReview,
@@ -94,6 +94,7 @@ function ScoreForm({
   draw: { id: string; scores?: Record<string, number>; justification?: string };
   onSave: (id: string, scores: Record<string, number>, j: string) => void;
 }) {
+  const t = useT();
   const [scores, setScores] = useState<Record<string, number>>(draw.scores ?? { fachlich: 3, klarheit: 3, umsetzbarkeit: 3 });
   const [j, setJ] = useState(draw.justification ?? "");
   return (

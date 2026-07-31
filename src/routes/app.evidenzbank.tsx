@@ -75,6 +75,7 @@ function Evidenzbank() {
 }
 
 function AddStoryForm({ onClose }: { onClose: () => void }) {
+  const t = useT();
   const store = useStore((s: Store) => s);
   const [cluster, setCluster] = useState(store.session!.cluster ?? "Governance");
   const [sentences, setSentences] = useState("");

@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useStore, type Store } from "@/lib/scorecard/store";
 import { KPIS } from "@/lib/scorecard/kpis";
-import { useLocale } from "@/lib/scorecard/useT";
+import { useT, useLocale } from "@/lib/scorecard/useT";
 import { fmtDate } from "@/lib/scorecard/i18n";
 
 export const Route = createFileRoute("/app/meldung/historie")({
@@ -9,6 +9,7 @@ export const Route = createFileRoute("/app/meldung/historie")({
 });
 
 function Historie() {
+  const t = useT();
   const store = useStore((s: Store) => s);
   const session = store.session!;
   const locale = useLocale();
