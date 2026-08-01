@@ -61,7 +61,7 @@ export const CARD_FOOTER_N: Record<string, { de: string; en: string }> = {
 
 /** Short label for the two secondary values embedded in the Scharnier footer. */
 export const SECONDARY_LABEL: Record<string, { de: string; en: string }> = {
-  inhouse_beratungsquote: { de: "Inhouse", en: "Inhouse" },
+  inhouse_beratungsquote: { de: "Eigenanteil", en: "Own share" },
   delivery_quote: { de: "Wirkungsmittel", en: "Impact funds" },
 };
 

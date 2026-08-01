@@ -158,9 +158,9 @@ export const KPI_DETAILS: Record<string, KpiDetail> = {
       finanzierungen_mio: 4.7,
     },
     formula_text:
-      "Hauptwert (Inhouse-Anteil der Leistungserbringung): Fach-Personalkosten ÷ (Fach-Personalkosten + Consulting + Finanzierungen) × 100. Zweitwert (Expertise-Substitution): Fach-Personalkosten ÷ (Fach-Personalkosten + Consulting) × 100. Divergenz-Lesart: Sinkt der Hauptwert bei stabilem Zweitwert, wächst der Finanzierungsanteil im Portfolio — kein Substanzverlust; sinken beide, wird Expertise ausgelagert.",
+      "Hauptwert (Inhouse-Anteil der Leistungserbringung): Fach-Personalkosten ÷ (Fach-Personalkosten + Consulting + Finanzierungen) × 100. Ohne Finanzierungen im Vergleich: Fach-Personalkosten ÷ (Fach-Personalkosten + Consulting) × 100. Divergenz-Lesart: Sinkt der Hauptwert bei stabilem Zweitwert, wächst der Finanzierungsanteil im Portfolio — kein Substanzverlust; sinken beide, wird Expertise ausgelagert.",
     worked_example:
-      "Hauptwert: 4,8 ÷ (4,8 + 2,4 + 4,7) = 4,8 ÷ 11,9 = 40 %\nZweitwert: 4,8 ÷ (4,8 + 2,4) = 4,8 ÷ 7,2 = 67 %\n\nLesart: Sinkt der Hauptwert bei stabilem Zweitwert, wächst der Finanzierungsanteil im Portfolio — kein Substanzverlust. Sinken beide, wird Expertise ausgelagert.",
+      "Hauptwert: 4,8 ÷ (4,8 + 2,4 + 4,7) = 4,8 ÷ 11,9 = 40 %\nOhne Finanzierungen im Vergleich: 4,8 ÷ (4,8 + 2,4) = 4,8 ÷ 7,2 = 67 %\n\nLesart: Sinkt der Hauptwert bei stabilem Zweitwert, wächst der Finanzierungsanteil im Portfolio — kein Substanzverlust. Sinken beide, wird Expertise ausgelagert.",
     erhebung: {
       owner: "Finance (Personalkosten Fachrollen + Consulting-Ausgaben + Finanzierungen)",
       cadence: "jährlich",
