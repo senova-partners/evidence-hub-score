@@ -225,6 +225,15 @@ export const T: Dict = {
   d_formula: { de: "Formel", en: "Formula" },
   d_worked_example: { de: "Rechenweg", en: "Worked example" },
   mech_views_label: { de: "Mechanismus-Sichten", en: "Mechanism views" },
+  peer_views_label: { de: "Peer-Review-Sichten", en: "Peer review views" },
+  pr_ratings_count: { de: "Bewertungen", en: "ratings" },
+  pr_intro: {
+    de: "Nutzbarkeitsbewertung (1–5) je Episode — für genutzte Practice-Leistungen und Machine-Room-Zuarbeiten.",
+    en: "Usability rating (1–5) per episode — for practice deliverables and machine room contributions used.",
+  },
+  pr_practice_rating: { de: "Practice-Nutzbarkeit", en: "Practice usability" },
+  pr_mr_rating: { de: "Machine-Room-Nutzbarkeit", en: "Machine room usability" },
+  pr_no_structure: { de: "keine Struktur-Beteiligung", en: "no structure involvement" },
   kofi_views_label: { de: "Kofinanzierungs-Sichten", en: "Co-financing views" },
   pipe_title: {
     de: "Vorlaufende Diagnostik — Akquise-Pipeline",
