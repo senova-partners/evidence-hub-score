@@ -120,7 +120,7 @@ export const KPIS: KpiDef[] = [
   {
     id: "delivery_quote",
     pkg: "struktur",
-    name: { de: "Direkte Wirkungsmittel (Delivery-Quote)", en: "Direct impact funds (delivery share)" },
+    name: { de: "Direkte Wirkungsmittel", en: "Direct impact funds" },
     tabLabel: { de: "Direkte Wirkungsmittel", en: "Direct impact funds" },
     unit: { de: "%", en: "%" },
     unitShort: { de: "%", en: "%" },
@@ -212,8 +212,8 @@ export const KPIS: KpiDef[] = [
   {
     id: "peer_review",
     pkg: "beratungsqualitaet",
-    name: { de: "Peer-Review-Rating", en: "Peer review rating" },
-    tabLabel: { de: "Gesamt", en: "Total" },
+    name: { de: "Peer & Leadership Review", en: "Peer & leadership review" },
+    tabLabel: { de: "Practices", en: "Practices" },
     unit: { de: "1–5 Nutzbarkeit", en: "1–5 usability" },
     unitShort: { de: "Pkt", en: "pts" },
     format: "score",
@@ -274,7 +274,7 @@ export const KPIS: KpiDef[] = [
   {
     id: "fachzeit",
     pkg: "struktur",
-    name: { de: "Freigesetzte Beratungsressourcen", en: "Freed advisory resources" },
+    name: { de: "Freigesetzte Beratungssubstanz", en: "Freed advisory substance" },
     tabLabel: { de: "Verhältnis Beratung/Admin", en: "Advisory/admin ratio" },
     subtitle: {
       de: "Wieviel Prozent unserer Beraterzeit gehen in Beratung — und nicht in Verwaltung?",
@@ -285,7 +285,7 @@ export const KPIS: KpiDef[] = [
     format: "percent",
     direction: "higher_better",
     scharnier: true,
-    secondaryKpiIds: ["inhouse_beratungsquote", "delivery_quote"],
+    secondaryKpiIds: ["inhouse_beratungsquote"],
     nLabel: { de: "n = 9 Teams (aggregiert, n ≥ 5)", en: "n = 9 teams (aggregated, n ≥ 5)" },
     contextLine: {
       de: "Zeit · Substanz · Geld — drei Rechenwege, kein Index. Tabs: Verhältnis Beratung/Admin · Inhouse-Beratung · Direkte Wirkungsmittel.",
@@ -418,6 +418,7 @@ export const KPIS: KpiDef[] = [
   {
     id: "schmerzpunkt",
     pkg: "struktur",
+    diagnostik: true,
     name: { de: "Schmerzpunkt-Wiedervorlage", en: "Pain-point re-review" },
     unit: { de: "Ø 1 (gelöst) – 5 (unverändert)", en: "avg 1 (solved) – 5 (unchanged)" },
     unitShort: { de: "Pkt", en: "pts" },
