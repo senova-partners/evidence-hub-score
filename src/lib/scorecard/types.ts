@@ -73,10 +73,15 @@ export interface Episode {
   mechanisms: { practiceUsed: boolean; mrContributed: boolean };
   /**
    * Demand-side usability ratings (1–5) given by the project after using a
-   * Practice deliverable / a Machine-Room contribution. Both fields are
-   * independent and optional — an episode can carry one, both, or none.
+   * Practice deliverable / a Machine-Room contribution, plus whether the
+   * agreed deadline was met. All fields are independent and optional.
    */
-  usability?: { practice?: number | null; machineRoom?: number | null };
+  usability?: {
+    practice?: number | null;
+    machineRoom?: number | null;
+    practiceDeadlineMet?: boolean | null;
+    machineRoomDeadlineMet?: boolean | null;
+  };
 
   partnerToken: string;
   partnerResponse?: {
@@ -128,4 +133,23 @@ export interface ChangeLogEntry {
   field: string;
   from: string;
   to: string;
+}
+
+/** Structural unit rated in the Peer & Leadership Review. */
+export type StructuralUnit = "practices" | "machine_room";
+
+/** Bi-annual leadership assessment (1–5) of a structural unit by PFM/LD and the CCs. */
+export interface LeadershipAssessment {
+  unit: StructuralUnit;
+  /** Half-year period, e.g. "2026-H1". */
+  period: string;
+  assessor: string;
+  rating: number;
+}
+
+/** Reach-in pain point, re-rated per structural unit (1 = gelöst … 5 = unverändert). */
+export interface PainPointReview {
+  unit: StructuralUnit;
+  cluster: string;
+  rating: number;
 }

@@ -118,41 +118,6 @@ export const KPIS: KpiDef[] = [
     },
   },
   {
-    id: "delivery_quote",
-    pkg: "struktur",
-    name: { de: "Direkte Wirkungsmittel (Delivery-Quote)", en: "Direct impact funds (delivery share)" },
-    tabLabel: { de: "Direkte Wirkungsmittel", en: "Direct impact funds" },
-    unit: { de: "%", en: "%" },
-    unitShort: { de: "%", en: "%" },
-    format: "percent",
-    direction: "higher_better",
-    nLabel: { de: "Basis: Auftragsbudgets gesamt", en: "Base: total commission budgets" },
-    contextLine: {
-      de: "Voraussetzung (vor Baseline zu schaffen): Budgets und Instrumentenkonzepte je Projekt müssen nach internen operativen vs. wirkungsbezogenen Ausgaben unterteilt werden — heute in Budgets und OPs nicht enthalten. Arbeitsauftrag Finance/F&A: Abgrenzung definieren, in Budget-/OP-Template einziehen, einfrieren.",
-      en: "Precondition (before baseline): budgets and instrument concepts per project must be split into internal operational vs. impact-related spend — not present in today's budgets/OPs. Work order Finance/F&A: define the boundary, embed it in budget/OP template, freeze.",
-    },
-    info: {
-      was: {
-        de: "Anteil der Auftragsmittel, der in Partnerleistung fließt, statt sich in interner Abwicklung zu verbrauchen.",
-        en: "Share of commission funds that flows into partner delivery rather than internal processing.",
-      },
-      warum: {
-        de: "Die Non-Profit-Übersetzung der Marge: „aus weniger mehr“ wörtlich genommen — mehr vom selben Geld kommt beim Partner an. Klare Handlungsrichtung: Reibung senken, genau der Machine-Room-Auftrag.",
-        en: "The non-profit translation of margin: 'more from less' taken literally — more of the same money reaches the partner. Clear action direction: reduce friction, exactly the Machine Room mandate.",
-      },
-      wie: {
-        de: "Voraussetzung: Budgets/Instrumentenkonzepte je Projekt werden nach internen operativen vs. wirkungsbezogenen Ausgaben unterteilt — diese Trennung existiert in den heutigen Budgets und Operationsplänen nicht und muss vor der Baseline geschaffen werden (Arbeitsauftrag Finance/F&A). Abgrenzung einmalig definiert, dokumentiert und eingefroren; danach eine Jahreszahl aus der Kostenstellenlogik.",
-        en: "Precondition: budgets/instrument concepts per project split into internal operational vs. impact-related spend — this split is missing in today's budgets/OPs and must be created before baseline (work order Finance/F&A). Boundary defined once, documented, frozen; thereafter one annual figure.",
-      },
-      verworfen: {
-        de: "Geprüft und verworfen: VZE/Umsatz (misst Portfoliomix und verwaltetes Volumen, belohnt Auslagerung, bestraft die gewollte Verschiebung zu mehr Beratung) und Overhead-Quote (zentral gesetzt, kein beweglicher Wert).",
-        en: "Considered and rejected: FTE/revenue (measures portfolio mix and managed volume, rewards outsourcing, penalises the desired shift to more advisory) and overhead ratio (centrally set, no movable value).",
-      },
-    },
-  },
-
-  // ============ Paket 1 — Beratungsqualität ============
-  {
     id: "partnerbogen",
     pkg: "beratungsqualitaet",
     name: { de: "Partnerbogen (je Beratungsepisode)", en: "Partner form (per advisory episode)" },
@@ -212,8 +177,8 @@ export const KPIS: KpiDef[] = [
   {
     id: "peer_review",
     pkg: "beratungsqualitaet",
-    name: { de: "Peer-Review-Rating", en: "Peer review rating" },
-    tabLabel: { de: "Gesamt", en: "Total" },
+    name: { de: "Peer & Leadership Review", en: "Peer & leadership review" },
+    tabLabel: { de: "Practices", en: "Practices" },
     unit: { de: "1–5 Nutzbarkeit", en: "1–5 usability" },
     unitShort: { de: "Pkt", en: "pts" },
     format: "score",
@@ -274,7 +239,7 @@ export const KPIS: KpiDef[] = [
   {
     id: "fachzeit",
     pkg: "struktur",
-    name: { de: "Freigesetzte Beratungsressourcen", en: "Freed advisory resources" },
+    name: { de: "Freigesetzte Beratungssubstanz", en: "Freed advisory substance" },
     tabLabel: { de: "Verhältnis Beratung/Admin", en: "Advisory/admin ratio" },
     subtitle: {
       de: "Wieviel Prozent unserer Beraterzeit gehen in Beratung — und nicht in Verwaltung?",
@@ -285,7 +250,7 @@ export const KPIS: KpiDef[] = [
     format: "percent",
     direction: "higher_better",
     scharnier: true,
-    secondaryKpiIds: ["inhouse_beratungsquote", "delivery_quote"],
+    secondaryKpiIds: ["inhouse_beratungsquote"],
     nLabel: { de: "n = 9 Teams (aggregiert, n ≥ 5)", en: "n = 9 teams (aggregated, n ≥ 5)" },
     contextLine: {
       de: "Zeit · Substanz · Geld — drei Rechenwege, kein Index. Tabs: Verhältnis Beratung/Admin · Inhouse-Beratung · Direkte Wirkungsmittel.",
@@ -416,8 +381,44 @@ export const KPIS: KpiDef[] = [
     },
   },
   {
+    id: "delivery_quote",
+    pkg: "struktur",
+    name: { de: "Direkte Wirkungsmittel", en: "Direct impact funds" },
+    tabLabel: { de: "Direkte Wirkungsmittel", en: "Direct impact funds" },
+    unit: { de: "%", en: "%" },
+    unitShort: { de: "%", en: "%" },
+    format: "percent",
+    direction: "higher_better",
+    nLabel: { de: "Basis: Auftragsbudgets gesamt", en: "Base: total commission budgets" },
+    contextLine: {
+      de: "Voraussetzung (vor Baseline zu schaffen): Budgets und Instrumentenkonzepte je Projekt müssen nach internen operativen vs. wirkungsbezogenen Ausgaben unterteilt werden — heute in Budgets und OPs nicht enthalten. Arbeitsauftrag Finance/F&A: Abgrenzung definieren, in Budget-/OP-Template einziehen, einfrieren.",
+      en: "Precondition (before baseline): budgets and instrument concepts per project must be split into internal operational vs. impact-related spend — not present in today's budgets/OPs. Work order Finance/F&A: define the boundary, embed it in budget/OP template, freeze.",
+    },
+    info: {
+      was: {
+        de: "Anteil der Auftragsmittel, der in Partnerleistung fließt, statt sich in interner Abwicklung zu verbrauchen.",
+        en: "Share of commission funds that flows into partner delivery rather than internal processing.",
+      },
+      warum: {
+        de: "Die Non-Profit-Übersetzung der Marge: „aus weniger mehr“ wörtlich genommen — mehr vom selben Geld kommt beim Partner an. Klare Handlungsrichtung: Reibung senken, genau der Machine-Room-Auftrag.",
+        en: "The non-profit translation of margin: 'more from less' taken literally — more of the same money reaches the partner. Clear action direction: reduce friction, exactly the Machine Room mandate.",
+      },
+      wie: {
+        de: "Voraussetzung: Budgets/Instrumentenkonzepte je Projekt werden nach internen operativen vs. wirkungsbezogenen Ausgaben unterteilt — diese Trennung existiert in den heutigen Budgets und Operationsplänen nicht und muss vor der Baseline geschaffen werden (Arbeitsauftrag Finance/F&A). Abgrenzung einmalig definiert, dokumentiert und eingefroren; danach eine Jahreszahl aus der Kostenstellenlogik.",
+        en: "Precondition: budgets/instrument concepts per project split into internal operational vs. impact-related spend — this split is missing in today's budgets/OPs and must be created before baseline (work order Finance/F&A). Boundary defined once, documented, frozen; thereafter one annual figure.",
+      },
+      verworfen: {
+        de: "Geprüft und verworfen: VZE/Umsatz (misst Portfoliomix und verwaltetes Volumen, belohnt Auslagerung, bestraft die gewollte Verschiebung zu mehr Beratung) und Overhead-Quote (zentral gesetzt, kein beweglicher Wert).",
+        en: "Considered and rejected: FTE/revenue (measures portfolio mix and managed volume, rewards outsourcing, penalises the desired shift to more advisory) and overhead ratio (centrally set, no movable value).",
+      },
+    },
+  },
+
+  // ============ Paket 1 — Beratungsqualität ============
+  {
     id: "schmerzpunkt",
     pkg: "struktur",
+    diagnostik: true,
     name: { de: "Schmerzpunkt-Wiedervorlage", en: "Pain-point re-review" },
     unit: { de: "Ø 1 (gelöst) – 5 (unverändert)", en: "avg 1 (solved) – 5 (unchanged)" },
     unitShort: { de: "Pkt", en: "pts" },
