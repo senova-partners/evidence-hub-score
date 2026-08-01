@@ -102,8 +102,8 @@ export function computeVerdict(store: Store, quarter: string): Verdict {
   };
 
   const ok =
-    packageRisingStrict("beratungsqualitaet") &&
     packageRisingStrict("struktur") &&
+    packageRisingStrict("beratungsqualitaet") &&
     packageRisingStrict("aussenbeweis");
   return ok ? "erfuellt" : "nicht_erfuellt";
 }
