@@ -76,12 +76,12 @@ export function KpiCard({
       to="/app/kpi/$id"
       params={{ id: kpiId }}
       aria-label={ariaLabel}
-      className="@container hairline bg-card overflow-hidden flex flex-col h-[264px] p-6 hover:bg-[color:var(--hover,transparent)] focus:outline focus:outline-1 focus:outline-[color:var(--giz-red)]"
+      className="@container hairline-card bg-card overflow-hidden flex flex-col h-[264px] p-[30px] hover:bg-[color:var(--hover,transparent)] focus:outline focus:outline-1 focus:outline-[color:var(--giz-red)]"
     >
       {/* Row 1 — Title + Info */}
       <div className="flex items-start justify-between gap-2 h-7">
         <span
-          className="text-[14px] font-medium truncate leading-tight"
+          className="text-[14px] font-semibold truncate leading-tight"
           title={kpi.name[locale]}
         >
           {kpi.name[locale]}
@@ -115,23 +115,21 @@ export function KpiCard({
         {subtitle}
       </div>
 
-
-      {/* Row 4 — Delta / status */}
-      <div className="mt-[10px] h-5 text-[12px] leading-5 truncate">
+      {/* Row 4 — Delta / status (no trend arrow: the delta text carries it) */}
+      <div className="mt-[10px] h-5 text-[12px] font-normal leading-5 truncate">
         {missing ? (
-          <span className="text-[color:var(--giz-red)] font-semibold">{meldungFehlt}</span>
+          <span className="text-[color:var(--giz-red)]">{meldungFehlt}</span>
         ) : (
           <span className="text-muted-foreground tabular-nums">
-            <span aria-hidden>{trendGlyph[tr]}</span> {bareDelta(v, baseline, kpi, locale)}{" "}
-            {seitBaseline}
+            {bareDelta(v, baseline, kpi, locale)} {seitBaseline}
           </span>
         )}
       </div>
 
-      {/* Row 5 — Footer */}
+      {/* Row 5 — Secondary values only (baseline context lives in the ⓘ panel) */}
       <div
-        className="mt-[10px] h-5 text-[12px] leading-5 text-muted-foreground truncate"
-        title={footerText}
+        className="mt-[10px] h-5 text-[12px] font-normal leading-5 text-muted-foreground truncate"
+        title={footerText || undefined}
       >
         {footerText}
       </div>
