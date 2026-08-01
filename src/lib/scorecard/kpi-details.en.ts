@@ -165,31 +165,21 @@ export const KPI_DETAILS_EN: Record<string, KpiDetailEn> = {
   },
 
   peer_review: {
-    raw_schema: [
-      "Product",
-      "Cluster",
-      "Evidence base",
-      "Problem sharpness",
-      "Context fit",
-      "Feasibility",
-      "Clarity",
-      "Ø",
-    ],
+    raw_schema: ["Episode", "Cluster", "Practice usability (1–5)", "Machine room usability (1–5)"],
     raw_rows: [
-      ["(H1 2027: draw done, session 15 Jul — report missing)", "", "", "", "", "", "", ""],
-      ["Last round H2 2026:", "", "", "", "", "", "", ""],
-      ["PR-26-01 water tariff review", "W&E", "3", "3", "4", "3", "3", "3.2"],
-      ["PR-26-02 TVET curriculum concept", "E&T", "3", "2", "3", "3", "3", "2.8"],
-      ["… (6 products per round)", "…", "…", "…", "…", "…", "…", "…"],
+      ["EP-2026-0142", "Governance", "4", "3"],
+      ["EP-2026-0158", "Climate", "4", "—"],
+      ["EP-2026-0167", "Economy", "—", "3"],
+      ["EP-2026-0171", "Education", "3", "4"],
     ],
     formula_text:
-      "Mean across 6 products (2 per cluster, randomly drawn by the steward from the episode register) × 5 criteria × panel mean per criterion.",
+      "Three views from the same episode ratings: practices (mean of all practice usability values), machine room (mean of all machine room usability values), total (sum of both pools divided by the total number of ratings — more frequently used structural units weigh accordingly more).",
     worked_example:
-      "H2 2026: sum of product means 17.4 ÷ 6 = 2.9. Current: report missing — no value is estimated.",
+      "Practices: (4 + 4 + 3) ÷ 3 = 3.7 · Machine room: (3 + 3 + 4) ÷ 3 = 3.3 · Total: 21 ÷ 6 = 3.5",
     erhebung: {
-      owner: "Peer panel",
-      cadence: "half-yearly",
-      verifizierung: "random draw by the steward, forms archived",
+      owner: "Project / AV per episode",
+      cadence: "after each practice or machine room service used",
+      verifizierung: "rating fields only appear when the structure tick is set; plausibility-checked against the request and case lists",
     },
   },
 
