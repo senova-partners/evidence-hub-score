@@ -83,12 +83,12 @@ export function KpiCard({
       to="/app/kpi/$id"
       params={{ id: kpiId }}
       aria-label={ariaLabel}
-      className="@container hairline bg-card overflow-hidden flex flex-col h-[236px] p-6 hover:bg-[color:var(--hover,transparent)] focus:outline focus:outline-1 focus:outline-[color:var(--giz-red)]"
+      className="@container hairline bg-card overflow-hidden flex flex-col h-[264px] p-6 hover:bg-[color:var(--hover,transparent)] focus:outline focus:outline-1 focus:outline-[color:var(--giz-red)]"
     >
       {/* Row 1 — Title + Info */}
       <div className="flex items-start justify-between gap-2 h-7">
         <span
-          className="text-[14px] font-semibold truncate leading-tight"
+          className="text-[14px] font-medium truncate leading-tight"
           title={kpi.name[locale]}
         >
           {kpi.name[locale]}
@@ -104,7 +104,7 @@ export function KpiCard({
 
       {/* Row 3 — Value + Sparkline (sparkline hidden below 260px card width) */}
       <div className="mt-[10px] flex-1 flex items-end justify-between gap-3">
-        <span className="text-[36px] leading-none font-semibold tabular-nums">
+        <span className="text-[40px] leading-none font-semibold tabular-nums">
           {bareValue(v, kpi, locale)}
         </span>
         {history.length >= 2 && (
@@ -114,15 +114,14 @@ export function KpiCard({
         )}
       </div>
 
-      {/* Row 3b — Subtitle (plain-language, one line, no placeholder) */}
-      {subtitle && (
-        <div
-          className="mt-[10px] h-5 text-[13px] leading-5 text-muted-foreground truncate"
-          title={subtitle}
-        >
-          {subtitle}
-        </div>
-      )}
+      {/* Row 3b — Subtitle: fixed two-line slot, kept even when empty */}
+      <div
+        className="mt-[10px] h-[42px] text-[13px] font-normal leading-[21px] text-muted-foreground line-clamp-2"
+        title={subtitle || undefined}
+      >
+        {subtitle}
+      </div>
+
 
       {/* Row 4 — Delta / status */}
       <div className="mt-[10px] h-5 text-[12px] leading-5 truncate">
