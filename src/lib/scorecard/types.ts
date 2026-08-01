@@ -91,15 +91,6 @@ export interface Episode {
   };
 }
 
-export interface PeerDraw {
-  id: string;
-  halfYear: string; // "2026-H1"
-  cluster: string;
-  episodeId: string;
-  scores?: Record<string, number>;
-  justification?: string;
-}
-
 export interface ClosedLoopItem {
   id: string;
   episodeId: string;

@@ -38,8 +38,9 @@ export const KPI_HISTORY: Record<string, HistoryPoint[]> = {
     { period: "2027-H2", value: 55 },
   ],
   peer_review: [
-    { period: "2026-H2", value: 2.9 },
-    { period: "2027-H1", value: null },
+    { period: "2026-Q1", value: 3.4 },
+    { period: "2026-Q2", value: 3.6 },
+    { period: "2026-Q3", value: 3.5 },
   ],
   mechanismus: [
     { period: "2026-Q3", value: 34 },
