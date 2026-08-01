@@ -134,3 +134,22 @@ export interface ChangeLogEntry {
   from: string;
   to: string;
 }
+
+/** Structural unit rated in the Peer & Leadership Review. */
+export type StructuralUnit = "practices" | "machine_room";
+
+/** Bi-annual leadership assessment (1–5) of a structural unit by PFM/LD and the CCs. */
+export interface LeadershipAssessment {
+  unit: StructuralUnit;
+  /** Half-year period, e.g. "2026-H1". */
+  period: string;
+  assessor: string;
+  rating: number;
+}
+
+/** Reach-in pain point, re-rated per structural unit (1 = gelöst … 5 = unverändert). */
+export interface PainPointReview {
+  unit: StructuralUnit;
+  cluster: string;
+  rating: number;
+}
