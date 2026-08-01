@@ -230,7 +230,7 @@ function KpiTabPanel({
       </Section>
 
       {detail && (
-        <Section title={t("sec_erhebung")}>
+        <CollapsibleSection title={t("sec_erhebung")}>
           <dl className="grid grid-cols-1 md:grid-cols-4 gap-6 text-[13px]">
             <Field label={t("f_owner")} value={detail.erhebung.owner} />
             <Field label={t("f_when")} value={detail.erhebung.cadence} />
@@ -240,11 +240,11 @@ function KpiTabPanel({
             />
             <Field label={t("f_verification")} value={detail.erhebung.verifizierung} />
           </dl>
-        </Section>
+        </CollapsibleSection>
       )}
 
       {detail && (
-        <Section title={t("sec_rohdaten")}>
+        <CollapsibleSection title={t("sec_rohdaten")}>
           <div className="overflow-x-auto">
             <table className="w-full text-[13px] tabular-nums">
               <thead>
@@ -282,11 +282,11 @@ function KpiTabPanel({
               </span>
             ))}
           </div>
-        </Section>
+        </CollapsibleSection>
       )}
 
       {detail && (
-        <Section title={t("sec_berechnung")}>
+        <CollapsibleSection title={t("sec_berechnung")}>
           <div className="flex flex-col gap-4 text-[13px]">
             <div>
               <div className="text-[12px] uppercase tracking-wide text-muted-foreground mb-1">
@@ -303,7 +303,7 @@ function KpiTabPanel({
               </div>
             </div>
           </div>
-        </Section>
+        </CollapsibleSection>
       )}
     </div>
   );
@@ -315,6 +315,26 @@ function Section({ title, children }: { title: string; children: React.ReactNode
       <h2 className="text-[13px] uppercase tracking-wide text-muted-foreground mb-4">{title}</h2>
       {children}
     </section>
+  );
+}
+
+function CollapsibleSection({
+  title,
+  children,
+}: {
+  title: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <details className="hairline group">
+      <summary className="flex items-center justify-between gap-4 cursor-pointer list-none p-6 text-[13px] uppercase tracking-wide text-muted-foreground">
+        <span>{title}</span>
+        <span aria-hidden className="transition-transform group-open:rotate-90">
+          ›
+        </span>
+      </summary>
+      <div className="px-6 pb-6">{children}</div>
+    </details>
   );
 }
 
