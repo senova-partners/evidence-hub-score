@@ -21,7 +21,7 @@ const BASELINES: Record<string, number> = {
   delivery_quote: 78,
   partnerbogen: 3.6,
   uptake: 42,
-  peer_review: 2.9,
+  peer_review: 3.4,
   mechanismus: 34,
   fachzeit: 66,
   inhouse_beratungsquote: 40,
@@ -67,9 +67,11 @@ function flat(id: string): number {
 }
 
 const active = boardKpis();
-const p1 = active.filter((k) => k.pkg === "aussenbeweis").map((k) => k.id);
-const p2 = active.filter((k) => k.pkg === "beratungsqualitaet").map((k) => k.id);
-const p3 = active.filter((k) => k.pkg === "struktur").map((k) => k.id);
+// Paketnummern folgen der aktuellen Nummerierung:
+// P1 = Beratungsqualität, P2 = Struktur-Effizienz, P3 = Außenbeweis.
+const p1 = active.filter((k) => k.pkg === "beratungsqualitaet").map((k) => k.id);
+const p2 = active.filter((k) => k.pkg === "struktur").map((k) => k.id);
+const p3 = active.filter((k) => k.pkg === "aussenbeweis").map((k) => k.id);
 
 function allImproved(): Record<string, number> {
   return Object.fromEntries(active.map((k) => [k.id, improved(k.id)]));
@@ -90,13 +92,13 @@ describe("computeVerdict (v1.1 strict)", () => {
 
   it("nicht_erfuellt: eine Verschlechterung im Außenbeweis kippt das Urteil (früher unter Mehrheitsregel grün)", () => {
     const values = allImproved();
-    values[p1[0]] = worsened(p1[0]); // z. B. Wiederbeauftragung ↓ bei sonst allem ↑
+    values[p3[0]] = worsened(p3[0]); // z. B. Wiederbeauftragung ↓ bei sonst allem ↑
     expect(computeVerdict(makeStore(values), Q)).toBe("nicht_erfuellt");
   });
 
-  it("nicht_erfuellt: eine Verschlechterung in Paket 3 kippt", () => {
+  it("nicht_erfuellt: eine Verschlechterung in Paket 2 kippt", () => {
     const values = allImproved();
-    values[p3[0]] = worsened(p3[0]);
+    values[p2[0]] = worsened(p2[0]);
     expect(computeVerdict(makeStore(values), Q)).toBe("nicht_erfuellt");
   });
 

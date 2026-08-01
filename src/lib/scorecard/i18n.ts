@@ -225,6 +225,15 @@ export const T: Dict = {
   d_formula: { de: "Formel", en: "Formula" },
   d_worked_example: { de: "Rechenweg", en: "Worked example" },
   mech_views_label: { de: "Mechanismus-Sichten", en: "Mechanism views" },
+  peer_views_label: { de: "Peer-Review-Sichten", en: "Peer review views" },
+  pr_ratings_count: { de: "Bewertungen", en: "ratings" },
+  pr_intro: {
+    de: "Nutzbarkeitsbewertung (1–5) je Episode — für genutzte Practice-Leistungen und Machine-Room-Zuarbeiten.",
+    en: "Usability rating (1–5) per episode — for practice deliverables and machine room contributions used.",
+  },
+  pr_practice_rating: { de: "Practice-Nutzbarkeit", en: "Practice usability" },
+  pr_mr_rating: { de: "Machine-Room-Nutzbarkeit", en: "Machine room usability" },
+  pr_no_structure: { de: "keine Struktur-Beteiligung", en: "no structure involvement" },
   kofi_views_label: { de: "Kofinanzierungs-Sichten", en: "Co-financing views" },
   pipe_title: {
     de: "Vorlaufende Diagnostik — Akquise-Pipeline",
@@ -328,23 +337,12 @@ export const T: Dict = {
     en: "Which measure needs the next interpretation round?",
   },
 
-  // peer review
-  pr_title: { de: "Peer-Review", en: "Peer review" },
-  pr_intro: {
-    de: "Zufallsziehung 2 Werkstücke × Cluster × Halbjahr. Bewertung mit Begründung.",
-    en: "Random draw of 2 deliverables × cluster × half-year. Score with justification.",
-  },
-  pr_draw: { de: "Ziehung starten", en: "Draw" },
+  // peer review (usability rating)
+  pr_title: { de: "Peer-Review-Rating", en: "Peer review rating" },
   pr_rate: { de: "bewerten", en: "rate" },
-  pr_reason_placeholder: { de: "Begründung (Pflicht)", en: "Reasoning (required)" },
   pr_edit: { de: "bearbeiten", en: "edit" },
-  pr_crit_fachlich: { de: "fachlich", en: "substance" },
-  pr_crit_klarheit: { de: "Klarheit", en: "clarity" },
-  pr_crit_umsetzbarkeit: { de: "Umsetzbarkeit", en: "feasibility" },
-  pr_justification_placeholder: {
-    de: "Begründung (Pflicht)",
-    en: "Justification (required)",
-  },
+  pr_save: { de: "Speichern", en: "Save" },
+
 
   // historie
   hist_title: { de: "Historie", en: "History" },

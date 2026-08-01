@@ -29,8 +29,8 @@ export const CARD_SUBTITLE: Record<string, { de: string; en: string }> = {
     en: "Share of recommendations implemented after six months",
   },
   peer_review: {
-    de: "Fachurteil zufällig gezogener Beratungsprodukte",
-    en: "Expert judgment on randomly drawn advisory products",
+    de: "Nutzbarkeit von Practice- und Machine-Room-Leistungen",
+    en: "Usability of practice and machine room services",
   },
   fachzeit: {
     de: "Anteil der Expertenzeit für fachliche Arbeit",
@@ -53,7 +53,7 @@ export const CARD_FOOTER_N: Record<string, { de: string; en: string }> = {
   partnerfeedback_jahr: { de: "10 Organisationen", en: "10 organisations" },
   partnerbogen: { de: "14 Episoden", en: "14 episodes" },
   uptake: { de: "11 Episoden fällig", en: "11 episodes due" },
-  peer_review: { de: "6 Produkte", en: "6 products" },
+  peer_review: { de: "6 Bewertungen", en: "6 ratings" },
   fachzeit: { de: "9 Teams aggregiert", en: "9 teams aggregated" },
   mechanismus: { de: "14 Episoden", en: "14 episodes" },
   schmerzpunkt: { de: "3 Cluster-Listen", en: "3 cluster lists" },

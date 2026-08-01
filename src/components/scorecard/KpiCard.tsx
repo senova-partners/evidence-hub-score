@@ -54,10 +54,8 @@ export function KpiCard({
   }`;
 
   if (missing) {
-    const sessionHint =
-      kpiId === "peer_review" ? (locale === "de" ? "Session 15.07." : "Session 15 Jul") : footerN;
     footerText = `${letzteRunde} ${bareBaseline(baseline, kpi, locale)}${
-      sessionHint ? ` · ${sessionHint}` : ""
+      footerN ? ` · ${footerN}` : ""
     }`;
   }
 

@@ -6,6 +6,11 @@ import { kpiCopy } from "@/lib/scorecard/kpi-copy";
 import { kpiDetailLocalized, summaryKeyLabel } from "@/lib/scorecard/kpi-details";
 import { kpiHistory, type HistoryPoint } from "@/lib/scorecard/history";
 import { MECHANISMUS_VIEWS, type MechanismusView } from "@/lib/scorecard/mechanismus-views";
+import {
+  PEER_REVIEW_VIEWS,
+  computePeerReview,
+  type PeerReviewView,
+} from "@/lib/scorecard/peer-review-views";
 import { KOFI_VIEWS, PIPELINE_SUMMARY, type KofiView } from "@/lib/scorecard/kofi-views";
 import { TrendChart } from "@/components/scorecard/TrendChart";
 import { InfoPanel } from "@/components/scorecard/InfoPanel";
@@ -101,6 +106,8 @@ function KpiDetailPage() {
 
       {active.id === "mechanismus" ? (
         <MechanismusPanel kpi={active} />
+      ) : active.id === "peer_review" ? (
+        <PeerReviewPanel kpi={active} />
       ) : active.id === "kofi_proposal" ? (
         <KofiPanel kpi={active} />
       ) : (
@@ -378,6 +385,64 @@ function MechanismusPanel({ kpi }: { kpi: KpiDef }) {
         current: view.current,
         history: view.history,
         workedExample: pick(view.workedExample, locale),
+        subtitle: kpiCopy(`${kpi.id}:${view.id}`)?.subtitle[locale] ?? pick(view.definition, locale),
+        rechenwegKurz: kpiCopy(`${kpi.id}:${view.id}`)?.rechenwegKurz[locale],
+      }}
+    />
+  );
+}
+
+function PeerReviewPanel({ kpi }: { kpi: KpiDef }) {
+  const t = useT();
+  const locale = useLocale();
+  const episodes = useStore((s: Store) => s.episodes);
+  const [viewId, setViewId] = useState<PeerReviewView["id"]>("gesamt");
+  const view = PEER_REVIEW_VIEWS.find((v) => v.id === viewId) ?? PEER_REVIEW_VIEWS[0];
+  const results = computePeerReview(episodes);
+  const result = results[view.id];
+
+  const history =
+    result.value === null
+      ? view.history
+      : [...view.history, { period: "2026-Q3", value: result.value }];
+
+  const preamble = (
+    <div role="tablist" aria-label={t("peer_views_label")} className="flex gap-6 hairline-b -mt-4">
+      {PEER_REVIEW_VIEWS.map((v) => {
+        const isActive = v.id === viewId;
+        const label = pick(v.label, locale);
+        return (
+          <div key={v.id} className="flex items-center gap-2">
+            <button
+              role="tab"
+              aria-selected={isActive}
+              onClick={() => setViewId(v.id)}
+              className={
+                "py-2 text-[13px] -mb-px border-b-2 " +
+                (isActive
+                  ? "border-[color:var(--foreground)] text-foreground font-semibold"
+                  : "border-transparent text-muted-foreground hover:text-foreground")
+              }
+            >
+              {label}
+            </button>
+            {isActive && <InfoPanel kpiId={kpi.id} copyKey={`${kpi.id}:${v.id}`} title={label} />}
+          </div>
+        );
+      })}
+    </div>
+  );
+
+  return (
+    <KpiTabPanel
+      key={view.id}
+      kpi={kpi}
+      preamble={preamble}
+      overrides={{
+        baseline: view.baseline,
+        current: result.value,
+        history,
+        workedExample: `${pick(view.workedExample, locale)} · n = ${result.n} ${t("pr_ratings_count")}`,
         subtitle: kpiCopy(`${kpi.id}:${view.id}`)?.subtitle[locale] ?? pick(view.definition, locale),
         rechenwegKurz: kpiCopy(`${kpi.id}:${view.id}`)?.rechenwegKurz[locale],
       }}

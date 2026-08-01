@@ -68,12 +68,12 @@ export const KPI_COPY: Record<string, KpiCopy> = {
   },
   peer_review: {
     subtitle: {
-      de: "Wie bewerten Kolleginnen und Kollegen aus anderen Clustern die fachliche Substanz unserer Beratungsprodukte?",
-      en: "How do colleagues from other clusters rate the technical substance of our advisory products?",
+      de: "Wie brauchbar erleben die Projekte die Leistungen von Practices und Machine Room für ihre Beratungsarbeit?",
+      en: "How usable do projects find the services of practices and the machine room for their advisory work?",
     },
     rechenwegKurz: {
-      de: "Halbjährliche Zufallsziehung von sechs Produkten, Bewertung durch ein cross-cluster Panel entlang fünf fachlicher Kriterien; Mittelwert je Runde.",
-      en: "Half-yearly random draw of six products, rated by a cross-cluster panel along five technical criteria; mean per round.",
+      de: "Nach jeder Nutzung einer Practice-Leistung oder einer Machine-Room-Zuarbeit bewertet das Projekt die Nutzbarkeit für die konkrete Beratungsarbeit auf einer Skala von 1 bis 5; gewichteter Gesamtmittelwert über alle Bewertungen im Quartal.",
+      en: "After each use of a practice deliverable or a machine room contribution, the project rates its usability for the concrete advisory work on a scale of 1 to 5; weighted overall mean across all ratings in the quarter.",
     },
   },
 
@@ -212,6 +212,38 @@ export const KPI_COPY: Record<string, KpiCopy> = {
     rechenwegKurz: {
       de: "Episoden mit 'Machine-Room-Zuarbeit' geteilt durch alle Episoden; Plausibilisierung gegen die Vorgangslisten des Machine Room.",
       en: "Episodes with 'machine room input' divided by all episodes; plausibility-checked against the machine room's case lists.",
+    },
+  },
+
+  // ---- Sub-tabs of peer_review ----
+  "peer_review:gesamt": {
+    subtitle: {
+      de: "Der Board-Wert — gewichteter Mittelwert über alle Nutzbarkeitsbewertungen von Practice-Leistungen und Machine-Room-Zuarbeiten.",
+      en: "The board value — weighted mean across all usability ratings of practice deliverables and machine room contributions.",
+    },
+    rechenwegKurz: {
+      de: "Summe aller Nutzbarkeitswerte, geteilt durch die Gesamtzahl der Bewertungen; häufiger genutzte Struktureinheiten zählen entsprechend stärker.",
+      en: "Sum of all usability values divided by the total number of ratings; more frequently used structural units weigh accordingly more.",
+    },
+  },
+  "peer_review:practices": {
+    subtitle: {
+      de: "Wie brauchbar erlebten die Projekte die Leistungen der Practices — waren die fachlichen Zuarbeiten für die Beratung tatsächlich hilfreich?",
+      en: "How usable did projects find the practices' services — were the technical contributions actually helpful for advisory work?",
+    },
+    rechenwegKurz: {
+      de: "Mittelwert aller Nutzbarkeitsbewertungen (1–5), die Projekte im Quartal nach Nutzung einer Practice-Leistung abgegeben haben.",
+      en: "Mean of all usability ratings (1–5) submitted by projects in the quarter after using a practice deliverable.",
+    },
+  },
+  "peer_review:machine_room": {
+    subtitle: {
+      de: "Wie brauchbar erlebten die Projekte die Zuarbeit des Machine Room — waren die administrativen Beiträge für die Beratung tatsächlich hilfreich?",
+      en: "How usable did projects find the machine room's contribution — were the administrative inputs actually helpful for advisory work?",
+    },
+    rechenwegKurz: {
+      de: "Mittelwert aller Nutzbarkeitsbewertungen (1–5), die Projekte im Quartal nach Nutzung einer Machine-Room-Zuarbeit abgegeben haben.",
+      en: "Mean of all usability ratings (1–5) submitted by projects in the quarter after using a machine room contribution.",
     },
   },
 };

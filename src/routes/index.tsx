@@ -32,7 +32,7 @@ const ROLES: { role: Role; de: string; en: string; needsCluster?: boolean }[] = 
   { role: "jdu", de: "JDU", en: "JDU" },
   { role: "finance", de: "Finance", en: "Finance" },
   { role: "bt3", de: "BT 3", en: "BT 3" },
-  { role: "panel", de: "Peer Panel", en: "Peer panel" },
+  { role: "panel", de: "Nutzbarkeits-Bewertung", en: "Usability rating" },
 ];
 
 function Login() {

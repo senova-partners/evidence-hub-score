@@ -7,7 +7,6 @@ import type {
   EvidenzStory,
   KpiValue,
   Locale,
-  PeerDraw,
   Role,
   Submission,
 } from "./types";
@@ -32,7 +31,6 @@ export interface Store {
   baselines: Record<string, number>;
   submissions: Submission[];
   episodes: Episode[];
-  peerDraws: PeerDraw[];
   closedLoop: ClosedLoopItem[];
   evidenz: EvidenzStory[];
   changeLog: ChangeLogEntry[];
@@ -41,7 +39,7 @@ export interface Store {
   voraussetzungen: Record<string, "offen" | "definiert" | "eingefuehrt">;
 }
 
-const KEY = "giz-scorecard-v11";
+const KEY = "giz-scorecard-v12";
 type Listener = () => void;
 const listeners = new Set<Listener>();
 
@@ -112,7 +110,7 @@ function seed(): Store {
     delivery_quote: 78,
     partnerbogen: 3.6,
     uptake: 42,
-    peer_review: 2.9,
+    peer_review: 3.4,
     mechanismus: 34,
     fachzeit: 66,
     inhouse_beratungsquote: 40,
@@ -129,7 +127,7 @@ function seed(): Store {
     delivery_quote: [78, 79, 80],
     partnerbogen: [3.6, 3.7, 3.9],
     uptake: [42, 48, 55],
-    peer_review: [2.9, 3.1, 3.2],
+    peer_review: [3.4, 3.6, 3.5],
     mechanismus: [34, 42, 50],
     fachzeit: [66, 69, 72],
     inhouse_beratungsquote: [40, 42, 44],
@@ -166,13 +164,6 @@ function seed(): Store {
       };
     });
   }
-  // Peer-Review liegt in Q3 nicht vor — löst "unvollständig — Meldung fehlt" aus.
-  values.peer_review[CURRENT_QUARTER] = {
-    quarter: CURRENT_QUARTER,
-    value: null,
-    reported: false,
-  };
-
   const episodes: Episode[] = [
     {
       id: "EP-2026-0142",
@@ -180,6 +171,7 @@ function seed(): Store {
       partner: "Ministry of Local Administration",
       closeDate: "2026-06-14",
       mechanisms: { practiceUsed: true, mrContributed: true },
+      usability: { practice: 4, machineRoom: 3 },
       partnerToken: "tok-142",
       partnerResponse: {
         submittedAt: "2026-06-20",
@@ -194,6 +186,7 @@ function seed(): Store {
       partner: "Ministry of Environment",
       closeDate: "2026-07-02",
       mechanisms: { practiceUsed: true, mrContributed: false },
+      usability: { practice: 4, machineRoom: null },
       partnerToken: "tok-158",
       partnerResponse: {
         submittedAt: "2026-07-10",
@@ -207,6 +200,7 @@ function seed(): Store {
       partner: "Chamber of Commerce",
       closeDate: "2026-08-19",
       mechanisms: { practiceUsed: false, mrContributed: true },
+      usability: { practice: null, machineRoom: 3 },
       partnerToken: "tok-167",
     },
     {
@@ -215,6 +209,7 @@ function seed(): Store {
       partner: "Ministry of Education",
       closeDate: "2026-09-05",
       mechanisms: { practiceUsed: true, mrContributed: true },
+      usability: { practice: 3, machineRoom: 4 },
       partnerToken: "tok-171",
     },
   ];
@@ -270,10 +265,10 @@ function seed(): Store {
       id: "s6",
       role: "panel",
       quarter: CURRENT_QUARTER,
-      values: { peer_review: null },
-      submittedAt: null,
+      values: { peer_review: 3.5 },
+      submittedAt: "2026-09-29T09:00:00Z",
       deadline: "2026-09-30",
-      status: "missing",
+      status: "on_time",
     },
   ];
 
@@ -311,17 +306,6 @@ function seed(): Store {
     },
   ];
 
-  const peerDraws: PeerDraw[] = [
-    {
-      id: "p1",
-      halfYear: "2026-H1",
-      cluster: "Governance",
-      episodeId: "EP-2026-0142",
-      scores: { evidenzbasis: 4, problemschaerfe: 3, kontextpassung: 4, umsetzbarkeit: 4, klarheit: 5 },
-      justification: "Klare Struktur, belastbare Datengrundlage.",
-    },
-  ];
-
   const changeLog: ChangeLogEntry[] = [
     {
       id: "cl-1",
@@ -339,7 +323,6 @@ function seed(): Store {
     baselines,
     submissions,
     episodes,
-    peerDraws,
     closedLoop,
     evidenz,
     changeLog,

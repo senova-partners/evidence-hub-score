@@ -217,32 +217,27 @@ export const KPI_DETAILS: Record<string, KpiDetail> = {
   },
 
   peer_review: {
-    raw_schema: [
-      "Produkt",
-      "Cluster",
-      "Evidenzbasis",
-      "Problemschärfe",
-      "Kontextpassung",
-      "Umsetzbarkeit",
-      "Klarheit",
-      "Ø",
-    ],
+    raw_schema: ["Episode", "Cluster", "Practice-Nutzbarkeit (1–5)", "Machine-Room-Nutzbarkeit (1–5)"],
     raw_rows: [
-      ["(H1 2027: Ziehung erfolgt, Session 15.07. — Meldung fehlt)", "", "", "", "", "", "", ""],
-      ["Letzte Runde H2 2026:", "", "", "", "", "", "", ""],
-      ["PR-26-01 Gutachten Wassertarife", "W&E", "3", "3", "4", "3", "3", "3,2"],
-      ["PR-26-02 TVET-Curriculum-Konzept", "E&T", "3", "2", "3", "3", "3", "2,8"],
-      ["… (6 Produkte je Runde)", "…", "…", "…", "…", "…", "…", "…"],
+      ["EP-2026-0142", "Governance", "4", "3"],
+      ["EP-2026-0158", "Klima", "4", "—"],
+      ["EP-2026-0167", "Wirtschaft", "—", "3"],
+      ["EP-2026-0171", "Bildung", "3", "4"],
     ],
-    raw_summary: { produkte_je_runde: 6, letzte_runde_mittel: 2.9, aktuelle_runde: null },
+    raw_summary: {
+      bewertungen_gesamt: 6,
+      bewertungen_practices: 3,
+      bewertungen_machine_room: 3,
+      gesamt_mittel: 3.5,
+    },
     formula_text:
-      "Mittelwert über 6 Produkte (2 je Cluster, Zufallsziehung durch Steward aus dem Episodenregister) × 5 Kriterien × Panel-Mittel je Kriterium.",
+      "Drei Sichten aus denselben Episodenbewertungen: Practices (Mittelwert aller Practice-Nutzbarkeitswerte), Machine Room (Mittelwert aller Machine-Room-Nutzbarkeitswerte), Gesamt (Summe beider Pools geteilt durch die Gesamtzahl der Bewertungen — häufiger genutzte Struktureinheiten zählen entsprechend stärker).",
     worked_example:
-      "H2 2026: Summe Produkt-Mittel 17,4 ÷ 6 = 2,9. Aktuell: Meldung fehlt — kein Wert wird geschätzt.",
+      "Practices: (4 + 4 + 3) ÷ 3 = 3,7 · Machine Room: (3 + 3 + 4) ÷ 3 = 3,3 · Gesamt: 21 ÷ 6 = 3,5",
     erhebung: {
-      owner: "Peer-Panel",
-      cadence: "halbjährlich",
-      verifizierung: "Zufallsziehung durch Steward, Bögen archiviert",
+      owner: "Projekt / AV je Episode",
+      cadence: "nach jeder genutzten Practice- oder Machine-Room-Leistung",
+      verifizierung: "Bewertungsfelder werden nur bei gesetztem Struktur-Häkchen ausgespielt; Plausibilisierung gegen die Anfragen- und Vorgangslisten",
     },
   },
 
