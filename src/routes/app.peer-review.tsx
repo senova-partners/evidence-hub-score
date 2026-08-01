@@ -28,6 +28,19 @@ function PeerReview() {
     }));
   }
 
+  function setDeadline(
+    episodeId: string,
+    field: "practiceDeadlineMet" | "machineRoomDeadlineMet",
+    value: boolean,
+  ) {
+    setStore((s) => ({
+      ...s,
+      episodes: s.episodes.map((e) =>
+        e.id === episodeId ? { ...e, usability: { ...e.usability, [field]: value } } : e,
+      ),
+    }));
+  }
+
   return (
     <div className="flex flex-col gap-6">
       <div>
@@ -67,6 +80,9 @@ function PeerReview() {
               value={e.usability?.practice ?? null}
               disabledHint={t("pr_no_structure")}
               onChange={(v) => setRating(e.id, "practice", v)}
+              deadlineMet={e.usability?.practiceDeadlineMet ?? null}
+              onDeadlineChange={(v) => setDeadline(e.id, "practiceDeadlineMet", v)}
+              deadlineLabel={locale === "de" ? "Frist eingehalten" : "Deadline met"}
             />
             <RatingField
               label={t("pr_mr_rating")}
@@ -74,6 +90,9 @@ function PeerReview() {
               value={e.usability?.machineRoom ?? null}
               disabledHint={t("pr_no_structure")}
               onChange={(v) => setRating(e.id, "machineRoom", v)}
+              deadlineMet={e.usability?.machineRoomDeadlineMet ?? null}
+              onDeadlineChange={(v) => setDeadline(e.id, "machineRoomDeadlineMet", v)}
+              deadlineLabel={locale === "de" ? "Frist eingehalten" : "Deadline met"}
             />
           </li>
         ))}
@@ -88,12 +107,18 @@ function RatingField({
   value,
   disabledHint,
   onChange,
+  deadlineMet,
+  onDeadlineChange,
+  deadlineLabel,
 }: {
   label: string;
   enabled: boolean;
   value: number | null;
   disabledHint: string;
   onChange: (v: number | null) => void;
+  deadlineMet: boolean | null;
+  onDeadlineChange: (v: boolean) => void;
+  deadlineLabel: string;
 }) {
   return (
     <div className="flex flex-col gap-1">
@@ -113,6 +138,14 @@ function RatingField({
               {n}
             </button>
           ))}
+          <label className="flex items-center gap-1 text-[12px] text-muted-foreground ml-3">
+            <input
+              type="checkbox"
+              checked={deadlineMet === true}
+              onChange={(ev) => onDeadlineChange(ev.target.checked)}
+            />
+            {deadlineLabel}
+          </label>
         </div>
       ) : (
         <span className="text-[12px] text-muted-foreground italic">{disabledHint}</span>
