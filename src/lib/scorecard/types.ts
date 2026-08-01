@@ -73,10 +73,15 @@ export interface Episode {
   mechanisms: { practiceUsed: boolean; mrContributed: boolean };
   /**
    * Demand-side usability ratings (1–5) given by the project after using a
-   * Practice deliverable / a Machine-Room contribution. Both fields are
-   * independent and optional — an episode can carry one, both, or none.
+   * Practice deliverable / a Machine-Room contribution, plus whether the
+   * agreed deadline was met. All fields are independent and optional.
    */
-  usability?: { practice?: number | null; machineRoom?: number | null };
+  usability?: {
+    practice?: number | null;
+    machineRoom?: number | null;
+    practiceDeadlineMet?: boolean | null;
+    machineRoomDeadlineMet?: boolean | null;
+  };
 
   partnerToken: string;
   partnerResponse?: {
