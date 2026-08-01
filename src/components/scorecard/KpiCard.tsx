@@ -1,7 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { kpiById } from "@/lib/scorecard/kpis";
 import { kpiCopy } from "@/lib/scorecard/kpi-copy";
-import { trend } from "@/lib/scorecard/verdict";
 import { useLocale } from "@/lib/scorecard/useT";
 import { InfoPanel } from "./InfoPanel";
 import { Sparkline } from "./Sparkline";
@@ -10,14 +9,11 @@ import { useStore, type Store } from "@/lib/scorecard/store";
 import type { KpiValue } from "@/lib/scorecard/types";
 import {
   CARD_SUBTITLE,
-  CARD_FOOTER_N,
   SECONDARY_LABEL,
   bareValue,
   bareDelta,
-  bareBaseline,
 } from "./board-presentation";
 
-const trendGlyph = { up: "↗", down: "↘", flat: "→", missing: "✕" } as const;
 
 /**
  * Board card — fixed five-slot template. Whole card is a Link to the detail
@@ -39,25 +35,16 @@ export function KpiCard({
   if (!kpi) return null;
 
   const v = value?.value ?? null;
-  const tr = trend(kpiId, v, baseline);
   const missing = v === null;
   const history = kpiHistory(kpiId);
 
   const subtitle = kpiCopy(kpiId)?.subtitle[locale] ?? CARD_SUBTITLE[kpiId]?.[locale] ?? "";
-  const footerN = CARD_FOOTER_N[kpiId]?.[locale] ?? "";
   const seitBaseline = locale === "de" ? "seit Baseline" : "since baseline";
   const meldungFehlt = locale === "de" ? "Meldung fehlt" : "Report missing";
-  const letzteRunde = locale === "de" ? "Letzte Runde" : "Last round";
 
-  let footerText = `Baseline ${bareBaseline(baseline, kpi, locale)}${
-    footerN ? ` · ${footerN}` : ""
-  }`;
-
-  if (missing) {
-    footerText = `${letzteRunde} ${bareBaseline(baseline, kpi, locale)}${
-      footerN ? ` · ${footerN}` : ""
-    }`;
-  }
+  // Baseline/Ziel/Zeitraum footer removed from the card — that context now
+  // lives behind the ⓘ info panel. Only genuine secondary values stay.
+  let footerText = "";
 
   const secondaryIds = kpi.secondaryKpiIds ?? (kpi.secondaryKpiId ? [kpi.secondaryKpiId] : []);
   if (secondaryIds.length > 0 && !missing) {
@@ -74,6 +61,7 @@ export function KpiCard({
     if (parts.length > 0) footerText = parts.join(" · ");
   }
 
+
   const ariaLabel = missing
     ? `${kpi.name[locale]}: ${meldungFehlt}`
     : `${kpi.name[locale]}, ${bareValue(v, kpi, locale)}, ${bareDelta(v, baseline, kpi, locale)} ${seitBaseline}`;
@@ -83,12 +71,12 @@ export function KpiCard({
       to="/app/kpi/$id"
       params={{ id: kpiId }}
       aria-label={ariaLabel}
-      className="@container hairline bg-card overflow-hidden flex flex-col h-[264px] p-6 hover:bg-[color:var(--hover,transparent)] focus:outline focus:outline-1 focus:outline-[color:var(--giz-red)]"
+      className="@container hairline-card bg-card overflow-hidden flex flex-col h-[264px] p-[30px] hover:bg-[color:var(--hover,transparent)] focus:outline focus:outline-1 focus:outline-[color:var(--giz-red)]"
     >
       {/* Row 1 — Title + Info */}
       <div className="flex items-start justify-between gap-2 h-7">
         <span
-          className="text-[14px] font-medium truncate leading-tight"
+          className="text-[14px] font-semibold truncate leading-tight"
           title={kpi.name[locale]}
         >
           {kpi.name[locale]}
@@ -122,23 +110,21 @@ export function KpiCard({
         {subtitle}
       </div>
 
-
-      {/* Row 4 — Delta / status */}
-      <div className="mt-[10px] h-5 text-[12px] leading-5 truncate">
+      {/* Row 4 — Delta / status (no trend arrow: the delta text carries it) */}
+      <div className="mt-[10px] h-5 text-[12px] font-normal leading-5 truncate">
         {missing ? (
-          <span className="text-[color:var(--giz-red)] font-semibold">{meldungFehlt}</span>
+          <span className="text-[color:var(--giz-red)]">{meldungFehlt}</span>
         ) : (
           <span className="text-muted-foreground tabular-nums">
-            <span aria-hidden>{trendGlyph[tr]}</span> {bareDelta(v, baseline, kpi, locale)}{" "}
-            {seitBaseline}
+            {bareDelta(v, baseline, kpi, locale)} {seitBaseline}
           </span>
         )}
       </div>
 
-      {/* Row 5 — Footer */}
+      {/* Row 5 — Secondary values only (baseline context lives in the ⓘ panel) */}
       <div
-        className="mt-[10px] h-5 text-[12px] leading-5 text-muted-foreground truncate"
-        title={footerText}
+        className="mt-[10px] h-5 text-[12px] font-normal leading-5 text-muted-foreground truncate"
+        title={footerText || undefined}
       >
         {footerText}
       </div>
