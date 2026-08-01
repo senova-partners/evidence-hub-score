@@ -331,7 +331,8 @@
           "value": 72
         }
       ],
-      "tab_label": "Verhältnis Beratung/Admin"
+      "tab_label": "Verhältnis Beratung/Admin",
+      "subtitle": "Wieviel Prozent unserer Beraterzeit gehen in Beratung — und nicht in Verwaltung?"
     },
     {
       "id": "inhouse_beratungsquote",
@@ -365,7 +366,8 @@
           "value": 67
         }
       ],
-      "tab_label": "Inhouse-Beratung"
+      "tab_label": "Eigenanteil an Beratung",
+      "subtitle": "Wieviel unserer Beratung machen wir selbst — statt sie zuzukaufen oder als Finanzierung weiterzugeben?"
     },
     {
       "id": "schmerzpunkt",
