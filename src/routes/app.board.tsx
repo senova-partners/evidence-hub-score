@@ -19,7 +19,7 @@ function Board() {
   const mt = meldetreue(store, session.quarter);
 
   const visible = boardKpis();
-  const grouped = (["beratungsqualitaet", "struktur", "aussenbeweis"] as const).map((pkg) => ({
+  const grouped = (["struktur", "beratungsqualitaet", "aussenbeweis"] as const).map((pkg) => ({
     pkg,
     kpis: visible.filter((k) => k.pkg === pkg),
   }));
