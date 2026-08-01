@@ -24,7 +24,7 @@ export function InfoPanel({
   const kpi = kpiById(kpiId);
   if (!kpi) return null;
 
-  const copy = kpiCopy(copyKey ?? kpiId);
+  const copy = kpiCopy(copyKey) ?? kpiCopy(kpiId);
   const heading = title ?? kpi.name[locale];
   const subtitle = copy?.subtitle[locale] ?? kpi.subtitle?.[locale] ?? "";
   const rechenweg = copy?.rechenwegKurz[locale] ?? "";

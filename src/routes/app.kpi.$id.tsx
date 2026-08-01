@@ -2,6 +2,7 @@ import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useStore, type Store } from "@/lib/scorecard/store";
 import { kpiById, PKG_LABEL, formatValue, formatDelta } from "@/lib/scorecard/kpis";
+import { kpiCopy } from "@/lib/scorecard/kpi-copy";
 import { kpiDetailLocalized, summaryKeyLabel } from "@/lib/scorecard/kpi-details";
 import { kpiHistory, type HistoryPoint } from "@/lib/scorecard/history";
 import { MECHANISMUS_VIEWS, type MechanismusView } from "@/lib/scorecard/mechanismus-views";
@@ -69,21 +70,30 @@ function KpiDetailPage() {
         >
           {tabs.map((k) => {
             const isActive = k.id === activeId;
+            const label = (k.tabLabel ?? k.name)[locale];
             return (
-              <button
-                key={k.id}
-                role="tab"
-                aria-selected={isActive}
-                onClick={() => setActiveId(k.id)}
-                className={
-                  "py-2 text-[13px] -mb-px border-b-2 " +
-                  (isActive
-                    ? "border-[color:var(--foreground)] text-foreground font-semibold"
-                    : "border-transparent text-muted-foreground hover:text-foreground")
-                }
-              >
-                {(k.tabLabel ?? k.name)[locale]}
-              </button>
+              <div key={k.id} className="flex items-center gap-2">
+                <button
+                  role="tab"
+                  aria-selected={isActive}
+                  onClick={() => setActiveId(k.id)}
+                  className={
+                    "py-2 text-[13px] -mb-px border-b-2 " +
+                    (isActive
+                      ? "border-[color:var(--foreground)] text-foreground font-semibold"
+                      : "border-transparent text-muted-foreground hover:text-foreground")
+                  }
+                >
+                  {label}
+                </button>
+                {isActive && (
+                  <InfoPanel
+                    kpiId={k.id}
+                    copyKey={k.id === primary.id ? `${k.id}:tab` : k.id}
+                    title={label}
+                  />
+                )}
+              </div>
             );
           })}
         </div>
@@ -112,6 +122,7 @@ function KpiTabPanel({
     history?: HistoryPoint[];
     workedExample?: string;
     subtitle?: string;
+    rechenwegKurz?: string;
   };
   preamble?: React.ReactNode;
 }) {
@@ -167,6 +178,10 @@ function KpiTabPanel({
         <p className="text-[13px] -mt-4">{overrides.subtitle}</p>
       )}
 
+      {overrides?.rechenwegKurz && (
+        <p className="text-[13px] text-muted-foreground -mt-6">{overrides.rechenwegKurz}</p>
+      )}
+
 
 
       {voraussetzung && (
@@ -191,8 +206,15 @@ function KpiTabPanel({
             value={`${trendGlyph[tr]} ${formatDelta(current, baseline, kpi, locale)}`}
           />
         </div>
-        {kpi.subtitle?.[locale] && (
-          <p className="text-[13px] text-muted-foreground">{kpi.subtitle[locale]}</p>
+        {!overrides?.subtitle && (kpiCopy(`${kpi.id}:tab`) ?? kpiCopy(kpi.id)) && (
+          <p className="text-[13px] text-muted-foreground">
+            {(kpiCopy(`${kpi.id}:tab`) ?? kpiCopy(kpi.id))!.subtitle[locale]}
+          </p>
+        )}
+        {!overrides?.rechenwegKurz && (kpiCopy(`${kpi.id}:tab`) ?? kpiCopy(kpi.id)) && (
+          <p className="text-[13px] text-muted-foreground">
+            {(kpiCopy(`${kpi.id}:tab`) ?? kpiCopy(kpi.id))!.rechenwegKurz[locale]}
+          </p>
         )}
       </div>
 
@@ -321,21 +343,26 @@ function MechanismusPanel({ kpi }: { kpi: KpiDef }) {
     >
       {MECHANISMUS_VIEWS.map((v) => {
         const isActive = v.id === viewId;
+        const label = pick(v.label, locale);
         return (
-          <button
-            key={v.id}
-            role="tab"
-            aria-selected={isActive}
-            onClick={() => setViewId(v.id)}
-            className={
-              "py-2 text-[13px] -mb-px border-b-2 " +
-              (isActive
-                ? "border-[color:var(--foreground)] text-foreground font-semibold"
-                : "border-transparent text-muted-foreground hover:text-foreground")
-            }
-          >
-            {pick(v.label, locale)}
-          </button>
+          <div key={v.id} className="flex items-center gap-2">
+            <button
+              role="tab"
+              aria-selected={isActive}
+              onClick={() => setViewId(v.id)}
+              className={
+                "py-2 text-[13px] -mb-px border-b-2 " +
+                (isActive
+                  ? "border-[color:var(--foreground)] text-foreground font-semibold"
+                  : "border-transparent text-muted-foreground hover:text-foreground")
+              }
+            >
+              {label}
+            </button>
+            {isActive && (
+              <InfoPanel kpiId={kpi.id} copyKey={`${kpi.id}:${v.id}`} title={label} />
+            )}
+          </div>
         );
       })}
     </div>
@@ -351,7 +378,8 @@ function MechanismusPanel({ kpi }: { kpi: KpiDef }) {
         current: view.current,
         history: view.history,
         workedExample: pick(view.workedExample, locale),
-        subtitle: pick(view.definition, locale),
+        subtitle: kpiCopy(`${kpi.id}:${view.id}`)?.subtitle[locale] ?? pick(view.definition, locale),
+        rechenwegKurz: kpiCopy(`${kpi.id}:${view.id}`)?.rechenwegKurz[locale],
       }}
     />
   );
@@ -371,21 +399,26 @@ function KofiPanel({ kpi }: { kpi: KpiDef }) {
     >
       {KOFI_VIEWS.map((v) => {
         const isActive = v.id === viewId;
+        const label = pick(v.label, locale);
         return (
-          <button
-            key={v.id}
-            role="tab"
-            aria-selected={isActive}
-            onClick={() => setViewId(v.id)}
-            className={
-              "py-2 text-[13px] -mb-px border-b-2 " +
-              (isActive
-                ? "border-[color:var(--foreground)] text-foreground font-semibold"
-                : "border-transparent text-muted-foreground hover:text-foreground")
-            }
-          >
-            {pick(v.label, locale)}
-          </button>
+          <div key={v.id} className="flex items-center gap-2">
+            <button
+              role="tab"
+              aria-selected={isActive}
+              onClick={() => setViewId(v.id)}
+              className={
+                "py-2 text-[13px] -mb-px border-b-2 " +
+                (isActive
+                  ? "border-[color:var(--foreground)] text-foreground font-semibold"
+                  : "border-transparent text-muted-foreground hover:text-foreground")
+              }
+            >
+              {label}
+            </button>
+            {isActive && (
+              <InfoPanel kpiId={kpi.id} copyKey={`${kpi.id}:${v.id}`} title={label} />
+            )}
+          </div>
         );
       })}
     </div>
@@ -402,7 +435,8 @@ function KofiPanel({ kpi }: { kpi: KpiDef }) {
           current: view.current,
           history: view.history,
           workedExample: pick(view.workedExample, locale),
-          subtitle: pick(view.definition, locale),
+          subtitle: kpiCopy(`${kpi.id}:${view.id}`)?.subtitle[locale] ?? pick(view.definition, locale),
+          rechenwegKurz: kpiCopy(`${kpi.id}:${view.id}`)?.rechenwegKurz[locale],
         }}
       />
       <PipelineFooter />
