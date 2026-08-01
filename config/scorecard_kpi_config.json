@@ -262,32 +262,63 @@
       "paket": 1,
       "paket_name": "Beratungsqualität",
       "name": "Peer-Review-Rating",
-      "unit": "1–5",
+      "unit": "1–5 Nutzbarkeit",
       "direction": "higher_better",
-      "cadence": "halbjährlich",
-      "owner": "Cross-Cluster-Panel",
-      "baseline": 2.9,
-      "current": null,
-      "n_label": "n = 6 Produkte je Halbjahr",
-      "status": "missing",
+      "cadence": "quartalsweise",
+      "owner": "Projekt / AV je Episode",
+      "baseline": 3.4,
+      "current": 3.5,
+      "n_label": "n = 6 Bewertungen",
+      "status": "reported",
       "info": {
-        "was_es_misst": "Zwei Beratungsprodukte je Cluster und Halbjahr, bewertet nach fünf Kriterien: Evidenzbasis, Problemschärfe, Kontextpassung, Umsetzbarkeit, Klarheit – mit Pflicht-Begründungssatz je Kriterium.",
-        "warum": "Das Fachurteil als strukturierte Stichprobe. Primär ein Standardsetzungs-Instrument: Das Kriterienraster definiert erstmals, was gute Beratung bei GIZ Jordan heißt. Deklariert als Richtungssignal, nicht als Kennzahl im statistischen Sinn – die Fallzahl ist dafür zu klein, und das sagen wir offen.",
-        "verifizierung": "Zufallsauswahl durch den Steward aus dem Episodenregister – die bewertete Einheit wählt nie selbst (kein Rosinenpicken). Bögen archiviert.",
+        "was_es_misst": "Nach jeder genutzten Practice-Leistung oder Machine-Room-Zuarbeit bewertet das nutzende Projekt deren Nutzbarkeit für die konkrete Beratungsarbeit auf einer Skala von 1 bis 5. Zwei unabhängige Felder je Episode.",
+        "warum": "Nachfrageseitige Bewertung statt Selbstbeschreibung der Struktur: Nicht die Practices und der Machine Room melden ihren Wert, sondern die Projekte, die mit ihren Leistungen arbeiten mussten. Die Divergenz zwischen beiden Sichten zeigt, welcher Teil der Struktur in der Beratung tatsächlich trägt.",
+        "verifizierung": "Bewertungsfelder werden nur bei gesetztem Struktur-Häkchen ausgespielt; Plausibilisierung gegen die Anfragen- und Vorgangslisten von Practices und Machine Room.",
         "verworfen": null
       },
       "history": [
         {
-          "period": "2026-H2",
-          "value": 2.9
+          "period": "2026-Q1",
+          "value": 3.4
         },
         {
-          "period": "2027-H1",
-          "value": null
+          "period": "2026-Q2",
+          "value": 3.6
+        },
+        {
+          "period": "2026-Q3",
+          "value": 3.5
         }
       ],
-      "subtitle": "Wie bewerten Kolleginnen und Kollegen aus anderen Clustern die fachliche Substanz unserer Beratungsprodukte?",
-      "rechenweg_kurz": "Halbjährliche Zufallsziehung von sechs Produkten, Bewertung durch ein cross-cluster Panel entlang fünf fachlicher Kriterien; Mittelwert je Runde."
+      "subtitle": "Wie brauchbar erleben die Projekte die Leistungen von Practices und Machine Room für ihre Beratungsarbeit?",
+      "rechenweg_kurz": "Nach jeder Nutzung einer Practice-Leistung oder einer Machine-Room-Zuarbeit bewertet das Projekt die Nutzbarkeit für die konkrete Beratungsarbeit auf einer Skala von 1 bis 5; gewichteter Gesamtmittelwert über alle Bewertungen im Quartal.",
+      "tab_label": "Gesamt",
+      "detail_tabs": [
+        {
+          "id": "gesamt",
+          "label": "Gesamt",
+          "subtitle": "Der Board-Wert — gewichteter Mittelwert über alle Nutzbarkeitsbewertungen von Practice-Leistungen und Machine-Room-Zuarbeiten.",
+          "rechenweg_kurz": "Summe aller Nutzbarkeitswerte, geteilt durch die Gesamtzahl der Bewertungen; häufiger genutzte Struktureinheiten zählen entsprechend stärker.",
+          "baseline": 3.4,
+          "current": 3.5
+        },
+        {
+          "id": "practices",
+          "label": "Practices",
+          "subtitle": "Wie brauchbar erlebten die Projekte die Leistungen der Practices — waren die fachlichen Zuarbeiten für die Beratung tatsächlich hilfreich?",
+          "rechenweg_kurz": "Mittelwert aller Nutzbarkeitsbewertungen (1–5), die Projekte im Quartal nach Nutzung einer Practice-Leistung abgegeben haben.",
+          "baseline": 3.6,
+          "current": 3.7
+        },
+        {
+          "id": "machine_room",
+          "label": "Machine Room",
+          "subtitle": "Wie brauchbar erlebten die Projekte die Zuarbeit des Machine Room — waren die administrativen Beiträge für die Beratung tatsächlich hilfreich?",
+          "rechenweg_kurz": "Mittelwert aller Nutzbarkeitsbewertungen (1–5), die Projekte im Quartal nach Nutzung einer Machine-Room-Zuarbeit abgegeben haben.",
+          "baseline": 3.0,
+          "current": 3.3
+        }
+      ]
     },
     {
       "id": "mechanismus",
