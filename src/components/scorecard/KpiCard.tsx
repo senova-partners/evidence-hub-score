@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { kpiById } from "@/lib/scorecard/kpis";
+import { kpiCopy } from "@/lib/scorecard/kpi-copy";
 import { trend } from "@/lib/scorecard/verdict";
 import { useLocale } from "@/lib/scorecard/useT";
 import { InfoPanel } from "./InfoPanel";
@@ -42,7 +43,7 @@ export function KpiCard({
   const missing = v === null;
   const history = kpiHistory(kpiId);
 
-  const subtitle = CARD_SUBTITLE[kpiId]?.[locale] ?? "";
+  const subtitle = kpiCopy(kpiId)?.subtitle[locale] ?? CARD_SUBTITLE[kpiId]?.[locale] ?? "";
   const footerN = CARD_FOOTER_N[kpiId]?.[locale] ?? "";
   const seitBaseline = locale === "de" ? "seit Baseline" : "since baseline";
   const meldungFehlt = locale === "de" ? "Meldung fehlt" : "Report missing";
@@ -103,14 +104,6 @@ export function KpiCard({
         </div>
       </div>
 
-      {/* Row 2 — Subtitle */}
-      <div
-        className="mt-[10px] h-5 text-[13px] leading-5 text-muted-foreground truncate"
-        title={subtitle}
-      >
-        {subtitle}
-      </div>
-
       {/* Row 3 — Value + Sparkline (sparkline hidden below 260px card width) */}
       <div className="mt-[10px] flex-1 flex items-end justify-between gap-3">
         <span className="text-[36px] leading-none font-semibold tabular-nums">
@@ -122,6 +115,16 @@ export function KpiCard({
           </span>
         )}
       </div>
+
+      {/* Row 3b — Subtitle (plain-language, one line, no placeholder) */}
+      {subtitle && (
+        <div
+          className="mt-[10px] h-5 text-[13px] leading-5 text-muted-foreground truncate"
+          title={subtitle}
+        >
+          {subtitle}
+        </div>
+      )}
 
       {/* Row 4 — Delta / status */}
       <div className="mt-[10px] h-5 text-[12px] leading-5 truncate">
