@@ -337,23 +337,12 @@ export const T: Dict = {
     en: "Which measure needs the next interpretation round?",
   },
 
-  // peer review
-  pr_title: { de: "Peer-Review", en: "Peer review" },
-  pr_intro: {
-    de: "Zufallsziehung 2 Werkstücke × Cluster × Halbjahr. Bewertung mit Begründung.",
-    en: "Random draw of 2 deliverables × cluster × half-year. Score with justification.",
-  },
-  pr_draw: { de: "Ziehung starten", en: "Draw" },
+  // peer review (usability rating)
+  pr_title: { de: "Peer-Review-Rating", en: "Peer review rating" },
   pr_rate: { de: "bewerten", en: "rate" },
-  pr_reason_placeholder: { de: "Begründung (Pflicht)", en: "Reasoning (required)" },
   pr_edit: { de: "bearbeiten", en: "edit" },
-  pr_crit_fachlich: { de: "fachlich", en: "substance" },
-  pr_crit_klarheit: { de: "Klarheit", en: "clarity" },
-  pr_crit_umsetzbarkeit: { de: "Umsetzbarkeit", en: "feasibility" },
-  pr_justification_placeholder: {
-    de: "Begründung (Pflicht)",
-    en: "Justification (required)",
-  },
+  pr_save: { de: "Speichern", en: "Save" },
+
 
   // historie
   hist_title: { de: "Historie", en: "History" },
