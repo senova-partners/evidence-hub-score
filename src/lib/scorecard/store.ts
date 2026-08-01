@@ -39,7 +39,7 @@ export interface Store {
   voraussetzungen: Record<string, "offen" | "definiert" | "eingefuehrt">;
 }
 
-const KEY = "giz-scorecard-v12";
+const KEY = "giz-scorecard-v13";
 type Listener = () => void;
 const listeners = new Set<Listener>();
 
@@ -171,7 +171,7 @@ function seed(): Store {
       partner: "Ministry of Local Administration",
       closeDate: "2026-06-14",
       mechanisms: { practiceUsed: true, mrContributed: true },
-      usability: { practice: 4, machineRoom: 3 },
+      usability: { practice: 4, machineRoom: 3, practiceDeadlineMet: true, machineRoomDeadlineMet: false },
       partnerToken: "tok-142",
       partnerResponse: {
         submittedAt: "2026-06-20",
@@ -186,7 +186,7 @@ function seed(): Store {
       partner: "Ministry of Environment",
       closeDate: "2026-07-02",
       mechanisms: { practiceUsed: true, mrContributed: false },
-      usability: { practice: 4, machineRoom: null },
+      usability: { practice: 4, machineRoom: null, practiceDeadlineMet: true },
       partnerToken: "tok-158",
       partnerResponse: {
         submittedAt: "2026-07-10",
@@ -200,7 +200,7 @@ function seed(): Store {
       partner: "Chamber of Commerce",
       closeDate: "2026-08-19",
       mechanisms: { practiceUsed: false, mrContributed: true },
-      usability: { practice: null, machineRoom: 3 },
+      usability: { practice: null, machineRoom: 3, machineRoomDeadlineMet: true },
       partnerToken: "tok-167",
     },
     {
@@ -209,7 +209,7 @@ function seed(): Store {
       partner: "Ministry of Education",
       closeDate: "2026-09-05",
       mechanisms: { practiceUsed: true, mrContributed: true },
-      usability: { practice: 3, machineRoom: 4 },
+      usability: { practice: 3, machineRoom: 4, practiceDeadlineMet: false, machineRoomDeadlineMet: true },
       partnerToken: "tok-171",
     },
   ];

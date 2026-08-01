@@ -68,7 +68,7 @@ export const KPI_COPY: Record<string, KpiCopy> = {
   },
   peer_review: {
     subtitle: {
-      de: "Wie brauchbar erleben die Projekte die Leistungen von Practices und Machine Room für ihre Beratungsarbeit?",
+      de: "Wie tragen Practices und Machine Room — aus Sicht der nutzenden Projekte, der Leitung und der eigenen Schmerzpunktliste?",
       en: "How usable do projects find the services of practices and the machine room for their advisory work?",
     },
     rechenwegKurz: {
@@ -80,12 +80,12 @@ export const KPI_COPY: Record<string, KpiCopy> = {
   // ---- Paket 2 — Struktur-Effizienz ----
   fachzeit: {
     subtitle: {
-      de: "Setzt die Struktur Beratungssubstanz frei — in Zeit, Substanz und Geld?",
-      en: "Does the structure free up advisory substance — in time, substance and money?",
+      de: "Setzt die Struktur Substanz für Beratung frei — mehr Zeit und mehr eigene Fachtiefe?",
+      en: "Does the structure free up substance for advisory work — more time and more of our own expertise?",
     },
     rechenwegKurz: {
-      de: "Drei Werte in drei Währungen, kein Index; ihre Divergenz ist selbst die Diagnose.",
-      en: "Three values in three currencies, no index; their divergence is itself the diagnosis.",
+      de: "Zwei Werte nebeneinander in zwei Währungen (Zeit und Substanz), kein Index — Divergenz ist selbst diagnostisch.",
+      en: "Two values side by side in two currencies (time and substance), no index — the divergence is itself diagnostic.",
     },
   },
   mechanismus: {
