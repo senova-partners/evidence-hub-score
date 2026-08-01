@@ -124,6 +124,10 @@
 @utility hairline {
   border: 1px solid var(--hairline);
 }
+/* Board cards: one soft separating hairline instead of a full box */
+@utility hairline-card {
+  border: 1px solid color-mix(in oklab, var(--hairline) 50%, transparent);
+}
 
 /* Print — A4 landscape one-pager for /app/export */
 @media print {

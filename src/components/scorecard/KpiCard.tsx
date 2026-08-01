@@ -1,7 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { kpiById } from "@/lib/scorecard/kpis";
 import { kpiCopy } from "@/lib/scorecard/kpi-copy";
-import { trend } from "@/lib/scorecard/verdict";
 import { useLocale } from "@/lib/scorecard/useT";
 import { InfoPanel } from "./InfoPanel";
 import { Sparkline } from "./Sparkline";
@@ -10,14 +9,11 @@ import { useStore, type Store } from "@/lib/scorecard/store";
 import type { KpiValue } from "@/lib/scorecard/types";
 import {
   CARD_SUBTITLE,
-  CARD_FOOTER_N,
   SECONDARY_LABEL,
   bareValue,
   bareDelta,
-  bareBaseline,
 } from "./board-presentation";
 
-const trendGlyph = { up: "↗", down: "↘", flat: "→", missing: "✕" } as const;
 
 /**
  * Board card — fixed five-slot template. Whole card is a Link to the detail
@@ -39,6 +35,7 @@ export function KpiCard({
   if (!kpi) return null;
 
   const v = value?.value ?? null;
+
   const tr = trend(kpiId, v, baseline);
   const missing = v === null;
   const history = kpiHistory(kpiId);
