@@ -416,7 +416,7 @@ function PeerReviewPanel({ kpi }: { kpi: KpiDef }) {
   const t = useT();
   const locale = useLocale();
   const episodes = useStore((s: Store) => s.episodes);
-  const [viewId, setViewId] = useState<PeerReviewView["id"]>("gesamt");
+  const [viewId, setViewId] = useState<PeerReviewView["id"]>("practices");
   const view = PEER_REVIEW_VIEWS.find((v) => v.id === viewId) ?? PEER_REVIEW_VIEWS[0];
   const results = computePeerReview(episodes);
   const result = results[view.id];
@@ -426,30 +426,93 @@ function PeerReviewPanel({ kpi }: { kpi: KpiDef }) {
       ? view.history
       : [...view.history, { period: "2026-Q3", value: result.value }];
 
+  const de = locale === "de";
+  const num = (v: number | null, d = 1) => (v === null ? "—" : fmtDecimal(v, locale, d));
+
   const preamble = (
-    <div role="tablist" aria-label={t("peer_views_label")} className="flex gap-6 hairline-b -mt-4">
-      {PEER_REVIEW_VIEWS.map((v) => {
-        const isActive = v.id === viewId;
-        const label = pick(v.label, locale);
-        return (
-          <div key={v.id} className="flex items-center gap-2">
-            <button
-              role="tab"
-              aria-selected={isActive}
-              onClick={() => setViewId(v.id)}
-              className={
-                "py-2 text-[13px] -mb-px border-b-2 " +
-                (isActive
-                  ? "border-[color:var(--foreground)] text-foreground font-semibold"
-                  : "border-transparent text-muted-foreground hover:text-foreground")
-              }
-            >
-              {label}
-            </button>
-            {isActive && <InfoPanel kpiId={kpi.id} copyKey={`${kpi.id}:${v.id}`} title={label} />}
+    <div className="flex flex-col gap-6 -mt-4">
+      <div role="tablist" aria-label={t("peer_views_label")} className="flex gap-6 hairline-b">
+        {PEER_REVIEW_VIEWS.map((v) => {
+          const isActive = v.id === viewId;
+          const label = pick(v.label, locale);
+          return (
+            <div key={v.id} className="flex items-center gap-2">
+              <button
+                role="tab"
+                aria-selected={isActive}
+                onClick={() => setViewId(v.id)}
+                className={
+                  "py-2 text-[13px] -mb-px border-b-2 " +
+                  (isActive
+                    ? "border-[color:var(--foreground)] text-foreground font-semibold"
+                    : "border-transparent text-muted-foreground hover:text-foreground")
+                }
+              >
+                {label}
+              </button>
+              {isActive && <InfoPanel kpiId={kpi.id} copyKey={`${kpi.id}:${v.id}`} title={label} />}
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Three parallel values — no aggregation, no index. */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="hairline p-4">
+          <div className="text-[12px] text-muted-foreground">
+            {de ? "Peer-Bewertung" : "Peer assessment"}
           </div>
-        );
-      })}
+          <div className="text-[28px] font-semibold tabular-nums mt-1">
+            {num(result.value)}{" "}
+            <span className="text-[13px] font-normal text-muted-foreground">
+              {de ? "Nutzbarkeit" : "usability"}
+            </span>
+          </div>
+          <div className="text-[13px] tabular-nums mt-1">
+            {result.fristentreue === null ? "—" : `${result.fristentreue} %`}{" "}
+            <span className="text-muted-foreground font-normal">
+              {de ? "Fristentreue" : "deadline reliability"}
+            </span>
+          </div>
+          <div className="text-[12px] text-muted-foreground mt-1">
+            n = {result.n} {t("pr_ratings_count")}
+          </div>
+        </div>
+
+        <div className="hairline p-4">
+          <div className="text-[12px] text-muted-foreground">
+            {de ? "Leadership-Bewertung" : "Leadership assessment"}
+          </div>
+          <div className="text-[28px] font-semibold tabular-nums mt-1">
+            {num(result.leadership)}
+          </div>
+          <div className="text-[12px] text-muted-foreground mt-1">
+            {de
+              ? `Halbjährlich durch PFM/LD und CCs · n = ${result.leadershipN}`
+              : `Bi-annual by PFM/LD and the CCs · n = ${result.leadershipN}`}
+          </div>
+        </div>
+
+        <div className="hairline p-4">
+          <div className="text-[12px] text-muted-foreground">
+            {de ? "Schmerzpunkt-Wiedervorlage" : "Pain-point re-review"}
+          </div>
+          <div className="text-[28px] font-semibold tabular-nums mt-1">
+            {num(result.schmerzpunkt)}
+          </div>
+          <div className="text-[12px] text-muted-foreground mt-1">
+            {de
+              ? `1 gelöst – 5 unverändert · n = ${result.schmerzpunktN}`
+              : `1 solved – 5 unchanged · n = ${result.schmerzpunktN}`}
+          </div>
+        </div>
+      </div>
+
+      <p className="text-[13px] text-muted-foreground">
+        {de
+          ? "Drei parallele Werte, keine Aggregation und kein Index — die Divergenz zwischen Nachfrage-, Leitungs- und Schmerzpunktsicht ist selbst der Befund."
+          : "Three parallel values, no aggregation and no index — the divergence between demand, leadership and pain-point views is itself the finding."}
+      </p>
     </div>
   );
 
@@ -469,6 +532,7 @@ function PeerReviewPanel({ kpi }: { kpi: KpiDef }) {
     />
   );
 }
+
 
 function KofiPanel({ kpi }: { kpi: KpiDef }) {
   const t = useT();
