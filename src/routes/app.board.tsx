@@ -40,7 +40,13 @@ function Board() {
       </div>
 
       {grouped.map(({ pkg, kpis }) => (
-        <section key={pkg} className="flex flex-col gap-4">
+        <section
+          key={pkg}
+          className={[
+            "flex flex-col gap-4",
+            pkg === "aussenbeweis" ? "bg-giz-red/[0.04] border border-giz-red/20 p-6 -mx-6" : "",
+          ].join(" ")}
+        >
           <h2 className="text-[13px] uppercase tracking-wide text-muted-foreground">
             {PKG_LABEL[pkg][locale]}
           </h2>
