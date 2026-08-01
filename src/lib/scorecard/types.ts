@@ -71,6 +71,13 @@ export interface Episode {
   partner: string;
   closeDate: string; // ISO
   mechanisms: { practiceUsed: boolean; mrContributed: boolean };
+  /**
+   * Demand-side usability ratings (1–5) given by the project after using a
+   * Practice deliverable / a Machine-Room contribution. Both fields are
+   * independent and optional — an episode can carry one, both, or none.
+   */
+  usability?: { practice?: number | null; machineRoom?: number | null };
+
   partnerToken: string;
   partnerResponse?: {
     submittedAt: string;
