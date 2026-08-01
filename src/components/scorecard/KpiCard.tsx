@@ -35,8 +35,6 @@ export function KpiCard({
   if (!kpi) return null;
 
   const v = value?.value ?? null;
-
-  const tr = trend(kpiId, v, baseline);
   const missing = v === null;
   const history = kpiHistory(kpiId);
 
