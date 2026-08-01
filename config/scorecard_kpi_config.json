@@ -179,8 +179,8 @@
         }
       ],
       "tab_label": "Direkte Wirkungsmittel",
-      "subtitle": "Wieviel unseres Auftragsgeldes kommt beim Partner an — und verpufft nicht in interner Abwicklung?",
-      "rechenweg_kurz": "Auftragsmittel minus interne Abwicklungskosten, geteilt durch Auftragsmittel; die Kostenabgrenzung ist einmalig definiert und eingefroren."
+      "subtitle": "Wieviel unseres Auftragsgeldes kommt beim Partner an — und verpufft nicht in Strukturkosten?",
+      "rechenweg_kurz": "Auftragsmittel minus Strukturkosten geteilt durch Auftragsmittel. Wir erben die Strukturkosten-Definition der GIZ Jordan aus 2024 (Cluster-Ebene) und erweitern sie um die Strukturkosten auf Projektebene."
     },
     {
       "id": "partnerbogen",

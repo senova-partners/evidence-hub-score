@@ -174,12 +174,12 @@ export const KPI_COPY: Record<string, KpiCopy> = {
   },
   delivery_quote: {
     subtitle: {
-      de: "Wieviel unseres Auftragsgeldes kommt beim Partner an — und verpufft nicht in interner Abwicklung?",
-      en: "How much of our commission money reaches the partner — instead of dissipating in internal processing?",
+      de: "Wieviel unseres Auftragsgeldes kommt beim Partner an — und verpufft nicht in Strukturkosten?",
+      en: "How much of our commission money reaches the partner — and does not dissipate in structural costs?",
     },
     rechenwegKurz: {
-      de: "Auftragsmittel minus interne Abwicklungskosten, geteilt durch Auftragsmittel; die Kostenabgrenzung ist einmalig definiert und eingefroren.",
-      en: "Commission funds minus internal processing costs, divided by commission funds; the cost delineation is defined once and frozen.",
+      de: "Auftragsmittel minus Strukturkosten geteilt durch Auftragsmittel. Wir erben die Strukturkosten-Definition der GIZ Jordan aus 2024 (Cluster-Ebene) und erweitern sie um die Strukturkosten auf Projektebene.",
+      en: "Commission funds minus structural costs divided by commission funds. We inherit the GIZ Jordan structural-cost definition from 2024 (cluster level) and extend it to project-level structural costs.",
     },
   },
 
