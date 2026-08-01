@@ -182,13 +182,18 @@ function KpiTabPanel({
         </div>
       )}
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <Stat label={t("baseline")} value={formatValue(baseline ?? null, kpi, locale)} />
-        <Stat label={store.session!.quarter} value={formatValue(current, kpi, locale)} />
-        <Stat
-          label={t("vs_baseline")}
-          value={`${trendGlyph[tr]} ${formatDelta(current, baseline, kpi, locale)}`}
-        />
+      <div className="flex flex-col gap-3">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <Stat label={t("baseline")} value={formatValue(baseline ?? null, kpi, locale)} />
+          <Stat label={store.session!.quarter} value={formatValue(current, kpi, locale)} />
+          <Stat
+            label={t("vs_baseline")}
+            value={`${trendGlyph[tr]} ${formatDelta(current, baseline, kpi, locale)}`}
+          />
+        </div>
+        {kpi.subtitle?.[locale] && (
+          <p className="text-[13px] text-muted-foreground">{kpi.subtitle[locale]}</p>
+        )}
       </div>
 
       <Section title={t("sec_verlauf")}>

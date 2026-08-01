@@ -271,6 +271,10 @@ export const KPIS: KpiDef[] = [
     pkg: "struktur",
     name: { de: "Freigesetzte Beratungsressourcen", en: "Freed advisory resources" },
     tabLabel: { de: "Verhältnis Beratung/Admin", en: "Advisory/admin ratio" },
+    subtitle: {
+      de: "Wieviel Prozent unserer Beraterzeit gehen in Beratung — und nicht in Verwaltung?",
+      en: "What share of our advisors' time goes into advisory work — and not into administration?",
+    },
     unit: { de: "% Fachzeit (Hauptwert) · Inhouse-Beratung % · Delivery-% (Zweitwerte)", en: "% expert time (primary) · inhouse advisory % · delivery % (secondary)" },
     unitShort: { de: "%", en: "%" },
     format: "percent",
@@ -305,7 +309,11 @@ export const KPIS: KpiDef[] = [
     id: "inhouse_beratungsquote",
     pkg: "struktur",
     name: { de: "Inhouse-Anteil der Leistungserbringung", en: "Inhouse share of service delivery" },
-    tabLabel: { de: "Inhouse-Beratung", en: "Inhouse advisory" },
+    tabLabel: { de: "Eigenanteil an Beratung", en: "Own share of advisory" },
+    subtitle: {
+      de: "Wieviel unserer Beratung machen wir selbst — statt sie zuzukaufen oder als Finanzierung weiterzugeben?",
+      en: "How much of our advisory do we deliver ourselves — instead of buying it in or passing it on as financing?",
+    },
     unit: { de: "% der Leistungserbringung inhouse (Euro-Basis)", en: "% of service delivery inhouse (euro basis)" },
     unitShort: { de: "%", en: "%" },
     format: "percent",

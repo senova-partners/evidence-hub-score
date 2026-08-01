@@ -106,9 +106,9 @@ export const KPI_DETAILS_EN: Record<string, KpiDetailEn> = {
       ["⚠ Precondition", "Role taxonomy defined and frozen (precondition 4)"],
     ],
     formula_text:
-      "Main value (in-house share of delivery): expert staff costs ÷ (expert staff costs + consulting + financing) × 100. Secondary (expertise substitution): expert staff costs ÷ (expert staff costs + consulting) × 100. Divergence reading: if the main value falls while the secondary stays stable, the financing share of the portfolio is growing — no loss of substance; if both fall, expertise is being outsourced.",
+      "Main value (in-house share of delivery): expert staff costs ÷ (expert staff costs + consulting + financing) × 100. Excluding financing, for comparison: expert staff costs ÷ (expert staff costs + consulting) × 100. Divergence reading: if the main value falls while the secondary stays stable, the financing share of the portfolio is growing — no loss of substance; if both fall, expertise is being outsourced.",
     worked_example:
-      "Main value: 4.8 ÷ (4.8 + 2.4 + 4.7) = 4.8 ÷ 11.9 = 40 %\nSecondary: 4.8 ÷ (4.8 + 2.4) = 4.8 ÷ 7.2 = 67 %\n\nReading: if the main value falls while the secondary stays stable, the financing share is growing — no loss of substance. If both fall, expertise is being outsourced.",
+      "Main value: 4.8 ÷ (4.8 + 2.4 + 4.7) = 4.8 ÷ 11.9 = 40 %\nExcluding financing, for comparison: 4.8 ÷ (4.8 + 2.4) = 4.8 ÷ 7.2 = 67 %\n\nReading: if the main value falls while the secondary stays stable, the financing share is growing — no loss of substance. If both fall, expertise is being outsourced.",
     erhebung: {
       owner: "Finance (expert staff costs + consulting spend + financing)",
       cadence: "annually",

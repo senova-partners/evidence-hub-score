@@ -46,6 +46,8 @@ export interface KpiDef {
   nLabel: { de: string; en: string };
   /** Optional short label used when this KPI appears as a tab under a hinge card. Falls back to name. */
   tabLabel?: { de: string; en: string };
+  /** Optional plain-language subtitle rendered under the value in the detail view. Empty/absent = nothing rendered. */
+  subtitle?: { de: string; en: string };
   /** Optional context line — rendered ONLY in the Info panel, never on the card. */
   contextLine?: { de: string; en: string };
   info: {
