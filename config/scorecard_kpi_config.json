@@ -50,7 +50,9 @@
           "period": "Konsult. 2026/27",
           "value": 54
         }
-      ]
+      ],
+      "subtitle": "Wie viel des ausgelaufenen Auftragsvolumens haben unsere Auftraggeber bei uns verlängert, aufgestockt oder als Folgemodul neu beauftragt?",
+      "rechenweg_kurz": "Fortgeführtes Auftragsvolumen geteilt durch das insgesamt zur Entscheidung stehende Volumen der letzten 24 Monate, erhoben nach den jährlichen Regierungskonsultationen."
     },
     {
       "id": "kofi_proposal",
@@ -85,7 +87,35 @@
           "value": 54
         }
       ],
-      "unit_short": "%"
+      "unit_short": "%",
+      "subtitle": "Wie viel des Volumens, das wir bei neuen Geldgebern beantragt haben, wurde tatsächlich gewonnen?",
+      "rechenweg_kurz": "Gewonnenes Antragsvolumen geteilt durch eingereichtes Antragsvolumen der letzten 24 Monate; Stückzahl-Quote und EU-Ausschnitt daneben.",
+      "sub_views": [
+        {
+          "id": "volumen",
+          "label": "Volumen",
+          "subtitle": "Der Kernwert — wie viel Euro wir gewonnen haben, im Verhältnis zu wie viel wir beantragt haben.",
+          "rechenweg_kurz": "Gewonnene Millionen geteilt durch eingereichte Millionen, rollierend über 24 Monate."
+        },
+        {
+          "id": "stueck",
+          "label": "Stück",
+          "subtitle": "Die Ergänzung dazu — wie viele Anträge wir gewonnen haben, unabhängig davon, wie groß sie waren.",
+          "rechenweg_kurz": "Anzahl gewonnene Anträge geteilt durch Anzahl eingereichte Anträge. Divergenz zum Volumen ist selbst die Diagnose."
+        },
+        {
+          "id": "eu",
+          "label": "EU",
+          "subtitle": "Dasselbe nur für EU-Ausschreibungen — Anschluss an die EU-Practice.",
+          "rechenweg_kurz": "EU-gewonnenes Volumen geteilt durch EU-eingereichtes Volumen, plus dieselbe Rechnung nach Stückzahl."
+        },
+        {
+          "id": "kofinanzierung",
+          "label": "Kofinanzierung",
+          "subtitle": "Wie viel zusätzliches Geld haben wir über den BMZ-Grundauftrag hinaus mobilisiert?",
+          "rechenweg_kurz": "Kofinanzierungsvolumen geteilt durch BMZ-Grundauftrag; BMZ-Anteil am Gesamtportfolio als Kontextzeile daneben."
+        }
+      ]
     },
     {
       "id": "partnerfeedback_jahr",
@@ -114,7 +144,9 @@
           "period": "2027",
           "value": 5
         }
-      ]
+      ],
+      "subtitle": "Wie sehen unsere zentralsten Partnerorganisationen die Zusammenarbeit — schneller geworden, fachlich besser geworden, würden sie uns weiterempfehlen?",
+      "rechenweg_kurz": "Zwei bis drei Gespräche pro Organisation mit rund zehn Partnern, ausgewertet als Saldo aus 'besser' minus 'schlechter'; ungestützte Expertise-Nennungen als Zusatzdiagnostik."
     },
     {
       "id": "delivery_quote",
@@ -146,7 +178,9 @@
           "value": 80
         }
       ],
-      "tab_label": "Direkte Wirkungsmittel"
+      "tab_label": "Direkte Wirkungsmittel",
+      "subtitle": "Wieviel unseres Auftragsgeldes kommt beim Partner an — und verpufft nicht in interner Abwicklung?",
+      "rechenweg_kurz": "Auftragsmittel minus interne Abwicklungskosten, geteilt durch Auftragsmittel; die Kostenabgrenzung ist einmalig definiert und eingefroren."
     },
     {
       "id": "partnerbogen",
@@ -184,7 +218,9 @@
           "period": "2027-Q2",
           "value": 3.9
         }
-      ]
+      ],
+      "subtitle": "Wie beurteilt der Partner unmittelbar nach einer abgeschlossenen Beratungsleistung, was er von uns bekommen hat?",
+      "rechenweg_kurz": "Fünf-Fragen-Bogen, den jede abgeschlossene Beratungsepisode auslöst; Mittelwert der Bewertungen, Rücklaufquote als Pflichtangabe daneben."
     },
     {
       "id": "uptake",
@@ -217,7 +253,9 @@
           "period": "2027-H2",
           "value": 55
         }
-      ]
+      ],
+      "subtitle": "Wurde unsere Empfehlung nach sechs Monaten tatsächlich umgesetzt — ganz, teilweise, oder gar nicht?",
+      "rechenweg_kurz": "Umgesetzte plus angepasste Empfehlungen geteilt durch alle Empfehlungen, deren Umsetzung nach sechs Monaten fällig war; ausstehende zählen im Nenner mit."
     },
     {
       "id": "peer_review",
@@ -247,7 +285,9 @@
           "period": "2027-H1",
           "value": null
         }
-      ]
+      ],
+      "subtitle": "Wie bewerten Kolleginnen und Kollegen aus anderen Clustern die fachliche Substanz unserer Beratungsprodukte?",
+      "rechenweg_kurz": "Halbjährliche Zufallsziehung von sechs Produkten, Bewertung durch ein cross-cluster Panel entlang fünf fachlicher Kriterien; Mittelwert je Runde."
     },
     {
       "id": "mechanismus",
@@ -287,11 +327,28 @@
       ],
       "tab_label": "Gesamt",
       "detail_tabs": [
-        "gesamt",
-        "practices",
-        "machine_room"
+        {
+          "id": "gesamt",
+          "label": "Gesamt",
+          "subtitle": "Der Board-Wert — Anteil der Episoden, bei denen Practices oder Machine Room mitgewirkt haben.",
+          "rechenweg_kurz": "Episoden mit mindestens einem Ja geteilt durch alle abgeschlossenen Episoden im Berichtsquartal."
+        },
+        {
+          "id": "practices",
+          "label": "Practices",
+          "subtitle": "Nur die Nutzung der thematischen Practice-Produkte — kommen unsere fachlichen Kompetenzzentren in der Beratung an?",
+          "rechenweg_kurz": "Episoden mit 'Practice-Produkt genutzt' geteilt durch alle Episoden; Plausibilisierung gegen die Anfragenlisten der Practices."
+        },
+        {
+          "id": "machine_room",
+          "label": "Machine Room",
+          "subtitle": "Nur die Zuarbeit des Machine Room — kommt die zentrale administrative Struktur in der Beratung an?",
+          "rechenweg_kurz": "Episoden mit 'Machine-Room-Zuarbeit' geteilt durch alle Episoden; Plausibilisierung gegen die Vorgangslisten des Machine Room."
+        }
       ],
-      "context_line": "Detail unterscheidet Practices und Machine Room; Board zeigt Gesamt (mindestens eine Struktur beteiligt)."
+      "context_line": "Detail unterscheidet Practices und Machine Room; Board zeigt Gesamt (mindestens eine Struktur beteiligt).",
+      "subtitle": "Wie oft ist unsere neue Struktur — Practices und Machine Room — tatsächlich Teil einer Beratungsleistung?",
+      "rechenweg_kurz": "Zwei Ja-Nein-Häkchen pro Beratungsepisode; Anteil der Episoden mit mindestens einer Struktur-Beteiligung, aufgeschlüsselt nach Practices und Machine Room."
     },
     {
       "id": "fachzeit",
@@ -332,7 +389,10 @@
         }
       ],
       "tab_label": "Verhältnis Beratung/Admin",
-      "subtitle": "Wieviel Prozent unserer Beraterzeit gehen in Beratung — und nicht in Verwaltung?"
+      "subtitle": "Setzt die Struktur Beratungssubstanz frei — in Zeit, Substanz und Geld?",
+      "rechenweg_kurz": "Drei Werte in drei Währungen, kein Index; ihre Divergenz ist selbst die Diagnose.",
+      "tab_subtitle": "Wieviel Prozent unserer Beraterzeit gehen in Beratung — und nicht in Verwaltung?",
+      "tab_rechenweg_kurz": "Zwei-Wochen-Selbstprotokoll der Berater pro Halbjahr, gemeldet ausschließlich als Team-Mittelwert ab fünf Personen; personengewichteter Durchschnitt über alle Teams."
     },
     {
       "id": "inhouse_beratungsquote",
@@ -367,7 +427,8 @@
         }
       ],
       "tab_label": "Eigenanteil an Beratung",
-      "subtitle": "Wieviel unserer Beratung machen wir selbst — statt sie zuzukaufen oder als Finanzierung weiterzugeben?"
+      "subtitle": "Wieviel unserer Beratung machen wir selbst — statt sie zuzukaufen oder als Finanzierung weiterzugeben?",
+      "rechenweg_kurz": "Interne Fach-Personalkosten geteilt durch Fach-Personalkosten plus Consulting-Ausgaben plus Finanzierungen; daneben derselbe Wert ohne Finanzierungen als Vergleich."
     },
     {
       "id": "schmerzpunkt",
@@ -396,7 +457,9 @@
           "period": "Wiedervorlage 2027",
           "value": 2.7
         }
-      ]
+      ],
+      "subtitle": "Ein Jahr nach dem Reach-In — sind die Schmerzpunkte, die die Cluster damals genannt haben, gelöst oder unverändert?",
+      "rechenweg_kurz": "Dieselbe Reach-In-Liste, derselbe Teilnehmerkreis, ein Jahr später bewertet auf einer Fünferskala von 'gelöst' bis 'unverändert'; Mittelwert über alle Punkte aller Cluster-Listen."
     }
   ],
   "not_measured": {

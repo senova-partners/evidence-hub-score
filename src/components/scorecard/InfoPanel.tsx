@@ -1,20 +1,40 @@
 import { useState } from "react";
 import { kpiById } from "@/lib/scorecard/kpis";
+import { kpiCopy } from "@/lib/scorecard/kpi-copy";
 import { useT, useLocale } from "@/lib/scorecard/useT";
 
-export function InfoPanel({ kpiId }: { kpiId: string }) {
+/**
+ * Info panel for a KPI — or, when `copyKey` / `title` are given, for one
+ * sub-tab of a KPI detail view. Sub-tab mode shows the tab's subtitle as the
+ * heading text and its short calculation description, then falls back to the
+ * parent KPI's info fields.
+ */
+export function InfoPanel({
+  kpiId,
+  copyKey,
+  title,
+}: {
+  kpiId: string;
+  copyKey?: string;
+  title?: string;
+}) {
   const [open, setOpen] = useState(false);
   const t = useT();
   const locale = useLocale();
   const kpi = kpiById(kpiId);
   if (!kpi) return null;
 
+  const copy = kpiCopy(copyKey) ?? kpiCopy(kpiId);
+  const heading = title ?? kpi.name[locale];
+  const subtitle = copy?.subtitle[locale] ?? kpi.subtitle?.[locale] ?? "";
+  const rechenweg = copy?.rechenwegKurz[locale] ?? "";
+
   return (
     <>
       <button
         type="button"
         onClick={() => setOpen(true)}
-        aria-label={`${t("info")}: ${kpi.name[locale]}`}
+        aria-label={`${t("info")}: ${heading}`}
         className="text-[12px] hairline w-5 h-5 flex items-center justify-center rounded-full hover:bg-secondary"
       >
         i
@@ -27,7 +47,7 @@ export function InfoPanel({ kpiId }: { kpiId: string }) {
           <div
             role="dialog"
             aria-modal="true"
-            aria-label={kpi.name[locale]}
+            aria-label={heading}
             className="bg-background hairline max-w-lg w-full p-6 max-h-[90vh] overflow-auto"
             onClick={(e) => e.stopPropagation()}
           >
@@ -36,7 +56,10 @@ export function InfoPanel({ kpiId }: { kpiId: string }) {
                 <div className="text-[12px] text-muted-foreground uppercase tracking-wide">
                   {t("info")}
                 </div>
-                <h2 className="text-[16px] font-semibold">{kpi.name[locale]}</h2>
+                <h2 className="text-[16px] font-semibold">{heading}</h2>
+                {subtitle && (
+                  <p className="text-[13px] text-muted-foreground mt-1">{subtitle}</p>
+                )}
               </div>
               <button
                 onClick={() => setOpen(false)}
@@ -48,6 +71,7 @@ export function InfoPanel({ kpiId }: { kpiId: string }) {
             </div>
 
             <dl className="space-y-4">
+              {rechenweg && <Section title={t("d_formula")} body={rechenweg} />}
               <Section
                 title={t("einheit") || "Einheit"}
                 body={kpi.unit[locale]}
