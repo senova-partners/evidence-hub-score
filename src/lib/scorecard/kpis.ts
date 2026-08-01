@@ -482,11 +482,11 @@ export const PKG_LABEL: Record<
   "aussenbeweis" | "beratungsqualitaet" | "struktur",
   { de: string; en: string }
 > = {
+  struktur: { de: "PAKET 1 — STRUKTUR-EFFIZIENZ", en: "PACKAGE 1 — STRUCTURAL EFFICIENCY" },
   beratungsqualitaet: {
-    de: "PAKET 1 — BERATUNGSQUALITÄT",
-    en: "PACKAGE 1 — ADVISORY QUALITY",
+    de: "PAKET 2 — BERATUNGSQUALITÄT",
+    en: "PACKAGE 2 — ADVISORY QUALITY",
   },
-  struktur: { de: "PAKET 2 — STRUKTUR-EFFIZIENZ", en: "PACKAGE 2 — STRUCTURAL EFFICIENCY" },
   aussenbeweis: { de: "PAKET 3 — AUSSENBEWEIS", en: "PACKAGE 3 — EXTERNAL PROOF" },
 };
 
