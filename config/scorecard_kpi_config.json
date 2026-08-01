@@ -150,7 +150,7 @@
     },
     {
       "id": "delivery_quote",
-      "paket": 2,
+      "paket": 1,
       "paket_name": "Struktur-Effizienz",
       "name": "Direkte Wirkungsmittel (Delivery-Quote)",
       "unit": "%",
@@ -184,7 +184,7 @@
     },
     {
       "id": "partnerbogen",
-      "paket": 1,
+      "paket": 2,
       "paket_name": "Beratungsqualität",
       "name": "Partnerbogen (je Beratungsepisode)",
       "unit": "1–5",
@@ -224,7 +224,7 @@
     },
     {
       "id": "uptake",
-      "paket": 1,
+      "paket": 2,
       "paket_name": "Beratungsqualität",
       "name": "Uptake-Quote (6 Monate)",
       "unit": "% umgesetzt oder angepasst",
@@ -259,7 +259,7 @@
     },
     {
       "id": "peer_review",
-      "paket": 1,
+      "paket": 2,
       "paket_name": "Beratungsqualität",
       "name": "Peer-Review-Rating",
       "unit": "1–5 Nutzbarkeit",
@@ -322,7 +322,7 @@
     },
     {
       "id": "mechanismus",
-      "paket": 2,
+      "paket": 1,
       "paket_name": "Struktur-Effizienz",
       "name": "Mechanismus-Beteiligung",
       "unit": "% Episoden mit Struktur-Beteiligung",
@@ -383,7 +383,7 @@
     },
     {
       "id": "fachzeit",
-      "paket": 2,
+      "paket": 1,
       "paket_name": "Struktur-Effizienz",
       "name": "Freigesetzte Beratungsressourcen",
       "unit": "% Fachzeit",
@@ -427,7 +427,7 @@
     },
     {
       "id": "inhouse_beratungsquote",
-      "paket": 2,
+      "paket": 1,
       "paket_name": "Struktur-Effizienz",
       "name": "Inhouse-Anteil der Leistungserbringung",
       "unit": "% der Leistungserbringung inhouse (Euro-Basis)",
