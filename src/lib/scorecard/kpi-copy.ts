@@ -216,24 +216,14 @@ export const KPI_COPY: Record<string, KpiCopy> = {
   },
 
   // ---- Sub-tabs of peer_review ----
-  "peer_review:gesamt": {
-    subtitle: {
-      de: "Der Board-Wert — gewichteter Mittelwert über alle Nutzbarkeitsbewertungen von Practice-Leistungen und Machine-Room-Zuarbeiten.",
-      en: "The board value — weighted mean across all usability ratings of practice deliverables and machine room contributions.",
-    },
-    rechenwegKurz: {
-      de: "Summe aller Nutzbarkeitswerte, geteilt durch die Gesamtzahl der Bewertungen; häufiger genutzte Struktureinheiten zählen entsprechend stärker.",
-      en: "Sum of all usability values divided by the total number of ratings; more frequently used structural units weigh accordingly more.",
-    },
-  },
   "peer_review:practices": {
     subtitle: {
       de: "Wie brauchbar erlebten die Projekte die Leistungen der Practices — waren die fachlichen Zuarbeiten für die Beratung tatsächlich hilfreich?",
       en: "How usable did projects find the practices' services — were the technical contributions actually helpful for advisory work?",
     },
     rechenwegKurz: {
-      de: "Mittelwert aller Nutzbarkeitsbewertungen (1–5), die Projekte im Quartal nach Nutzung einer Practice-Leistung abgegeben haben.",
-      en: "Mean of all usability ratings (1–5) submitted by projects in the quarter after using a practice deliverable.",
+      de: "Drei parallele Werte nebeneinander: Peer-Bewertung (Nutzbarkeit 1–5 und Fristentreue aus den Episoden), Leadership-Bewertung (halbjährlich durch PFM/LD und CCs) und Schmerzpunkt-Wiedervorlage — keine Aggregation, kein Index.",
+      en: "Three parallel values side by side: peer assessment (usability 1–5 and deadline reliability from the episodes), leadership assessment (bi-annual by PFM/LD and the CCs) and pain-point re-review — no aggregation, no index.",
     },
   },
   "peer_review:machine_room": {
@@ -242,8 +232,8 @@ export const KPI_COPY: Record<string, KpiCopy> = {
       en: "How usable did projects find the machine room's contribution — were the administrative inputs actually helpful for advisory work?",
     },
     rechenwegKurz: {
-      de: "Mittelwert aller Nutzbarkeitsbewertungen (1–5), die Projekte im Quartal nach Nutzung einer Machine-Room-Zuarbeit abgegeben haben.",
-      en: "Mean of all usability ratings (1–5) submitted by projects in the quarter after using a machine room contribution.",
+      de: "Drei parallele Werte nebeneinander: Peer-Bewertung (Nutzbarkeit 1–5 und Fristentreue aus den Episoden), Leadership-Bewertung (halbjährlich durch PFM/LD und CCs) und Schmerzpunkt-Wiedervorlage — keine Aggregation, kein Index.",
+      en: "Three parallel values side by side: peer assessment (usability 1–5 and deadline reliability from the episodes), leadership assessment (bi-annual by PFM/LD and the CCs) and pain-point re-review — no aggregation, no index.",
     },
   },
 };
