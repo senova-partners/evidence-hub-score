@@ -44,20 +44,12 @@ export function KpiCard({
   const history = kpiHistory(kpiId);
 
   const subtitle = kpiCopy(kpiId)?.subtitle[locale] ?? CARD_SUBTITLE[kpiId]?.[locale] ?? "";
-  const footerN = CARD_FOOTER_N[kpiId]?.[locale] ?? "";
   const seitBaseline = locale === "de" ? "seit Baseline" : "since baseline";
   const meldungFehlt = locale === "de" ? "Meldung fehlt" : "Report missing";
-  const letzteRunde = locale === "de" ? "Letzte Runde" : "Last round";
 
-  let footerText = `Baseline ${bareBaseline(baseline, kpi, locale)}${
-    footerN ? ` · ${footerN}` : ""
-  }`;
-
-  if (missing) {
-    footerText = `${letzteRunde} ${bareBaseline(baseline, kpi, locale)}${
-      footerN ? ` · ${footerN}` : ""
-    }`;
-  }
+  // Baseline/Ziel/Zeitraum footer removed from the card — that context now
+  // lives behind the ⓘ info panel. Only genuine secondary values stay.
+  let footerText = "";
 
   const secondaryIds = kpi.secondaryKpiIds ?? (kpi.secondaryKpiId ? [kpi.secondaryKpiId] : []);
   if (secondaryIds.length > 0 && !missing) {
@@ -73,6 +65,7 @@ export function KpiCard({
       .filter(Boolean);
     if (parts.length > 0) footerText = parts.join(" · ");
   }
+
 
   const ariaLabel = missing
     ? `${kpi.name[locale]}: ${meldungFehlt}`
