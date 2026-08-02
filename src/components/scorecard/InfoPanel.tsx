@@ -28,6 +28,7 @@ export function InfoPanel({
   const heading = title ?? kpi.name[locale];
   const subtitle = copy?.subtitle[locale] ?? kpi.subtitle?.[locale] ?? "";
   const rechenweg = copy?.rechenwegKurz[locale] ?? "";
+  const fragebogen = kpiFragebogen(copyKey) ?? kpiFragebogen(kpiId);
 
   return (
     <>
