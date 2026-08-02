@@ -254,10 +254,21 @@ export interface FragebogenFrage {
   zieltAuf: Bi;
 }
 
+export interface FragebogenAbschnitt {
+  titel: Bi;
+  frage: Bi;
+  typ?: Bi;
+  skala?: Bi;
+  followups?: Bi[];
+  hinweisInterviewer?: Bi;
+  zieltAuf?: Bi;
+}
+
 export interface Fragebogen {
   title: Bi;
   intro: Bi;
-  fragen: FragebogenFrage[];
+  fragen?: FragebogenFrage[];
+  abschnitte?: FragebogenAbschnitt[];
 }
 
 export const KPI_FRAGEBOGEN: Record<string, Fragebogen> = {
