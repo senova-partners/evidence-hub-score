@@ -272,6 +272,147 @@ export interface Fragebogen {
 }
 
 export const KPI_FRAGEBOGEN: Record<string, Fragebogen> = {
+  partnerfeedback_jahr: {
+    title: {
+      de: "Jährlicher Partnerfeedback-Leitfaden",
+      en: "Annual partner feedback interview guide",
+    },
+    intro: {
+      de: "Halbstrukturiertes Interview, 45–60 Minuten, mit 2–3 Befragten je Organisation bei rund 10 zentralen Partnerorganisationen. Anonymisiert auf Organisationsebene ausgewertet. Interviewer ist bewusst nicht die betreuende Person aus der laufenden Zusammenarbeit.",
+      en: "Semi-structured interview, 45–60 minutes, with 2–3 respondents per organisation at around 10 central partner organisations. Evaluated anonymously at organisation level. The interviewer is deliberately not the person managing the ongoing cooperation.",
+    },
+    abschnitte: [
+      {
+        titel: { de: "Öffnung — Veränderungswahrnehmung", en: "Opening — perception of change" },
+        frage: {
+          de: "Wenn Sie an die Zusammenarbeit mit GIZ in den letzten zwölf Monaten denken — was hat sich verändert im Vergleich zu den zwölf Monaten davor?",
+          en: "Thinking of the cooperation with GIZ over the past twelve months — what has changed compared with the twelve months before?",
+        },
+        typ: { de: "offen", en: "open" },
+        followups: [
+          { de: "Was ist besser geworden?", en: "What got better?" },
+          { de: "Was ist schlechter geworden?", en: "What got worse?" },
+          { de: "Was ist gleich geblieben?", en: "What stayed the same?" },
+        ],
+        zieltAuf: {
+          de: "Rahmen für alles Folgende; der Powerhouse-Anspruch ist der Veränderungsanspruch.",
+          en: "Frames everything that follows; the powerhouse claim is a claim about change.",
+        },
+      },
+      {
+        titel: {
+          de: "Credibility — ungestützte Expertise-Nennung",
+          en: "Credibility — unprompted expertise mention",
+        },
+        frage: {
+          de: "Wenn Sie an die drei bis fünf wichtigsten Fachfragen in Ihrem Bereich denken — welche Organisationen fallen Ihnen als kompetente Ansprechpartner ein?",
+          en: "Thinking of the three to five most important technical questions in your field — which organisations come to mind as competent counterparts?",
+        },
+        typ: { de: "offen (ungestützt)", en: "open (unprompted)" },
+        hinweisInterviewer: {
+          de: "GIZ NICHT nennen. Spontane Antwort protokollieren. Wird GIZ ungestützt genannt, ist das ein starkes Credibility-Signal.",
+          en: "Do NOT mention GIZ. Record the spontaneous answer. An unprompted mention of GIZ is a strong credibility signal.",
+        },
+        followups: [
+          {
+            de: "Und wenn Sie speziell an GIZ denken — für welche Themen sind wir für Sie erste Adresse, für welche eher nicht?",
+            en: "And thinking specifically of GIZ — on which topics are we your first port of call, on which rather not?",
+          },
+        ],
+      },
+      {
+        titel: { de: "Reliability — Verhaltensbeweis", en: "Reliability — behavioural evidence" },
+        frage: {
+          de: "Wie oft ist es in den letzten zwölf Monaten vorgekommen, dass GIZ eine Zusage nicht wie vereinbart eingehalten hat — bei Fristen, bei Umfängen, bei Zusagen zu Personen?",
+          en: "How often in the past twelve months did GIZ fail to keep a commitment as agreed — on deadlines, on scope, on staffing commitments?",
+        },
+        typ: { de: "offen (Zählung)", en: "open (count)" },
+        followups: [
+          { de: "Welche Art von Zusagen war betroffen?", en: "Which kind of commitments were affected?" },
+        ],
+        zieltAuf: {
+          de: "Absichtlich negativ formuliert, um Reliability nicht durch soziale Erwünschtheit zu inflieren.",
+          en: "Deliberately phrased negatively so that social desirability does not inflate reliability.",
+        },
+      },
+      {
+        titel: { de: "Intimacy — Diskretionsanfragen", en: "Intimacy — discretionary requests" },
+        frage: {
+          de: "Gab es in den letzten zwölf Monaten Situationen, in denen Sie GIZ um Rat gefragt haben, obwohl es formal nicht in unserem Auftrag lag?",
+          en: "Were there situations in the past twelve months in which you asked GIZ for advice although it formally fell outside our commission?",
+        },
+        typ: { de: "Anzahl", en: "count" },
+        followups: [
+          {
+            de: "Wie viele solcher Situationen erinnern Sie insgesamt in diesem Zeitraum, bei allen Ihren Beratungspartnern?",
+            en: "How many such situations do you recall in total in that period, across all your advisory partners?",
+          },
+        ],
+        hinweisInterviewer: {
+          de: "NICHT nach Inhalten fragen — die Diskretion muss geschützt bleiben. Nur Zählwerte.",
+          en: "Do NOT ask about content — discretion must be protected. Counts only.",
+        },
+      },
+      {
+        titel: { de: "Self-Orientation — direkte Frage", en: "Self-orientation — direct question" },
+        frage: {
+          de: "Hatten Sie in den letzten zwölf Monaten den Eindruck, dass GIZ eigene institutionelle Interessen über die Ihres Ressorts gestellt hat?",
+          en: "Did you have the impression in the past twelve months that GIZ put its own institutional interests above those of your department?",
+        },
+        typ: { de: "Skala 1–5", en: "scale 1–5" },
+        skala: {
+          de: "1 (nie) bis 5 (häufig) — niedrig ist gut",
+          en: "1 (never) to 5 (often) — low is good",
+        },
+        followups: [
+          { de: "Nur wenn Antwort > 2: In welchen Situationen?", en: "Only if answer > 2: in which situations?" },
+        ],
+      },
+      {
+        titel: {
+          de: "Institutioneller Wandel — Powerhouse-Wahrnehmung",
+          en: "Institutional change — powerhouse perception",
+        },
+        frage: {
+          de: "Haben Sie in den letzten zwölf Monaten wahrgenommen, dass sich unsere interne Arbeitsweise verändert hat — schnellere Prozesse, breitere Expertise, klarere Ansprechpartner?",
+          en: "Did you notice in the past twelve months that our internal way of working has changed — faster processes, broader expertise, clearer contacts?",
+        },
+        typ: { de: "offen", en: "open" },
+        followups: [{ de: "Woran haben Sie das gemerkt?", en: "How did you notice?" }],
+        zieltAuf: {
+          de: "Direkte Prüfung der Powerhouse-Behauptung durch die, die es merken müssten.",
+          en: "Direct test of the powerhouse claim by those who should notice it.",
+        },
+      },
+      {
+        titel: { de: "Zukunftsbindung", en: "Future commitment" },
+        frage: {
+          de: "Wenn Sie an die nächsten zwölf bis vierundzwanzig Monate denken — bei welchen Fragestellungen sehen Sie GIZ als selbstverständlichen Partner, bei welchen weniger?",
+          en: "Thinking of the next twelve to twenty-four months — on which questions do you see GIZ as an obvious partner, on which less so?",
+        },
+        typ: { de: "offen", en: "open" },
+        zieltAuf: {
+          de: "Wiederbeauftragungsabsicht, aber weicher als reine Ja-Nein-Frage.",
+          en: "Intent to re-commission, but softer than a plain yes/no question.",
+        },
+      },
+      {
+        titel: {
+          de: "Schlussfrage — die eine ehrliche Nachfrage",
+          en: "Closing question — the one honest ask",
+        },
+        frage: {
+          de: "Wenn Sie mir eine Sache sagen sollten, die GIZ dringend anders machen müsste — was wäre das?",
+          en: "If you had to tell me one thing GIZ urgently needs to do differently — what would it be?",
+        },
+        typ: { de: "offen", en: "open" },
+        zieltAuf: {
+          de: "Bewusst am Schluss; die Beziehung im Gespräch ist bis dahin so aufgebaut, dass ehrliche Antworten wahrscheinlicher sind.",
+          en: "Deliberately last; by then the rapport in the conversation makes honest answers more likely.",
+        },
+      },
+    ],
+  },
   partnerbogen: {
     title: {
       de: "Partnerbogen je Beratungsepisode",
