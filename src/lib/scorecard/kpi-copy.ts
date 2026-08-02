@@ -243,3 +243,111 @@ export function kpiCopy(key: string | undefined): KpiCopy | undefined {
   if (!key) return undefined;
   return KPI_COPY[key];
 }
+
+// ---- Optional questionnaire block (source: config/scorecard_kpi_config.json → fragebogen) ----
+
+export interface FragebogenFrage {
+  nr: number;
+  titel: Bi;
+  frage: Bi;
+  skala: Bi;
+  zieltAuf: Bi;
+}
+
+export interface Fragebogen {
+  title: Bi;
+  intro: Bi;
+  fragen: FragebogenFrage[];
+}
+
+export const KPI_FRAGEBOGEN: Record<string, Fragebogen> = {
+  partnerbogen: {
+    title: {
+      de: "Partnerbogen je Beratungsepisode",
+      en: "Partner form per advisory episode",
+    },
+    intro: {
+      de: "Fünf Fragen, zwei bis drei Minuten Ausfüllzeit, direkt am Ende einer abgeschlossenen Beratungsleistung. Skala 1–5. Rücklaufquote wird als sechster Wert daneben ausgewiesen — als Meldetreue-Signal.",
+      en: "Five questions, two to three minutes to complete, right at the end of a completed advisory service. Scale 1–5. The response rate is shown alongside as a sixth value — as a reporting-discipline signal.",
+    },
+    fragen: [
+      {
+        nr: 1,
+        titel: { de: "Passgenauigkeit", en: "Fit" },
+        frage: {
+          de: "Wie gut hat die Beratung Ihre konkrete Fragestellung getroffen?",
+          en: "How well did the advice address your specific question?",
+        },
+        skala: { de: "1 (gar nicht) bis 5 (sehr gut)", en: "1 (not at all) to 5 (very well)" },
+        zieltAuf: {
+          de: "Haben wir das beantwortet, was gefragt war, oder generisch beraten.",
+          en: "Did we answer what was asked, or advise generically.",
+        },
+      },
+      {
+        nr: 2,
+        titel: { de: "Fachliche Substanz", en: "Technical substance" },
+        frage: {
+          de: "Wie substanziell war der fachliche Beitrag im Vergleich zu dem, was Sie ohne uns erarbeitet hätten?",
+          en: "How substantial was the technical contribution compared with what you would have developed without us?",
+        },
+        skala: {
+          de: "1 (kein Mehrwert) bis 5 (deutlicher Mehrwert)",
+          en: "1 (no added value) to 5 (clear added value)",
+        },
+        zieltAuf: {
+          de: "Haben wir Mehrwert erbracht oder nur bestätigt, was schon klar war.",
+          en: "Did we add value or merely confirm what was already clear.",
+        },
+      },
+      {
+        nr: 3,
+        titel: { de: "Rechtzeitigkeit", en: "Timeliness" },
+        frage: {
+          de: "Kam die Beratung zu einem Zeitpunkt, an dem Sie sie nutzen konnten?",
+          en: "Did the advice arrive at a point when you could use it?",
+        },
+        skala: { de: "1 (zu spät) bis 5 (rechtzeitig)", en: "1 (too late) to 5 (on time)" },
+        zieltAuf: {
+          de: "Haben wir geliefert bevor Entscheidungen gefallen waren, oder danach.",
+          en: "Did we deliver before decisions were made, or after.",
+        },
+      },
+      {
+        nr: 4,
+        titel: { de: "Umsetzbarkeit", en: "Actionability" },
+        frage: {
+          de: "Wie konkret war die Beratung — konnten Sie damit direkt weiterarbeiten?",
+          en: "How concrete was the advice — could you work with it directly?",
+        },
+        skala: {
+          de: "1 (abstrakt) bis 5 (direkt handlungsleitend)",
+          en: "1 (abstract) to 5 (directly actionable)",
+        },
+        zieltAuf: {
+          de: "Waren wir konkret handlungsleitend oder abstrakt.",
+          en: "Were we concretely actionable or abstract.",
+        },
+      },
+      {
+        nr: 5,
+        titel: { de: "Weiterempfehlung", en: "Recommendation" },
+        frage: {
+          de: "Würden Sie GIZ für eine vergleichbare Fragestellung erneut ansprechen?",
+          en: "Would you approach GIZ again for a comparable question?",
+        },
+        skala: { de: "1 (nein) bis 5 (ja, sicher)", en: "1 (no) to 5 (yes, certainly)" },
+        zieltAuf: {
+          de: "Verkürzter Reichheld-Loyalitätsanker; kein klassisches NPS.",
+          en: "Shortened Reichheld loyalty anchor; not a classic NPS.",
+        },
+      },
+    ],
+  },
+};
+
+/** Generic lookup — returns undefined when no questionnaire is configured. */
+export function kpiFragebogen(key: string | undefined): Fragebogen | undefined {
+  if (!key) return undefined;
+  return KPI_FRAGEBOGEN[key];
+}

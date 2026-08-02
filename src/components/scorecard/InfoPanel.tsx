@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { kpiById } from "@/lib/scorecard/kpis";
-import { kpiCopy } from "@/lib/scorecard/kpi-copy";
+import { kpiCopy, kpiFragebogen } from "@/lib/scorecard/kpi-copy";
 import { useT, useLocale } from "@/lib/scorecard/useT";
 
 /**
@@ -28,6 +28,7 @@ export function InfoPanel({
   const heading = title ?? kpi.name[locale];
   const subtitle = copy?.subtitle[locale] ?? kpi.subtitle?.[locale] ?? "";
   const rechenweg = copy?.rechenwegKurz[locale] ?? "";
+  const fragebogen = kpiFragebogen(copyKey) ?? kpiFragebogen(kpiId);
 
   return (
     <>
@@ -89,6 +90,32 @@ export function InfoPanel({
                 <Section title={t("verworfen")} body={kpi.info.verworfen[locale]} />
               )}
             </dl>
+
+            {fragebogen && (
+              <section className="mt-6 pt-4 hairline-t">
+                <h3 className="text-[12px] uppercase tracking-wide text-muted-foreground mb-1">
+                  {locale === "de" ? "Fragebogen" : "Questionnaire"}
+                </h3>
+                <div className="text-[13px] font-semibold">{fragebogen.title[locale]}</div>
+                <p className="text-[12px] text-muted-foreground mt-1">
+                  {fragebogen.intro[locale]}
+                </p>
+                <ol className="mt-3 space-y-3">
+                  {fragebogen.fragen.map((f) => (
+                    <li key={f.nr}>
+                      <div className="text-[12px] font-semibold tabular-nums">
+                        {f.nr}. {f.titel[locale]}
+                      </div>
+                      <div className="text-[13px]">{f.frage[locale]}</div>
+                      <div className="text-[12px] text-muted-foreground">{f.skala[locale]}</div>
+                      <div className="text-[11px] italic text-muted-foreground">
+                        {f.zieltAuf[locale]}
+                      </div>
+                    </li>
+                  ))}
+                </ol>
+              </section>
+            )}
           </div>
         </div>
       )}
