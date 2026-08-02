@@ -146,7 +146,81 @@
         }
       ],
       "subtitle": "Wie sehen unsere zentralsten Partnerorganisationen die Zusammenarbeit — schneller geworden, fachlich besser geworden, würden sie uns weiterempfehlen?",
-      "rechenweg_kurz": "Zwei bis drei Gespräche pro Organisation mit rund zehn Partnern, ausgewertet als Saldo aus 'besser' minus 'schlechter'; ungestützte Expertise-Nennungen als Zusatzdiagnostik."
+      "rechenweg_kurz": "Zwei bis drei Gespräche pro Organisation mit rund zehn Partnern, ausgewertet als Saldo aus 'besser' minus 'schlechter'; ungestützte Expertise-Nennungen als Zusatzdiagnostik.",
+      "fragebogen": {
+        "title": "Jährlicher Partnerfeedback-Leitfaden",
+        "intro": "Halbstrukturiertes Interview, 45–60 Minuten, mit 2–3 Befragten je Organisation bei rund 10 zentralen Partnerorganisationen. Anonymisiert auf Organisationsebene ausgewertet. Interviewer ist bewusst nicht die betreuende Person aus der laufenden Zusammenarbeit.",
+        "abschnitte": [
+          {
+            "titel": "Öffnung — Veränderungswahrnehmung",
+            "frage": "Wenn Sie an die Zusammenarbeit mit GIZ in den letzten zwölf Monaten denken — was hat sich verändert im Vergleich zu den zwölf Monaten davor?",
+            "typ": "offen",
+            "followups": [
+              "Was ist besser geworden?",
+              "Was ist schlechter geworden?",
+              "Was ist gleich geblieben?"
+            ],
+            "zielt_auf": "Rahmen für alles Folgende; der Powerhouse-Anspruch ist der Veränderungsanspruch."
+          },
+          {
+            "titel": "Credibility — ungestützte Expertise-Nennung",
+            "frage": "Wenn Sie an die drei bis fünf wichtigsten Fachfragen in Ihrem Bereich denken — welche Organisationen fallen Ihnen als kompetente Ansprechpartner ein?",
+            "typ": "offen (ungestützt)",
+            "hinweis_interviewer": "GIZ NICHT nennen. Spontane Antwort protokollieren. Wird GIZ ungestützt genannt, ist das ein starkes Credibility-Signal.",
+            "followups": [
+              "Und wenn Sie speziell an GIZ denken — für welche Themen sind wir für Sie erste Adresse, für welche eher nicht?"
+            ]
+          },
+          {
+            "titel": "Reliability — Verhaltensbeweis",
+            "frage": "Wie oft ist es in den letzten zwölf Monaten vorgekommen, dass GIZ eine Zusage nicht wie vereinbart eingehalten hat — bei Fristen, bei Umfängen, bei Zusagen zu Personen?",
+            "typ": "offen (Zählung)",
+            "followups": [
+              "Welche Art von Zusagen war betroffen?"
+            ],
+            "zielt_auf": "Absichtlich negativ formuliert, um Reliability nicht durch soziale Erwünschtheit zu inflieren."
+          },
+          {
+            "titel": "Intimacy — Diskretionsanfragen",
+            "frage": "Gab es in den letzten zwölf Monaten Situationen, in denen Sie GIZ um Rat gefragt haben, obwohl es formal nicht in unserem Auftrag lag?",
+            "typ": "Anzahl",
+            "followups": [
+              "Wie viele solcher Situationen erinnern Sie insgesamt in diesem Zeitraum, bei allen Ihren Beratungspartnern?"
+            ],
+            "hinweis_interviewer": "NICHT nach Inhalten fragen — die Diskretion muss geschützt bleiben. Nur Zählwerte."
+          },
+          {
+            "titel": "Self-Orientation — direkte Frage",
+            "frage": "Hatten Sie in den letzten zwölf Monaten den Eindruck, dass GIZ eigene institutionelle Interessen über die Ihres Ressorts gestellt hat?",
+            "typ": "Skala 1–5",
+            "skala": "1 (nie) bis 5 (häufig) — niedrig ist gut",
+            "followups": [
+              "Nur wenn Antwort > 2: In welchen Situationen?"
+            ]
+          },
+          {
+            "titel": "Institutioneller Wandel — Powerhouse-Wahrnehmung",
+            "frage": "Haben Sie in den letzten zwölf Monaten wahrgenommen, dass sich unsere interne Arbeitsweise verändert hat — schnellere Prozesse, breitere Expertise, klarere Ansprechpartner?",
+            "typ": "offen",
+            "followups": [
+              "Woran haben Sie das gemerkt?"
+            ],
+            "zielt_auf": "Direkte Prüfung der Powerhouse-Behauptung durch die, die es merken müssten."
+          },
+          {
+            "titel": "Zukunftsbindung",
+            "frage": "Wenn Sie an die nächsten zwölf bis vierundzwanzig Monate denken — bei welchen Fragestellungen sehen Sie GIZ als selbstverständlichen Partner, bei welchen weniger?",
+            "typ": "offen",
+            "zielt_auf": "Wiederbeauftragungsabsicht, aber weicher als reine Ja-Nein-Frage."
+          },
+          {
+            "titel": "Schlussfrage — die eine ehrliche Nachfrage",
+            "frage": "Wenn Sie mir eine Sache sagen sollten, die GIZ dringend anders machen müsste — was wäre das?",
+            "typ": "offen",
+            "zielt_auf": "Bewusst am Schluss; die Beziehung im Gespräch ist bis dahin so aufgebaut, dass ehrliche Antworten wahrscheinlicher sind."
+          }
+        ]
+      }
     },
     {
       "id": "delivery_quote",
