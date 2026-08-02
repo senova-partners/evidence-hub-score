@@ -94,26 +94,77 @@ export function InfoPanel({
             {fragebogen && (
               <section className="mt-6 pt-4 hairline-t">
                 <h3 className="text-[12px] uppercase tracking-wide text-muted-foreground mb-1">
-                  {locale === "de" ? "Fragebogen" : "Questionnaire"}
+                  {fragebogen.abschnitte
+                    ? locale === "de"
+                      ? "Interviewleitfaden"
+                      : "Interview guide"
+                    : locale === "de"
+                      ? "Fragebogen"
+                      : "Questionnaire"}
                 </h3>
                 <div className="text-[13px] font-semibold">{fragebogen.title[locale]}</div>
                 <p className="text-[12px] text-muted-foreground mt-1">
                   {fragebogen.intro[locale]}
                 </p>
-                <ol className="mt-3 space-y-3">
-                  {fragebogen.fragen.map((f) => (
-                    <li key={f.nr}>
-                      <div className="text-[12px] font-semibold tabular-nums">
-                        {f.nr}. {f.titel[locale]}
-                      </div>
-                      <div className="text-[13px]">{f.frage[locale]}</div>
-                      <div className="text-[12px] text-muted-foreground">{f.skala[locale]}</div>
-                      <div className="text-[11px] italic text-muted-foreground">
-                        {f.zieltAuf[locale]}
-                      </div>
-                    </li>
-                  ))}
-                </ol>
+                {fragebogen.fragen && (
+                  <ol className="mt-3 space-y-3">
+                    {fragebogen.fragen.map((f) => (
+                      <li key={f.nr}>
+                        <div className="text-[12px] font-semibold tabular-nums">
+                          {f.nr}. {f.titel[locale]}
+                        </div>
+                        <div className="text-[13px]">{f.frage[locale]}</div>
+                        <div className="text-[12px] text-muted-foreground">{f.skala[locale]}</div>
+                        <div className="text-[11px] italic text-muted-foreground">
+                          {f.zieltAuf[locale]}
+                        </div>
+                      </li>
+                    ))}
+                  </ol>
+                )}
+                {fragebogen.abschnitte && (
+                  <div className="mt-3">
+                    {fragebogen.abschnitte.map((a, i) => (
+                      <details
+                        key={a.titel.de}
+                        open={i === 0}
+                        className="hairline-t py-2 group"
+                      >
+                        <summary className="cursor-pointer list-none text-[13px] font-semibold flex items-start gap-2">
+                          <span className="text-muted-foreground group-open:rotate-90 transition-transform">
+                            ›
+                          </span>
+                          <span>{a.titel[locale]}</span>
+                        </summary>
+                        <div className="mt-2 pl-4 flex flex-col gap-1">
+                          <div className="text-[13px]">{a.frage[locale]}</div>
+                          {(a.skala ?? a.typ) && (
+                            <div className="text-[12px] text-muted-foreground">
+                              {(a.skala ?? a.typ)![locale]}
+                            </div>
+                          )}
+                          {a.followups && a.followups.length > 0 && (
+                            <ul className="list-disc pl-4 text-[12px] text-muted-foreground">
+                              {a.followups.map((f) => (
+                                <li key={f.de}>{f[locale]}</li>
+                              ))}
+                            </ul>
+                          )}
+                          {a.hinweisInterviewer && (
+                            <div className="text-[12px] font-semibold text-[color:var(--giz-red)] hairline p-2">
+                              {a.hinweisInterviewer[locale]}
+                            </div>
+                          )}
+                          {a.zieltAuf && (
+                            <div className="text-[11px] italic text-muted-foreground">
+                              {a.zieltAuf[locale]}
+                            </div>
+                          )}
+                        </div>
+                      </details>
+                    ))}
+                  </div>
+                )}
               </section>
             )}
           </div>
