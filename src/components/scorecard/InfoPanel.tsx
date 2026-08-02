@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { kpiById } from "@/lib/scorecard/kpis";
-import { kpiCopy } from "@/lib/scorecard/kpi-copy";
+import { kpiCopy, kpiFragebogen } from "@/lib/scorecard/kpi-copy";
 import { useT, useLocale } from "@/lib/scorecard/useT";
 
 /**
