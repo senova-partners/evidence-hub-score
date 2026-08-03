@@ -258,9 +258,11 @@
     },
     {
       "id": "partnerbogen",
-      "paket": 2,
-      "paket_name": "Beratungsqualität",
+      "paket": 3,
+      "paket_name": "Außenbeweis",
       "name": "Partnerbogen (je Beratungsepisode)",
+      "tab_label": "Partnerbogen (je Beratungsepisode)",
+      "parent_kpi": "partnerfeedback_jahr",
       "unit": "1–5",
       "direction": "higher_better",
       "cadence": "je Beratungsepisode",
