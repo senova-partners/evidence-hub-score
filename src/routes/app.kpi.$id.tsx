@@ -456,8 +456,8 @@ function PeerReviewPanel({ kpi }: { kpi: KpiDef }) {
         })}
       </div>
 
-      {/* Three parallel values — no aggregation, no index. */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      {/* Two parallel values — no aggregation, no index. */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="hairline p-4">
           <div className="text-[12px] text-muted-foreground">
             {de ? "Peer-Bewertung" : "Peer assessment"}
@@ -492,26 +492,12 @@ function PeerReviewPanel({ kpi }: { kpi: KpiDef }) {
               : `Bi-annual by PFM/LD and the CCs · n = ${result.leadershipN}`}
           </div>
         </div>
-
-        <div className="hairline p-4">
-          <div className="text-[12px] text-muted-foreground">
-            {de ? "Schmerzpunkt-Wiedervorlage" : "Pain-point re-review"}
-          </div>
-          <div className="text-[28px] font-semibold tabular-nums mt-1">
-            {num(result.schmerzpunkt)}
-          </div>
-          <div className="text-[12px] text-muted-foreground mt-1">
-            {de
-              ? `1 gelöst – 5 unverändert · n = ${result.schmerzpunktN}`
-              : `1 solved – 5 unchanged · n = ${result.schmerzpunktN}`}
-          </div>
-        </div>
       </div>
 
       <p className="text-[13px] text-muted-foreground">
         {de
-          ? "Drei parallele Werte, keine Aggregation und kein Index — die Divergenz zwischen Nachfrage-, Leitungs- und Schmerzpunktsicht ist selbst der Befund."
-          : "Three parallel values, no aggregation and no index — the divergence between demand, leadership and pain-point views is itself the finding."}
+          ? "Zwei parallele Werte, keine Aggregation und kein Index — die Divergenz zwischen Nachfrage- und Leitungssicht ist selbst der Befund."
+          : "Two parallel values, no aggregation and no index — the divergence between demand and leadership views is itself the finding."}
       </p>
     </div>
   );
