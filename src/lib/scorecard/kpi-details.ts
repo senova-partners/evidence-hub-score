@@ -90,6 +90,80 @@ export const KPI_DETAILS: Record<string, KpiDetail> = {
     },
   },
 
+  medien: {
+    raw_schema: ["Quartal", "Follower (Stichtag)", "Zuwachs", "Neue Beiträge"],
+    raw_rows: [
+      ["2026-Q1", 4200, "+180", 21],
+      ["2026-Q2", 4610, "+410", 23],
+      ["2026-Q3", 5080, "+470", 24],
+    ],
+    raw_summary: {
+      follower_stichtag: 5080,
+      zuwachs_quartal: 470,
+      follower_vorquartal: 4610,
+    },
+    formula_text:
+      "Followerzahl des LinkedIn-Kanals GIZ Jordan am letzten Tag des Quartals (Stichtagswert, kein Mittelwert). Zuwachs = Stichtag minus Stichtag Vorquartal, nur als Kontext.",
+    worked_example: "5.080 Follower am 30.09.2026  ·  Zuwachs gegenüber Q2: 5.080 − 4.610 = +470",
+    erhebung: {
+      owner: "Kommunikationsstelle GIZ Jordan",
+      cadence: "quartalsweise, Stichtag letzter Tag des Quartals",
+      verifizierung:
+        "Screenshot des LinkedIn-Page-Analytics-Exports zum Stichtag; bezahlte Reichweite wird nicht mitgezählt",
+    },
+  },
+
+  medien_engagement: {
+    raw_schema: ["Beitrag", "Datum", "Impressionen", "Interaktionen", "Rate %"],
+    raw_rows: [
+      ["Practice-Launch W&E", "2026-07-08", 3120, 142, "4,6"],
+      ["Studie Wasserverluste", "2026-08-02", 2480, 71, "2,9"],
+      ["Partnerworkshop GOV", "2026-08-27", 1960, 58, "3,0"],
+      ["Jahresbericht-Teaser", "2026-09-14", 4310, 168, "3,9"],
+      ["…", "…", "…", "…", "Auszug — 24 Beiträge im Quartal"],
+    ],
+    raw_summary: {
+      impressionen_gesamt: 71400,
+      interaktionen_gesamt: 2713,
+      beitraege: 24,
+    },
+    formula_text:
+      "Summe aller Interaktionen (Reaktionen, Kommentare, Shares, Klicks) ÷ Summe aller Impressionen × 100, über alle Beiträge des Quartals — impressionsgewichtet, damit einzelne Kleinbeiträge die Rate nicht verzerren.",
+    worked_example: "2.713 ÷ 71.400 = 0,038 → 3,8 %",
+    erhebung: {
+      owner: "Kommunikationsstelle GIZ Jordan",
+      cadence: "quartalsweise",
+      verifizierung:
+        "Export je Beitrag aus LinkedIn Page Analytics; bezahlt beworbene Beiträge werden gekennzeichnet und getrennt ausgewiesen",
+    },
+  },
+
+  medien_sentiment: {
+    raw_schema: ["Medium", "Datum", "Titel/Anlass", "Sentiment"],
+    raw_rows: [
+      ["Jordan Times", "2026-07-11", "Wasserverluste-Studie", "positiv"],
+      ["Al Ghad", "2026-08-05", "Berufsbildungsprogramm", "neutral"],
+      ["Roya News", "2026-08-19", "Kritik an Geberkoordination", "negativ"],
+      ["Ammon News", "2026-09-21", "Partnerworkshop Governance", "positiv"],
+      ["…", "…", "…", "Auszug — 32 Beiträge im Quartal"],
+    ],
+    raw_summary: {
+      beitraege_gesamt: 32,
+      positiv: 19,
+      neutral: 10,
+      negativ: 3,
+    },
+    formula_text:
+      "Anteil positiver Beiträge = positive Beiträge ÷ alle erfassten Beiträge × 100. Neutral und negativ werden nicht verrechnet, sondern als Verteilung mit ausgewiesen.",
+    worked_example: "19 ÷ 32 = 59 %  ·  Verteilung: 19 positiv · 10 neutral · 3 negativ",
+    erhebung: {
+      owner: "Kommunikationsstelle GIZ Jordan",
+      cadence: "quartalsweise",
+      verifizierung:
+        "Medienbeobachtung nationaler und regionaler Titel (online und print); Einstufung nach fixem Codierleitfaden, strittige Fälle im Vier-Augen-Prinzip entschieden",
+    },
+  },
+
   partnerfeedback_jahr: {
     raw_schema: [
       "Organisation",
