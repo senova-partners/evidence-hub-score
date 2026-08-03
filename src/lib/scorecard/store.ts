@@ -39,7 +39,7 @@ export interface Store {
   voraussetzungen: Record<string, "offen" | "definiert" | "eingefuehrt">;
 }
 
-const KEY = "giz-scorecard-v13";
+const KEY = "giz-scorecard-v14";
 type Listener = () => void;
 const listeners = new Set<Listener>();
 
