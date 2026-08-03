@@ -39,7 +39,7 @@ export interface Store {
   voraussetzungen: Record<string, "offen" | "definiert" | "eingefuehrt">;
 }
 
-const KEY = "giz-scorecard-v14";
+const KEY = "giz-scorecard-v15";
 type Listener = () => void;
 const listeners = new Set<Listener>();
 
@@ -114,7 +114,8 @@ function seed(): Store {
   const baselines: Record<string, number> = {
     wiederbeauftragung: 48,
     kofi_proposal: 31,
-    medien: 3.1,
+    medien: 46.8,
+    medien_engagement: 3.1,
     medien_reach: 4200,
     medien_sentiment: 52,
     partnerfeedback_jahr: 0,
@@ -135,7 +136,8 @@ function seed(): Store {
   const trends: Record<string, [number, number, number]> = {
     wiederbeauftragung: [48, 51, 54],
     kofi_proposal: [31, 42, 54],
-    medien: [3.1, 3.4, 3.8],
+    medien: [46.8, 51.7, 58.6],
+    medien_engagement: [3.1, 3.4, 3.8],
     medien_reach: [4200, 4610, 5080],
     medien_sentiment: [52, 55, 61],
     partnerfeedback_jahr: [0, 2, 5],
@@ -155,7 +157,8 @@ function seed(): Store {
   const nCounts: Record<string, number> = {
     wiederbeauftragung: 28,
     kofi_proposal: 21,
-    medien: 24,
+    medien: 3,
+    medien_engagement: 24,
     medien_reach: 1,
     medien_sentiment: 32,
     partnerfeedback_jahr: 10,

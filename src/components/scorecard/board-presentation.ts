@@ -13,6 +13,10 @@ export const CARD_SUBTITLE: Record<string, { de: string; en: string }> = {
     en: "Continued commission volume and won proposals",
   },
   medien: {
+    de: "Normalisierter Gesamtindex aus Engagement, Bekanntheitsgrad und Medienresonanz",
+    en: "Normalised composite index of engagement, reach and media resonance",
+  },
+  medien_engagement: {
     de: "Interaktionsrate der LinkedIn-Beiträge",
     en: "Interaction rate of the LinkedIn posts",
   },
@@ -65,7 +69,8 @@ export const CARD_SUBTITLE: Record<string, { de: string; en: string }> = {
 /** Short, abbreviation-free base-of-measurement label for footer (row 5). */
 export const CARD_FOOTER_N: Record<string, { de: string; en: string }> = {
   wiederbeauftragung: { de: "41,5 Mio € Volumen · 21 Proposals", en: "EUR 41.5 m volume · 21 proposals" },
-  medien: { de: "24 Beiträge · 5.080 Follower", en: "24 posts · 5,080 followers" },
+  medien: { de: "Index 0–100 · 3 Teilwerte gleich gewichtet", en: "Index 0–100 · 3 components, equal weights" },
+  medien_engagement: { de: "24 Beiträge", en: "24 posts" },
   medien_reach: { de: "LinkedIn-Kanal", en: "LinkedIn channel" },
   medien_sentiment: { de: "32 Medienbeiträge", en: "32 media items" },
   kofi_proposal: { de: "21 Proposals", en: "21 proposals" },

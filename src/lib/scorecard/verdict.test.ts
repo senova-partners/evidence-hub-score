@@ -17,7 +17,8 @@ const Q = "2026-Q3";
 const BASELINES: Record<string, number> = {
   wiederbeauftragung: 48,
   kofi_proposal: 31,
-  medien: 3.1,
+  medien: 46.8,
+  medien_engagement: 3.1,
   medien_reach: 4200,
   medien_sentiment: 52,
   partnerfeedback_jahr: 0,
