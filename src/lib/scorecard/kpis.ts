@@ -121,8 +121,9 @@ export const KPIS: KpiDef[] = [
   },
   {
     id: "partnerbogen",
-    pkg: "beratungsqualitaet",
+    pkg: "aussenbeweis",
     name: { de: "Partnerbogen (je Beratungsepisode)", en: "Partner form (per advisory episode)" },
+    tabLabel: { de: "Partnerbogen (je Beratungsepisode)", en: "Partner form (per episode)" },
     unit: { de: "1–5", en: "1–5" },
     unitShort: { de: "Pkt", en: "pts" },
     format: "score",
