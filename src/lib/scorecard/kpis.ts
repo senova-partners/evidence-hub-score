@@ -86,7 +86,9 @@ export const KPIS: KpiDef[] = [
   {
     id: "partnerfeedback_jahr",
     pkg: "aussenbeweis",
-    name: { de: "Partnerfeedback (jährlich)", en: "Partner feedback (annual)" },
+    name: { de: "Partnerfeedback", en: "Partner feedback" },
+    tabLabel: { de: "Partnerbogen (1× jährlich)", en: "Partner form (annual)" },
+    secondaryKpiIds: ["partnerbogen"],
     unit: {
       de: "Saldo Organisationen besser − schlechter (Frage Rat)",
       en: "Balance of organisations better − worse (advice question)",
