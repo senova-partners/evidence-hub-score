@@ -1,16 +1,15 @@
 // Sub-views for the "Peer & Leadership Review" KPI detail page.
 //
-// Two structural units — Practices and Machine Room — each shown with three
+// Two structural units — Practices and Machine Room — each shown with two
 // parallel values side by side. No aggregation, no index: the divergence
-// between the three readings is itself the diagnosis.
+// between the two readings is itself the diagnosis.
 //
 //   1. Peer-Bewertung      — demand side, per episode (Nutzbarkeit 1–5 + Fristentreue %)
 //   2. Leadership-Bewertung — bi-annual assessment by PFM/LD and the CCs (1–5)
-//   3. Schmerzpunkt-Wiedervorlage — the reach-in pain-point list, re-rated (1 solved – 5 unchanged)
 
 import type { HistoryPoint } from "./history";
 import type { Bi } from "./i18n";
-import type { Episode, LeadershipAssessment, PainPointReview } from "./types";
+import type { Episode, LeadershipAssessment } from "./types";
 
 export interface PeerReviewView {
   id: "practices" | "machine_room";
@@ -27,8 +26,8 @@ export const PEER_REVIEW_VIEWS: PeerReviewView[] = [
     id: "practices",
     label: { de: "Practices", en: "Practices" },
     definition: {
-      de: "Drei parallele Sichten auf die Practices: Nutzbarkeit und Fristentreue aus den Episoden, Leadership-Bewertung von PFM/LD und CCs, Schmerzpunkt-Wiedervorlage.",
-      en: "Three parallel views of the practices: usability and deadline reliability from the episodes, leadership assessment by PFM/LD and the CCs, pain-point re-review.",
+      de: "Zwei parallele Sichten auf die Practices: Nutzbarkeit und Fristentreue aus den Episoden, Leadership-Bewertung von PFM/LD und CCs.",
+      en: "Two parallel views of the practices: usability and deadline reliability from the episodes, leadership assessment by PFM/LD and the CCs.",
     },
     baseline: 3.6,
     history: [
@@ -44,8 +43,8 @@ export const PEER_REVIEW_VIEWS: PeerReviewView[] = [
     id: "machine_room",
     label: { de: "Machine Room", en: "Machine Room" },
     definition: {
-      de: "Drei parallele Sichten auf den Machine Room: Nutzbarkeit und Fristentreue aus den Episoden, Leadership-Bewertung von PFM/LD und CCs, Schmerzpunkt-Wiedervorlage.",
-      en: "Three parallel views of the machine room: usability and deadline reliability from the episodes, leadership assessment by PFM/LD and the CCs, pain-point re-review.",
+      de: "Zwei parallele Sichten auf den Machine Room: Nutzbarkeit und Fristentreue aus den Episoden, Leadership-Bewertung von PFM/LD und CCs.",
+      en: "Two parallel views of the machine room: usability and deadline reliability from the episodes, leadership assessment by PFM/LD and the CCs.",
     },
     baseline: 3.0,
     history: [
@@ -72,19 +71,6 @@ export const LEADERSHIP_ASSESSMENTS: LeadershipAssessment[] = [
   { unit: "machine_room", period: "2026-H1", assessor: "CC Wirtschaft", rating: 2 },
 ];
 
-/**
- * Pain-point re-review — the reach-in list, re-rated one year later per unit
- * on a 1 (solved) – 5 (unchanged) scale. Demo data.
- */
-export const PAIN_POINT_REVIEWS: PainPointReview[] = [
-  { unit: "practices", cluster: "Governance", rating: 2.4 },
-  { unit: "practices", cluster: "Klima", rating: 2.8 },
-  { unit: "practices", cluster: "Wirtschaft", rating: 3.0 },
-  { unit: "machine_room", cluster: "Governance", rating: 3.2 },
-  { unit: "machine_room", cluster: "Klima", rating: 3.4 },
-  { unit: "machine_room", cluster: "Wirtschaft", rating: 3.1 },
-];
-
 export interface PeerReviewResult {
   /** Peer usability mean (1–5) — the leading value of the sub-tab. */
   value: number | null;
@@ -96,9 +82,6 @@ export interface PeerReviewResult {
   /** Leadership assessment mean (1–5). */
   leadership: number | null;
   leadershipN: number;
-  /** Pain-point re-review mean (1 solved – 5 unchanged). */
-  schmerzpunkt: number | null;
-  schmerzpunktN: number;
 }
 
 const round2 = (x: number) => Math.round(x * 100) / 100;
@@ -144,7 +127,6 @@ function resultFor(episodes: Episode[], unit: PeerReviewView["id"]): PeerReviewR
   const ratings = unit === "practices" ? pools.practices : pools.machineRoom;
   const deadlines = deadlinePool(episodes, unit);
   const leadership = LEADERSHIP_ASSESSMENTS.filter((a) => a.unit === unit).map((a) => a.rating);
-  const pain = PAIN_POINT_REVIEWS.filter((p) => p.unit === unit).map((p) => p.rating);
 
   return {
     value: mean(ratings),
@@ -157,12 +139,10 @@ function resultFor(episodes: Episode[], unit: PeerReviewView["id"]): PeerReviewR
     fristentreueN: deadlines.length,
     leadership: mean(leadership),
     leadershipN: leadership.length,
-    schmerzpunkt: mean(pain),
-    schmerzpunktN: pain.length,
   };
 }
 
-/** Per-view results over the given episodes — three parallel values, no index. */
+/** Per-view results over the given episodes — two parallel values, no index. */
 export function computePeerReview(
   episodes: Episode[],
 ): Record<PeerReviewView["id"], PeerReviewResult> {

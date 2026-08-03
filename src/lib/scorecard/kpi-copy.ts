@@ -222,8 +222,8 @@ export const KPI_COPY: Record<string, KpiCopy> = {
       en: "How usable did projects find the practices' services — were the technical contributions actually helpful for advisory work?",
     },
     rechenwegKurz: {
-      de: "Drei parallele Werte nebeneinander: Peer-Bewertung (Nutzbarkeit 1–5 und Fristentreue aus den Episoden), Leadership-Bewertung (halbjährlich durch PFM/LD und CCs) und Schmerzpunkt-Wiedervorlage — keine Aggregation, kein Index.",
-      en: "Three parallel values side by side: peer assessment (usability 1–5 and deadline reliability from the episodes), leadership assessment (bi-annual by PFM/LD and the CCs) and pain-point re-review — no aggregation, no index.",
+      de: "Zwei parallele Werte nebeneinander: Peer-Bewertung (Nutzbarkeit 1–5 und Fristentreue aus den Episoden) und Leadership-Bewertung (halbjährlich durch PFM/LD und CCs) — keine Aggregation, kein Index.",
+      en: "Two parallel values side by side: peer assessment (usability 1–5 and deadline reliability from the episodes) and leadership assessment (bi-annual by PFM/LD and the CCs) — no aggregation, no index.",
     },
   },
   "peer_review:machine_room": {
@@ -232,8 +232,8 @@ export const KPI_COPY: Record<string, KpiCopy> = {
       en: "How usable did projects find the machine room's contribution — were the administrative inputs actually helpful for advisory work?",
     },
     rechenwegKurz: {
-      de: "Drei parallele Werte nebeneinander: Peer-Bewertung (Nutzbarkeit 1–5 und Fristentreue aus den Episoden), Leadership-Bewertung (halbjährlich durch PFM/LD und CCs) und Schmerzpunkt-Wiedervorlage — keine Aggregation, kein Index.",
-      en: "Three parallel values side by side: peer assessment (usability 1–5 and deadline reliability from the episodes), leadership assessment (bi-annual by PFM/LD and the CCs) and pain-point re-review — no aggregation, no index.",
+      de: "Zwei parallele Werte nebeneinander: Peer-Bewertung (Nutzbarkeit 1–5 und Fristentreue aus den Episoden) und Leadership-Bewertung (halbjährlich durch PFM/LD und CCs) — keine Aggregation, kein Index.",
+      en: "Two parallel values side by side: peer assessment (usability 1–5 and deadline reliability from the episodes) and leadership assessment (bi-annual by PFM/LD and the CCs) — no aggregation, no index.",
     },
   },
 };
