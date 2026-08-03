@@ -128,32 +128,6 @@
       "paket": 3,
       "paket_name": "Außenbeweis",
       "name": "Medien & Berichterstattung",
-      "tab_label": "Bekanntheitsgrad",
-      "unit": "LinkedIn-Follower (Anzahl)",
-      "direction": "higher_better",
-      "cadence": "quartalsweise",
-      "owner": "Kommunikationsstelle GIZ Jordan",
-      "baseline": 4200,
-      "current": 5080,
-      "n_label": "LinkedIn-Kanal GIZ Jordan",
-      "status": "reported",
-      "subtitle": "Werden wir außerhalb der Auftraggeberbeziehung als fachliche Stimme wahrgenommen?",
-      "rechenweg_kurz": "Drei getrennte Werte: Follower des LinkedIn-Kanals, Engagement-Rate der Beiträge und Sentiment der Berichterstattung — keine Verrechnung zu einem Index.",
-      "info": {
-        "was_es_misst": "Bekanntheitsgrad des Expert Powerhouse, gemessen an der Zahl der Follower des LinkedIn-Kanals von GIZ Jordan zum Quartalsende.",
-        "warum": "Außenbeweis heißt auch: Werden wir außerhalb der Auftraggeberbeziehung als fachliche Stimme wahrgenommen? Reichweite allein sagt nichts über Qualität — deshalb stehen Engagement und Sentiment gleichrangig daneben.",
-        "verifizierung": "Quartalsweiser Export aus LinkedIn Page Analytics, Stichtag letzter Tag des Quartals; bezahlte Reichweite zählt nicht mit."
-      },
-      "sub_kpis": [
-        "medien_engagement",
-        "medien_sentiment"
-      ]
-    },
-    {
-      "id": "medien_engagement",
-      "paket": 3,
-      "paket_name": "Außenbeweis",
-      "name": "Engagement",
       "tab_label": "Engagement",
       "unit": "% Engagement Rate (Interaktionen ÷ Impressionen)",
       "direction": "higher_better",
@@ -163,12 +137,38 @@
       "current": 3.8,
       "n_label": "n = 24 Beiträge im Quartal",
       "status": "reported",
-      "subtitle": "Wie stark reagieren die Leserinnen und Leser auf unsere Beiträge?",
-      "rechenweg_kurz": "Reaktionen, Kommentare, Shares und Klicks geteilt durch Impressionen, impressionsgewichtet über alle Beiträge des Quartals.",
+      "subtitle": "Werden wir außerhalb der Auftraggeberbeziehung als fachliche Stimme wahrgenommen?",
+      "rechenweg_kurz": "Leitwert ist die Engagement-Rate der Beiträge; Follower und Sentiment stehen als eigene Sichten daneben — keine Verrechnung zu einem Index.",
       "info": {
-        "was_es_misst": "Interaktionsrate der LinkedIn-Beiträge über ein Quartal.",
-        "warum": "Reichweite ohne Interaktion ist ein Verteiler, kein Publikum — Engagement zeigt fachliche Anschlussfähigkeit.",
+        "was_es_misst": "Interaktionsrate der LinkedIn-Beiträge über ein Quartal (Reaktionen, Kommentare, Shares, Klicks ÷ Impressionen).",
+        "warum": "Reichweite ohne Interaktion ist ein Verteiler, kein Publikum — deshalb führt die Rate die Karte, nicht die Followerzahl.",
         "verifizierung": "Export je Beitrag aus LinkedIn Page Analytics; bezahlt beworbene Beiträge werden gekennzeichnet."
+      },
+      "sub_kpis": [
+        "medien_reach",
+        "medien_sentiment"
+      ]
+    },
+    {
+      "id": "medien_reach",
+      "paket": 3,
+      "paket_name": "Außenbeweis",
+      "name": "Bekanntheitsgrad",
+      "tab_label": "Bekanntheitsgrad",
+      "unit": "LinkedIn-Follower (Anzahl)",
+      "direction": "higher_better",
+      "cadence": "quartalsweise",
+      "owner": "Kommunikationsstelle GIZ Jordan",
+      "baseline": 4200,
+      "current": 5080,
+      "n_label": "LinkedIn-Kanal GIZ Jordan",
+      "status": "reported",
+      "subtitle": "Wie viele Menschen folgen dem LinkedIn-Kanal von GIZ Jordan?",
+      "rechenweg_kurz": "Followerzahl des LinkedIn-Kanals zum letzten Tag des Quartals, Export aus LinkedIn Page Analytics.",
+      "info": {
+        "was_es_misst": "Bekanntheitsgrad des Expert Powerhouse, gemessen an der Zahl der Follower zum Quartalsende.",
+        "warum": "Follower sind ein manipulationsarmer Reichweitenwert, aber eine Bestandsgröße — Kontext, kein Leitwert.",
+        "verifizierung": "Quartalsweiser Export aus LinkedIn Page Analytics, Stichtag letzter Tag des Quartals; bezahlte Reichweite zählt nicht mit."
       },
       "parent_kpi": "medien"
     },

@@ -13,12 +13,12 @@ export const CARD_SUBTITLE: Record<string, { de: string; en: string }> = {
     en: "Continued commission volume and won proposals",
   },
   medien: {
-    de: "Follower des LinkedIn-Kanals von GIZ Jordan",
-    en: "Followers of the GIZ Jordan LinkedIn channel",
-  },
-  medien_engagement: {
     de: "Interaktionsrate der LinkedIn-Beiträge",
     en: "Interaction rate of the LinkedIn posts",
+  },
+  medien_reach: {
+    de: "Follower des LinkedIn-Kanals von GIZ Jordan",
+    en: "Followers of the GIZ Jordan LinkedIn channel",
   },
   medien_sentiment: {
     de: "Anteil positiver Berichterstattung über die GIZ in Jordanien",
@@ -65,8 +65,8 @@ export const CARD_SUBTITLE: Record<string, { de: string; en: string }> = {
 /** Short, abbreviation-free base-of-measurement label for footer (row 5). */
 export const CARD_FOOTER_N: Record<string, { de: string; en: string }> = {
   wiederbeauftragung: { de: "41,5 Mio € Volumen · 21 Proposals", en: "EUR 41.5 m volume · 21 proposals" },
-  medien: { de: "LinkedIn-Kanal", en: "LinkedIn channel" },
-  medien_engagement: { de: "24 Beiträge", en: "24 posts" },
+  medien: { de: "24 Beiträge · 5.080 Follower", en: "24 posts · 5,080 followers" },
+  medien_reach: { de: "LinkedIn-Kanal", en: "LinkedIn channel" },
   medien_sentiment: { de: "32 Medienbeiträge", en: "32 media items" },
   kofi_proposal: { de: "21 Proposals", en: "21 proposals" },
   partnerfeedback_jahr: { de: "10 Organisationen", en: "10 organisations" },

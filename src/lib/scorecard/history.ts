@@ -19,14 +19,14 @@ export const KPI_HISTORY: Record<string, HistoryPoint[]> = {
     { period: "2026/27", value: 54 },
   ],
   medien: [
-    { period: "2026-Q1", value: 4200 },
-    { period: "2026-Q2", value: 4610 },
-    { period: "2026-Q3", value: 5080 },
-  ],
-  medien_engagement: [
     { period: "2026-Q1", value: 3.1 },
     { period: "2026-Q2", value: 3.4 },
     { period: "2026-Q3", value: 3.8 },
+  ],
+  medien_reach: [
+    { period: "2026-Q1", value: 4200 },
+    { period: "2026-Q2", value: 4610 },
+    { period: "2026-Q3", value: 5080 },
   ],
   medien_sentiment: [
     { period: "2026-Q1", value: 52 },
