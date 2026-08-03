@@ -90,7 +90,7 @@ export const KPI_DETAILS: Record<string, KpiDetail> = {
     },
   },
 
-  medien: {
+  medien_reach: {
     raw_schema: ["Quartal", "Follower (Stichtag)", "Zuwachs", "Neue Beiträge"],
     raw_rows: [
       ["2026-Q1", 4200, "+180", 21],
@@ -113,7 +113,7 @@ export const KPI_DETAILS: Record<string, KpiDetail> = {
     },
   },
 
-  medien_engagement: {
+  medien: {
     raw_schema: ["Beitrag", "Datum", "Impressionen", "Interaktionen", "Rate %"],
     raw_rows: [
       ["Practice-Launch W&E", "2026-07-08", 3120, 142, "4,6"],

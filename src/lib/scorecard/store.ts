@@ -114,8 +114,8 @@ function seed(): Store {
   const baselines: Record<string, number> = {
     wiederbeauftragung: 48,
     kofi_proposal: 31,
-    medien: 4200,
-    medien_engagement: 3.1,
+    medien: 3.1,
+    medien_reach: 4200,
     medien_sentiment: 52,
     partnerfeedback_jahr: 0,
     delivery_quote: 78,
@@ -135,8 +135,8 @@ function seed(): Store {
   const trends: Record<string, [number, number, number]> = {
     wiederbeauftragung: [48, 51, 54],
     kofi_proposal: [31, 42, 54],
-    medien: [4200, 4610, 5080],
-    medien_engagement: [3.1, 3.4, 3.8],
+    medien: [3.1, 3.4, 3.8],
+    medien_reach: [4200, 4610, 5080],
     medien_sentiment: [52, 55, 61],
     partnerfeedback_jahr: [0, 2, 5],
     delivery_quote: [78, 79, 80],
@@ -155,8 +155,8 @@ function seed(): Store {
   const nCounts: Record<string, number> = {
     wiederbeauftragung: 28,
     kofi_proposal: 21,
-    medien: 1,
-    medien_engagement: 24,
+    medien: 24,
+    medien_reach: 1,
     medien_sentiment: 32,
     partnerfeedback_jahr: 10,
     delivery_quote: 0,
