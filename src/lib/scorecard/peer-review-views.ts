@@ -1,12 +1,11 @@
 // Sub-views for the "Peer & Leadership Review" KPI detail page.
 //
-// Two structural units — Practices and Machine Room — each shown with three
+// Two structural units — Practices and Machine Room — each shown with two
 // parallel values side by side. No aggregation, no index: the divergence
-// between the three readings is itself the diagnosis.
+// between the two readings is itself the diagnosis.
 //
 //   1. Peer-Bewertung      — demand side, per episode (Nutzbarkeit 1–5 + Fristentreue %)
 //   2. Leadership-Bewertung — bi-annual assessment by PFM/LD and the CCs (1–5)
-//   3. Schmerzpunkt-Wiedervorlage — the reach-in pain-point list, re-rated (1 solved – 5 unchanged)
 
 import type { HistoryPoint } from "./history";
 import type { Bi } from "./i18n";
