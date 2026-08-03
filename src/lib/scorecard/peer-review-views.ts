@@ -9,7 +9,7 @@
 
 import type { HistoryPoint } from "./history";
 import type { Bi } from "./i18n";
-import type { Episode, LeadershipAssessment, PainPointReview } from "./types";
+import type { Episode, LeadershipAssessment } from "./types";
 
 export interface PeerReviewView {
   id: "practices" | "machine_room";
@@ -26,8 +26,8 @@ export const PEER_REVIEW_VIEWS: PeerReviewView[] = [
     id: "practices",
     label: { de: "Practices", en: "Practices" },
     definition: {
-      de: "Drei parallele Sichten auf die Practices: Nutzbarkeit und Fristentreue aus den Episoden, Leadership-Bewertung von PFM/LD und CCs, Schmerzpunkt-Wiedervorlage.",
-      en: "Three parallel views of the practices: usability and deadline reliability from the episodes, leadership assessment by PFM/LD and the CCs, pain-point re-review.",
+      de: "Zwei parallele Sichten auf die Practices: Nutzbarkeit und Fristentreue aus den Episoden, Leadership-Bewertung von PFM/LD und CCs.",
+      en: "Two parallel views of the practices: usability and deadline reliability from the episodes, leadership assessment by PFM/LD and the CCs.",
     },
     baseline: 3.6,
     history: [
@@ -43,8 +43,8 @@ export const PEER_REVIEW_VIEWS: PeerReviewView[] = [
     id: "machine_room",
     label: { de: "Machine Room", en: "Machine Room" },
     definition: {
-      de: "Drei parallele Sichten auf den Machine Room: Nutzbarkeit und Fristentreue aus den Episoden, Leadership-Bewertung von PFM/LD und CCs, Schmerzpunkt-Wiedervorlage.",
-      en: "Three parallel views of the machine room: usability and deadline reliability from the episodes, leadership assessment by PFM/LD and the CCs, pain-point re-review.",
+      de: "Zwei parallele Sichten auf den Machine Room: Nutzbarkeit und Fristentreue aus den Episoden, Leadership-Bewertung von PFM/LD und CCs.",
+      en: "Two parallel views of the machine room: usability and deadline reliability from the episodes, leadership assessment by PFM/LD and the CCs.",
     },
     baseline: 3.0,
     history: [
