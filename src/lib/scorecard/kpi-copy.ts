@@ -50,21 +50,11 @@ export const KPI_COPY: Record<string, KpiCopy> = {
       en: "Are we perceived as a substantive voice beyond the client relationship?",
     },
     rechenwegKurz: {
-      de: "Drei getrennte Werte: Follower des LinkedIn-Kanals, Engagement-Rate der Beiträge und Sentiment der Berichterstattung — keine Verrechnung zu einem Index.",
-      en: "Three separate values: LinkedIn channel followers, post engagement rate and coverage sentiment — never merged into an index.",
+      de: "Leitwert ist die Engagement-Rate der Beiträge; Follower und Sentiment stehen als eigene Sichten daneben — keine Verrechnung zu einem Index.",
+      en: "The lead value is the post engagement rate; followers and sentiment stand beside it as separate views — never merged into an index.",
     },
   },
   "medien:tab": {
-    subtitle: {
-      de: "Wie viele Menschen folgen dem LinkedIn-Kanal von GIZ Jordan?",
-      en: "How many people follow the GIZ Jordan LinkedIn channel?",
-    },
-    rechenwegKurz: {
-      de: "Followerzahl des LinkedIn-Kanals zum letzten Tag des Quartals, Export aus LinkedIn Page Analytics.",
-      en: "Follower count of the LinkedIn channel on the last day of the quarter, exported from LinkedIn page analytics.",
-    },
-  },
-  medien_engagement: {
     subtitle: {
       de: "Wie stark reagieren die Leserinnen und Leser auf unsere Beiträge?",
       en: "How strongly do readers react to our posts?",
@@ -72,6 +62,16 @@ export const KPI_COPY: Record<string, KpiCopy> = {
     rechenwegKurz: {
       de: "Reaktionen, Kommentare, Shares und Klicks geteilt durch Impressionen, impressionsgewichtet über alle Beiträge des Quartals.",
       en: "Reactions, comments, shares and clicks divided by impressions, impression-weighted across all posts in the quarter.",
+    },
+  },
+  medien_reach: {
+    subtitle: {
+      de: "Wie viele Menschen folgen dem LinkedIn-Kanal von GIZ Jordan?",
+      en: "How many people follow the GIZ Jordan LinkedIn channel?",
+    },
+    rechenwegKurz: {
+      de: "Followerzahl des LinkedIn-Kanals zum letzten Tag des Quartals, Export aus LinkedIn Page Analytics.",
+      en: "Follower count of the LinkedIn channel on the last day of the quarter, exported from LinkedIn page analytics.",
     },
   },
   medien_sentiment: {
