@@ -50,11 +50,21 @@ export const KPI_COPY: Record<string, KpiCopy> = {
       en: "Are we perceived as a substantive voice beyond the client relationship?",
     },
     rechenwegKurz: {
-      de: "Leitwert ist die Engagement-Rate der Beiträge; Follower und Sentiment stehen als eigene Sichten daneben — keine Verrechnung zu einem Index.",
-      en: "The lead value is the post engagement rate; followers and sentiment stand beside it as separate views — never merged into an index.",
+      de: "Engagement, Bekanntheitsgrad und Medienresonanz werden je auf 0–100 normalisiert (feste Referenzspannen) und gleichgewichtet gemittelt.",
+      en: "Engagement, reach and media resonance are each normalised to 0–100 (fixed reference ranges) and averaged with equal weights.",
     },
   },
   "medien:tab": {
+    subtitle: {
+      de: "Wie steht die externe Sichtbarkeit insgesamt — über alle drei Teilwerte hinweg?",
+      en: "How does external visibility stand overall — across all three components?",
+    },
+    rechenwegKurz: {
+      de: "Index = (Engagement ÷ 6 % + (Follower − 2.000) ÷ 6.000 + Anteil positiv ÷ 100) ÷ 3 × 100, jeder Teilwert auf 0–100 gekappt.",
+      en: "Index = (engagement ÷ 6 % + (followers − 2,000) ÷ 6,000 + positive share ÷ 100) ÷ 3 × 100, each component clipped to 0–100.",
+    },
+  },
+  medien_engagement: {
     subtitle: {
       de: "Wie stark reagieren die Leserinnen und Leser auf unsere Beiträge?",
       en: "How strongly do readers react to our posts?",

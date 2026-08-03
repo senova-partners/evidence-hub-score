@@ -113,7 +113,7 @@ export const KPI_DETAILS: Record<string, KpiDetail> = {
     },
   },
 
-  medien: {
+  medien_engagement: {
     raw_schema: ["Beitrag", "Datum", "Impressionen", "Interaktionen", "Rate %"],
     raw_rows: [
       ["Practice-Launch W&E", "2026-07-08", 3120, 142, "4,6"],
@@ -135,6 +135,31 @@ export const KPI_DETAILS: Record<string, KpiDetail> = {
       cadence: "quartalsweise",
       verifizierung:
         "Export je Beitrag aus LinkedIn Page Analytics; bezahlt beworbene Beiträge werden gekennzeichnet und getrennt ausgewiesen",
+    },
+  },
+
+  medien: {
+    raw_schema: ["Teilwert", "Rohwert", "Referenzspanne", "Normalisiert (0–100)"],
+    raw_rows: [
+      ["Engagement-Rate", "3,8 %", "0–6 %", "63,3"],
+      ["Bekanntheitsgrad (Follower)", "5.080", "2.000–8.000", "51,3"],
+      ["Medienresonanz (positiv)", "61 %", "0–100 %", "61,0"],
+      ["Gesamtindex", "—", "gleiche Gewichte", "58,6"],
+    ],
+    raw_summary: {
+      teilwerte: 3,
+      index_aktuell: 58.6,
+      index_baseline: 46.8,
+    },
+    formula_text:
+      "Jeder Teilwert wird gegen eine feste Referenzspanne min-max-normalisiert und auf 0–100 gekappt; der Index ist der ungewichtete Mittelwert der drei normalisierten Werte. Feste Spannen (statt Normalisierung gegen den eigenen Verlauf) halten frühere Indexwerte stabil.",
+    worked_example:
+      "Engagement 3,8 ÷ 6 × 100 = 63,3\nBekanntheitsgrad (5.080 − 2.000) ÷ 6.000 × 100 = 51,3\nResonanz 61 ÷ 100 × 100 = 61,0\nIndex (63,3 + 51,3 + 61,0) ÷ 3 = 58,6",
+    erhebung: {
+      owner: "Kommunikationsstelle GIZ Jordan",
+      cadence: "quartalsweise",
+      verifizierung:
+        "Die drei Teilwerte werden unverändert aus ihren eigenen Sichten übernommen; die Normalisierung wird je Quartal nachgerechnet und dokumentiert",
     },
   },
 

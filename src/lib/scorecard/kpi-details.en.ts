@@ -71,7 +71,7 @@ export const KPI_DETAILS_EN: Record<string, KpiDetailEn> = {
     },
   },
 
-  medien: {
+  medien_engagement: {
     raw_schema: ["Post", "Date", "Impressions", "Interactions", "Rate %"],
     raw_rows: [
       ["Practice launch W&E", "2026-07-08", 3120, 142, "4.6"],
@@ -88,6 +88,26 @@ export const KPI_DETAILS_EN: Record<string, KpiDetailEn> = {
       cadence: "quarterly",
       verifizierung:
         "per-post export from LinkedIn page analytics; sponsored posts are flagged and reported separately",
+    },
+  },
+
+  medien: {
+    raw_schema: ["Component", "Raw value", "Reference range", "Normalised (0–100)"],
+    raw_rows: [
+      ["Engagement rate", "3.8 %", "0–6 %", "63.3"],
+      ["Reach (followers)", "5,080", "2,000–8,000", "51.3"],
+      ["Media resonance (positive)", "61 %", "0–100 %", "61.0"],
+      ["Composite index", "—", "equal weights", "58.6"],
+    ],
+    formula_text:
+      "Each component is min-max normalised against a fixed reference range and clipped to 0–100; the index is the unweighted mean of the three normalised values. Fixed ranges (not the series' own history) keep past index values stable.",
+    worked_example:
+      "Engagement 3.8 ÷ 6 × 100 = 63.3\nReach (5,080 − 2,000) ÷ 6,000 × 100 = 51.3\nResonance 61 ÷ 100 × 100 = 61.0\nIndex (63.3 + 51.3 + 61.0) ÷ 3 = 58.6",
+    erhebung: {
+      owner: "Communications unit GIZ Jordan",
+      cadence: "quarterly",
+      verifizierung:
+        "the three component values are taken over unchanged from their own views; normalisation is recalculated and documented per quarter",
     },
   },
 
