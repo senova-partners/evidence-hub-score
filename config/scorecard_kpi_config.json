@@ -22,7 +22,7 @@
       "id": "wiederbeauftragung",
       "paket": 3,
       "paket_name": "Außenbeweis",
-      "name": "Wiederbeauftragungsquote",
+      "name": "Externer Markterfolg",
       "unit": "% des zur Entscheidung stehenden Volumens",
       "direction": "higher_better",
       "cadence": "nach Abschluss der jährlichen Regierungskonsultationen, rollierend 24 Monate",
@@ -51,8 +51,12 @@
           "value": 54
         }
       ],
-      "subtitle": "Wie viel des ausgelaufenen Auftragsvolumens haben unsere Auftraggeber bei uns verlängert, aufgestockt oder als Folgemodul neu beauftragt?",
-      "rechenweg_kurz": "Fortgeführtes Auftragsvolumen geteilt durch das insgesamt zur Entscheidung stehende Volumen der letzten 24 Monate, erhoben nach den jährlichen Regierungskonsultationen."
+      "subtitle": "Zahlt der externe Markt weiter für uns — durch Verlängerungen des Grundauftrags und durch gewonnene Angebote bei neuen Geldgebern?",
+      "rechenweg_kurz": "Zwei Rechenwege nebeneinander: fortgeführtes Auftragsvolumen und gewonnenes Antragsvolumen, jeweils rollierend über 24 Monate — kein zusammengefasster Index.",
+      "tab_label": "Wiederbeauftragung",
+      "sub_kpis": [
+        "kofi_proposal"
+      ]
     },
     {
       "id": "kofi_proposal",
@@ -115,7 +119,81 @@
           "subtitle": "Wie viel zusätzliches Geld haben wir über den BMZ-Grundauftrag hinaus mobilisiert?",
           "rechenweg_kurz": "Kofinanzierungsvolumen geteilt durch BMZ-Grundauftrag; BMZ-Anteil am Gesamtportfolio als Kontextzeile daneben."
         }
+      ],
+      "tab_label": "Kofinanzierung & Proposals",
+      "parent_kpi": "wiederbeauftragung"
+    },
+    {
+      "id": "medien",
+      "paket": 3,
+      "paket_name": "Außenbeweis",
+      "name": "Medien & Berichterstattung",
+      "tab_label": "Bekanntheitsgrad",
+      "unit": "LinkedIn-Follower (Anzahl)",
+      "direction": "higher_better",
+      "cadence": "quartalsweise",
+      "owner": "Kommunikationsstelle GIZ Jordan",
+      "baseline": 4200,
+      "current": 5080,
+      "n_label": "LinkedIn-Kanal GIZ Jordan",
+      "status": "reported",
+      "subtitle": "Werden wir außerhalb der Auftraggeberbeziehung als fachliche Stimme wahrgenommen?",
+      "rechenweg_kurz": "Drei getrennte Werte: Follower des LinkedIn-Kanals, Engagement-Rate der Beiträge und Sentiment der Berichterstattung — keine Verrechnung zu einem Index.",
+      "info": {
+        "was_es_misst": "Bekanntheitsgrad des Expert Powerhouse, gemessen an der Zahl der Follower des LinkedIn-Kanals von GIZ Jordan zum Quartalsende.",
+        "warum": "Außenbeweis heißt auch: Werden wir außerhalb der Auftraggeberbeziehung als fachliche Stimme wahrgenommen? Reichweite allein sagt nichts über Qualität — deshalb stehen Engagement und Sentiment gleichrangig daneben.",
+        "verifizierung": "Quartalsweiser Export aus LinkedIn Page Analytics, Stichtag letzter Tag des Quartals; bezahlte Reichweite zählt nicht mit."
+      },
+      "sub_kpis": [
+        "medien_engagement",
+        "medien_sentiment"
       ]
+    },
+    {
+      "id": "medien_engagement",
+      "paket": 3,
+      "paket_name": "Außenbeweis",
+      "name": "Engagement",
+      "tab_label": "Engagement",
+      "unit": "% Engagement Rate (Interaktionen ÷ Impressionen)",
+      "direction": "higher_better",
+      "cadence": "quartalsweise",
+      "owner": "Kommunikationsstelle GIZ Jordan",
+      "baseline": 3.1,
+      "current": 3.8,
+      "n_label": "n = 24 Beiträge im Quartal",
+      "status": "reported",
+      "subtitle": "Wie stark reagieren die Leserinnen und Leser auf unsere Beiträge?",
+      "rechenweg_kurz": "Reaktionen, Kommentare, Shares und Klicks geteilt durch Impressionen, impressionsgewichtet über alle Beiträge des Quartals.",
+      "info": {
+        "was_es_misst": "Interaktionsrate der LinkedIn-Beiträge über ein Quartal.",
+        "warum": "Reichweite ohne Interaktion ist ein Verteiler, kein Publikum — Engagement zeigt fachliche Anschlussfähigkeit.",
+        "verifizierung": "Export je Beitrag aus LinkedIn Page Analytics; bezahlt beworbene Beiträge werden gekennzeichnet."
+      },
+      "parent_kpi": "medien"
+    },
+    {
+      "id": "medien_sentiment",
+      "paket": 3,
+      "paket_name": "Außenbeweis",
+      "name": "Medienresonanz",
+      "tab_label": "Medienresonanz",
+      "unit": "% positive Beiträge (positiv / neutral / negativ)",
+      "direction": "higher_better",
+      "cadence": "quartalsweise",
+      "owner": "Kommunikationsstelle GIZ Jordan",
+      "baseline": 52,
+      "current": 61,
+      "n_label": "n = 32 Medienbeiträge im Quartal",
+      "status": "reported",
+      "subtitle": "Wie berichten Medien in Jordanien über die GIZ — positiv, neutral oder negativ?",
+      "rechenweg_kurz": "Positive Beiträge geteilt durch alle erfassten Beiträge; neutral und negativ werden nicht verrechnet, sondern als Verteilung ausgewiesen.",
+      "info": {
+        "was_es_misst": "Sentiment der Berichterstattung über die GIZ in Jordanien, je Beitrag positiv, neutral oder negativ codiert.",
+        "warum": "Berichterstattung ist der Außenbeweis, den wir nicht selbst schreiben. Ein hoher Neutralanteil ist eine andere Diagnose als ein hoher Negativanteil.",
+        "verifizierung": "Medienbeobachtung nationaler und regionaler Titel (online und print), fixer Codierleitfaden, strittige Fälle im Vier-Augen-Prinzip."
+      },
+      "parent_kpi": "medien"
     },
     {
       "id": "partnerfeedback_jahr",
@@ -123,7 +201,9 @@
       "paket_name": "Außenbeweis",
       "name": "Partnerfeedback",
       "tab_label": "Partnerbogen (1× jährlich)",
-      "secondary_kpi_ids": ["partnerbogen"],
+      "secondary_kpi_ids": [
+        "partnerbogen"
+      ],
       "unit": "Saldo besser − schlechter",
       "direction": "higher_better",
       "cadence": "jährlich",

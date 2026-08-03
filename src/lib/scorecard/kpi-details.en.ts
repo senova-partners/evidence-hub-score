@@ -53,6 +53,64 @@ export const KPI_DETAILS_EN: Record<string, KpiDetailEn> = {
     },
   },
 
+  medien: {
+    raw_schema: ["Quarter", "Followers (cut-off)", "Growth", "New posts"],
+    raw_rows: [
+      ["2026-Q1", 4200, "+180", 21],
+      ["2026-Q2", 4610, "+410", 23],
+      ["2026-Q3", 5080, "+470", 24],
+    ],
+    formula_text:
+      "Follower count of the GIZ Jordan LinkedIn channel on the last day of the quarter (cut-off value, not an average). Growth = cut-off minus previous quarter's cut-off, context only.",
+    worked_example: "5,080 followers on 30 Sep 2026  ·  growth vs. Q2: 5,080 − 4,610 = +470",
+    erhebung: {
+      owner: "Communications unit GIZ Jordan",
+      cadence: "quarterly, cut-off on the last day of the quarter",
+      verifizierung:
+        "screenshot of the LinkedIn page analytics export at cut-off; paid reach is not counted",
+    },
+  },
+
+  medien_engagement: {
+    raw_schema: ["Post", "Date", "Impressions", "Interactions", "Rate %"],
+    raw_rows: [
+      ["Practice launch W&E", "2026-07-08", 3120, 142, "4.6"],
+      ["Study on water losses", "2026-08-02", 2480, 71, "2.9"],
+      ["Partner workshop GOV", "2026-08-27", 1960, 58, "3.0"],
+      ["Annual report teaser", "2026-09-14", 4310, 168, "3.9"],
+      ["…", "…", "…", "…", "Extract — 24 posts in the quarter"],
+    ],
+    formula_text:
+      "Sum of all interactions (reactions, comments, shares, clicks) ÷ sum of all impressions × 100 across the quarter's posts — impression-weighted, so small posts do not distort the rate.",
+    worked_example: "2,713 ÷ 71,400 = 0.038 → 3.8 %",
+    erhebung: {
+      owner: "Communications unit GIZ Jordan",
+      cadence: "quarterly",
+      verifizierung:
+        "per-post export from LinkedIn page analytics; sponsored posts are flagged and reported separately",
+    },
+  },
+
+  medien_sentiment: {
+    raw_schema: ["Outlet", "Date", "Headline/occasion", "Sentiment"],
+    raw_rows: [
+      ["Jordan Times", "2026-07-11", "Water-loss study", "positive"],
+      ["Al Ghad", "2026-08-05", "Vocational training programme", "neutral"],
+      ["Roya News", "2026-08-19", "Criticism of donor coordination", "negative"],
+      ["Ammon News", "2026-09-21", "Governance partner workshop", "positive"],
+      ["…", "…", "…", "Extract — 32 items in the quarter"],
+    ],
+    formula_text:
+      "Share of positive items = positive items ÷ all recorded items × 100. Neutral and negative are not netted out but reported as a distribution.",
+    worked_example: "19 ÷ 32 = 59 %  ·  distribution: 19 positive · 10 neutral · 3 negative",
+    erhebung: {
+      owner: "Communications unit GIZ Jordan",
+      cadence: "quarterly",
+      verifizierung:
+        "media monitoring of national and regional outlets (online and print); classification along a fixed coding guide, contested cases decided in four-eyes mode",
+    },
+  },
+
   partnerfeedback_jahr: {
     raw_schema: ["Organisation", "Level", "Q1 cooperation", "Q2 advice", "Q3 mentions (coded)"],
     raw_rows: [

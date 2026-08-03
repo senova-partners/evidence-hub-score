@@ -16,6 +16,16 @@ export const KPI_COPY: Record<string, KpiCopy> = {
   // ---- Paket 3 — Außenbeweis ----
   wiederbeauftragung: {
     subtitle: {
+      de: "Zahlt der externe Markt weiter für uns — durch Verlängerungen des Grundauftrags und durch gewonnene Angebote bei neuen Geldgebern?",
+      en: "Does the external market keep paying for us — through extensions of the core commission and through proposals won with new funders?",
+    },
+    rechenwegKurz: {
+      de: "Zwei Rechenwege nebeneinander: fortgeführtes Auftragsvolumen und gewonnenes Antragsvolumen, jeweils rollierend über 24 Monate — kein zusammengefasster Index.",
+      en: "Two calculations side by side: continued commission volume and won proposal volume, each rolling over 24 months — no combined index.",
+    },
+  },
+  "wiederbeauftragung:tab": {
+    subtitle: {
       de: "Wie viel des ausgelaufenen Auftragsvolumens haben unsere Auftraggeber bei uns verlängert, aufgestockt oder als Folgemodul neu beauftragt?",
       en: "How much of the expiring commission volume did our clients extend, top up or re-commission as a follow-on module?",
     },
@@ -32,6 +42,46 @@ export const KPI_COPY: Record<string, KpiCopy> = {
     rechenwegKurz: {
       de: "Gewonnenes Antragsvolumen geteilt durch eingereichtes Antragsvolumen der letzten 24 Monate; Stückzahl-Quote und EU-Ausschnitt daneben.",
       en: "Won proposal volume divided by submitted proposal volume over the past 24 months; count rate and EU segment alongside.",
+    },
+  },
+  medien: {
+    subtitle: {
+      de: "Werden wir außerhalb der Auftraggeberbeziehung als fachliche Stimme wahrgenommen?",
+      en: "Are we perceived as a substantive voice beyond the client relationship?",
+    },
+    rechenwegKurz: {
+      de: "Drei getrennte Werte: Follower des LinkedIn-Kanals, Engagement-Rate der Beiträge und Sentiment der Berichterstattung — keine Verrechnung zu einem Index.",
+      en: "Three separate values: LinkedIn channel followers, post engagement rate and coverage sentiment — never merged into an index.",
+    },
+  },
+  "medien:tab": {
+    subtitle: {
+      de: "Wie viele Menschen folgen dem LinkedIn-Kanal von GIZ Jordan?",
+      en: "How many people follow the GIZ Jordan LinkedIn channel?",
+    },
+    rechenwegKurz: {
+      de: "Followerzahl des LinkedIn-Kanals zum letzten Tag des Quartals, Export aus LinkedIn Page Analytics.",
+      en: "Follower count of the LinkedIn channel on the last day of the quarter, exported from LinkedIn page analytics.",
+    },
+  },
+  medien_engagement: {
+    subtitle: {
+      de: "Wie stark reagieren die Leserinnen und Leser auf unsere Beiträge?",
+      en: "How strongly do readers react to our posts?",
+    },
+    rechenwegKurz: {
+      de: "Reaktionen, Kommentare, Shares und Klicks geteilt durch Impressionen, impressionsgewichtet über alle Beiträge des Quartals.",
+      en: "Reactions, comments, shares and clicks divided by impressions, impression-weighted across all posts in the quarter.",
+    },
+  },
+  medien_sentiment: {
+    subtitle: {
+      de: "Wie berichten Medien in Jordanien über die GIZ — positiv, neutral oder negativ?",
+      en: "How do media in Jordan report on GIZ — positively, neutrally or negatively?",
+    },
+    rechenwegKurz: {
+      de: "Jeder Medienbeitrag wird nach fixem Codierleitfaden eingestuft; Hauptwert ist der Anteil positiver Beiträge, neutral und negativ laufen als Kontext mit.",
+      en: "Each media item is classified along a fixed coding guide; the primary value is the share of positive items, neutral and negative run as context.",
     },
   },
   partnerfeedback_jahr: {

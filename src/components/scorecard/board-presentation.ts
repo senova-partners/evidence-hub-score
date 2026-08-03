@@ -9,8 +9,20 @@ import { fmtNumber } from "@/lib/scorecard/i18n";
 /** One-line plain-language subtitle for each board card (row 2). */
 export const CARD_SUBTITLE: Record<string, { de: string; en: string }> = {
   wiederbeauftragung: {
-    de: "Anteil des fortgeführten Auftragsvolumens",
-    en: "Share of continued commission volume",
+    de: "Fortgeführtes Auftragsvolumen und gewonnene Angebote",
+    en: "Continued commission volume and won proposals",
+  },
+  medien: {
+    de: "Follower des LinkedIn-Kanals von GIZ Jordan",
+    en: "Followers of the GIZ Jordan LinkedIn channel",
+  },
+  medien_engagement: {
+    de: "Interaktionsrate der LinkedIn-Beiträge",
+    en: "Interaction rate of the LinkedIn posts",
+  },
+  medien_sentiment: {
+    de: "Anteil positiver Berichterstattung über die GIZ in Jordanien",
+    en: "Share of positive coverage about GIZ in Jordan",
   },
   kofi_proposal: {
     de: "Anteil erfolgreicher Angebote und Kofinanzierung",
@@ -52,7 +64,10 @@ export const CARD_SUBTITLE: Record<string, { de: string; en: string }> = {
 
 /** Short, abbreviation-free base-of-measurement label for footer (row 5). */
 export const CARD_FOOTER_N: Record<string, { de: string; en: string }> = {
-  wiederbeauftragung: { de: "41,5 Mio € Volumen", en: "EUR 41.5 m volume" },
+  wiederbeauftragung: { de: "41,5 Mio € Volumen · 21 Proposals", en: "EUR 41.5 m volume · 21 proposals" },
+  medien: { de: "LinkedIn-Kanal", en: "LinkedIn channel" },
+  medien_engagement: { de: "24 Beiträge", en: "24 posts" },
+  medien_sentiment: { de: "32 Medienbeiträge", en: "32 media items" },
   kofi_proposal: { de: "21 Proposals", en: "21 proposals" },
   partnerfeedback_jahr: { de: "10 Organisationen", en: "10 organisations" },
   partnerbogen: { de: "14 Episoden", en: "14 episodes" },
