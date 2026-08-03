@@ -180,7 +180,7 @@ export const KPIS: KpiDef[] = [
   {
     id: "peer_review",
     pkg: "beratungsqualitaet",
-    name: { de: "Peer & Leadership Review", en: "Peer & leadership review" },
+    name: { de: "Peer Review", en: "Peer review" },
     tabLabel: { de: "Practices", en: "Practices" },
     unit: { de: "1–5 Nutzbarkeit", en: "1–5 usability" },
     unitShort: { de: "Pkt", en: "pts" },
@@ -188,8 +188,8 @@ export const KPIS: KpiDef[] = [
     direction: "higher_better",
     nLabel: { de: "n = 6 Bewertungen", en: "n = 6 ratings" },
     contextLine: {
-      de: "Detail unterscheidet Practices und Machine Room; Board zeigt den gewichteten Gesamtwert.",
-      en: "Detail splits practices and machine room; board shows the weighted total.",
+      de: "Nachfrageseite: Detail unterscheidet Practices und Machine Room; Board zeigt den gewichteten Gesamtwert.",
+      en: "Demand side: detail splits practices and machine room; board shows the weighted total.",
     },
     info: {
       was: {
@@ -203,6 +203,36 @@ export const KPIS: KpiDef[] = [
       wie: {
         de: "Zwei Bewertungsfelder im ohnehin ausgefüllten Episodenbogen, ausgelöst durch die beiden Struktur-Häkchen; Auswertung je Quartal als gewichteter Mittelwert.",
         en: "Two rating fields in the episode form that is filled in anyway, triggered by the two structure ticks; evaluated per quarter as a weighted mean.",
+      },
+      verworfen: null,
+    },
+  },
+  {
+    id: "leadership_review",
+    pkg: "beratungsqualitaet",
+    name: { de: "Leadership Review", en: "Leadership review" },
+    tabLabel: { de: "Practices", en: "Practices" },
+    unit: { de: "1–5 Bewertung", en: "1–5 assessment" },
+    unitShort: { de: "Pkt", en: "pts" },
+    format: "score",
+    direction: "higher_better",
+    nLabel: { de: "n = 6 Bewertungen (PFM/LD und CCs)", en: "n = 6 assessments (PFM/LD and CCs)" },
+    contextLine: {
+      de: "Leitungssicht: Detail unterscheidet Practices und Machine Room; halbjährliche Erhebung.",
+      en: "Leadership view: detail splits practices and machine room; bi-annual assessment.",
+    },
+    info: {
+      was: {
+        de: "Halbjährliche Bewertung der beiden Struktureinheiten — Practices und Machine Room — durch PFM/LD und die Cluster-Koordinatorinnen und -Koordinatoren auf einer Skala von 1 bis 5.",
+        en: "Bi-annual assessment of the two structural units — practices and machine room — by PFM/LD and the cluster coordinators on a 1 to 5 scale.",
+      },
+      warum: {
+        de: "Die Leitungssicht steht bewusst neben, nicht in der Peer-Bewertung: Die Divergenz zwischen Nachfrage- und Leitungsurteil ist selbst der Befund. Getrennte Karten, keine Aggregation, kein Index.",
+        en: "The leadership view deliberately stands beside, not inside, the peer rating: the divergence between demand and leadership judgement is itself the finding. Separate cards, no aggregation, no index.",
+      },
+      wie: {
+        de: "Halbjährliche strukturierte Einschätzung durch PFM/LD und die CCs, je Struktureinheit ein Wert; Auswertung als Mittelwert je Einheit.",
+        en: "Bi-annual structured assessment by PFM/LD and the CCs, one value per structural unit; evaluated as a mean per unit.",
       },
       verworfen: null,
     },

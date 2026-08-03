@@ -66,9 +66,39 @@ export const KPI_COPY: Record<string, KpiCopy> = {
       en: "Implemented plus adapted recommendations divided by all recommendations due after six months; pending ones count in the denominator.",
     },
   },
+  leadership_review: {
+    subtitle: {
+      de: "Wie bewerten PFM/LD und die Cluster-Koordination die beiden Struktureinheiten — unabhängig von der Nachfrageseite?",
+      en: "How do PFM/LD and the cluster coordination rate the two structural units — independently of the demand side?",
+    },
+    rechenwegKurz: {
+      de: "Halbjährliche Bewertung je Struktureinheit auf einer Skala von 1 bis 5 durch PFM/LD und die CCs; Mittelwert je Einheit, keine Verrechnung mit der Peer-Bewertung.",
+      en: "Bi-annual assessment per structural unit on a 1 to 5 scale by PFM/LD and the CCs; mean per unit, never merged with the peer rating.",
+    },
+  },
+  "leadership_review:practices": {
+    subtitle: {
+      de: "Wie bewertet die Leitung die Leistungen der Practices?",
+      en: "How does leadership rate the practices' services?",
+    },
+    rechenwegKurz: {
+      de: "Mittelwert der halbjährlichen Bewertungen zu den Practices durch PFM/LD und die CCs (Skala 1–5).",
+      en: "Mean of the bi-annual assessments of the practices by PFM/LD and the CCs (scale 1–5).",
+    },
+  },
+  "leadership_review:machine_room": {
+    subtitle: {
+      de: "Wie bewertet die Leitung die Zuarbeit des Machine Room?",
+      en: "How does leadership rate the machine room's contribution?",
+    },
+    rechenwegKurz: {
+      de: "Mittelwert der halbjährlichen Bewertungen zum Machine Room durch PFM/LD und die CCs (Skala 1–5).",
+      en: "Mean of the bi-annual assessments of the machine room by PFM/LD and the CCs (scale 1–5).",
+    },
+  },
   peer_review: {
     subtitle: {
-      de: "Wie tragen Practices und Machine Room — aus Sicht der nutzenden Projekte, der Leitung und der eigenen Schmerzpunktliste?",
+      de: "Wie brauchbar finden die nutzenden Projekte die Leistungen von Practices und Machine Room?",
       en: "How usable do projects find the services of practices and the machine room for their advisory work?",
     },
     rechenwegKurz: {
@@ -222,8 +252,8 @@ export const KPI_COPY: Record<string, KpiCopy> = {
       en: "How usable did projects find the practices' services — were the technical contributions actually helpful for advisory work?",
     },
     rechenwegKurz: {
-      de: "Zwei parallele Werte nebeneinander: Peer-Bewertung (Nutzbarkeit 1–5 und Fristentreue aus den Episoden) und Leadership-Bewertung (halbjährlich durch PFM/LD und CCs) — keine Aggregation, kein Index.",
-      en: "Two parallel values side by side: peer assessment (usability 1–5 and deadline reliability from the episodes) and leadership assessment (bi-annual by PFM/LD and the CCs) — no aggregation, no index.",
+      de: "Nutzbarkeit 1–5 und Fristentreue aus den Episoden; die Leitungssicht steht als eigenständiges KPI Leadership Review daneben — keine Aggregation, kein Index.",
+      en: "Usability 1–5 and deadline reliability from the episodes; the leadership view stands beside it as the standalone Leadership Review KPI — no aggregation, no index.",
     },
   },
   "peer_review:machine_room": {
@@ -232,8 +262,8 @@ export const KPI_COPY: Record<string, KpiCopy> = {
       en: "How usable did projects find the machine room's contribution — were the administrative inputs actually helpful for advisory work?",
     },
     rechenwegKurz: {
-      de: "Zwei parallele Werte nebeneinander: Peer-Bewertung (Nutzbarkeit 1–5 und Fristentreue aus den Episoden) und Leadership-Bewertung (halbjährlich durch PFM/LD und CCs) — keine Aggregation, kein Index.",
-      en: "Two parallel values side by side: peer assessment (usability 1–5 and deadline reliability from the episodes) and leadership assessment (bi-annual by PFM/LD and the CCs) — no aggregation, no index.",
+      de: "Nutzbarkeit 1–5 und Fristentreue aus den Episoden; die Leitungssicht steht als eigenständiges KPI Leadership Review daneben — keine Aggregation, kein Index.",
+      en: "Usability 1–5 and deadline reliability from the episodes; the leadership view stands beside it as the standalone Leadership Review KPI — no aggregation, no index.",
     },
   },
 };

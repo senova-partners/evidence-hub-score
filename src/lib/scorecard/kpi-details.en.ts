@@ -164,6 +164,27 @@ export const KPI_DETAILS_EN: Record<string, KpiDetailEn> = {
     },
   },
 
+  leadership_review: {
+    raw_schema: ["Structural unit", "Period", "Assessor", "Rating (1–5)"],
+    raw_rows: [
+      ["Practices", "2026-H1", "PFM/LD", "4"],
+      ["Practices", "2026-H1", "CC Governance", "3"],
+      ["Practices", "2026-H1", "CC Climate", "4"],
+      ["Machine room", "2026-H1", "PFM/LD", "3"],
+      ["Machine room", "2026-H1", "CC Governance", "3"],
+      ["Machine room", "2026-H1", "CC Economy", "2"],
+    ],
+    formula_text:
+      "Mean of the bi-annual assessments per structural unit (practices, machine room) by PFM/LD and the cluster coordination. Never merged with the demand-side peer rating — both stand side by side as standalone KPIs.",
+    worked_example:
+      "Practices: (4 + 3 + 4) ÷ 3 = 3.7 · Machine room: (3 + 3 + 2) ÷ 3 = 2.7 · Total: 19 ÷ 6 = 3.2",
+    erhebung: {
+      owner: "PFM/LD and cluster coordination",
+      cadence: "bi-annually",
+      verifizierung: "assessments documented by named office; divergence from the peer rating is shown in the review",
+    },
+  },
+
   peer_review: {
     raw_schema: ["Episode", "Cluster", "Practice usability (1–5)", "Machine room usability (1–5)"],
     raw_rows: [
