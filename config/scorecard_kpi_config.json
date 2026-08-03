@@ -377,10 +377,32 @@
       "rechenweg_kurz": "Umgesetzte plus angepasste Empfehlungen geteilt durch alle Empfehlungen, deren Umsetzung nach sechs Monaten fällig war; ausstehende zählen im Nenner mit."
     },
     {
+      "id": "leadership_review",
+      "paket": 2,
+      "paket_name": "Beratungsqualität",
+      "name": "Leadership Review",
+      "tab_label": "Practices",
+      "unit": "1–5 Bewertung",
+      "direction": "higher_better",
+      "cadence": "halbjährlich",
+      "owner": "PFM/LD und Cluster-Koordination",
+      "baseline": 3.1,
+      "current": 3.2,
+      "n_label": "n = 6 Bewertungen (PFM/LD und CCs)",
+      "status": "reported",
+      "subtitle": "Wie bewerten PFM/LD und die Cluster-Koordination die beiden Struktureinheiten — unabhängig von der Nachfrageseite?",
+      "rechenweg_kurz": "Halbjährliche Bewertung je Struktureinheit auf einer Skala von 1 bis 5 durch PFM/LD und die CCs; Mittelwert je Einheit, keine Verrechnung mit der Peer-Bewertung.",
+      "info": {
+        "was_es_misst": "Halbjährliche Bewertung der beiden Struktureinheiten — Practices und Machine Room — durch PFM/LD und die Cluster-Koordinatorinnen und -Koordinatoren auf einer Skala von 1 bis 5.",
+        "warum": "Die Leitungssicht steht bewusst neben, nicht in der Peer-Bewertung: Die Divergenz zwischen Nachfrage- und Leitungsurteil ist selbst der Befund. Getrennte KPIs, keine Aggregation, kein Index.",
+        "verifizierung": "Bewertungen werden namentlich je Stelle dokumentiert; Divergenz zur Peer-Bewertung wird im Review ausgewiesen"
+      }
+    },
+    {
       "id": "peer_review",
       "paket": 2,
       "paket_name": "Beratungsqualität",
-      "name": "Peer-Review-Rating",
+      "name": "Peer Review",
       "unit": "1–5 Nutzbarkeit",
       "direction": "higher_better",
       "cadence": "quartalsweise",

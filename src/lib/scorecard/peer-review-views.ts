@@ -18,7 +18,12 @@ export interface PeerReviewView {
   baseline: number;
   /** History of the peer usability value; the current quarter is appended at render time. */
   history: HistoryPoint[];
+  /** Baseline of the leadership assessment (standalone Leadership Review KPI). */
+  leadershipBaseline: number;
+  /** History of the leadership assessment value. */
+  leadershipHistory: HistoryPoint[];
   workedExample: Bi;
+  leadershipWorkedExample: Bi;
 }
 
 export const PEER_REVIEW_VIEWS: PeerReviewView[] = [
@@ -34,9 +39,18 @@ export const PEER_REVIEW_VIEWS: PeerReviewView[] = [
       { period: "2026-Q1", value: 3.6 },
       { period: "2026-Q2", value: 3.9 },
     ],
+    leadershipBaseline: 3.3,
+    leadershipHistory: [
+      { period: "2025-H2", value: 3.3 },
+      { period: "2026-H1", value: 3.7 },
+    ],
     workedExample: {
       de: "Summe der Practice-Bewertungen ÷ Anzahl der Practice-Bewertungen; Fristentreue = eingehaltene Fristen ÷ bewertete Leistungen",
       en: "sum of practice ratings ÷ number of practice ratings; deadline reliability = deadlines met ÷ rated deliverables",
+    },
+    leadershipWorkedExample: {
+      de: "Summe der Leadership-Bewertungen zu den Practices ÷ Anzahl der Bewertenden (PFM/LD und CCs)",
+      en: "sum of leadership ratings for the practices ÷ number of assessors (PFM/LD and the CCs)",
     },
   },
   {
@@ -51,9 +65,18 @@ export const PEER_REVIEW_VIEWS: PeerReviewView[] = [
       { period: "2026-Q1", value: 3.0 },
       { period: "2026-Q2", value: 3.1 },
     ],
+    leadershipBaseline: 2.8,
+    leadershipHistory: [
+      { period: "2025-H2", value: 2.8 },
+      { period: "2026-H1", value: 2.7 },
+    ],
     workedExample: {
       de: "Summe der Machine-Room-Bewertungen ÷ Anzahl der Machine-Room-Bewertungen; Fristentreue = eingehaltene Fristen ÷ bewertete Zuarbeiten",
       en: "sum of machine room ratings ÷ number of machine room ratings; deadline reliability = deadlines met ÷ rated contributions",
+    },
+    leadershipWorkedExample: {
+      de: "Summe der Leadership-Bewertungen zum Machine Room ÷ Anzahl der Bewertenden (PFM/LD und CCs)",
+      en: "sum of leadership ratings for the machine room ÷ number of assessors (PFM/LD and the CCs)",
     },
   },
 ];

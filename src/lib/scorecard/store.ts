@@ -54,7 +54,15 @@ function load(): Store {
       window.localStorage.setItem(KEY, JSON.stringify(s));
       return s;
     }
-    return JSON.parse(raw) as Store;
+    // Merge in KPIs added after this browser last seeded, so a stored state
+    // never renders empty cards for newly introduced KPIs.
+    const stored = JSON.parse(raw) as Store;
+    const base = seed();
+    return {
+      ...stored,
+      baselines: { ...base.baselines, ...stored.baselines },
+      values: { ...base.values, ...stored.values },
+    };
   } catch {
     return seed();
   }
@@ -111,6 +119,7 @@ function seed(): Store {
     partnerbogen: 3.6,
     uptake: 42,
     peer_review: 3.4,
+    leadership_review: 3.1,
     mechanismus: 34,
     fachzeit: 66,
     inhouse_beratungsquote: 40,
@@ -128,6 +137,7 @@ function seed(): Store {
     partnerbogen: [3.6, 3.7, 3.9],
     uptake: [42, 48, 55],
     peer_review: [3.4, 3.6, 3.5],
+    leadership_review: [3.1, 3.2, 3.2],
     mechanismus: [34, 42, 50],
     fachzeit: [66, 69, 72],
     inhouse_beratungsquote: [40, 42, 44],
@@ -144,6 +154,7 @@ function seed(): Store {
     partnerbogen: 14,
     uptake: 11,
     peer_review: 6,
+    leadership_review: 6,
     mechanismus: 14,
     fachzeit: 9,
     inhouse_beratungsquote: 0,

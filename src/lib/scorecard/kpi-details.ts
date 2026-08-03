@@ -216,6 +216,33 @@ export const KPI_DETAILS: Record<string, KpiDetail> = {
     },
   },
 
+  leadership_review: {
+    raw_schema: ["Struktureinheit", "Periode", "Bewertende Stelle", "Bewertung (1–5)"],
+    raw_rows: [
+      ["Practices", "2026-H1", "PFM/LD", "4"],
+      ["Practices", "2026-H1", "CC Governance", "3"],
+      ["Practices", "2026-H1", "CC Klima", "4"],
+      ["Machine Room", "2026-H1", "PFM/LD", "3"],
+      ["Machine Room", "2026-H1", "CC Governance", "3"],
+      ["Machine Room", "2026-H1", "CC Wirtschaft", "2"],
+    ],
+    raw_summary: {
+      bewertungen_gesamt: 6,
+      bewertungen_practices: 3,
+      bewertungen_machine_room: 3,
+      gesamt_mittel: 3.2,
+    },
+    formula_text:
+      "Mittelwert der halbjährlichen Bewertungen je Struktureinheit (Practices, Machine Room) durch PFM/LD und die Cluster-Koordination. Keine Verrechnung mit der nachfrageseitigen Peer-Bewertung — beide stehen als eigenständige KPIs nebeneinander.",
+    worked_example:
+      "Practices: (4 + 3 + 4) ÷ 3 = 3,7 · Machine Room: (3 + 3 + 2) ÷ 3 = 2,7 · Gesamt: 19 ÷ 6 = 3,2",
+    erhebung: {
+      owner: "PFM/LD und Cluster-Koordination",
+      cadence: "halbjährlich",
+      verifizierung: "Bewertungen werden namentlich je Stelle dokumentiert; Divergenz zur Peer-Bewertung wird im Review ausgewiesen",
+    },
+  },
+
   peer_review: {
     raw_schema: ["Episode", "Cluster", "Practice-Nutzbarkeit (1–5)", "Machine-Room-Nutzbarkeit (1–5)"],
     raw_rows: [

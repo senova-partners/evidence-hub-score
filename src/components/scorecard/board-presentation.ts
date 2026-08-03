@@ -32,6 +32,10 @@ export const CARD_SUBTITLE: Record<string, { de: string; en: string }> = {
     de: "Nutzbarkeit von Practice- und Machine-Room-Leistungen",
     en: "Usability of practice and machine room services",
   },
+  leadership_review: {
+    de: "Bewertung der Struktureinheiten durch PFM/LD und die CCs",
+    en: "Assessment of the structural units by PFM/LD and the CCs",
+  },
   fachzeit: {
     de: "Anteil der Expertenzeit für fachliche Arbeit",
     en: "Share of expert time spent on substantive work",
@@ -54,6 +58,7 @@ export const CARD_FOOTER_N: Record<string, { de: string; en: string }> = {
   partnerbogen: { de: "14 Episoden", en: "14 episodes" },
   uptake: { de: "11 Episoden fällig", en: "11 episodes due" },
   peer_review: { de: "6 Bewertungen", en: "6 ratings" },
+  leadership_review: { de: "6 Bewertungen halbjährlich", en: "6 assessments bi-annually" },
   fachzeit: { de: "9 Teams aggregiert", en: "9 teams aggregated" },
   mechanismus: { de: "14 Episoden", en: "14 episodes" },
   schmerzpunkt: { de: "3 Cluster-Listen", en: "3 cluster lists" },

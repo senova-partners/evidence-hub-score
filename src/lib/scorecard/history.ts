@@ -42,6 +42,10 @@ export const KPI_HISTORY: Record<string, HistoryPoint[]> = {
     { period: "2026-Q2", value: 3.6 },
     { period: "2026-Q3", value: 3.5 },
   ],
+  leadership_review: [
+    { period: "2025-H2", value: 3.1 },
+    { period: "2026-H1", value: 3.2 },
+  ],
   mechanismus: [
     { period: "2026-Q3", value: 34 },
     { period: "2026-Q4", value: 39 },

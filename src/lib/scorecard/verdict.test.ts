@@ -22,6 +22,7 @@ const BASELINES: Record<string, number> = {
   partnerbogen: 3.6,
   uptake: 42,
   peer_review: 3.4,
+  leadership_review: 3.1,
   mechanismus: 34,
   fachzeit: 66,
   inhouse_beratungsquote: 40,

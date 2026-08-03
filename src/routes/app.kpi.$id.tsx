@@ -107,7 +107,9 @@ function KpiDetailPage() {
       {active.id === "mechanismus" ? (
         <MechanismusPanel kpi={active} />
       ) : active.id === "peer_review" ? (
-        <PeerReviewPanel kpi={active} />
+        <PeerReviewPanel kpi={active} mode="peer" />
+      ) : active.id === "leadership_review" ? (
+        <PeerReviewPanel kpi={active} mode="leadership" />
       ) : active.id === "kofi_proposal" ? (
         <KofiPanel kpi={active} />
       ) : (
@@ -412,7 +414,7 @@ function MechanismusPanel({ kpi }: { kpi: KpiDef }) {
   );
 }
 
-function PeerReviewPanel({ kpi }: { kpi: KpiDef }) {
+function PeerReviewPanel({ kpi, mode }: { kpi: KpiDef; mode: "peer" | "leadership" }) {
   const t = useT();
   const locale = useLocale();
   const episodes = useStore((s: Store) => s.episodes);
@@ -421,10 +423,14 @@ function PeerReviewPanel({ kpi }: { kpi: KpiDef }) {
   const results = computePeerReview(episodes);
   const result = results[view.id];
 
+  const isLeadership = mode === "leadership";
+  const currentValue = isLeadership ? result.leadership : result.value;
+  const baseValue = isLeadership ? view.leadershipBaseline : view.baseline;
+  const baseHistory = isLeadership ? view.leadershipHistory : view.history;
   const history =
-    result.value === null
-      ? view.history
-      : [...view.history, { period: "2026-Q3", value: result.value }];
+    currentValue === null
+      ? baseHistory
+      : [...baseHistory, { period: isLeadership ? "2026-H2" : "2026-Q3", value: currentValue }];
 
   const de = locale === "de";
   const num = (v: number | null, d = 1) => (v === null ? "—" : fmtDecimal(v, locale, d));
@@ -456,9 +462,22 @@ function PeerReviewPanel({ kpi }: { kpi: KpiDef }) {
         })}
       </div>
 
-      {/* Two parallel values — no aggregation, no index. */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="hairline p-4">
+      {isLeadership ? (
+        <div className="hairline p-4 max-w-md">
+          <div className="text-[12px] text-muted-foreground">
+            {de ? "Leadership-Bewertung" : "Leadership assessment"}
+          </div>
+          <div className="text-[28px] font-semibold tabular-nums mt-1">
+            {num(result.leadership)}
+          </div>
+          <div className="text-[12px] text-muted-foreground mt-1">
+            {de
+              ? `Halbjährlich durch PFM/LD und CCs · n = ${result.leadershipN}`
+              : `Bi-annual by PFM/LD and the CCs · n = ${result.leadershipN}`}
+          </div>
+        </div>
+      ) : (
+        <div className="hairline p-4 max-w-md">
           <div className="text-[12px] text-muted-foreground">
             {de ? "Peer-Bewertung" : "Peer assessment"}
           </div>
@@ -478,40 +497,28 @@ function PeerReviewPanel({ kpi }: { kpi: KpiDef }) {
             n = {result.n} {t("pr_ratings_count")}
           </div>
         </div>
-
-        <div className="hairline p-4">
-          <div className="text-[12px] text-muted-foreground">
-            {de ? "Leadership-Bewertung" : "Leadership assessment"}
-          </div>
-          <div className="text-[28px] font-semibold tabular-nums mt-1">
-            {num(result.leadership)}
-          </div>
-          <div className="text-[12px] text-muted-foreground mt-1">
-            {de
-              ? `Halbjährlich durch PFM/LD und CCs · n = ${result.leadershipN}`
-              : `Bi-annual by PFM/LD and the CCs · n = ${result.leadershipN}`}
-          </div>
-        </div>
-      </div>
+      )}
 
       <p className="text-[13px] text-muted-foreground">
         {de
-          ? "Zwei parallele Werte, keine Aggregation und kein Index — die Divergenz zwischen Nachfrage- und Leitungssicht ist selbst der Befund."
-          : "Two parallel values, no aggregation and no index — the divergence between demand and leadership views is itself the finding."}
+          ? "Peer Review und Leadership Review stehen als zwei eigenständige KPIs nebeneinander — keine Aggregation und kein Index; die Divergenz zwischen Nachfrage- und Leitungssicht ist selbst der Befund."
+          : "Peer review and leadership review stand side by side as two standalone KPIs — no aggregation and no index; the divergence between demand and leadership views is itself the finding."}
       </p>
     </div>
   );
 
   return (
     <KpiTabPanel
-      key={view.id}
+      key={`${mode}-${view.id}`}
       kpi={kpi}
       preamble={preamble}
       overrides={{
-        baseline: view.baseline,
-        current: result.value,
+        baseline: baseValue,
+        current: currentValue,
         history,
-        workedExample: `${pick(view.workedExample, locale)} · n = ${result.n} ${t("pr_ratings_count")}`,
+        workedExample: isLeadership
+          ? `${pick(view.leadershipWorkedExample, locale)} · n = ${result.leadershipN}`
+          : `${pick(view.workedExample, locale)} · n = ${result.n} ${t("pr_ratings_count")}`,
         subtitle: kpiCopy(`${kpi.id}:${view.id}`)?.subtitle[locale] ?? pick(view.definition, locale),
         rechenwegKurz: kpiCopy(`${kpi.id}:${view.id}`)?.rechenwegKurz[locale],
       }}
