@@ -95,9 +95,6 @@ export interface PeerReviewResult {
   /** Leadership assessment mean (1–5). */
   leadership: number | null;
   leadershipN: number;
-  /** Pain-point re-review mean (1 solved – 5 unchanged). */
-  schmerzpunkt: number | null;
-  schmerzpunktN: number;
 }
 
 const round2 = (x: number) => Math.round(x * 100) / 100;
