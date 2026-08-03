@@ -71,19 +71,6 @@ export const LEADERSHIP_ASSESSMENTS: LeadershipAssessment[] = [
   { unit: "machine_room", period: "2026-H1", assessor: "CC Wirtschaft", rating: 2 },
 ];
 
-/**
- * Pain-point re-review — the reach-in list, re-rated one year later per unit
- * on a 1 (solved) – 5 (unchanged) scale. Demo data.
- */
-export const PAIN_POINT_REVIEWS: PainPointReview[] = [
-  { unit: "practices", cluster: "Governance", rating: 2.4 },
-  { unit: "practices", cluster: "Klima", rating: 2.8 },
-  { unit: "practices", cluster: "Wirtschaft", rating: 3.0 },
-  { unit: "machine_room", cluster: "Governance", rating: 3.2 },
-  { unit: "machine_room", cluster: "Klima", rating: 3.4 },
-  { unit: "machine_room", cluster: "Wirtschaft", rating: 3.1 },
-];
-
 export interface PeerReviewResult {
   /** Peer usability mean (1–5) — the leading value of the sub-tab. */
   value: number | null;
@@ -140,7 +127,6 @@ function resultFor(episodes: Episode[], unit: PeerReviewView["id"]): PeerReviewR
   const ratings = unit === "practices" ? pools.practices : pools.machineRoom;
   const deadlines = deadlinePool(episodes, unit);
   const leadership = LEADERSHIP_ASSESSMENTS.filter((a) => a.unit === unit).map((a) => a.rating);
-  const pain = PAIN_POINT_REVIEWS.filter((p) => p.unit === unit).map((p) => p.rating);
 
   return {
     value: mean(ratings),
@@ -153,12 +139,10 @@ function resultFor(episodes: Episode[], unit: PeerReviewView["id"]): PeerReviewR
     fristentreueN: deadlines.length,
     leadership: mean(leadership),
     leadershipN: leadership.length,
-    schmerzpunkt: mean(pain),
-    schmerzpunktN: pain.length,
   };
 }
 
-/** Per-view results over the given episodes — three parallel values, no index. */
+/** Per-view results over the given episodes — two parallel values, no index. */
 export function computePeerReview(
   episodes: Episode[],
 ): Record<PeerReviewView["id"], PeerReviewResult> {
