@@ -128,6 +128,33 @@
       "paket": 3,
       "paket_name": "Außenbeweis",
       "name": "Medien & Berichterstattung",
+      "tab_label": "Gesamtindex",
+      "unit": "Medienindex 0–100 (normalisierter Mittelwert aus Engagement, Bekanntheitsgrad und Medienresonanz)",
+      "direction": "higher_better",
+      "cadence": "quartalsweise",
+      "owner": "Kommunikationsstelle GIZ Jordan",
+      "baseline": 46.8,
+      "current": 58.6,
+      "n_label": "3 Teilwerte · 24 Beiträge · 32 Medienbeiträge",
+      "status": "reported",
+      "subtitle": "Werden wir außerhalb der Auftraggeberbeziehung als fachliche Stimme wahrgenommen?",
+      "rechenweg_kurz": "Engagement, Bekanntheitsgrad und Medienresonanz werden je auf 0–100 normalisiert (feste Referenzspannen: 0–6 %, 2.000–8.000 Follower, 0–100 % positiv) und gleichgewichtet gemittelt.",
+      "info": {
+        "was_es_misst": "Gesamtindex der externen Sichtbarkeit aus drei normalisierten Teilwerten: Engagement-Rate, Bekanntheitsgrad und Medienresonanz.",
+        "warum": "Reichweite ohne Resonanz ist ein Verteiler, Resonanz ohne Reichweite ein Zufall — der Index verdichtet die drei Perspektiven, die Teilwerte bleiben sichtbar.",
+        "verifizierung": "Teilwerte unverändert aus den Einzelsichten; Normalisierung je Quartal nachgerechnet und dokumentiert."
+      },
+      "sub_kpis": [
+        "medien_engagement",
+        "medien_reach",
+        "medien_sentiment"
+      ]
+    },
+    {
+      "id": "medien_engagement",
+      "paket": 3,
+      "paket_name": "Außenbeweis",
+      "name": "Engagement",
       "tab_label": "Engagement",
       "unit": "% Engagement Rate (Interaktionen ÷ Impressionen)",
       "direction": "higher_better",
@@ -137,17 +164,14 @@
       "current": 3.8,
       "n_label": "n = 24 Beiträge im Quartal",
       "status": "reported",
-      "subtitle": "Werden wir außerhalb der Auftraggeberbeziehung als fachliche Stimme wahrgenommen?",
-      "rechenweg_kurz": "Leitwert ist die Engagement-Rate der Beiträge; Follower und Sentiment stehen als eigene Sichten daneben — keine Verrechnung zu einem Index.",
+      "subtitle": "Wie stark reagieren die Leserinnen und Leser auf unsere Beiträge?",
+      "rechenweg_kurz": "Reaktionen, Kommentare, Shares und Klicks geteilt durch Impressionen, impressionsgewichtet über alle Beiträge des Quartals.",
       "info": {
         "was_es_misst": "Interaktionsrate der LinkedIn-Beiträge über ein Quartal (Reaktionen, Kommentare, Shares, Klicks ÷ Impressionen).",
         "warum": "Reichweite ohne Interaktion ist ein Verteiler, kein Publikum — deshalb führt die Rate die Karte, nicht die Followerzahl.",
         "verifizierung": "Export je Beitrag aus LinkedIn Page Analytics; bezahlt beworbene Beiträge werden gekennzeichnet."
       },
-      "sub_kpis": [
-        "medien_reach",
-        "medien_sentiment"
-      ]
+      "parent_kpi": "medien"
     },
     {
       "id": "medien_reach",

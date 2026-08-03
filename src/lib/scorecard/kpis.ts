@@ -90,16 +90,55 @@ export const KPIS: KpiDef[] = [
     id: "medien",
     pkg: "aussenbeweis",
     name: { de: "Medien & Berichterstattung", en: "Media & coverage" },
+    tabLabel: { de: "Gesamtindex", en: "Composite index" },
+    secondaryKpiIds: ["medien_engagement", "medien_reach", "medien_sentiment"],
+    unit: {
+      de: "Medienindex 0–100 (normalisierter Mittelwert aus Engagement, Bekanntheitsgrad und Medienresonanz)",
+      en: "Media index 0–100 (normalised mean of engagement, reach and media resonance)",
+    },
+    unitShort: { de: "", en: "" },
+    format: "score",
+    direction: "higher_better",
+    nLabel: {
+      de: "3 Teilwerte · 24 Beiträge · 32 Medienbeiträge",
+      en: "3 components · 24 posts · 32 media items",
+    },
+    contextLine: {
+      de: "Die drei Teilwerte haben unvergleichbare Einheiten (%, Anzahl, %) und werden deshalb zuerst auf eine gemeinsame 0–100-Skala normalisiert — gegen feste Referenzspannen, nicht gegen den eigenen Verlauf — und dann gleichgewichtet gemittelt. Die Teilwerte bleiben als eigene Sichten einzeln lesbar.",
+      en: "The three components carry incomparable units (%, count, %) and are therefore first normalised onto a common 0–100 scale — against fixed reference ranges, not against their own history — and then averaged with equal weights. Each component stays readable as its own view.",
+    },
+    info: {
+      was: {
+        de: "Gesamtindex der externen Sichtbarkeit: Engagement-Rate, Bekanntheitsgrad (LinkedIn-Follower) und Medienresonanz (Anteil positiver Berichterstattung) werden je auf 0–100 normalisiert und zu gleichen Teilen gemittelt.",
+        en: "Composite index of external visibility: engagement rate, reach (LinkedIn followers) and media resonance (share of positive coverage) are each normalised to 0–100 and averaged with equal weights.",
+      },
+      warum: {
+        de: "Eine einzelne Kennzahl kann Sichtbarkeit nicht abbilden: Reichweite ohne Resonanz ist ein Verteiler, Resonanz ohne Reichweite ist ein Zufall. Der Index verdichtet die drei Perspektiven zu einer Steuerungszahl — die Teilwerte bleiben pflichtmäßig sichtbar, damit der Index nie allein interpretiert wird.",
+        en: "No single metric captures visibility: reach without resonance is a mailing list, resonance without reach is an accident. The index condenses the three perspectives into one steering figure — the components remain mandatorily visible so the index is never read on its own.",
+      },
+      wie: {
+        de: "Normalisierung gegen feste Referenzspannen: Engagement 0–6 %, Follower 2.000–8.000, Sentiment 0–100 % positiv. Werte außerhalb der Spanne werden auf 0 bzw. 100 gekappt; Mittel aus den drei normalisierten Werten, gleiche Gewichte.",
+        en: "Normalisation against fixed reference ranges: engagement 0–6 %, followers 2,000–8,000, sentiment 0–100 % positive. Values outside the range are clipped to 0 or 100; mean of the three normalised values, equal weights.",
+      },
+      verworfen: {
+        de: "Geprüft und verworfen: Mittelwert der Rohwerte (verrechnet Prozente mit Followerzahlen) · Z-Score-Normalisierung gegen den eigenen Verlauf (macht den Index bei jeder neuen Periode rückwirkend anders) · Gewichtung nach Teilwert (nicht begründbar ohne Wirkungsnachweis).",
+        en: "Reviewed and rejected: mean of the raw values (mixes percentages with follower counts) · z-score normalisation against the series' own history (retroactively changes the index with every new period) · unequal component weights (not justifiable without evidence of effect).",
+      },
+    },
+  },
+  {
+    id: "medien_engagement",
+    pkg: "aussenbeweis",
+    name: { de: "Engagement", en: "Engagement" },
     tabLabel: { de: "Engagement", en: "Engagement" },
-    secondaryKpiIds: ["medien_reach", "medien_sentiment"],
     unit: { de: "% LinkedIn Engagement Rate (Interaktionen ÷ Impressionen)", en: "% LinkedIn engagement rate (interactions ÷ impressions)" },
     unitShort: { de: "%", en: "%" },
     format: "percent",
     direction: "higher_better",
     nLabel: { de: "n = 24 Beiträge im Quartal", en: "n = 24 posts in the quarter" },
     contextLine: {
-      de: "Leitwert ist die Engagement-Rate, weil sie Resonanz statt Publikumsgröße misst und über Quartale vergleichbar bleibt. Bekanntheitsgrad (Follower) und Medienresonanz (Sentiment) stehen als eigene Sichten daneben — kein Mittelwert, kein Index.",
-      en: "The lead value is the engagement rate, because it measures resonance rather than audience size and stays comparable across quarters. Reach (followers) and media resonance (sentiment) stand beside it as separate views — no average, no index.",
+      de: "Referenzspanne für den Gesamtindex: 0–6 % → 0–100.",
+      en: "Reference range for the composite index: 0–6 % → 0–100.",
     },
     info: {
       was: {
@@ -107,19 +146,20 @@ export const KPIS: KpiDef[] = [
         en: "Interaction rate of the GIZ Jordan LinkedIn channel's posts: reactions, comments, shares and clicks divided by impressions, across all posts in a quarter.",
       },
       warum: {
-        de: "Engagement zeigt, ob die Inhalte fachlich anschlussfähig sind — nicht nur, wie viele zusehen. Reichweite ohne Interaktion ist ein Verteiler, kein Publikum; deshalb führt die Rate die Karte, nicht die Followerzahl.",
-        en: "Engagement shows whether the content connects substantively — not merely how many watch. Reach without interaction is a mailing list, not an audience; that is why the rate leads the card, not the follower count.",
+        de: "Engagement zeigt, ob die Inhalte fachlich anschlussfähig sind — nicht nur, wie viele zusehen.",
+        en: "Engagement shows whether the content connects substantively — not merely how many watch.",
       },
       wie: {
         de: "Quartalsweiser Export aus LinkedIn Page Analytics; Kennzahl je Beitrag, ausgewiesen als impressionsgewichteter Mittelwert.",
         en: "Quarterly export from LinkedIn page analytics; per-post metric, reported as an impression-weighted mean.",
       },
       verworfen: {
-        de: "Geprüft und verworfen: Followerzahl als Leitwert (Bestandsgröße, wächst auch ohne Wirkung) · Mittelwert aus Follower, Engagement und Sentiment (verrechnet unvergleichbare Einheiten zu einer Scheinzahl) · bezahlte Reichweite (kaufbar, kein Beweis).",
-        en: "Reviewed and rejected: follower count as the lead value (a stock figure that grows without effect) · an average of followers, engagement and sentiment (merges incomparable units into a pseudo-number) · paid reach (purchasable, no evidence).",
+        de: "Geprüft und verworfen: bezahlte Reichweite (kaufbar, kein Beweis) · Interaktionen absolut (schwankt mit Postfrequenz).",
+        en: "Reviewed and rejected: paid reach (purchasable, no evidence) · absolute interactions (fluctuates with posting frequency).",
       },
     },
   },
+
   {
     id: "medien_reach",
     pkg: "aussenbeweis",
