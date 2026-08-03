@@ -16,7 +16,9 @@ export const KPIS: KpiDef[] = [
   {
     id: "wiederbeauftragung",
     pkg: "aussenbeweis",
-    name: { de: "Wiederbeauftragungsquote", en: "Repeat commissioning rate" },
+    name: { de: "Externer Markterfolg", en: "External market success" },
+    tabLabel: { de: "Wiederbeauftragung", en: "Repeat commissioning" },
+    secondaryKpiIds: ["kofi_proposal"],
     unit: {
       de: "% fortgeführtes Volumen (kann > 100 % liegen, wenn Aufstockungen das ursprüngliche Volumen übersteigen)",
       en: "% continued volume (may exceed 100 % when top-ups exceed the original volume)",
@@ -55,6 +57,7 @@ export const KPIS: KpiDef[] = [
     id: "kofi_proposal",
     pkg: "aussenbeweis",
     name: { de: "Kofinanzierung & Proposal-Erfolg", en: "Co-financing & proposal success" },
+    tabLabel: { de: "Kofinanzierung & Proposals", en: "Co-financing & proposals" },
     unit: { de: "%", en: "%" },
     unitShort: { de: "%", en: "%" },
     format: "percent",
@@ -81,6 +84,99 @@ export const KPIS: KpiDef[] = [
         en: "BD overview, rolling over 24 months due to small case numbers.",
       },
       verworfen: null,
+    },
+  },
+  {
+    id: "medien",
+    pkg: "aussenbeweis",
+    name: { de: "Medien & Berichterstattung", en: "Media & coverage" },
+    tabLabel: { de: "Bekanntheitsgrad", en: "Reach" },
+    secondaryKpiIds: ["medien_engagement", "medien_sentiment"],
+    unit: { de: "LinkedIn-Follower (Anzahl)", en: "LinkedIn followers (count)" },
+    unitShort: { de: "", en: "" },
+    format: "count",
+    direction: "higher_better",
+    nLabel: { de: "LinkedIn-Kanal GIZ Jordan", en: "LinkedIn channel GIZ Jordan" },
+    contextLine: {
+      de: "Drei Sichten auf die externe Sichtbarkeit: Bekanntheitsgrad (Follower) · Engagement (Interaktionsrate) · Medienresonanz (Sentiment). Kein Index, drei getrennte Werte.",
+      en: "Three views on external visibility: reach (followers) · engagement (interaction rate) · media resonance (sentiment). No index, three separate values.",
+    },
+    info: {
+      was: {
+        de: "Bekanntheitsgrad des Expert Powerhouse in der externen Öffentlichkeit, gemessen an der Zahl der Follower des LinkedIn-Kanals von GIZ Jordan zum Quartalsende.",
+        en: "Reach of the Expert Powerhouse in the external public, measured by the number of followers of the GIZ Jordan LinkedIn channel at quarter end.",
+      },
+      warum: {
+        de: "Außenbeweis heißt auch: Werden wir außerhalb der Auftraggeberbeziehung als fachliche Stimme wahrgenommen? Follower sind der einfachste, manipulationsarme Reichweitenwert; Engagement und Sentiment stehen bewusst daneben, weil Reichweite allein nichts über Qualität sagt.",
+        en: "External evidence also means: are we perceived as a substantive voice beyond the client relationship? Followers are the simplest, low-manipulation reach figure; engagement and sentiment deliberately stand beside it, because reach alone says nothing about quality.",
+      },
+      wie: {
+        de: "Quartalsweiser Export aus LinkedIn Page Analytics durch die Kommunikationsstelle; Stichtag ist der letzte Tag des Quartals.",
+        en: "Quarterly export from LinkedIn page analytics by the communications unit; cut-off is the last day of the quarter.",
+      },
+      verworfen: {
+        de: "Geprüft und verworfen: bezahlte Reichweite (kaufbar, kein Beweis) · Impressionen als Hauptwert (schwankt mit Postfrequenz).",
+        en: "Reviewed and rejected: paid reach (purchasable, no evidence) · impressions as the primary value (fluctuates with posting frequency).",
+      },
+    },
+  },
+  {
+    id: "medien_engagement",
+    pkg: "aussenbeweis",
+    name: { de: "Engagement", en: "Engagement" },
+    tabLabel: { de: "Engagement", en: "Engagement" },
+    unit: { de: "% LinkedIn Engagement Rate (Interaktionen ÷ Impressionen)", en: "% LinkedIn engagement rate (interactions ÷ impressions)" },
+    unitShort: { de: "%", en: "%" },
+    format: "percent",
+    direction: "higher_better",
+    nLabel: { de: "n = 24 Beiträge im Quartal", en: "n = 24 posts in the quarter" },
+    info: {
+      was: {
+        de: "Interaktionsrate der Beiträge: Reaktionen, Kommentare, Shares und Klicks geteilt durch Impressionen, über alle Beiträge eines Quartals.",
+        en: "Interaction rate of posts: reactions, comments, shares and clicks divided by impressions, across all posts in a quarter.",
+      },
+      warum: {
+        de: "Engagement zeigt, ob die Inhalte fachlich anschlussfähig sind — nicht nur, wie viele zusehen. Reichweite ohne Interaktion ist ein Verteiler, kein Publikum.",
+        en: "Engagement shows whether the content connects substantively — not merely how many watch. Reach without interaction is a mailing list, not an audience.",
+      },
+      wie: {
+        de: "Quartalsweiser Export aus LinkedIn Page Analytics; Kennzahl je Beitrag, ausgewiesen als impressionsgewichteter Mittelwert.",
+        en: "Quarterly export from LinkedIn page analytics; per-post metric, reported as an impression-weighted mean.",
+      },
+      verworfen: null,
+    },
+  },
+  {
+    id: "medien_sentiment",
+    pkg: "aussenbeweis",
+    name: { de: "Medienresonanz", en: "Media resonance" },
+    tabLabel: { de: "Medienresonanz", en: "Media resonance" },
+    unit: { de: "% positive Beiträge (Sentiment positiv / neutral / negativ)", en: "% positive items (sentiment positive / neutral / negative)" },
+    unitShort: { de: "%", en: "%" },
+    format: "percent",
+    direction: "higher_better",
+    nLabel: { de: "n = 32 Medienbeiträge im Quartal", en: "n = 32 media items in the quarter" },
+    contextLine: {
+      de: "Hauptwert positiv; neutral und negativ laufen als Kontext mit — die Verteilung ist der Befund, nicht eine einzelne Zahl.",
+      en: "Primary value positive; neutral and negative run as context — the distribution is the finding, not a single number.",
+    },
+    info: {
+      was: {
+        de: "Sentiment der Berichterstattung über die GIZ in Jordanien, je Beitrag als positiv, neutral oder negativ eingestuft. Hauptwert ist der Anteil positiver Beiträge.",
+        en: "Sentiment of coverage about GIZ in Jordan, classified per item as positive, neutral or negative. The primary value is the share of positive items.",
+      },
+      warum: {
+        de: "Berichterstattung ist der Außenbeweis, den wir nicht selbst schreiben. Die Dreiteilung bleibt sichtbar, weil ein hoher Neutralanteil eine andere Diagnose ist als ein hoher Negativanteil.",
+        en: "Coverage is the external evidence we do not write ourselves. The three-way split stays visible, because a high neutral share is a different diagnosis from a high negative share.",
+      },
+      wie: {
+        de: "Medienbeobachtung (nationale und regionale Titel, online und print) durch die Kommunikationsstelle; Einstufung nach fixem Codierleitfaden, strittige Fälle im Vier-Augen-Prinzip.",
+        en: "Media monitoring (national and regional outlets, online and print) by the communications unit; classification along a fixed coding guide, contested cases decided in four-eyes mode.",
+      },
+      verworfen: {
+        de: "Geprüft und verworfen: Sentiment-Score als einzelne Saldozahl (verdeckt die Verteilung) · automatisierte Sentiment-Erkennung ohne Nachkontrolle (bei arabischsprachigen Titeln unzuverlässig).",
+        en: "Reviewed and rejected: sentiment score as a single balance figure (hides the distribution) · automated sentiment detection without review (unreliable for Arabic-language outlets).",
+      },
     },
   },
   {
